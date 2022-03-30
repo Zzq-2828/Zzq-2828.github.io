@@ -62,7 +62,7 @@
       <h1><a href="/">Keep making progress</a></h1>
       <div id="subtitle-box">
         
-          <span id="subtitle">保持信心</span>
+        <span id="subtitle"></span>
         
       </div>
       <div>
@@ -77,9 +77,26 @@
 
 
 
+<script src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js"></script>
+
 
 <!-- Subtitle -->
 
+  <script>
+    try {
+      var typed = new Typed("#subtitle", {
+        strings: ['保持善良', '保持热情', '保持进步'],
+        startDelay: 0,
+        typeSpeed: 200,
+        loop: true,
+        backSpeed: 100,
+        showCursor: true
+      });
+    } catch (err) {
+      console.log(err)
+    }
+  </script>
+  
 <div id="main">
   <section class="outer">
   
