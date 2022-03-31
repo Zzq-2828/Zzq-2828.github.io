@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-03-31T07:55:38.289Z</updated>
+  <updated>2022-03-31T08:52:16.685Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,14 +17,56 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Good questions —— 链表篇</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/questions03/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/questions03/</id>
+    <published>2022-03-30T16:00:00.000Z</published>
+    <updated>2022-03-31T08:52:16.685Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与链表相关的优质题目及解题思路&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Good questions —— 数组篇</title>
     <link href="https://www.zzzzzq.com/2022/03/31/questions/"/>
     <id>https://www.zzzzzq.com/2022/03/31/questions/</id>
-    <published>2022-03-31T07:35:36.000Z</published>
-    <updated>2022-03-31T07:55:38.289Z</updated>
+    <published>2022-03-30T16:00:00.000Z</published>
+    <updated>2022-03-31T08:53:47.883Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了我在&lt;a href=&quot;https://leetcode-cn.com/&quot;&gt;&lt;em&gt;Leetcode&lt;/em&gt;&lt;/a&gt;刷题过程中遇到的与数组相关的优质题目及解题思路&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Good questions —— 二叉树篇</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/questions02/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/questions02/</id>
+    <published>2022-03-30T16:00:00.000Z</published>
+    <updated>2022-03-31T08:53:49.582Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路&lt;/p&gt;</summary>
     
     
     

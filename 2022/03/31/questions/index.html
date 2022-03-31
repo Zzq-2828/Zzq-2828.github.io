@@ -74,7 +74,7 @@
      
     <div class="article-meta">
       <a href="/2022/03/31/questions/" class="article-date">
-  <time datetime="2022-03-31T07:35:36.000Z" itemprop="datePublished">2022-03-31</time>
+  <time datetime="2022-03-30T16:00:00.000Z" itemprop="datePublished">2022-03-31</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
@@ -142,7 +142,7 @@
 <p>思想：原地哈希</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">findDuplicates</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        <span class="type">int</span> n=nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="comment">//思想，将nums[nums[i]-1]位置的数值加上n（由于是出现两次，直接取反也行）</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=n;++i)&#123;</span><br><span class="line">            nums[(nums[i]<span class="number">-1</span>)%n]+=n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=n;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nums[i]<span class="number">-1</span>)/n==<span class="number">2</span>)</span><br><span class="line">                res.<span class="built_in">push_back</span>(i+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>（2）要求在长度为n的数组中[找到没有出现在<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/">1,n]范围内的数字</a></p>
+<p>（2）要求在长度为n的数组中[找到没有出现在[1,n]<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/"><em>范围内的数字</em></a></p>
 <p>思想：将nums中出现过的数字作为索引，将对应位置取反</p>
 <h2 id="打印螺旋矩阵"><a href="#打印螺旋矩阵" class="headerlink" title="打印螺旋矩阵"></a>打印螺旋矩阵</h2><p>题目来源：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/spiral-matrix/">打印螺旋矩阵</a>：</p>
 <p>思路：</p>
@@ -211,6 +211,25 @@
   </div>
 
    
+  <nav class="article-nav">
+    
+      <a href="/2022/03/31/questions03/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Good questions —— 链表篇
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2022/03/31/questions02/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Good questions —— 二叉树篇</div>
+      </a>
+    
+  </nav>
+
   
    
      
