@@ -156,7 +156,7 @@
        
 <h2 itemprop="name">
   <a class="article-title" href="/2022/03/31/mavenbasic/"
-    >Maven配置</a> 
+    >Maven-基础</a> 
 </h2>
  
 
@@ -175,7 +175,68 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-   
+  <h2 id="Maven简介"><a href="#Maven简介" class="headerlink" title="Maven简介"></a>Maven简介</h2><h3 id="传统项目管理状态分析"><a href="#传统项目管理状态分析" class="headerlink" title="传统项目管理状态分析"></a>传统项目管理状态分析</h3><p>（1）jar包不统一，jar包不兼容</p>
+<p>（2）工程升级维护过程繁琐</p>
+<h3 id="Maven是什么"><a href="#Maven是什么" class="headerlink" title="Maven是什么"></a>Maven是什么</h3><p>本质是一个项目管理工具，将项目开发和管理过程抽象成一个项目对象模型（POM，Project Object Model）</p>
+<h3 id="Maven的作用"><a href="#Maven的作用" class="headerlink" title="Maven的作用"></a>Maven的作用</h3><p>（1）项目构建：提供标准的、跨平台的自动化项目构建方式</p>
+<p>（2）依赖管理：方便快捷的管理项目依赖的资源（jar包），避免资源间的版本冲突问题</p>
+<p>（3）统一开发结构：提供标准的、统一的项目结构</p>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h3><p><a target="_blank" rel="noopener" href="https://maven.apache.org/"><em>官网</em></a></p>
+<p>解压即安装</p>
+<h3 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h3><p>（1）依赖Java，需要配置JAVA_HOME</p>
+<p>（2）设置MAVEN自身的运行环境，需要配置MAVEN_HOME（复制所在路径，在系统变量和环境变量中都加以设置）</p>
+<p>配置完成后可以在cmd中输入 mvn 检查是否成功</p>
+<h2 id="MAVEN基础概念"><a href="#MAVEN基础概念" class="headerlink" title="MAVEN基础概念"></a>MAVEN基础概念</h2><h3 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h3><p>仓库用于存储资源，包含各种jar包</p>
+<p>仓库分类：</p>
+<ol>
+<li><p>本地仓库：自己电脑上存储资源的仓库，连接远程仓库获取资源</p>
+</li>
+<li><p>远程仓库：非本机电脑上的仓库，为本地仓库提供资源</p>
+<p>（1）中央仓库：Maven团队维护，存储所有字眼的仓库</p>
+<p>（2）私服：部门&#x2F;公司范围内存储资源的仓库，从中央仓库获取资源</p>
+</li>
+<li><p>私服的作用：</p>
+<p>（1）保存具有版权的资源，包含购买或自主研发的jar，中央仓库中的jar都是开源的，不能存储具有版权的资源</p>
+<p>（2）一定范围内共享资源，仅对内部开放，不对外共享</p>
+</li>
+</ol>
+<h3 id="坐标"><a href="#坐标" class="headerlink" title="坐标"></a>坐标</h3><p>坐标：</p>
+<p>用于在Maven中描述仓库中资源的位置。 （<a target="_blank" rel="noopener" href="https://repo1.maven.org/maven2/%EF%BC%89">https://repo1.maven.org/maven2/）</a></p>
+<p>Maven坐标主要组成：</p>
+<p>（1）groupID：定义当前Maven项目隶属组织名称</p>
+<p>（2）artifactID：定义当前Maven项目名称（通常是模块名称）</p>
+<p>（3）version：定义当前项目版本号</p>
+<p>（4）packaging：定义该项目的打包方式</p>
+<p>Maven坐标的作用：使用唯一标识，唯一性定位资源位置，通过该标识可以将资源的识别与下载工作交由机器完成</p>
+<p>（<a target="_blank" rel="noopener" href="https://www.mvnrepository.com)/">https://www.mvnrepository.com）</a></p>
+<h3 id="本地仓库配置"><a href="#本地仓库配置" class="headerlink" title="本地仓库配置"></a>本地仓库配置</h3><p>本地仓库配置决定了资源下载到哪里</p>
+<p>命令行中输入mvn 即可在 C:\Users\win10 中生成一个空的 .m2文件夹，为默认的仓库</p>
+<p>如果想要将本地仓库设置在别的位置，需要如下配置：</p>
+<p>（1）打开Maven目录下（我的电脑在 F:\Tools\apache-maven-3.8.5\conf）的settings.xml</p>
+<p>（2）将文件中’ <localRepository>&#x2F;path&#x2F;to&#x2F;local&#x2F;repo</localRepository>‘ 复制到下一行未被注释的地方，并将其中路径换成我们自己决定的repository文件夹的位置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>F:\MyDocuments\Maven\repository<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="远程仓库的配置"><a href="#远程仓库的配置" class="headerlink" title="远程仓库的配置"></a>远程仓库的配置</h3><p>远程仓库决定了资源从哪里来</p>
+<p>默认是从<a target="_blank" rel="noopener" href="https://repo1.maven.org/maven2/">https://repo1.maven.org/maven2/</a> 中下载的（不挂梯子会比较慢）</p>
+<p>镜像仓库配置（阿里云）</p>
+<h3 id="全局setting与用户setting的区别"><a href="#全局setting与用户setting的区别" class="headerlink" title="全局setting与用户setting的区别"></a>全局setting与用户setting的区别</h3><p>全局setting定义了当前计算机中Maven的公共配置</p>
+<p>用户setting定义了当前用户的配置</p>
+<h2 id="项目构建"><a href="#项目构建" class="headerlink" title="项目构建"></a>项目构建</h2><h3 id="Maven项目构建命令（手动制作）"><a href="#Maven项目构建命令（手动制作）" class="headerlink" title="Maven项目构建命令（手动制作）"></a>Maven项目构建命令（手动制作）</h3><p>需要在项目目录带有pom.xml层级下进行执行</p>
+<p>Maven构建命令使用mvn开头，后面添加功能参数，可以一次执行多个命令，使用空格分隔</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mvn compile			#编译</span><br><span class="line">mvn clean			#清理</span><br><span class="line">mvn test 			#测试</span><br><span class="line">mvn package			#打包</span><br><span class="line">mvn install			#安装到本地仓库</span><br></pre></td></tr></table></figure>
+
+<h3 id="插件创建工程"><a href="#插件创建工程" class="headerlink" title="插件创建工程"></a>插件创建工程</h3><h3 id="IDEA创建工程"><a href="#IDEA创建工程" class="headerlink" title="IDEA创建工程"></a>IDEA创建工程</h3><h2 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h2><h3 id="依赖配置"><a href="#依赖配置" class="headerlink" title="依赖配置"></a>依赖配置</h3><p>依赖指当前项目运行所需的jar，一个项目可以设置多个依赖</p>
+<p>格式：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--指定了当前pom的版本，4.0.0是固定的 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 主项目标识，用来定义当前maven属于哪个实际的项目 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>反写的公司网址 + 项目名<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 模块名，maven项目和实际的项目不是一一对应的关系，maven项目提现的是模块化的概念，一个实际项目往往会被划分为很多个模块 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>项目名 + 模块名<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 当前项目版本号，一般有三个数字组成 第一个数字：大版本号 第二个数字：分支版本号 第三个数字：先版本号 snapshot: 快照 alpha： </span></span><br><span class="line"><span class="comment">		内测版本 beta： 公测版本 Release： 稳定版本 GA： 正式发布版本 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1snapshot<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- maven项目打包方式，默认情况为jar，还可打包为war，zip，pom等 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span><span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 项目描述名 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span><span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 项目地址 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">url</span>&gt;</span><span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 项目描述 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span><span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 开发人员列表 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">developers</span>&gt;</span><span class="tag">&lt;/<span class="name">developers</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 许可证信息 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">licenses</span>&gt;</span><span class="tag">&lt;/<span class="name">licenses</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 组织信息 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">organization</span>&gt;</span><span class="tag">&lt;/<span class="name">organization</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 依赖列表 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 依赖项目 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">type</span>&gt;</span><span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 依赖范围，控制依赖与三种依赖范围的关系 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 开发中要使用某一个jar，就要将该jar包引入到项目的classpath中 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- maven提供了三种classpath： 1.编译 2.测试 3.运行 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 下面的test表明junit只存在于测试的classpath中 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- maven为scope提供了六个属性：</span></span><br><span class="line"><span class="comment">									compile（默认，编译测试运行都有效）， </span></span><br><span class="line"><span class="comment">									provided（编译和测试）servlet, </span></span><br><span class="line"><span class="comment">									runtime（测试和运行）jdbc, </span></span><br><span class="line"><span class="comment">									test（测试）junit, </span></span><br><span class="line"><span class="comment">									system（编译和测试，与本机系统相关联，可移植性差）, </span></span><br><span class="line"><span class="comment">									import（导入的范围，只使用在dependencyManagerment中，表示从其他的pom中导入dependency的配置） --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 设置依赖是否可选 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 有两个值，true和false，默认是false，继承，若为true，子项目必须显式的引用该依赖 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">optional</span>&gt;</span><span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 排除依赖传递的列表 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 依赖管理 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 这里定义的依赖不会被运行，即不会被引用为实际的依赖，主要是供子模块集成用 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 为构建行为提供相应的支持 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 插件列表 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 插件 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span><span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span><span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 用于子模块中对于父模块的继承 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 聚合运行多个maven项目 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">module</span>&gt;</span><span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="依赖传递"><a href="#依赖传递" class="headerlink" title="依赖传递"></a>依赖传递</h3><p>依赖具有传递性：</p>
+<p>（1）直接依赖：在当前项目中通过依赖配置建立的依赖关系</p>
+<p>（2）间接依赖：被资源的资源如果依赖其他资源，当前项目间接依赖其他资源</p>
+ 
       <!-- reward -->
       
     </div>
@@ -364,62 +425,6 @@
 
     
     <article
-  id="post-questions02"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2022/03/31/questions02/"
-    >Good questions —— 二叉树篇</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2022/03/31/questions02/" class="article-date">
-  <time datetime="2022-03-30T16:00:00.000Z" itemprop="datePublished">2022-03-31</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路</p> 
-      <a class="article-more-link" href="/2022/03/31/questions02/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-    
-</article>
-
-    
-    <article
   id="post-questions03"
   class="article article-type-post"
   itemscope
@@ -453,6 +458,62 @@
        
   <p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p> 
       <a class="article-more-link" href="/2022/03/31/questions03/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-questions02"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/03/31/questions02/"
+    >Good questions —— 二叉树篇</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/03/31/questions02/" class="article-date">
+  <time datetime="2022-03-30T16:00:00.000Z" itemprop="datePublished">2022-03-31</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路</p> 
+      <a class="article-more-link" href="/2022/03/31/questions02/"
         >阅读更多...</a
       >
        
