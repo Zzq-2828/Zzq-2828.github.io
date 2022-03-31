@@ -3,14 +3,21 @@
   <entry>
     <title>markdowntest</title>
     <url>/2022/03/31/markdowntest/</url>
-    <content><![CDATA[<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><p>something about C++</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">$ <span class="type">int</span> a=<span class="number">10</span>;;</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<p>abstract: my test</p>
+<span id="more"></span>
 
+
+<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><p>something about C++</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">$ <span class="type">int</span> a=<span class="number">10</span>;;</span><br></pre></td></tr></table></figure>
+<p><a href="https://hexo.io/docs/writing.html">Writing</a></p>
 <h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><p>something about Java</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">$ <span class="title function_">println</span><span class="params">()</span>;</span><br></pre></td></tr></table></figure>
 
 <h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><p>something about spring</p>
 ]]></content>
+      <categories>
+        <category>test</category>
+      </categories>
       <tags>
         <tag>test</tag>
       </tags>

@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-03-31T06:34:21.194Z</updated>
+  <updated>2022-03-31T07:23:20.531Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -21,19 +21,14 @@
     <link href="https://www.zzzzzq.com/2022/03/31/markdowntest/"/>
     <id>https://www.zzzzzq.com/2022/03/31/markdowntest/</id>
     <published>2022-03-31T06:33:43.000Z</published>
-    <updated>2022-03-31T06:34:21.194Z</updated>
+    <updated>2022-03-31T07:23:20.531Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;C&quot;&gt;&lt;a href=&quot;#C&quot; class=&quot;headerlink&quot; title=&quot;C++&quot;&gt;&lt;/a&gt;C++&lt;/h2&gt;&lt;p&gt;something about C++&lt;/p&gt;
-&lt;figure class=&quot;highlight c++&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
+    <summary type="html">&lt;p&gt;abstract: my test&lt;/p&gt;</summary>
     
     
+    
+    <category term="test" scheme="https://www.zzzzzq.com/categories/test/"/>
     
     
     <category term="test" scheme="https://www.zzzzzq.com/tags/test/"/>
