@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.9k</span>
+            <span class="post-count">2.2k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">7 分钟</span>
+            <span class="post-count">8 分钟</span>
         </span>
     </span>
 </div>
@@ -111,7 +111,12 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="Maven简介"><a href="#Maven简介" class="headerlink" title="Maven简介"></a>Maven简介</h2><h3 id="传统项目管理状态分析"><a href="#传统项目管理状态分析" class="headerlink" title="传统项目管理状态分析"></a>传统项目管理状态分析</h3><p>（1）jar包不统一，jar包不兼容</p>
+  <p>概述：本文主要记录Maven工具的思想和基本用法。包括环境配置，基础概念，项目构建，依赖管理等部分</p>
+<span id="more"></span>
+
+
+
+<h2 id="Maven简介"><a href="#Maven简介" class="headerlink" title="Maven简介"></a>Maven简介</h2><h3 id="传统项目管理状态分析"><a href="#传统项目管理状态分析" class="headerlink" title="传统项目管理状态分析"></a>传统项目管理状态分析</h3><p>（1）jar包不统一，jar包不兼容</p>
 <p>（2）工程升级维护过程繁琐</p>
 <h3 id="Maven是什么"><a href="#Maven是什么" class="headerlink" title="Maven是什么"></a>Maven是什么</h3><p>本质是一个项目管理工具，将项目开发和管理过程抽象成一个项目对象模型（POM，Project Object Model）</p>
 <h3 id="Maven的作用"><a href="#Maven的作用" class="headerlink" title="Maven的作用"></a>Maven的作用</h3><p>（1）项目构建：提供标准的、跨平台的自动化项目构建方式</p>
@@ -177,10 +182,24 @@
 <p>（1）主程序范围有效（main文件夹范围内）</p>
 <p>（2）测试程序范围有效（test文件夹范围内）</p>
 <p>（3）是否参与打包（package指令范围内）</p>
-<img src="https://pic.imgdb.cn/item/6245facd27f86abb2a6cf794.jpg" alt="image1" style="zoom:50%;" />
+<img src="https://pic.imgdb.cn/item/6245facd27f86abb2a6cf794.jpg" alt="image1" style="zoom:48%;" />
 
 
 
+<h3 id="依赖范围传递性"><a href="#依赖范围传递性" class="headerlink" title="依赖范围传递性"></a>依赖范围传递性</h3><p>带有依赖范围的资源在进行传递时，作用范围将收到影响</p>
+<img src="https://pic.imgdb.cn/item/6245fb6d27f86abb2a6d85b3.jpg" alt="image2" style="zoom:45%;" />
+
+
+
+<h2 id="生命周期与插件"><a href="#生命周期与插件" class="headerlink" title="生命周期与插件"></a>生命周期与插件</h2><h3 id="项目构建生命周期"><a href="#项目构建生命周期" class="headerlink" title="项目构建生命周期"></a>项目构建生命周期</h3><p>Maven构建生命周期描述的是一次构建过程经历了多少个事件</p>
+<p>Maven对项目构建的生命周期划分为三套：</p>
+<p>（1）clean：清理工作</p>
+<p>（2）default：核心工作，例如编译，测试，打包，部署等</p>
+<p>（3）site：产生报告，发布站点等</p>
+<h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><p><a target="_blank" rel="noopener" href="https://maven.apache.org/plugins/index.html"><em>maven官网提供的插件</em></a></p>
+<p>插件与生命周期内的阶段绑定，在执行到对应生命周期时执行对应的插件功能</p>
+<p>默认maven在各个生命周期上绑定有预设的功能</p>
+<p>通过插件可以自定义其他功能</p>
  
       <!-- reward -->
       

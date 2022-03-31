@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-03-31T19:03:35.577Z</updated>
+  <updated>2022-03-31T19:19:54.928Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -21,16 +21,10 @@
     <link href="https://www.zzzzzq.com/2022/03/31/mavenbasic/"/>
     <id>https://www.zzzzzq.com/2022/03/31/mavenbasic/</id>
     <published>2022-03-31T15:35:17.000Z</published>
-    <updated>2022-03-31T19:03:35.577Z</updated>
+    <updated>2022-03-31T19:19:54.928Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;Maven简介&quot;&gt;&lt;a href=&quot;#Maven简介&quot; class=&quot;headerlink&quot; title=&quot;Maven简介&quot;&gt;&lt;/a&gt;Maven简介&lt;/h2&gt;&lt;h3 id=&quot;传统项目管理状态分析&quot;&gt;&lt;a href=&quot;#传统项目管理状态分析&quot;</summary>
-        
-      
+    <summary type="html">&lt;p&gt;概述：本文主要记录Maven工具的思想和基本用法。包括环境配置，基础概念，项目构建，依赖管理等部分&lt;/p&gt;</summary>
     
     
     
@@ -46,7 +40,7 @@
     <link href="https://www.zzzzzq.com/2022/03/31/SpringBootConfig/"/>
     <id>https://www.zzzzzq.com/2022/03/31/SpringBootConfig/</id>
     <published>2022-03-31T10:22:59.000Z</published>
-    <updated>2022-03-31T15:44:39.023Z</updated>
+    <updated>2022-03-31T19:21:02.878Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：SpringBoot基础知识学习与记录，学完这个篇章可以会用SpringBoot&lt;/p&gt;</summary>
@@ -103,14 +97,14 @@
   </entry>
   
   <entry>
-    <title>Good questions —— 二叉树篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/questions02/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/questions02/</id>
+    <title>Good questions —— 链表篇</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/questions03/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/questions03/</id>
     <published>2022-03-30T16:00:00.000Z</published>
-    <updated>2022-03-31T08:53:49.582Z</updated>
+    <updated>2022-03-31T09:38:49.985Z</updated>
     
     
-    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与链表相关的优质题目及解题思路&lt;/p&gt;</summary>
     
     
     
@@ -124,14 +118,14 @@
   </entry>
   
   <entry>
-    <title>Good questions —— 链表篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/questions03/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/questions03/</id>
+    <title>Good questions —— 二叉树篇</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/questions02/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/questions02/</id>
     <published>2022-03-30T16:00:00.000Z</published>
-    <updated>2022-03-31T09:38:49.985Z</updated>
+    <updated>2022-03-31T08:53:49.582Z</updated>
     
     
-    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与链表相关的优质题目及解题思路&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路&lt;/p&gt;</summary>
     
     
     
