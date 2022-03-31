@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-03-31T13:05:19.154Z</updated>
+  <updated>2022-03-31T15:44:32.909Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,17 +17,40 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>SpringBootConfig</title>
+    <title>Maven配置</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/mavenbasic/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/mavenbasic/</id>
+    <published>2022-03-31T15:35:17.000Z</published>
+    <updated>2022-03-31T15:44:32.909Z</updated>
+    
+    
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SpringBoot —— 基础篇</title>
     <link href="https://www.zzzzzq.com/2022/03/31/SpringBootConfig/"/>
     <id>https://www.zzzzzq.com/2022/03/31/SpringBootConfig/</id>
     <published>2022-03-31T10:22:59.000Z</published>
-    <updated>2022-03-31T13:05:19.154Z</updated>
+    <updated>2022-03-31T15:44:39.023Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：SpringBoot基础知识学习与记录，学完这个篇章可以会用SpringBoot&lt;/p&gt;</summary>
     
     
     
+    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
     
     
-    <category term="on writing" scheme="https://www.zzzzzq.com/tags/on-writing/"/>
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://www.zzzzzq.com/tags/SpringBoot/"/>
     
   </entry>
   
@@ -36,7 +59,7 @@
     <link href="https://www.zzzzzq.com/2022/03/31/java-basic/"/>
     <id>https://www.zzzzzq.com/2022/03/31/java-basic/</id>
     <published>2022-03-31T09:38:44.000Z</published>
-    <updated>2022-03-31T09:48:32.802Z</updated>
+    <updated>2022-03-31T13:28:40.842Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文主要记录Java中与C++有明显差异的语言特性&lt;/p&gt;</summary>

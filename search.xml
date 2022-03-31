@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>SpringBootConfig</title>
-    <url>/2022/03/31/SpringBootConfig/</url>
+    <title>Maven配置</title>
+    <url>/2022/03/31/mavenbasic/</url>
     <content><![CDATA[]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
       <tags>
-        <tag>on writing</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot —— 基础篇</title>
+    <url>/2022/03/31/SpringBootConfig/</url>
+    <content><![CDATA[<p>概述：SpringBoot基础知识学习与记录，学完这个篇章可以会用SpringBoot</p>
+<span id="more"></span>
+
+<h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>SpringBoot的设计目的是用来简化Spring应用的初始搭建以及开发过程</p>
+<h2 id="SpringBoot基础配置"><a href="#SpringBoot基础配置" class="headerlink" title="SpringBoot基础配置"></a>SpringBoot基础配置</h2><p>（1）IDEA新建项目</p>
+<p>查看版本：File -&gt; Settings -&gt; Maven 可以查看版本（我的版本为3.8.1）</p>
+<p>File -&gt; Project Structure -&gt; Modules -&gt; ‘+’  -&gt;New Module -&gt; Spring Initializr (注意如果没有的话要去settings -&gt;plugins -&gt; marketplace 下搜索并下载)</p>
+<p>进行如下配置</p>
+<p><img src="F:\MyDocuments\Hexo\themes\ayer\source\images\springboot\01.png" alt="01"></p>
+<p>选择spring web</p>
+<p>基础的环境配置即完成了</p>
+<h2 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h2><ol>
+<li><a href="https://docs.spring.io/spring-boot/docs/3.0.0-M1/reference/htmlsingle/"><em>SpringBoot reference documentation</em></a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
@@ -14,7 +43,6 @@
     <content><![CDATA[<p>概述：本文主要记录Java中与C++有明显差异的语言特性</p>
 <span id="more"></span>
 
-<p>（1）C++ 支持指针，而 Java 没有指针的概念。</p>
 <h2 id="与C-的差异"><a href="#与C-的差异" class="headerlink" title="与C++的差异"></a>与C++的差异</h2><p>（1）C++ 支持指针，而 Java 没有指针的概念。</p>
 <p>（2）C++ 支持多继承，而 Java 不支持多重继承，但允许一个类实现多个接口。</p>
 <p>（3）Java 是完全面向对象的语言，并且还取消了 C&#x2F;C++ 中的结构和联合，使编译程序更加简洁</p>
