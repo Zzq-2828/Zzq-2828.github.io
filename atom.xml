@@ -1,39 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Keep making progress</title>
+  <title>Keep Making Progress</title>
   
   
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-03-31T08:52:16.685Z</updated>
+  <updated>2022-03-31T09:48:32.802Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
-    <name>Zhuzzzzq</name>
+    <name>ZHU</name>
     
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Good questions —— 链表篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/questions03/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/questions03/</id>
-    <published>2022-03-30T16:00:00.000Z</published>
-    <updated>2022-03-31T08:52:16.685Z</updated>
+    <title>Java与C++的差异</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/java-basic/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/java-basic/</id>
+    <published>2022-03-31T09:38:44.000Z</published>
+    <updated>2022-03-31T09:48:32.802Z</updated>
     
     
-    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与链表相关的优质题目及解题思路&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;概述：本文主要记录Java中与C++有明显差异的语言特性&lt;/p&gt;</summary>
     
     
     
-    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
     
     
-    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
-    
-    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
     
   </entry>
   
@@ -67,6 +65,27 @@
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Good questions —— 链表篇</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/questions03/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/questions03/</id>
+    <published>2022-03-30T16:00:00.000Z</published>
+    <updated>2022-03-31T09:38:49.985Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与链表相关的优质题目及解题思路&lt;/p&gt;</summary>
     
     
     
