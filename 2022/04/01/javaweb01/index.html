@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>Javaweb01 |  Keep Making Progress</title>
+      <title>Junit、反射、注解 |  Keep Making Progress</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Javaweb01
+  Junit、反射、注解
 </h1>
  
 
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">2.2k</span>
+            <span class="post-count">2.6k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">8 分钟</span>
+            <span class="post-count">11 分钟</span>
         </span>
     </span>
 </div>
@@ -358,7 +358,7 @@
 </li>
 <li><p>JDK中预定义的一些注解</p>
 <ul>
-<li>@Override    ：检测被该注解标注的方法是否是继承自父类(接口)的</li>
+<li>@Override    ：检测被该注解标注的方法是否是继承自父类&#x2F;父接口的</li>
 <li>@Deprecated：该注解标注的内容，表示已过时</li>
 <li>@SuppressWarnings：压制警告<ul>
 <li>一般传递参数all  @SuppressWarnings(“all”)</li>
@@ -368,27 +368,22 @@
 </li>
 <li><p>自定义注解</p>
 <ul>
-<li><p>格式：<br>  元注解<br>  public @interface 注解名称{<br>  属性列表;<br>  }</p>
-</li>
-<li><p>本质：注解本质上就是一个接口，该接口默认继承Annotation接口</p>
-<ul>
+<li>格式：<br>      元注解<br>      public @interface 注解名称{<br>             属性列表;<br>      }</li>
+<li>本质：<strong>注解本质上就是一个接口，该接口默认继承Annotation接口</strong><ul>
 <li>public interface MyAnno extends java.lang.annotation.Annotation {}</li>
 </ul>
 </li>
-<li><p>属性：接口中的抽象方法</p>
-<ul>
+<li><strong>属性：接口中的抽象方法</strong><ul>
 <li>要求：<ol>
-<li><p>属性的返回值类型有下列取值</p>
-<ul>
+<li>属性的返回值类型有下列取值<ul>
 <li>基本数据类型</li>
 <li>String</li>
-<li>枚举</li>
+<li>枚举enum</li>
 <li>注解</li>
 <li>以上类型的数组</li>
 </ul>
 </li>
-<li><p>定义了属性，在使用时需要给属性赋值</p>
-<ol>
+<li>定义了属性，在使用时需要给属性赋值<ol>
 <li>如果定义属性时，使用default关键字给属性默认初始化值，则使用注解时，可以不进行属性的赋值。</li>
 <li>如果只有一个属性需要赋值，并且属性的名称是value，则value可以省略，直接定义值即可。</li>
 <li>数组赋值时，值使用{}包裹。如果数组中只有一个值，则{}可以省略</li>
@@ -398,9 +393,12 @@
 </li>
 </ul>
 </li>
-<li><p>元注解：用于描述注解的注解</p>
+</ul>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyAnno &#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">value</span><span class="params">()</span>;</span><br><span class="line">    Person <span class="title function_">per</span><span class="params">()</span>;<span class="comment">//Person是一个枚举类</span></span><br><span class="line">    MyAnno2 <span class="title function_">anno2</span><span class="params">()</span>;</span><br><span class="line">    String[] strs();</span><br><span class="line">    <span class="comment">/*String name() default &quot;张三&quot;; 设置默认值*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@MyAnno(value=12,per = Person.P3,anno2 = @MyAnno2,strs=&#123;&quot;bbb&quot;,&quot;aaa&quot;&#125;)</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>@Target：描述注解能够作用的位置<ul>
+<li>元注解：用于描述注解的注解<ul>
+<li><strong>@Target</strong>：描述注解能够作用的位置<ul>
 <li>ElementType取值：<ul>
 <li>TYPE：可以作用于类上</li>
 <li>METHOD：可以作用于方法上</li>
@@ -409,33 +407,19 @@
 </li>
 </ul>
 </li>
-<li>@Retention：描述注解被保留的阶段<ul>
+<li><strong>@Retention</strong>：描述注解被保留的阶段<ul>
 <li>@Retention(RetentionPolicy.RUNTIME)：当前被描述的注解，会保留到class字节码文件中，并被JVM读取到</li>
 </ul>
 </li>
-<li>@Documented：描述注解是否被抽取到api文档中</li>
-<li>@Inherited：描述注解是否被子类继承</li>
+<li><strong>@Documented</strong>：描述注解是否被抽取到api文档中</li>
+<li><strong>@Inherited</strong>：描述注解是否被子类继承</li>
 </ul>
 </li>
 </ul>
-</li>
-<li><p>在程序使用(解析)注解：获取注解中定义的属性值</p>
-<ol>
-<li><p>获取注解定义的位置的对象  （Class，Method,Field）</p>
-</li>
-<li><p>获取指定的注解<br>* getAnnotation(Class)<br> &#x2F;&#x2F;其实就是在内存中生成了一个该注解接口的子类实现对象</p>
-<pre><code>    public class ProImpl implements Pro&#123;
-        public String className()&#123;
-            return &quot;cn.itcast.annotation.Demo1&quot;;
-        &#125;
-        public String methodName()&#123;
-            return &quot;show&quot;;
-        &#125;
-    &#125;
-</code></pre>
-</li>
-<li><p>调用注解中的抽象方法获取配置的属性值</p>
-</li>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">import</span> java.lang.annotation.*;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Target(&#123;ElementType.TYPE,ElementType.METHOD,ElementType.FIELD&#125;)</span></span><br><span class="line">	<span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line">	<span class="meta">@Documented</span></span><br><span class="line">	<span class="meta">@Inherited</span></span><br><span class="line">	<span class="keyword">public</span> <span class="meta">@interface</span> MyAnno3 &#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">* 在程序使用(解析)注解：获取注解中定义的属性值</span><br><span class="line"></span><br><span class="line">  <span class="number">1.</span> 获取注解定义的位置的对象  （Class，Method,Field）</span><br><span class="line">  <span class="number">2.</span> 获取指定的注解</span><br><span class="line">    * getAnnotation(Class)</span><br><span class="line"></span><br><span class="line">  ```java</span><br><span class="line">  <span class="comment">//其实就是在内存中生成了一个该注解接口的子类实现对象</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProImpl</span> <span class="keyword">implements</span> <span class="title class_">Pro</span>&#123;</span><br><span class="line">  	<span class="keyword">public</span> String <span class="title function_">className</span><span class="params">()</span>&#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="string">&quot;cn.itcast.annotation.Demo1&quot;</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">public</span> String <span class="title function_">methodName</span><span class="params">()</span>&#123;</span><br><span class="line">      	<span class="keyword">return</span> <span class="string">&quot;show&quot;</span>;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>调用注解中的抽象方法获取配置的属性值</li>
 </ol>
 </li>
 <li><p>注解解析图</p>
@@ -443,17 +427,23 @@
 </ul>
 <p><img src="https://pic.imgdb.cn/item/62470dba27f86abb2a30d961.jpg"></p>
 <ul>
-<li>案例：简单的测试框架</li>
-<li>小结：<ol>
+<li><p>案例：简单的测试框架</p>
+</li>
+<li><p>小结：</p>
+<ol>
 <li>以后大多数时候，我们会使用注解，而不是自定义注解</li>
-<li>注解给谁用？<ol>
+<li>注解给谁用？</li>
 <li>编译器</li>
 <li>给解析程序用</li>
-</ol>
-</li>
 <li>注解不是程序的一部分，可以理解为注解就是一个标签</li>
 </ol>
-</li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 小明定义的计算器类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Calculator</span> &#123;</span><br><span class="line">    <span class="comment">//加法</span></span><br><span class="line">    <span class="meta">@Check</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        str.toString();</span><br><span class="line">        System.out.println(<span class="string">&quot;1 + 0 =&quot;</span> + (<span class="number">1</span> + <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//减法</span></span><br><span class="line">    <span class="meta">@Check</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sub</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;1 - 0 =&quot;</span> + (<span class="number">1</span> - <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//乘法</span></span><br><span class="line">    <span class="meta">@Check</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">mul</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;1 * 0 =&quot;</span> + (<span class="number">1</span> * <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//除法</span></span><br><span class="line">    <span class="meta">@Check</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">div</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;1 / 0 =&quot;</span> + (<span class="number">1</span> / <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;永无bug...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.METHOD)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Check &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.FileWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 简单的测试框架</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 当主方法执行后，会自动自行被检测的所有方法(加了Check注解的方法)，判断方法是否有异常，记录到文件中</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestCheck</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">//1.创建计算器对象</span></span><br><span class="line">        <span class="type">Calculator</span> <span class="variable">c</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Calculator</span>();</span><br><span class="line">        <span class="comment">//2.获取字节码文件对象</span></span><br><span class="line">        <span class="type">Class</span> <span class="variable">cls</span> <span class="operator">=</span> c.getClass();</span><br><span class="line">        <span class="comment">//3.获取所有方法</span></span><br><span class="line">        Method[] methods = cls.getMethods();</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">number</span> <span class="operator">=</span> <span class="number">0</span>;<span class="comment">//出现异常的次数</span></span><br><span class="line">        <span class="type">BufferedWriter</span> <span class="variable">bw</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedWriter</span>(<span class="keyword">new</span> <span class="title class_">FileWriter</span>(<span class="string">&quot;bug.txt&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Method method : methods) &#123;</span><br><span class="line">            <span class="comment">//4.判断方法上是否有Check注解</span></span><br><span class="line">            <span class="keyword">if</span>(method.isAnnotationPresent(Check.class))&#123;</span><br><span class="line">                <span class="comment">//5.有，执行</span></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    method.invoke(c);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                    <span class="comment">//6.捕获异常</span></span><br><span class="line">                    <span class="comment">//记录到文件中</span></span><br><span class="line">                    number ++;</span><br><span class="line"></span><br><span class="line">                    bw.write(method.getName()+ <span class="string">&quot; 方法出异常了&quot;</span>);</span><br><span class="line">                    bw.newLine();</span><br><span class="line">                    bw.write(<span class="string">&quot;异常的名称:&quot;</span> + e.getCause().getClass().getSimpleName());</span><br><span class="line">                    bw.newLine();</span><br><span class="line">                    bw.write(<span class="string">&quot;异常的原因:&quot;</span>+e.getCause().getMessage());</span><br><span class="line">                    bw.newLine();</span><br><span class="line">                    bw.write(<span class="string">&quot;--------------------------&quot;</span>);</span><br><span class="line">                    bw.newLine();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        bw.write(<span class="string">&quot;本次测试一共出现 &quot;</span>+number+<span class="string">&quot; 次异常&quot;</span>);</span><br><span class="line"></span><br><span class="line">        bw.flush();</span><br><span class="line">        bw.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
  
       <!-- reward -->
