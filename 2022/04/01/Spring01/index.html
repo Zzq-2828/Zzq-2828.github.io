@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">706</span>
+            <span class="post-count">1.3k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2 分钟</span>
+            <span class="post-count">4 分钟</span>
         </span>
     </span>
 </div>
@@ -125,7 +125,7 @@
 <p>（7）Java 源码是经典学习范例： Spring的源代码设计精妙、结构清晰、匠心独用，处处体现着大师对Java 设计模式灵活运用以及对 Java技术的高深造诣。它的源代码是 Java技术的最佳实践的范例。 </p>
 <h4 id="1-3-Spring的体系结构"><a href="#1-3-Spring的体系结构" class="headerlink" title="1.3 Spring的体系结构"></a>1.3 Spring的体系结构</h4><img src="https://pic.imgdb.cn/item/6246961327f86abb2a362a69.jpg" style="zoom: 80%;" />
 
-<h3 id="2-Spring快速入门"><a href="#2-Spring快速入门" class="headerlink" title="2. Spring快速入门"></a>2. Spring快速入门</h3><h4 id="2-1-Spring程序开发步骤"><a href="#2-1-Spring程序开发步骤" class="headerlink" title="2.1 Spring程序开发步骤"></a>2.1 Spring程序开发步骤</h4><p><img src="https://pic.imgdb.cn/item/6246970127f86abb2a37fd13.jpg"></p>
+<h3 id="2-Spring快速配置"><a href="#2-Spring快速配置" class="headerlink" title="2. Spring快速配置"></a>2. Spring快速配置</h3><h4 id="2-1-Spring程序开发步骤"><a href="#2-1-Spring程序开发步骤" class="headerlink" title="2.1 Spring程序开发步骤"></a>2.1 Spring程序开发步骤</h4><p><img src="https://pic.imgdb.cn/item/6246970127f86abb2a37fd13.jpg"></p>
 <p>① 导入 Spring 开发的基本包坐标</p>
 <p>② 编写 Dao 接口和实现类</p>
 <p>③ 创建 Spring核心配置文件 </p>
@@ -137,7 +137,50 @@
 <p>③ 创建applicationContextxml </p>
 <p>④ 在配置文件中进行配置 </p>
 <p>⑤ 创建ApplicationContext对象getBean</p>
- 
+<h3 id="3-Spring配置文件"><a href="#3-Spring配置文件" class="headerlink" title="3. Spring配置文件"></a>3. Spring配置文件</h3><h4 id="3-1-Bean标签基本配置"><a href="#3-1-Bean标签基本配置" class="headerlink" title="3.1 Bean标签基本配置"></a>3.1 Bean标签基本配置</h4><p>用于配置对象交由Spring 来创建。 默认情况下它调用的是类中的无参构造函数，如果没有无参构造函数则不能创建成功。</p>
+<p> 基本属性∶ </p>
+<p>● id∶Bean实例在Spring容器中的唯一标识</p>
+<p>●class∶Bean的全限定名称 </p>
+<h4 id="3-2-Bean标签范围配置"><a href="#3-2-Bean标签范围配置" class="headerlink" title="3.2 Bean标签范围配置"></a>3.2 Bean标签范围配置</h4><p>scope：指对象的作用范围，取值如下：</p>
+<p><img src="https://pic.imgdb.cn/item/6246b99d27f86abb2a7d1aa9.jpg"></p>
+<p><strong>当scope的取值为singleton时</strong></p>
+<p>Bean的实例化个数：1个</p>
+<p>Bean的实例化时机：当Spring核心文件被加载时，实例化配置的Bean实例</p>
+<p>Bean的生命周期：</p>
+<p>（1） 对象创建：当应用加载，创建容器时，对象就被创建了</p>
+<p>（2）对象运行：只要容器在，对象一直活着</p>
+<p>（3）对象销毁：当应用卸载，销毁容器时，对象就被销毁了</p>
+<p><strong>当scope的取值为prototype时</strong></p>
+<p>Bean的实例化个数：多个</p>
+<p>Bean的实例化时机：当调用getBean()方法时实例化Bean</p>
+<p>（1）对象创建：当使用对象时，创建新的对象实例</p>
+<p>（2）对象运行：只要对象在使用中，就一直活着</p>
+<p>（3）对象销毁：当对象长时间不用时，被 Java 的垃圾回收器回收了</p>
+<h5 id="3-3-Bean生命周期配置"><a href="#3-3-Bean生命周期配置" class="headerlink" title="3.3 Bean生命周期配置"></a>3.3 Bean生命周期配置</h5><p><strong>init-method</strong>：指定类中的初始化方法名称</p>
+<p><strong>destroy-method</strong>：指定类中销毁方法名称</p>
+<h4 id="3-4-Bean实例化三种方式"><a href="#3-4-Bean实例化三种方式" class="headerlink" title="3.4 Bean实例化三种方式"></a>3.4 Bean实例化三种方式</h4><p>（1）无参<strong>构造</strong>方法实例化</p>
+<p>它会根据默认无参构造方法来创建类对象，如果bean中没有默认无参构造函数，将会创建失败。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.dao.impl.UserDaoImpl&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）工厂<strong>静态</strong>方法实例化</p>
+<p>工厂的静态方法返回Bean实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StaticFactoryBean</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> UserDao <span class="title function_">createUserDao</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDaoImpl</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.factory.StaticFactoryBean&quot;</span> </span></span><br><span class="line"><span class="tag"><span class="attr">factory-method</span>=<span class="string">&quot;createUserDao&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>（3）工厂<strong>实例</strong>方法实例化</p>
+<p>工厂的非静态方法返回Bean实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DynamicFactoryBean</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> UserDao <span class="title function_">createUserDao</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDaoImpl</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;factoryBean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.factory.DynamicFactoryBean&quot;</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">factory-bean</span>=<span class="string">&quot;factoryBean&quot;</span> <span class="attr">factory-method</span>=<span class="string">&quot;createUserDao&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-5-Bean的依赖注入"><a href="#3-5-Bean的依赖注入" class="headerlink" title="3.5 Bean的依赖注入"></a>3.5 Bean的依赖注入</h4> 
       <!-- reward -->
       
     </div>
@@ -301,6 +344,13 @@
     </ul>
     <ul>
       <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
         
       </li>
     </ul>
@@ -545,7 +595,9 @@
 <!-- Katex -->
 
 <!-- busuanzi  -->
-
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->

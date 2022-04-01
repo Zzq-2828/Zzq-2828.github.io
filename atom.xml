@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-01T06:47:48.830Z</updated>
+  <updated>2022-04-01T09:51:01.405Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,31 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Javaweb01</title>
+    <link href="https://www.zzzzzq.com/2022/04/01/javaweb01/"/>
+    <id>https://www.zzzzzq.com/2022/04/01/javaweb01/</id>
+    <published>2022-04-01T09:16:23.000Z</published>
+    <updated>2022-04-01T09:51:01.405Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本系列记录了JavaWeb领域服务端程序开发的基础知识。&lt;/p&gt;
+&lt;p&gt;本文中包含Junit单元测试，反射，注解&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
+    
+    
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
+    
+  </entry>
+  
+  <entry>
     <title>IDEAerror</title>
     <link href="https://www.zzzzzq.com/2022/04/01/IDEAerror/"/>
     <id>https://www.zzzzzq.com/2022/04/01/IDEAerror/</id>
     <published>2022-04-01T06:40:33.000Z</published>
-    <updated>2022-04-01T06:47:48.830Z</updated>
+    <updated>2022-04-01T08:32:12.767Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了使用IDEA过程中遇到的错误以及解决方案&lt;/p&gt;</summary>
@@ -40,7 +60,7 @@
     <link href="https://www.zzzzzq.com/2022/04/01/Spring01/"/>
     <id>https://www.zzzzzq.com/2022/04/01/Spring01/</id>
     <published>2022-04-01T05:07:27.000Z</published>
-    <updated>2022-04-01T06:40:18.873Z</updated>
+    <updated>2022-04-01T09:15:56.859Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了Spring的基础概念和基本配置方法&lt;/p&gt;</summary>
@@ -135,14 +155,14 @@
   </entry>
   
   <entry>
-    <title>Good questions —— 二叉树篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/questions02/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/questions02/</id>
+    <title>Good questions —— 链表篇</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/questions03/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/questions03/</id>
     <published>2022-03-30T16:00:00.000Z</published>
-    <updated>2022-03-31T08:53:49.582Z</updated>
+    <updated>2022-03-31T09:38:49.985Z</updated>
     
     
-    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与链表相关的优质题目及解题思路&lt;/p&gt;</summary>
     
     
     
@@ -156,14 +176,14 @@
   </entry>
   
   <entry>
-    <title>Good questions —— 链表篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/questions03/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/questions03/</id>
+    <title>Good questions —— 二叉树篇</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/questions02/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/questions02/</id>
     <published>2022-03-30T16:00:00.000Z</published>
-    <updated>2022-03-31T09:38:49.985Z</updated>
+    <updated>2022-03-31T08:53:49.582Z</updated>
     
     
-    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与链表相关的优质题目及解题思路&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路&lt;/p&gt;</summary>
     
     
     
