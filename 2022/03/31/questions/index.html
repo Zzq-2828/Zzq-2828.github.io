@@ -237,15 +237,41 @@
       </a>
     
     
-      <a href="/2022/03/31/questions03/" class="article-nav-link">
+      <a href="/2022/03/31/questions02/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Good questions —— 链表篇</div>
+        <div class="article-nav-title">Good questions —— 二叉树篇</div>
       </a>
     
   </nav>
 
   
    
+<div class="gitalk" id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.7.2/gitalk.min.css">
+
+
+<script src="https://cdn.staticfile.org/gitalk/1.7.2/gitalk.min.js"></script>
+
+
+<script src="https://cdn.staticfile.org/blueimp-md5/2.19.0/js/md5.min.js"></script>
+
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: '1a2290d65d485a5b929f',
+    clientSecret: 'c3c545ecf0cb127d0764b9240c0b1ed407ce78f6# Client Secret',
+    repo: 'Zzq-2828/Comments',
+    owner: '79992058# GitHub ID',
+    admin: ['79992058# GitHub ID'],
+    // id: location.pathname,      // Ensure uniqueness and length less than 50
+    id: md5(location.pathname),
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    pagerDirection: 'last'
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
      
 </article>
 
