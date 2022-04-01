@@ -294,34 +294,56 @@
     
   </nav>
 
-  
    
-<div class="gitalk" id="gitalk-container"></div>
-
-<link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.7.2/gitalk.min.css">
-
-
-<script src="https://cdn.staticfile.org/gitalk/1.7.2/gitalk.min.js"></script>
-
-
-<script src="https://cdn.staticfile.org/blueimp-md5/2.19.0/js/md5.min.js"></script>
-
-<script type="text/javascript">
-  var gitalk = new Gitalk({
-    clientID: '1a2290d65d485a5b929f',
-    clientSecret: 'c3c545ecf0cb127d0764b9240c0b1ed407ce78f6# Client Secret',
-    repo: 'Zzq-2828/Comments',
-    owner: '79992058# GitHub ID',
-    admin: ['79992058# GitHub ID'],
-    // id: location.pathname,      // Ensure uniqueness and length less than 50
-    id: md5(location.pathname),
-    distractionFreeMode: false,  // Facebook-like distraction free mode
-    pagerDirection: 'last'
-  })
-
-  gitalk.render('gitalk-container')
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "K6XaOkNKneseqfDoRgxduTSH-MdYXbMMI",
+    app_key: "jSMLOaIijyXy09WGAoYSv5QW",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
 </script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
 
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
      
 </article>
 
