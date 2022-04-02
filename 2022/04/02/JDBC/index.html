@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="朱章齐的个人技术网站" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>JDBC |  Keep Making Progress</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Keep Making Progress" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-JDBC"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  JDBC
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/04/02/JDBC/" class="article-date">
+  <time datetime="2022-04-02T05:09:03.000Z" itemprop="datePublished">2022-04-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">7 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>概述：本文记录了JDBC (Java DataBase Connectivity) 的相关知识</p>
+<span id="more"></span>
+
+<h3 id="JDBC的基本概念"><a href="#JDBC的基本概念" class="headerlink" title="JDBC的基本概念"></a>JDBC的基本概念</h3><ol>
+<li><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4></li>
+</ol>
+<p>  Java DataBase Connectivity   是Java数据库连接， Java语言操作数据库</p>
+<p>  JDBC本质：其实是官方（sun公司）<strong>定义的一套操作所有关系型数据库的规则，即接口</strong>。</p>
+<p>  各个数据库厂商去实现这套接口，提供数据库驱动jar包。我们可以使用这套接口（JDBC）编程，真正执行的代码是驱动jar包中的实现类。</p>
+<p>  <img src="https://pic.imgdb.cn/item/6247db5a27f86abb2a4748c1.jpg"></p>
+<ol start="2">
+<li><h4 id="完整的连接步骤："><a href="#完整的连接步骤：" class="headerlink" title="完整的连接步骤："></a>完整的连接步骤：</h4></li>
+</ol>
+<p>  步骤：</p>
+<p>  （注意检查JDK的版本是否对应，另外注意executeUpdate只能用于操作Update语句，不能用于Select等语句）</p>
+<ol>
+<li><p>导入驱动jar包 如mysql-connector-java-8.0.13.jar（mysql8.0之前的要用另外的版本）<br>（1）复制jar包到项目的libs目录下<br>（2）右键–&gt;Add As Library</p>
+</li>
+<li><p>注册驱动</p>
+</li>
+<li><p>获取数据库连接对象 Connection </p>
+<p>（注意账号密码对应，数据库名字对应，设置useSSL和serverTimezone）</p>
+</li>
+<li><p>定义sql</p>
+</li>
+<li><p>获取执行sql语句的对象 Statement</p>
+</li>
+<li><p>执行sql，接受返回结果</p>
+</li>
+<li><p>处理结果</p>
+</li>
+<li><p>释放资源</p>
+<p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * JDBC快速入门</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JdbcDemo1</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">//1. 导入驱动jar包</span></span><br><span class="line">        <span class="comment">//2.注册驱动 mysql 5 之后注册驱动可以省略</span></span><br><span class="line">        Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">        <span class="comment">//3.获取数据库连接对象</span></span><br><span class="line">        <span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> DriverManager.getConnection(<span class="string">&quot;jdbc:mysql://localhost:3306/bjpowernode?useSSL=false&amp;serverTimezone=GMT%2B8&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;123456&quot;</span>);</span><br><span class="line">        <span class="comment">//4.定义sql语句</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;update t_user set name = &#x27;abc&#x27; where id = 2;&quot;</span>;</span><br><span class="line">        <span class="comment">//5.获取执行sql的对象 Statement</span></span><br><span class="line">        <span class="type">Statement</span> <span class="variable">stmt</span> <span class="operator">=</span> conn.createStatement();</span><br><span class="line">        <span class="comment">//6.执行sql</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> stmt.executeUpdate(sql);</span><br><span class="line">        <span class="comment">//7.处理结果</span></span><br><span class="line">        System.out.println(count);</span><br><span class="line">        <span class="comment">//8.释放资源</span></span><br><span class="line">        stmt.close();</span><br><span class="line">        conn.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><h4 id="详解各个对象"><a href="#详解各个对象" class="headerlink" title="详解各个对象"></a>详解各个对象</h4></li>
+<li><h5 id="DriverManager：驱动管理对象"><a href="#DriverManager：驱动管理对象" class="headerlink" title="DriverManager：驱动管理对象"></a>DriverManager：驱动管理对象</h5><p> 功能：</p>
+<ol>
+<li>注册驱动：告诉程序该使用哪一个数据库驱动jar<br>   static void registerDriver(Driver driver) : 注册与给定的驱动程序 DriverManager 。</li>
+</ol>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//写代码使用：  Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span></span><br><span class="line"><span class="comment">//通过查看源码发现：在com.mysql.cj.jdbc.Driver类中存在静态代码块</span></span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            java.sql.DriverManager.registerDriver(<span class="keyword">new</span> <span class="title class_">Driver</span>());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException E) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;Can&#x27;t register driver!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>   注意：mysql5之后的驱动jar包可以省略注册驱动的步骤。</p>
+<ol start="2">
+<li>获取数据库连接：</li>
+</ol>
+<ul>
+<li><p>方法：static Connection getConnection(String url, String user, String password) </p>
+</li>
+<li><p>参数：</p>
+<ul>
+<li><p>url：指定连接的路径</p>
+<ul>
+<li><strong>语法：jdbc:mysql:&#x2F;&#x2F;ip地址(域名):端口号&#x2F;数据库名称</strong></li>
+<li>例子：jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;db3</li>
+<li>细节：<strong>如果连接的是本机mysql服务器，并且mysql服务默认端口是3306，则url可以简写为：jdbc:mysql:&#x2F;&#x2F;&#x2F;数据库名称</strong></li>
+</ul>
+</li>
+<li><p>user：用户名</p>
+</li>
+<li><p>password：密码</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h5 id="Connection：数据库连接对象"><a href="#Connection：数据库连接对象" class="headerlink" title="Connection：数据库连接对象"></a>Connection：数据库连接对象</h5><p> 功能：</p>
+<ol>
+<li>获取执行sql 的对象<ul>
+<li>Statement createStatement()</li>
+<li>PreparedStatement prepareStatement(String sql)</li>
+</ul>
+</li>
+<li>管理事务：<ul>
+<li>开启事务：setAutoCommit(boolean autoCommit) ：调用该方法设置参数为false，即开启事务</li>
+<li>提交事务：commit() </li>
+<li>回滚事务：rollback()</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><h5 id="Statement：执行sql的对象"><a href="#Statement：执行sql的对象" class="headerlink" title="Statement：执行sql的对象"></a>Statement：执行sql的对象</h5><p> 执行sql</p>
+<ul>
+<li><p>boolean execute(String sql) ：可以执行任意的sql </p>
+</li>
+<li><p>int executeUpdate(String sql) ：执行DML（insert、update、delete）语句、DDL(create，alter、drop)语句</p>
+<p>返回值：影响的行数，可以通过这个影响的行数判断DML语句是否执行成功 返回值&gt;0的则执行成功，反之，则失败。</p>
+</li>
+<li><p>ResultSet executeQuery(String sql)  ：执行DQL（select)语句</p>
+</li>
+</ul>
+</li>
+<li><h5 id="ResultSet：结果集对象-封装查询结果"><a href="#ResultSet：结果集对象-封装查询结果" class="headerlink" title="ResultSet：结果集对象,封装查询结果"></a>ResultSet：结果集对象,封装查询结果</h5><ul>
+<li>boolean next(): 游标向下移动一行，判断当前行是否是最后一行末尾(是否有数据)，如果是，则返回false，如果不是则返回true</li>
+<li>getXxx(参数):获取数据<ul>
+<li>Xxx：代表数据类型   如： int getInt() ,    String getString()</li>
+<li>参数：<ol>
+<li>int：代表列的编号,从1开始   如： getString(1)</li>
+<li>String：代表列名称。 如： getDouble(“balance”)</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 以插入操作为例，更加标准的代码，包括异常的处理</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JDBCDemo2</span> &#123;</span><br><span class="line">      <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">          <span class="type">Statement</span> <span class="variable">stmt</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">              <span class="comment">//1. 注册驱动</span></span><br><span class="line">            Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">            <span class="comment">//2. 定义sql</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;insert into t_user(id,name,birth) values(2, &#x27;章齐&#x27;, &#x27;1998-05-28&#x27;);\n&quot;</span>;</span><br><span class="line">            <span class="comment">//3.获取Connection对象</span></span><br><span class="line">            conn = DriverManager.getConnection(<span class="string">&quot;jdbc:mysql://localhost:3306/bjpowernode?useSSL=false&amp;serverTimezone=GMT%2B8&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;123456&quot;</span>);</span><br><span class="line">            <span class="comment">//4.获取执行sql的对象 Statement</span></span><br><span class="line">            stmt = conn.createStatement();</span><br><span class="line">            <span class="comment">//5.执行sql</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> stmt.executeUpdate(sql);<span class="comment">//影响的行数</span></span><br><span class="line">            <span class="comment">//6.处理结果</span></span><br><span class="line">            System.out.println(count);</span><br><span class="line">            <span class="keyword">if</span>(count &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;添加成功！&quot;</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;添加失败！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">//stmt.close();</span></span><br><span class="line">            <span class="comment">//7. 释放资源</span></span><br><span class="line">            <span class="comment">//避免空指针异常</span></span><br><span class="line">            <span class="keyword">if</span>(stmt != <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    stmt.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(conn != <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    conn.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="PreparedStatement：执行sql的对象"><a href="#PreparedStatement：执行sql的对象" class="headerlink" title="PreparedStatement：执行sql的对象"></a>PreparedStatement：执行sql的对象</h5><ol>
+<li><p>SQL注入问题：在拼接sql时，有一些sql的特殊关键字参与字符串的拼接。会造成安全性问题</p>
+<ol>
+<li>输入用户随便，输入密码：a’ or ‘a’ &#x3D; ‘a</li>
+<li>sql：select * from user where username &#x3D; ‘fhdsjkf’ and password &#x3D; ‘a’ or ‘a’ &#x3D; ‘a’</li>
+</ol>
+</li>
+<li><p>解决sql注入问题：使用PreparedStatement对象来解决</p>
+</li>
+<li><p>预编译的SQL：参数使用?作为占位符</p>
+</li>
+<li><p>步骤：</p>
+<ol>
+<li>导入驱动jar包 mysql-connector-java-5.1.37-bin.jar</li>
+<li>注册驱动</li>
+<li>获取数据库连接对象 Connection</li>
+<li>定义sql<ul>
+<li>注意：sql的参数使用？作为占位符。 如：select * from user where username &#x3D; ? and password &#x3D; ?;</li>
+</ul>
+</li>
+<li>获取执行sql语句的对象 PreparedStatement  Connection.prepareStatement(String sql) </li>
+<li>给？赋值：<ul>
+<li>方法： setXxx(参数1,参数2)<ul>
+<li>参数1：？的位置编号 从1 开始</li>
+<li>参数2：？的值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>执行sql，接受返回结果，不需要传递sql语句</li>
+<li>处理结果</li>
+<li>释放资源</li>
+</ol>
+</li>
+<li><p>注意：后期都会使用PreparedStatement来完成增删改查的所有操作</p>
+<ol>
+<li>可以防止SQL注入</li>
+<li>效率更高</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="抽取JDBC工具类-：-JDBCUtils"><a href="#抽取JDBC工具类-：-JDBCUtils" class="headerlink" title="抽取JDBC工具类 ： JDBCUtils"></a>抽取JDBC工具类 ： JDBCUtils</h3><ul>
+<li><p>目的：简化书写</p>
+</li>
+<li><p>分析：</p>
+<ol>
+<li><p>注册驱动也抽取</p>
+</li>
+<li><p>抽取一个方法获取连接对象</p>
+<ul>
+<li>需求：不想传递参数（麻烦），还得保证工具类的通用性。</li>
+<li>解决：配置文件<br>  jdbc.properties<br>  url&#x3D;<br>  user&#x3D;<br>  password&#x3D;</li>
+</ul>
+</li>
+<li><p>抽取一个方法释放资源</p>
+</li>
+</ol>
+</li>
+<li><p>代码实现：<br>  public class JDBCUtils {<br>  private static String url;<br>  private static String user;<br>  private static String password;<br>  private static String driver;<br>  &#x2F;**</p>
+<ul>
+<li><p>文件的读取，只需要读取一次即可拿到这些值。使用静态代码块<br> *&#x2F;<br>static{<br> &#x2F;&#x2F;读取资源文件，获取值。</p>
+<p> try {<br> &#x2F;&#x2F;1. 创建Properties集合类。<br> Properties pro &#x3D; new Properties();<br><br> &#x2F;&#x2F;获取src路径下的文件的方式—&gt;ClassLoader 类加载器<br> ClassLoader classLoader &#x3D; JDBCUtils.class.getClassLoader();<br> URL res  &#x3D; classLoader.getResource(“jdbc.properties”);<br> String path &#x3D; res.getPath();<br> System.out.println(path);&#x2F;&#x2F;&#x2F;D:&#x2F;IdeaProjects&#x2F;itcast&#x2F;out&#x2F;production&#x2F;day04_jdbc&#x2F;jdbc.properties<br> &#x2F;&#x2F;2. 加载文件<br>&#x2F;&#x2F; pro.load(new FileReader(“D:\IdeaProjects\itcast\day04_jdbc\src\jdbc.properties”));<br> pro.load(new FileReader(path));<br><br> &#x2F;&#x2F;3. 获取数据，赋值<br> url &#x3D; pro.getProperty(“url”);<br> user &#x3D; pro.getProperty(“user”);<br> password &#x3D; pro.getProperty(“password”);<br> driver &#x3D; pro.getProperty(“driver”);<br> &#x2F;&#x2F;4. 注册驱动<br> Class.forName(driver);<br> } catch (IOException e) {<br> e.printStackTrace();<br> } catch (ClassNotFoundException e) {<br> e.printStackTrace();<br> }</p>
+</li>
+</ul>
+<pre><code>&#125;
+</code></pre>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/04/02/JDBC/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2022/04/01/javaweb01/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Junit、反射、注解</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "5J2nSr5DoqBGRRnpdFfTvawi-gzGzoHsz",
+    app_key: "24GWRfKBASGr6cA5FSBF4NY4",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2022
+        <i class="ri-heart-fill heart_icon"></i> ZHU
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Keep Making Progress"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
