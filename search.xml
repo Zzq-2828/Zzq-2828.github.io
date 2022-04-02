@@ -1,43 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>IDEAerror</title>
-    <url>/2022/04/01/IDEAerror/</url>
-    <content><![CDATA[<p>概述：本文记录了使用IDEA过程中遇到的错误以及解决方案</p>
-<span id="more"></span>
-
-
-
-<h4 id="IDEA-Java错误：不支持发行版本"><a href="#IDEA-Java错误：不支持发行版本" class="headerlink" title="IDEA Java错误：不支持发行版本"></a>IDEA Java错误：不支持发行版本</h4><p><a href="https://blog.csdn.net/Deeeelete/article/details/104382752?utm_medium=distribute.pc_relevant.none-task-blog-baidulandingword-3&spm=1001.2101.3001.4242"><em>解决方案</em></a></p>
-<h4 id="Cannot-resolve-symbol-’XXX‘"><a href="#Cannot-resolve-symbol-’XXX‘" class="headerlink" title="Cannot resolve symbol ’XXX‘"></a>Cannot resolve symbol ’XXX‘</h4><p><a href="https://blog.csdn.net/he99774/article/details/78254262"><em>解决方案</em></a></p>
-]]></content>
-      <categories>
-        <category>tools</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JDBC</title>
     <url>/2022/04/02/JDBC/</url>
     <content><![CDATA[<p>概述：本文记录了JDBC (Java DataBase Connectivity) 的相关知识</p>
 <span id="more"></span>
 
-<h3 id="JDBC的基本概念"><a href="#JDBC的基本概念" class="headerlink" title="JDBC的基本概念"></a>JDBC的基本概念</h3><ol>
-<li><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4></li>
-</ol>
-<p>  Java DataBase Connectivity   是Java数据库连接， Java语言操作数据库</p>
-<p>  JDBC本质：其实是官方（sun公司）<strong>定义的一套操作所有关系型数据库的规则，即接口</strong>。</p>
-<p>  各个数据库厂商去实现这套接口，提供数据库驱动jar包。我们可以使用这套接口（JDBC）编程，真正执行的代码是驱动jar包中的实现类。</p>
-<p>  <img src="https://pic.imgdb.cn/item/6247db5a27f86abb2a4748c1.jpg"></p>
-<ol start="2">
-<li><h4 id="完整的连接步骤："><a href="#完整的连接步骤：" class="headerlink" title="完整的连接步骤："></a>完整的连接步骤：</h4></li>
-</ol>
-<p>  步骤：</p>
-<p>  （注意检查JDK的版本是否对应，另外注意executeUpdate只能用于操作Update语句，不能用于Select等语句）</p>
+<h3 id="JDBC的基本概念"><a href="#JDBC的基本概念" class="headerlink" title="JDBC的基本概念"></a>JDBC的基本概念</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>Java DataBase Connectivity   是Java数据库连接， Java语言操作数据库</p>
+<p>JDBC本质：其实是官方（sun公司）<strong>定义的一套操作所有关系型数据库的规则，即接口</strong>。</p>
+<p>各个数据库厂商去实现这套接口，提供数据库驱动jar包。我们可以使用这套接口（JDBC）编程，真正执行的代码是驱动jar包中的实现类。</p>
+<p><img src="https://pic.imgdb.cn/item/6247db5a27f86abb2a4748c1.jpg"></p>
+<h4 id="完整的连接步骤："><a href="#完整的连接步骤：" class="headerlink" title="完整的连接步骤："></a>完整的连接步骤：</h4><p>步骤：</p>
+<p>（注意检查JDK的版本是否对应，另外注意executeUpdate只能用于操作Update语句，不能用于Select等语句）</p>
 <ol>
-<li><p>导入驱动jar包 如mysql-connector-java-8.0.13.jar（mysql8.0之前的要用另外的版本）<br>（1）复制jar包到项目的libs目录下<br>（2）右键–&gt;Add As Library</p>
+<li><p>导入驱动jar包 如mysql-connector-java-8.0.13.jar（mysql8.0之前的要用另外的版本）<br>  （1）复制jar包到项目的libs目录下<br>  （2）右键–&gt;Add As Library</p>
 </li>
 <li><p>注册驱动</p>
 </li>
@@ -54,17 +30,15 @@
 </li>
 <li><p>释放资源</p>
 <p>代码实现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * JDBC快速入门</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JdbcDemo1</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">//1. 导入驱动jar包</span></span><br><span class="line">        <span class="comment">//2.注册驱动 mysql 5 之后注册驱动可以省略</span></span><br><span class="line">        Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">        <span class="comment">//3.获取数据库连接对象</span></span><br><span class="line">        <span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> DriverManager.getConnection(<span class="string">&quot;jdbc:mysql://localhost:3306/bjpowernode?useSSL=false&amp;serverTimezone=GMT%2B8&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;123456&quot;</span>);</span><br><span class="line">        <span class="comment">//4.定义sql语句</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;update t_user set name = &#x27;abc&#x27; where id = 2;&quot;</span>;</span><br><span class="line">        <span class="comment">//5.获取执行sql的对象 Statement</span></span><br><span class="line">        <span class="type">Statement</span> <span class="variable">stmt</span> <span class="operator">=</span> conn.createStatement();</span><br><span class="line">        <span class="comment">//6.执行sql</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> stmt.executeUpdate(sql);</span><br><span class="line">        <span class="comment">//7.处理结果</span></span><br><span class="line">        System.out.println(count);</span><br><span class="line">        <span class="comment">//8.释放资源</span></span><br><span class="line">        stmt.close();</span><br><span class="line">        conn.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-</li>
-<li><h4 id="详解各个对象"><a href="#详解各个对象" class="headerlink" title="详解各个对象"></a>详解各个对象</h4></li>
-<li><h5 id="DriverManager：驱动管理对象"><a href="#DriverManager：驱动管理对象" class="headerlink" title="DriverManager：驱动管理对象"></a>DriverManager：驱动管理对象</h5><p> 功能：</p>
-<ol>
-<li>注册驱动：告诉程序该使用哪一个数据库驱动jar<br>   static void registerDriver(Driver driver) : 注册与给定的驱动程序 DriverManager 。</li>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * JDBC快速入门</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JdbcDemo1</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">//1. 导入驱动jar包</span></span><br><span class="line">        <span class="comment">//2.注册驱动 mysql 5 之后注册驱动可以省略</span></span><br><span class="line">        Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">        <span class="comment">//3.获取数据库连接对象</span></span><br><span class="line">        <span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> DriverManager.getConnection(<span class="string">&quot;jdbc:mysql://localhost:3306/bjpowernode?useSSL=false&amp;serverTimezone=GMT%2B8&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;123456&quot;</span>);</span><br><span class="line">        <span class="comment">//4.定义sql语句</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;update t_user set name = &#x27;abc&#x27; where id = 2;&quot;</span>;</span><br><span class="line">        <span class="comment">//5.获取执行sql的对象 Statement</span></span><br><span class="line">        <span class="type">Statement</span> <span class="variable">stmt</span> <span class="operator">=</span> conn.createStatement();</span><br><span class="line">        <span class="comment">//6.执行sql</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> stmt.executeUpdate(sql);</span><br><span class="line">        <span class="comment">//7.处理结果</span></span><br><span class="line">        System.out.println(count);</span><br><span class="line">        <span class="comment">//8.释放资源</span></span><br><span class="line">        stmt.close();</span><br><span class="line">        conn.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
-   <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//写代码使用：  Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span></span><br><span class="line"><span class="comment">//通过查看源码发现：在com.mysql.cj.jdbc.Driver类中存在静态代码块</span></span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            java.sql.DriverManager.registerDriver(<span class="keyword">new</span> <span class="title class_">Driver</span>());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException E) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;Can&#x27;t register driver!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>   注意：mysql5之后的驱动jar包可以省略注册驱动的步骤。</p>
+<h4 id="详解各个对象"><a href="#详解各个对象" class="headerlink" title="详解各个对象"></a>详解各个对象</h4><h5 id="DriverManager：驱动管理对象"><a href="#DriverManager：驱动管理对象" class="headerlink" title="DriverManager：驱动管理对象"></a>DriverManager：驱动管理对象</h5><p>功能：</p>
+<ol>
+<li>注册驱动：告诉程序该使用哪一个数据库驱动jar<br>  static void registerDriver(Driver driver) : 注册与给定的驱动程序 DriverManager 。</li>
+</ol>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//写代码使用：  Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span></span><br><span class="line"><span class="comment">//通过查看源码发现：在com.mysql.cj.jdbc.Driver类中存在静态代码块</span></span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            java.sql.DriverManager.registerDriver(<span class="keyword">new</span> <span class="title class_">Driver</span>());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException E) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;Can&#x27;t register driver!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  注意：mysql5之后的驱动jar包可以省略注册驱动的步骤。</p>
 <ol start="2">
 <li>获取数据库连接：</li>
 </ol>
@@ -87,8 +61,7 @@
 </ul>
 </li>
 </ul>
-</li>
-<li><h5 id="Connection：数据库连接对象"><a href="#Connection：数据库连接对象" class="headerlink" title="Connection：数据库连接对象"></a>Connection：数据库连接对象</h5><p> 功能：</p>
+<h5 id="Connection：数据库连接对象"><a href="#Connection：数据库连接对象" class="headerlink" title="Connection：数据库连接对象"></a>Connection：数据库连接对象</h5><p>功能：</p>
 <ol>
 <li>获取执行sql 的对象<ul>
 <li>Statement createStatement()</li>
@@ -102,8 +75,7 @@
 </ul>
 </li>
 </ol>
-</li>
-<li><h5 id="Statement：执行sql的对象"><a href="#Statement：执行sql的对象" class="headerlink" title="Statement：执行sql的对象"></a>Statement：执行sql的对象</h5><p> 执行sql</p>
+<h5 id="Statement：执行sql的对象"><a href="#Statement：执行sql的对象" class="headerlink" title="Statement：执行sql的对象"></a>Statement：执行sql的对象</h5><p>执行sql</p>
 <ul>
 <li><p>boolean execute(String sql) ：可以执行任意的sql </p>
 </li>
@@ -113,8 +85,11 @@
 <li><p>ResultSet executeQuery(String sql)  ：执行DQL（select)语句</p>
 </li>
 </ul>
-</li>
-<li><h5 id="ResultSet：结果集对象-封装查询结果"><a href="#ResultSet：结果集对象-封装查询结果" class="headerlink" title="ResultSet：结果集对象,封装查询结果"></a>ResultSet：结果集对象,封装查询结果</h5><ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 以插入操作为例，更加标准的代码，包括异常的处理</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JDBCDemo2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Statement</span> <span class="variable">stmt</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//1. 注册驱动</span></span><br><span class="line">            Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">            <span class="comment">//2. 定义sql</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;insert into t_user(id,name,birth) values(2, &#x27;章齐&#x27;, &#x27;1998-05-28&#x27;);\n&quot;</span>;</span><br><span class="line">            <span class="comment">//3.获取Connection对象</span></span><br><span class="line">            conn = DriverManager.getConnection(<span class="string">&quot;jdbc:mysql://localhost:3306/bjpowernode?useSSL=false&amp;serverTimezone=GMT%2B8&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;123456&quot;</span>);</span><br><span class="line">            <span class="comment">//4.获取执行sql的对象 Statement</span></span><br><span class="line">            stmt = conn.createStatement();</span><br><span class="line">            <span class="comment">//5.执行sql</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> stmt.executeUpdate(sql);<span class="comment">//影响的行数</span></span><br><span class="line">            <span class="comment">//6.处理结果</span></span><br><span class="line">            System.out.println(count);</span><br><span class="line">            <span class="keyword">if</span>(count &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;添加成功！&quot;</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;添加失败！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">//stmt.close();</span></span><br><span class="line">            <span class="comment">//7. 释放资源</span></span><br><span class="line">            <span class="comment">//避免空指针异常</span></span><br><span class="line">            <span class="keyword">if</span>(stmt != <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    stmt.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(conn != <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    conn.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="ResultSet：结果集对象-封装查询结果"><a href="#ResultSet：结果集对象-封装查询结果" class="headerlink" title="ResultSet：结果集对象,封装查询结果"></a>ResultSet：结果集对象,封装查询结果</h5><ul>
 <li>boolean next(): 游标向下移动一行，判断当前行是否是最后一行末尾(是否有数据)，如果是，则返回false，如果不是则返回true</li>
 <li>getXxx(参数):获取数据<ul>
 <li>Xxx：代表数据类型   如： int getInt() ,    String getString()</li>
@@ -126,9 +101,7 @@
 </ul>
 </li>
 </ul>
- <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 以插入操作为例，更加标准的代码，包括异常的处理</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JDBCDemo2</span> &#123;</span><br><span class="line">      <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">          <span class="type">Statement</span> <span class="variable">stmt</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">              <span class="comment">//1. 注册驱动</span></span><br><span class="line">            Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">            <span class="comment">//2. 定义sql</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;insert into t_user(id,name,birth) values(2, &#x27;章齐&#x27;, &#x27;1998-05-28&#x27;);\n&quot;</span>;</span><br><span class="line">            <span class="comment">//3.获取Connection对象</span></span><br><span class="line">            conn = DriverManager.getConnection(<span class="string">&quot;jdbc:mysql://localhost:3306/bjpowernode?useSSL=false&amp;serverTimezone=GMT%2B8&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;123456&quot;</span>);</span><br><span class="line">            <span class="comment">//4.获取执行sql的对象 Statement</span></span><br><span class="line">            stmt = conn.createStatement();</span><br><span class="line">            <span class="comment">//5.执行sql</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> stmt.executeUpdate(sql);<span class="comment">//影响的行数</span></span><br><span class="line">            <span class="comment">//6.处理结果</span></span><br><span class="line">            System.out.println(count);</span><br><span class="line">            <span class="keyword">if</span>(count &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;添加成功！&quot;</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;添加失败！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">//stmt.close();</span></span><br><span class="line">            <span class="comment">//7. 释放资源</span></span><br><span class="line">            <span class="comment">//避免空指针异常</span></span><br><span class="line">            <span class="keyword">if</span>(stmt != <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    stmt.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(conn != <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    conn.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h5 id="PreparedStatement：执行sql的对象"><a href="#PreparedStatement：执行sql的对象" class="headerlink" title="PreparedStatement：执行sql的对象"></a>PreparedStatement：执行sql的对象</h5><ol>
+<h5 id="PreparedStatement：执行sql的对象"><a href="#PreparedStatement：执行sql的对象" class="headerlink" title="PreparedStatement：执行sql的对象"></a>PreparedStatement：执行sql的对象</h5><ol>
 <li><p>SQL注入问题：在拼接sql时，有一些sql的特殊关键字参与字符串的拼接。会造成安全性问题</p>
 <ol>
 <li>输入用户随便，输入密码：a’ or ‘a’ &#x3D; ‘a</li>
@@ -169,8 +142,6 @@
 </ol>
 </li>
 </ol>
-</li>
-</ol>
 <h3 id="抽取JDBC工具类-：-JDBCUtils"><a href="#抽取JDBC工具类-：-JDBCUtils" class="headerlink" title="抽取JDBC工具类 ： JDBCUtils"></a>抽取JDBC工具类 ： JDBCUtils</h3><ul>
 <li><p>目的：简化书写</p>
 </li>
@@ -204,136 +175,6 @@
       </categories>
       <tags>
         <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring01</title>
-    <url>/2022/04/01/Spring01/</url>
-    <content><![CDATA[<p>概述：本文记录了Spring的基础概念和基本配置方法</p>
-<span id="more"></span>
-
-<h3 id="1-Spring简介"><a href="#1-Spring简介" class="headerlink" title="1. Spring简介"></a>1. Spring简介</h3><h4 id="1-1-Spring是什么"><a href="#1-1-Spring是什么" class="headerlink" title="1.1 Spring是什么"></a>1.1 Spring是什么</h4><p>Spring是分层的Java SE&#x2F;EE 应用full-stack轻量级开源框架，以<strong>IoC</strong>（Inverse Of Control：反转控制）和<strong>AOP</strong>（Aspect Oriented Programming：面向切面编程）为内核</p>
-<p>提供了<strong>展现层SpringMVC</strong>和<strong>持久层Spring JDBCTemplate</strong>以及<strong>业务层事务管理</strong>等众多的企业级应用技术，还能整合开源世界众多著名的第三方框架和类库，逐渐成为使用最多的Java EE企业应用开源框架。</p>
-<h4 id="1-2-Spring的优势"><a href="#1-2-Spring的优势" class="headerlink" title="1.2 Spring的优势"></a>1.2 Spring的优势</h4><p>（1）方便解耦：简化开发 通过 Spring提供的 loC容器，可以将对象间的依赖关系交由 Spring 进行控制，避免硬编码所造成的过度耦合。用户也不必再为单例模式类、属性文件解析等这文些很底层的需求编写代码.可以更专注干上层的应用。 </p>
-<p>（2）AOP编程的支持： 通过 Spring的 AOP 功能，方便进行面向切面编程，许多不容易用传统 OOP 实现的功能可以通过 AOP 轻松实现。 </p>
-<p>（3）声明式事务的支持 ：可以将我们从单调烦闷的事务管理代码中解脱出来，通过声明式方式灵活的进行事务管理，提高开发效率和质量。 </p>
-<p>（4）方便程序的测试 ：可以用非容器依赖的编程方式进讲行几平所有的测试工作，测试不再是昂贵的操作，而是随手可做的事情。</p>
-<p>（5）方便集成各种优秀框架： Spring对各种优秀框架（Struts、 Hibernate、Hessian、Quartz等）的支持。</p>
-<p>（ 6）降低 JavaEE API的使用难度： Spring对 JavaEE API（如JDBC、JavaMail、远程调用等）进行了薄薄的封装层，使这些API的使用难度大为降低。 </p>
-<p>（7）Java 源码是经典学习范例： Spring的源代码设计精妙、结构清晰、匠心独用，处处体现着大师对Java 设计模式灵活运用以及对 Java技术的高深造诣。它的源代码是 Java技术的最佳实践的范例。 </p>
-<h4 id="1-3-Spring的体系结构"><a href="#1-3-Spring的体系结构" class="headerlink" title="1.3 Spring的体系结构"></a>1.3 Spring的体系结构</h4><img src="https://pic.imgdb.cn/item/6246961327f86abb2a362a69.jpg" style="zoom: 80%;" />
-
-<h3 id="2-Spring快速配置"><a href="#2-Spring快速配置" class="headerlink" title="2. Spring快速配置"></a>2. Spring快速配置</h3><h4 id="2-1-Spring程序开发步骤"><a href="#2-1-Spring程序开发步骤" class="headerlink" title="2.1 Spring程序开发步骤"></a>2.1 Spring程序开发步骤</h4><p><img src="https://pic.imgdb.cn/item/6246970127f86abb2a37fd13.jpg"></p>
-<p>① 导入 Spring 开发的基本包坐标</p>
-<p>② 编写 Dao 接口和实现类</p>
-<p>③ 创建 Spring核心配置文件 </p>
-<p>④ 在Spring 配置文件中配置 UserDaolmpl </p>
-<p>⑤ 使用 Spring 的API获得 Bean 实例 </p>
-<h4 id="2-2-导入Spring开发的基本包坐标"><a href="#2-2-导入Spring开发的基本包坐标" class="headerlink" title="2.2 导入Spring开发的基本包坐标"></a>2.2 导入Spring开发的基本包坐标</h4><h4 id="2-3-编写Dao接口和实现"><a href="#2-3-编写Dao接口和实现" class="headerlink" title="2.3 编写Dao接口和实现"></a>2.3 编写Dao接口和实现</h4><h4 id="2-4-创建Spring核心配置文件"><a href="#2-4-创建Spring核心配置文件" class="headerlink" title="2.4 创建Spring核心配置文件"></a>2.4 创建Spring核心配置文件</h4><p>在类路径下（resources）创建applicationContext.xml配置文件</p>
-<h4 id="2-5-在Spring配置文件中配置UserDaoImpl"><a href="#2-5-在Spring配置文件中配置UserDaoImpl" class="headerlink" title="2.5 在Spring配置文件中配置UserDaoImpl"></a>2.5 在Spring配置文件中配置UserDaoImpl</h4><h4 id="2-6-使用Spring的API获得Bean实例"><a href="#2-6-使用Spring的API获得Bean实例" class="headerlink" title="2.6 使用Spring的API获得Bean实例"></a>2.6 使用Spring的API获得Bean实例</h4><h4 id="2-7-要点总结"><a href="#2-7-要点总结" class="headerlink" title="2.7 要点总结"></a>2.7 要点总结</h4><p>① 导入坐标</p>
-<p>② 创建Bean </p>
-<p>③ 创建applicationContextxml </p>
-<p>④ 在配置文件中进行配置 </p>
-<p>⑤ 创建ApplicationContext对象getBean</p>
-<h3 id="3-Spring配置文件"><a href="#3-Spring配置文件" class="headerlink" title="3. Spring配置文件"></a>3. Spring配置文件</h3><h4 id="3-1-Bean标签基本配置"><a href="#3-1-Bean标签基本配置" class="headerlink" title="3.1 Bean标签基本配置"></a>3.1 Bean标签基本配置</h4><p>用于配置对象交由Spring 来创建。 默认情况下它调用的是类中的无参构造函数，如果没有无参构造函数则不能创建成功。</p>
-<p> 基本属性∶ </p>
-<p>● id∶Bean实例在Spring容器中的唯一标识</p>
-<p>●class∶Bean的全限定名称 </p>
-<h4 id="3-2-Bean标签范围配置"><a href="#3-2-Bean标签范围配置" class="headerlink" title="3.2 Bean标签范围配置"></a>3.2 Bean标签范围配置</h4><p>scope：指对象的作用范围，取值如下：</p>
-<p><img src="https://pic.imgdb.cn/item/6246b99d27f86abb2a7d1aa9.jpg"></p>
-<p><strong>当scope的取值为singleton时</strong></p>
-<p>Bean的实例化个数：1个</p>
-<p>Bean的实例化时机：当Spring核心文件被加载时，实例化配置的Bean实例</p>
-<p>Bean的生命周期：</p>
-<p>（1） 对象创建：当应用加载，创建容器时，对象就被创建了</p>
-<p>（2）对象运行：只要容器在，对象一直活着</p>
-<p>（3）对象销毁：当应用卸载，销毁容器时，对象就被销毁了</p>
-<p><strong>当scope的取值为prototype时</strong></p>
-<p>Bean的实例化个数：多个</p>
-<p>Bean的实例化时机：当调用getBean()方法时实例化Bean</p>
-<p>（1）对象创建：当使用对象时，创建新的对象实例</p>
-<p>（2）对象运行：只要对象在使用中，就一直活着</p>
-<p>（3）对象销毁：当对象长时间不用时，被 Java 的垃圾回收器回收了</p>
-<h5 id="3-3-Bean生命周期配置"><a href="#3-3-Bean生命周期配置" class="headerlink" title="3.3 Bean生命周期配置"></a>3.3 Bean生命周期配置</h5><p><strong>init-method</strong>：指定类中的初始化方法名称</p>
-<p><strong>destroy-method</strong>：指定类中销毁方法名称</p>
-<h4 id="3-4-Bean实例化三种方式"><a href="#3-4-Bean实例化三种方式" class="headerlink" title="3.4 Bean实例化三种方式"></a>3.4 Bean实例化三种方式</h4><p>（1）无参<strong>构造</strong>方法实例化</p>
-<p>它会根据默认无参构造方法来创建类对象，如果bean中没有默认无参构造函数，将会创建失败。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.dao.impl.UserDaoImpl&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>（2）工厂<strong>静态</strong>方法实例化</p>
-<p>工厂的静态方法返回Bean实例</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StaticFactoryBean</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> UserDao <span class="title function_">createUserDao</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDaoImpl</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.factory.StaticFactoryBean&quot;</span> </span></span><br><span class="line"><span class="tag"><span class="attr">factory-method</span>=<span class="string">&quot;createUserDao&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>（3）工厂<strong>实例</strong>方法实例化</p>
-<p>工厂的非静态方法返回Bean实例</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DynamicFactoryBean</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> UserDao <span class="title function_">createUserDao</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDaoImpl</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;factoryBean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.factory.DynamicFactoryBean&quot;</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">factory-bean</span>=<span class="string">&quot;factoryBean&quot;</span> <span class="attr">factory-method</span>=<span class="string">&quot;createUserDao&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="3-5-Bean的依赖注入"><a href="#3-5-Bean的依赖注入" class="headerlink" title="3.5 Bean的依赖注入"></a>3.5 Bean的依赖注入</h4>]]></content>
-      <categories>
-        <category>Spring</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot —— 基础篇</title>
-    <url>/2022/03/31/SpringBootConfig/</url>
-    <content><![CDATA[<p>概述：SpringBoot基础知识学习与记录，学完这个篇章可以会用SpringBoot</p>
-<span id="more"></span>
-
-<h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>SpringBoot的设计目的是用来简化Spring应用的初始搭建以及开发过程</p>
-<h2 id="SpringBoot基础配置"><a href="#SpringBoot基础配置" class="headerlink" title="SpringBoot基础配置"></a>SpringBoot基础配置</h2><p>（1）IDEA新建项目</p>
-<p>查看版本：File -&gt; Settings -&gt; Maven 可以查看版本（我的版本为3.8.1）</p>
-<p>File -&gt; Project Structure -&gt; Modules -&gt; ‘+’  -&gt;New Module -&gt; Spring Initializr (注意如果没有的话要去settings -&gt;plugins -&gt; marketplace 下搜索并下载)</p>
-<p>进行如下配置</p>
-<p><img src="https://pic.imgdb.cn/item/6245ff0427f86abb2a70bbd8.jpg" alt="image01"></p>
-<p>选择spring web</p>
-<p>基础的环境配置即完成了</p>
-<h2 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h2><ol>
-<li><a href="https://docs.spring.io/spring-boot/docs/3.0.0-M1/reference/htmlsingle/"><em>SpringBoot reference documentation</em></a></li>
-</ol>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java与C++的差异</title>
-    <url>/2022/03/31/java-basic/</url>
-    <content><![CDATA[<p>概述：本文主要记录Java中与C++有明显差异的语言特性</p>
-<span id="more"></span>
-
-<h2 id="与C-的差异"><a href="#与C-的差异" class="headerlink" title="与C++的差异"></a>与C++的差异</h2><p>（1）C++ 支持指针，而 Java 没有指针的概念。</p>
-<p>（2）C++ 支持多继承，而 Java 不支持多重继承，但允许一个类实现多个接口。</p>
-<p>（3）Java 是完全面向对象的语言，并且还取消了 C&#x2F;C++ 中的结构和联合，使编译程序更加简洁</p>
-<p>（4）Java 自动进行无用内存回收操作，不再需要程序员进行手动删除，而 C++ 中必须由程序释放内存资源，这就增加了程序员的负担。</p>
-<p>（5）Java 不支持操作符重载，而操作符重载则被认为是 C++ 的突出特征。</p>
-<p>（6）Java 允许预处理，但不支持预处理器功能，所以为了实现预处理，它提供了引入语句（import），但它与 C++ 预处理器的功能类似。</p>
-<p>（7）Java 不支持缺省参数函数，而 C++ 支持 。</p>
-<p>（8）C 和 C++ 不支持字符串变量，在 C 和 C++ 程序中使用“Null”终止符代表字符串的结束。在 Java 中字符串是用类对象（String 和 StringBuffer）来实现的</p>
-<p>（9）Java 不提供 goto 语句，虽然 Java 指定 goto 作为关键字，但不支持它的使用，这使程序更简洁易读。不过Java中的break&#x2F;continue可以带标签（标签必须放在希望跳出的最外层循环之前，并且必须紧跟一个冒号），用于从内层循环中跳出</p>
-<p>（10）Java 不支持 C++ 中的自动强制类型转换，如果需要，必须由程序显式进行强制类型转换。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -682,6 +523,104 @@
       </tags>
   </entry>
   <entry>
+    <title>IDEAerror</title>
+    <url>/2022/04/01/IDEAerror/</url>
+    <content><![CDATA[<p>概述：本文记录了使用IDEA过程中遇到的错误以及解决方案</p>
+<span id="more"></span>
+
+
+
+<h4 id="IDEA-Java错误：不支持发行版本"><a href="#IDEA-Java错误：不支持发行版本" class="headerlink" title="IDEA Java错误：不支持发行版本"></a>IDEA Java错误：不支持发行版本</h4><p><a href="https://blog.csdn.net/Deeeelete/article/details/104382752?utm_medium=distribute.pc_relevant.none-task-blog-baidulandingword-3&spm=1001.2101.3001.4242"><em>解决方案</em></a></p>
+<h4 id="Cannot-resolve-symbol-’XXX‘"><a href="#Cannot-resolve-symbol-’XXX‘" class="headerlink" title="Cannot resolve symbol ’XXX‘"></a>Cannot resolve symbol ’XXX‘</h4><p><a href="https://blog.csdn.net/he99774/article/details/78254262"><em>解决方案</em></a></p>
+]]></content>
+      <categories>
+        <category>tools</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring01</title>
+    <url>/2022/04/01/Spring01/</url>
+    <content><![CDATA[<p>概述：本文记录了Spring的基础概念和基本配置方法</p>
+<span id="more"></span>
+
+<h3 id="1-Spring简介"><a href="#1-Spring简介" class="headerlink" title="1. Spring简介"></a>1. Spring简介</h3><h4 id="1-1-Spring是什么"><a href="#1-1-Spring是什么" class="headerlink" title="1.1 Spring是什么"></a>1.1 Spring是什么</h4><p>Spring是分层的Java SE&#x2F;EE 应用full-stack轻量级开源框架，以<strong>IoC</strong>（Inverse Of Control：反转控制）和<strong>AOP</strong>（Aspect Oriented Programming：面向切面编程）为内核</p>
+<p>提供了<strong>展现层SpringMVC</strong>和<strong>持久层Spring JDBCTemplate</strong>以及<strong>业务层事务管理</strong>等众多的企业级应用技术，还能整合开源世界众多著名的第三方框架和类库，逐渐成为使用最多的Java EE企业应用开源框架。</p>
+<h4 id="1-2-Spring的优势"><a href="#1-2-Spring的优势" class="headerlink" title="1.2 Spring的优势"></a>1.2 Spring的优势</h4><p>（1）方便解耦：简化开发 通过 Spring提供的 loC容器，可以将对象间的依赖关系交由 Spring 进行控制，避免硬编码所造成的过度耦合。用户也不必再为单例模式类、属性文件解析等这文些很底层的需求编写代码.可以更专注干上层的应用。 </p>
+<p>（2）AOP编程的支持： 通过 Spring的 AOP 功能，方便进行面向切面编程，许多不容易用传统 OOP 实现的功能可以通过 AOP 轻松实现。 </p>
+<p>（3）声明式事务的支持 ：可以将我们从单调烦闷的事务管理代码中解脱出来，通过声明式方式灵活的进行事务管理，提高开发效率和质量。 </p>
+<p>（4）方便程序的测试 ：可以用非容器依赖的编程方式进讲行几平所有的测试工作，测试不再是昂贵的操作，而是随手可做的事情。</p>
+<p>（5）方便集成各种优秀框架： Spring对各种优秀框架（Struts、 Hibernate、Hessian、Quartz等）的支持。</p>
+<p>（ 6）降低 JavaEE API的使用难度： Spring对 JavaEE API（如JDBC、JavaMail、远程调用等）进行了薄薄的封装层，使这些API的使用难度大为降低。 </p>
+<p>（7）Java 源码是经典学习范例： Spring的源代码设计精妙、结构清晰、匠心独用，处处体现着大师对Java 设计模式灵活运用以及对 Java技术的高深造诣。它的源代码是 Java技术的最佳实践的范例。 </p>
+<h4 id="1-3-Spring的体系结构"><a href="#1-3-Spring的体系结构" class="headerlink" title="1.3 Spring的体系结构"></a>1.3 Spring的体系结构</h4><img src="https://pic.imgdb.cn/item/6246961327f86abb2a362a69.jpg" style="zoom: 80%;" />
+
+<h3 id="2-Spring快速配置"><a href="#2-Spring快速配置" class="headerlink" title="2. Spring快速配置"></a>2. Spring快速配置</h3><h4 id="2-1-Spring程序开发步骤"><a href="#2-1-Spring程序开发步骤" class="headerlink" title="2.1 Spring程序开发步骤"></a>2.1 Spring程序开发步骤</h4><p><img src="https://pic.imgdb.cn/item/6246970127f86abb2a37fd13.jpg"></p>
+<p>① 导入 Spring 开发的基本包坐标</p>
+<p>② 编写 Dao 接口和实现类</p>
+<p>③ 创建 Spring核心配置文件 </p>
+<p>④ 在Spring 配置文件中配置 UserDaolmpl </p>
+<p>⑤ 使用 Spring 的API获得 Bean 实例 </p>
+<h4 id="2-2-导入Spring开发的基本包坐标"><a href="#2-2-导入Spring开发的基本包坐标" class="headerlink" title="2.2 导入Spring开发的基本包坐标"></a>2.2 导入Spring开发的基本包坐标</h4><h4 id="2-3-编写Dao接口和实现"><a href="#2-3-编写Dao接口和实现" class="headerlink" title="2.3 编写Dao接口和实现"></a>2.3 编写Dao接口和实现</h4><h4 id="2-4-创建Spring核心配置文件"><a href="#2-4-创建Spring核心配置文件" class="headerlink" title="2.4 创建Spring核心配置文件"></a>2.4 创建Spring核心配置文件</h4><p>在类路径下（resources）创建applicationContext.xml配置文件</p>
+<h4 id="2-5-在Spring配置文件中配置UserDaoImpl"><a href="#2-5-在Spring配置文件中配置UserDaoImpl" class="headerlink" title="2.5 在Spring配置文件中配置UserDaoImpl"></a>2.5 在Spring配置文件中配置UserDaoImpl</h4><h4 id="2-6-使用Spring的API获得Bean实例"><a href="#2-6-使用Spring的API获得Bean实例" class="headerlink" title="2.6 使用Spring的API获得Bean实例"></a>2.6 使用Spring的API获得Bean实例</h4><h4 id="2-7-要点总结"><a href="#2-7-要点总结" class="headerlink" title="2.7 要点总结"></a>2.7 要点总结</h4><p>① 导入坐标</p>
+<p>② 创建Bean </p>
+<p>③ 创建applicationContextxml </p>
+<p>④ 在配置文件中进行配置 </p>
+<p>⑤ 创建ApplicationContext对象getBean</p>
+<h3 id="3-Spring配置文件"><a href="#3-Spring配置文件" class="headerlink" title="3. Spring配置文件"></a>3. Spring配置文件</h3><h4 id="3-1-Bean标签基本配置"><a href="#3-1-Bean标签基本配置" class="headerlink" title="3.1 Bean标签基本配置"></a>3.1 Bean标签基本配置</h4><p>用于配置对象交由Spring 来创建。 默认情况下它调用的是类中的无参构造函数，如果没有无参构造函数则不能创建成功。</p>
+<p> 基本属性∶ </p>
+<p>● id∶Bean实例在Spring容器中的唯一标识</p>
+<p>●class∶Bean的全限定名称 </p>
+<h4 id="3-2-Bean标签范围配置"><a href="#3-2-Bean标签范围配置" class="headerlink" title="3.2 Bean标签范围配置"></a>3.2 Bean标签范围配置</h4><p>scope：指对象的作用范围，取值如下：</p>
+<p><img src="https://pic.imgdb.cn/item/6246b99d27f86abb2a7d1aa9.jpg"></p>
+<p><strong>当scope的取值为singleton时</strong></p>
+<p>Bean的实例化个数：1个</p>
+<p>Bean的实例化时机：当Spring核心文件被加载时，实例化配置的Bean实例</p>
+<p>Bean的生命周期：</p>
+<p>（1） 对象创建：当应用加载，创建容器时，对象就被创建了</p>
+<p>（2）对象运行：只要容器在，对象一直活着</p>
+<p>（3）对象销毁：当应用卸载，销毁容器时，对象就被销毁了</p>
+<p><strong>当scope的取值为prototype时</strong></p>
+<p>Bean的实例化个数：多个</p>
+<p>Bean的实例化时机：当调用getBean()方法时实例化Bean</p>
+<p>（1）对象创建：当使用对象时，创建新的对象实例</p>
+<p>（2）对象运行：只要对象在使用中，就一直活着</p>
+<p>（3）对象销毁：当对象长时间不用时，被 Java 的垃圾回收器回收了</p>
+<h5 id="3-3-Bean生命周期配置"><a href="#3-3-Bean生命周期配置" class="headerlink" title="3.3 Bean生命周期配置"></a>3.3 Bean生命周期配置</h5><p><strong>init-method</strong>：指定类中的初始化方法名称</p>
+<p><strong>destroy-method</strong>：指定类中销毁方法名称</p>
+<h4 id="3-4-Bean实例化三种方式"><a href="#3-4-Bean实例化三种方式" class="headerlink" title="3.4 Bean实例化三种方式"></a>3.4 Bean实例化三种方式</h4><p>（1）无参<strong>构造</strong>方法实例化</p>
+<p>它会根据默认无参构造方法来创建类对象，如果bean中没有默认无参构造函数，将会创建失败。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.dao.impl.UserDaoImpl&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）工厂<strong>静态</strong>方法实例化</p>
+<p>工厂的静态方法返回Bean实例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StaticFactoryBean</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> UserDao <span class="title function_">createUserDao</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDaoImpl</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.factory.StaticFactoryBean&quot;</span> </span></span><br><span class="line"><span class="tag"><span class="attr">factory-method</span>=<span class="string">&quot;createUserDao&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>（3）工厂<strong>实例</strong>方法实例化</p>
+<p>工厂的非静态方法返回Bean实例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DynamicFactoryBean</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> UserDao <span class="title function_">createUserDao</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDaoImpl</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;factoryBean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.factory.DynamicFactoryBean&quot;</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">factory-bean</span>=<span class="string">&quot;factoryBean&quot;</span> <span class="attr">factory-method</span>=<span class="string">&quot;createUserDao&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-5-Bean的依赖注入"><a href="#3-5-Bean的依赖注入" class="headerlink" title="3.5 Bean的依赖注入"></a>3.5 Bean的依赖注入</h4>]]></content>
+      <categories>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Maven-基础</title>
     <url>/2022/03/31/mavenbasic/</url>
     <content><![CDATA[<p>概述：本文主要记录Maven工具的思想和基本用法。包括环境配置，基础概念，项目构建，依赖管理等部分</p>
@@ -782,6 +721,107 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot —— 基础篇</title>
+    <url>/2022/03/31/SpringBootConfig/</url>
+    <content><![CDATA[<p>概述：SpringBoot基础知识学习与记录，学完这个篇章可以会用SpringBoot</p>
+<span id="more"></span>
+
+<h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>SpringBoot的设计目的是用来简化Spring应用的初始搭建以及开发过程</p>
+<h2 id="SpringBoot基础配置"><a href="#SpringBoot基础配置" class="headerlink" title="SpringBoot基础配置"></a>SpringBoot基础配置</h2><p>（1）IDEA新建项目</p>
+<p>查看版本：File -&gt; Settings -&gt; Maven 可以查看版本（我的版本为3.8.1）</p>
+<p>File -&gt; Project Structure -&gt; Modules -&gt; ‘+’  -&gt;New Module -&gt; Spring Initializr (注意如果没有的话要去settings -&gt;plugins -&gt; marketplace 下搜索并下载)</p>
+<p>进行如下配置</p>
+<p><img src="https://pic.imgdb.cn/item/6245ff0427f86abb2a70bbd8.jpg" alt="image01"></p>
+<p>选择spring web</p>
+<p>基础的环境配置即完成了</p>
+<h2 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h2><ol>
+<li><a href="https://docs.spring.io/spring-boot/docs/3.0.0-M1/reference/htmlsingle/"><em>SpringBoot reference documentation</em></a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java与C++的差异</title>
+    <url>/2022/03/31/java-basic/</url>
+    <content><![CDATA[<p>概述：本文主要记录Java中与C++有明显差异的语言特性</p>
+<span id="more"></span>
+
+<h2 id="与C-的差异"><a href="#与C-的差异" class="headerlink" title="与C++的差异"></a>与C++的差异</h2><p>（1）C++ 支持指针，而 Java 没有指针的概念。</p>
+<p>（2）C++ 支持多继承，而 Java 不支持多重继承，但允许一个类实现多个接口。</p>
+<p>（3）Java 是完全面向对象的语言，并且还取消了 C&#x2F;C++ 中的结构和联合，使编译程序更加简洁</p>
+<p>（4）Java 自动进行无用内存回收操作，不再需要程序员进行手动删除，而 C++ 中必须由程序释放内存资源，这就增加了程序员的负担。</p>
+<p>（5）Java 不支持操作符重载，而操作符重载则被认为是 C++ 的突出特征。</p>
+<p>（6）Java 允许预处理，但不支持预处理器功能，所以为了实现预处理，它提供了引入语句（import），但它与 C++ 预处理器的功能类似。</p>
+<p>（7）Java 不支持缺省参数函数，而 C++ 支持 。</p>
+<p>（8）C 和 C++ 不支持字符串变量，在 C 和 C++ 程序中使用“Null”终止符代表字符串的结束。在 Java 中字符串是用类对象（String 和 StringBuffer）来实现的</p>
+<p>（9）Java 不提供 goto 语句，虽然 Java 指定 goto 作为关键字，但不支持它的使用，这使程序更简洁易读。不过Java中的break&#x2F;continue可以带标签（标签必须放在希望跳出的最外层循环之前，并且必须紧跟一个冒号），用于从内层循环中跳出</p>
+<p>（10）Java 不支持 C++ 中的自动强制类型转换，如果需要，必须由程序显式进行强制类型转换。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Good questions —— 数组篇</title>
+    <url>/2022/03/31/questions/</url>
+    <content><![CDATA[<p>概述：本文记录了我在<a href="https://leetcode-cn.com/"><em>Leetcode</em></a>刷题过程中遇到的与数组相关的优质题目及解题思路</p>
+<span id="more"></span>
+
+<h2 id="全排列"><a href="#全排列" class="headerlink" title="全排列"></a>全排列</h2><p>给定一个不含重复数字的数组 nums ，返回其 <a href="https://leetcode-cn.com/problems/permutations/"><em>所有可能的全排列</em></a> 。可以 <strong>按任意顺序</strong> 返回答案。 </p>
+<p>思路：</p>
+<p>使用<strong>dfs+回溯</strong>。比较经典的回溯题。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//dfs(回溯)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permute</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">vis</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums,vector&lt;<span class="type">int</span>&gt;&amp; vis)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()==nums.<span class="built_in">size</span>())</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=nums.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(vis[i]==<span class="number">0</span>)&#123;</span><br><span class="line">                vis[i]=<span class="number">1</span>;</span><br><span class="line">                path.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">                <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">                path.<span class="built_in">pop_back</span>();</span><br><span class="line">                vis[i]=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>非递归版本：</p>
+<p>思路：</p>
+<p>（1）通过实现<a href="https://leetcode-cn.com/problems/next-permutation/">下一个排列</a>函数来实现找到全部排列</p>
+<p>（2）下一个排列：<strong>从后往前</strong>搜索数组，找到第一个逆序对。如&lt;3,4,7,6,5&gt;中4是第一个出现逆序的。将4置换为&lt;7,6,5&gt;中比4大且最小的那个数（即5），数组变为&lt;3,5,7,6,4&gt;。再将&lt;7,6,4&gt;部分升序排列（实际上反转就是排序）即可，变为&lt;3,5,4,6,7&gt;即为下一个排列</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">nextPermutation</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> flag=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=nums.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&lt;=nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">                <span class="keyword">if</span>(i<span class="number">-1</span>==<span class="number">0</span>)      <span class="comment">//已经为最大的排列（全降序），那么下一个即为最小的排列（全升序）</span></span><br><span class="line">                    <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//找到第一个逆序发生的索引i-1</span></span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> j=nums.<span class="built_in">size</span>()<span class="number">-1</span>;j&gt;i<span class="number">-1</span>;--j)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(nums[j]&gt;nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">                        <span class="built_in">swap</span>(nums[j],nums[i<span class="number">-1</span>]);</span><br><span class="line">                        <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>()+i,nums.<span class="built_in">end</span>());</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>给定一个可包含重复数字的数组 nums ，返回其 <em>所有可能的</em><a href="https://leetcode-cn.com/problems/permutations-ii/"><em>全排列</em></a> 。你可以 <strong>按任意顺序</strong> 返回答案。 </p>
+<p>思路：</p>
+<p>（1）相较于上一题，这题需要多考虑去重的问题，即在同一层中，如果可选择的范围（未被访问过的范围）包含重复的数字，那么只能选择第一个，跳过重复的部分。</p>
+<p>（2）另外要预先对nums进行排序，保证重复的数字都是相邻的</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permuteUnique</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());<span class="comment">//为了使重复的数都相邻</span></span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">vis</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums,vector&lt;<span class="type">int</span>&gt;&amp; vis)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()==nums.<span class="built_in">size</span>())&#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=nums.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="comment">//要保证在同一层中使用的是不同的数</span></span><br><span class="line">            <span class="comment">//对于有重复的数，要找到第一个未被使用过的</span></span><br><span class="line">            <span class="keyword">if</span>(i&gt;<span class="number">0</span> &amp;&amp; nums[i]==nums[i<span class="number">-1</span>] &amp;&amp; vis[i<span class="number">-1</span>]==<span class="number">0</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(vis[i]==<span class="number">0</span>)&#123;</span><br><span class="line">                vis[i]=<span class="number">1</span>;</span><br><span class="line">                path.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">                <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">                path.<span class="built_in">pop_back</span>();</span><br><span class="line">                vis[i]=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="最长递增子序列问题"><a href="#最长递增子序列问题" class="headerlink" title="最长递增子序列问题"></a>最长递增子序列问题</h2><p>题目来源：<a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/">最长递增子序列</a>LIS问题及 <a href="https://leetcode-cn.com/problems/minimum-operations-to-make-the-array-k-increasing/submissions/">变体</a></p>
+<p>给定一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p>
+<p>子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p>
+<p>（1）动态规划方法，时间复杂度O(n^2)</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//动态规划：dp[i]=max(dp[i],dp[j]+1)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">lengthOfLIS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(nums.size(),<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=nums.<span class="built_in">size</span>();++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j!=i;++j)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[j]&lt;nums[i])</span><br><span class="line">                dp[i]=<span class="built_in">max</span>(dp[i],dp[j]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> *<span class="built_in">max_element</span>(dp.<span class="built_in">begin</span>(),dp.<span class="built_in">end</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>（2）维护一个记录长度为i时递增子序列末尾元素的最小值，时间复杂度O(n)</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">lengthOfLIS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//维护一个数组 temp[i]，表示长度为 i 的最长上升子序列的末尾元素的最小值，temp[0] = nums[0]</span></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; temp;</span><br><span class="line">        temp.<span class="built_in">emplace_back</span>(nums[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i!=nums.<span class="built_in">size</span>();++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&gt;temp.<span class="built_in">back</span>())</span><br><span class="line">            temp.<span class="built_in">emplace_back</span>(nums[i]);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//注意这里要使用lower_bound</span></span><br><span class="line">                <span class="keyword">auto</span> it=<span class="built_in">lower_bound</span>(temp.<span class="built_in">begin</span>(),temp.<span class="built_in">end</span>(),nums[i]);</span><br><span class="line">                <span class="comment">//if(it==temp.end())</span></span><br><span class="line">                <span class="comment">//continue;</span></span><br><span class="line">                temp[it-temp.<span class="built_in">begin</span>()]=nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> temp.<span class="built_in">size</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="原地哈希"><a href="#原地哈希" class="headerlink" title="原地哈希"></a>原地哈希</h2><p>（1）要求在数组中<a href="https://leetcode-cn.com/problems/find-all-duplicates-in-an-array/">找出所有出现两次的整数</a>，时间复杂度O(n)，空间复杂度O(1)</p>
+<p>思想：原地哈希</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">findDuplicates</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        <span class="type">int</span> n=nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="comment">//思想，将nums[nums[i]-1]位置的数值加上n（由于是出现两次，直接取反也行）</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=n;++i)&#123;</span><br><span class="line">            nums[(nums[i]<span class="number">-1</span>)%n]+=n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=n;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nums[i]<span class="number">-1</span>)/n==<span class="number">2</span>)</span><br><span class="line">                res.<span class="built_in">push_back</span>(i+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>（2）要求在长度为n的数组中[找到没有出现在[1,n]<a href="https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/"><em>范围内的数字</em></a></p>
+<p>思想：将nums中出现过的数字作为索引，将对应位置取反</p>
+<h2 id="打印螺旋矩阵"><a href="#打印螺旋矩阵" class="headerlink" title="打印螺旋矩阵"></a>打印螺旋矩阵</h2><p>题目来源：<a href="https://leetcode-cn.com/problems/spiral-matrix/">打印螺旋矩阵</a>：</p>
+<p>思路：</p>
+<p>（1）想到按层来遍历可以省去空间复杂度</p>
+<p>（2）定义四个变量（left，right，top，bottom）来控制每一层的边界</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Good questions —— 二叉树篇</title>
     <url>/2022/03/31/questions02/</url>
     <content><![CDATA[<p>概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路</p>
@@ -833,57 +873,6 @@
 <p>（2）在递归的过程中不断更新一个最大路径和，包含当前节点并且可以同时包含左右子树的节点。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> maxsum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> lval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;left));<span class="comment">//包含根节点root的单条路径的最大值</span></span><br><span class="line">        <span class="type">int</span> rval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;right));</span><br><span class="line">        maxsum = <span class="built_in">max</span>(maxsum,root-&gt;val+lval+rval);</span><br><span class="line">        <span class="keyword">return</span> root-&gt;val + <span class="built_in">max</span>(lval,rval);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> maxsum = INT_MIN;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Good questions —— 数组篇</title>
-    <url>/2022/03/31/questions/</url>
-    <content><![CDATA[<p>概述：本文记录了我在<a href="https://leetcode-cn.com/"><em>Leetcode</em></a>刷题过程中遇到的与数组相关的优质题目及解题思路</p>
-<span id="more"></span>
-
-<h2 id="全排列"><a href="#全排列" class="headerlink" title="全排列"></a>全排列</h2><p>给定一个不含重复数字的数组 nums ，返回其 <a href="https://leetcode-cn.com/problems/permutations/"><em>所有可能的全排列</em></a> 。可以 <strong>按任意顺序</strong> 返回答案。 </p>
-<p>思路：</p>
-<p>使用<strong>dfs+回溯</strong>。比较经典的回溯题。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//dfs(回溯)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permute</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">vis</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums,vector&lt;<span class="type">int</span>&gt;&amp; vis)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()==nums.<span class="built_in">size</span>())</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=nums.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(vis[i]==<span class="number">0</span>)&#123;</span><br><span class="line">                vis[i]=<span class="number">1</span>;</span><br><span class="line">                path.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">                <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">                path.<span class="built_in">pop_back</span>();</span><br><span class="line">                vis[i]=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>非递归版本：</p>
-<p>思路：</p>
-<p>（1）通过实现<a href="https://leetcode-cn.com/problems/next-permutation/">下一个排列</a>函数来实现找到全部排列</p>
-<p>（2）下一个排列：<strong>从后往前</strong>搜索数组，找到第一个逆序对。如&lt;3,4,7,6,5&gt;中4是第一个出现逆序的。将4置换为&lt;7,6,5&gt;中比4大且最小的那个数（即5），数组变为&lt;3,5,7,6,4&gt;。再将&lt;7,6,4&gt;部分升序排列（实际上反转就是排序）即可，变为&lt;3,5,4,6,7&gt;即为下一个排列</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">nextPermutation</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> flag=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=nums.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&lt;=nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">                <span class="keyword">if</span>(i<span class="number">-1</span>==<span class="number">0</span>)      <span class="comment">//已经为最大的排列（全降序），那么下一个即为最小的排列（全升序）</span></span><br><span class="line">                    <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//找到第一个逆序发生的索引i-1</span></span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> j=nums.<span class="built_in">size</span>()<span class="number">-1</span>;j&gt;i<span class="number">-1</span>;--j)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(nums[j]&gt;nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">                        <span class="built_in">swap</span>(nums[j],nums[i<span class="number">-1</span>]);</span><br><span class="line">                        <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>()+i,nums.<span class="built_in">end</span>());</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>给定一个可包含重复数字的数组 nums ，返回其 <em>所有可能的</em><a href="https://leetcode-cn.com/problems/permutations-ii/"><em>全排列</em></a> 。你可以 <strong>按任意顺序</strong> 返回答案。 </p>
-<p>思路：</p>
-<p>（1）相较于上一题，这题需要多考虑去重的问题，即在同一层中，如果可选择的范围（未被访问过的范围）包含重复的数字，那么只能选择第一个，跳过重复的部分。</p>
-<p>（2）另外要预先对nums进行排序，保证重复的数字都是相邻的</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permuteUnique</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());<span class="comment">//为了使重复的数都相邻</span></span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">vis</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums,vector&lt;<span class="type">int</span>&gt;&amp; vis)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()==nums.<span class="built_in">size</span>())&#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=nums.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="comment">//要保证在同一层中使用的是不同的数</span></span><br><span class="line">            <span class="comment">//对于有重复的数，要找到第一个未被使用过的</span></span><br><span class="line">            <span class="keyword">if</span>(i&gt;<span class="number">0</span> &amp;&amp; nums[i]==nums[i<span class="number">-1</span>] &amp;&amp; vis[i<span class="number">-1</span>]==<span class="number">0</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(vis[i]==<span class="number">0</span>)&#123;</span><br><span class="line">                vis[i]=<span class="number">1</span>;</span><br><span class="line">                path.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">                <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">                path.<span class="built_in">pop_back</span>();</span><br><span class="line">                vis[i]=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="最长递增子序列问题"><a href="#最长递增子序列问题" class="headerlink" title="最长递增子序列问题"></a>最长递增子序列问题</h2><p>题目来源：<a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/">最长递增子序列</a>LIS问题及 <a href="https://leetcode-cn.com/problems/minimum-operations-to-make-the-array-k-increasing/submissions/">变体</a></p>
-<p>给定一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p>
-<p>子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p>
-<p>（1）动态规划方法，时间复杂度O(n^2)</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//动态规划：dp[i]=max(dp[i],dp[j]+1)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">lengthOfLIS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(nums.size(),<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=nums.<span class="built_in">size</span>();++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j!=i;++j)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[j]&lt;nums[i])</span><br><span class="line">                dp[i]=<span class="built_in">max</span>(dp[i],dp[j]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> *<span class="built_in">max_element</span>(dp.<span class="built_in">begin</span>(),dp.<span class="built_in">end</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>（2）维护一个记录长度为i时递增子序列末尾元素的最小值，时间复杂度O(n)</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">lengthOfLIS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//维护一个数组 temp[i]，表示长度为 i 的最长上升子序列的末尾元素的最小值，temp[0] = nums[0]</span></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; temp;</span><br><span class="line">        temp.<span class="built_in">emplace_back</span>(nums[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i!=nums.<span class="built_in">size</span>();++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&gt;temp.<span class="built_in">back</span>())</span><br><span class="line">            temp.<span class="built_in">emplace_back</span>(nums[i]);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//注意这里要使用lower_bound</span></span><br><span class="line">                <span class="keyword">auto</span> it=<span class="built_in">lower_bound</span>(temp.<span class="built_in">begin</span>(),temp.<span class="built_in">end</span>(),nums[i]);</span><br><span class="line">                <span class="comment">//if(it==temp.end())</span></span><br><span class="line">                <span class="comment">//continue;</span></span><br><span class="line">                temp[it-temp.<span class="built_in">begin</span>()]=nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> temp.<span class="built_in">size</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="原地哈希"><a href="#原地哈希" class="headerlink" title="原地哈希"></a>原地哈希</h2><p>（1）要求在数组中<a href="https://leetcode-cn.com/problems/find-all-duplicates-in-an-array/">找出所有出现两次的整数</a>，时间复杂度O(n)，空间复杂度O(1)</p>
-<p>思想：原地哈希</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">findDuplicates</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        <span class="type">int</span> n=nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="comment">//思想，将nums[nums[i]-1]位置的数值加上n（由于是出现两次，直接取反也行）</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=n;++i)&#123;</span><br><span class="line">            nums[(nums[i]<span class="number">-1</span>)%n]+=n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=n;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nums[i]<span class="number">-1</span>)/n==<span class="number">2</span>)</span><br><span class="line">                res.<span class="built_in">push_back</span>(i+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>（2）要求在长度为n的数组中[找到没有出现在[1,n]<a href="https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/"><em>范围内的数字</em></a></p>
-<p>思想：将nums中出现过的数字作为索引，将对应位置取反</p>
-<h2 id="打印螺旋矩阵"><a href="#打印螺旋矩阵" class="headerlink" title="打印螺旋矩阵"></a>打印螺旋矩阵</h2><p>题目来源：<a href="https://leetcode-cn.com/problems/spiral-matrix/">打印螺旋矩阵</a>：</p>
-<p>思路：</p>
-<p>（1）想到按层来遍历可以省去空间复杂度</p>
-<p>（2）定义四个变量（left，right，top，bottom）来控制每一层的边界</p>
 ]]></content>
       <categories>
         <category>算法</category>
