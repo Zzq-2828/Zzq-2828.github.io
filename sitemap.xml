@@ -209,14 +209,7 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/categories/MySQL/</loc>
-    <lastmod>2022-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zzzzzq.com/categories/Java/</loc>
+    <loc>https://www.zzzzzq.com/categories/MySQL-JavaWeb/</loc>
     <lastmod>2022-04-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -230,7 +223,7 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/categories/MySQL/JavaWeb/</loc>
+    <loc>https://www.zzzzzq.com/categories/Java/</loc>
     <lastmod>2022-04-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
