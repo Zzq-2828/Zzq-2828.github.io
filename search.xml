@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>IDEAerror</title>
-    <url>/2022/04/01/IDEAerror/</url>
-    <content><![CDATA[<p>概述：本文记录了使用IDEA过程中遇到的错误以及解决方案</p>
-<span id="more"></span>
-
-
-
-<h4 id="IDEA-Java错误：不支持发行版本"><a href="#IDEA-Java错误：不支持发行版本" class="headerlink" title="IDEA Java错误：不支持发行版本"></a>IDEA Java错误：不支持发行版本</h4><p><a href="https://blog.csdn.net/Deeeelete/article/details/104382752?utm_medium=distribute.pc_relevant.none-task-blog-baidulandingword-3&spm=1001.2101.3001.4242"><em>解决方案</em></a></p>
-<h4 id="Cannot-resolve-symbol-’XXX‘-无法解析的符号-、"><a href="#Cannot-resolve-symbol-’XXX‘-无法解析的符号-、" class="headerlink" title="Cannot resolve symbol ’XXX‘ (无法解析的符号)、"></a>Cannot resolve symbol ’XXX‘ (无法解析的符号)、</h4><p>一般先检查项目结构中是否已经选择了合适的JDK</p>
-<p><a href="https://blog.csdn.net/he99774/article/details/78254262"><em>解决方案</em></a></p>
-]]></content>
-      <categories>
-        <category>tools</category>
-      </categories>
-      <tags>
-        <tag>tools</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JDBC、数据库连接池、JDBCTemplate</title>
     <url>/2022/04/02/JDBC/</url>
     <content><![CDATA[<p>概述：本文记录了JDBC (Java DataBase Connectivity) 的相关知识，JDBC的基本概念级用法，数据库的连接池和JDBCTemplate。</p>
@@ -66,7 +47,7 @@
 </li>
 <li><p>参数：</p>
 <ul>
-<li><p>url：指定连接的路径<br>    * <strong>语法：jdbc:mysql:&#x2F;&#x2F;ip地址(域名):端口号&#x2F;数据库名称</strong><br>    * 例子：jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;db3<br>    * 细节：<strong>如果连接的是本机mysql服务器，并且mysql服务默认端口是3306，则url可以简写为：jdbc:mysql:&#x2F;&#x2F;&#x2F;数据库名称</strong></p>
+<li><p>url：指定连接的路径<br>    * <strong>语法：jdbc:mysql:&#x2F;&#x2F;ip地址(域名):端口号&#x2F;数据库名称</strong><br>            * 例子：jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;db3<br>            * 细节：<strong>如果连接的是本机mysql服务器，并且mysql服务默认端口是3306，则url可以简写为：jdbc:mysql:&#x2F;&#x2F;&#x2F;数据库名称</strong></p>
 </li>
 <li><p>user：用户名</p>
 </li>
@@ -317,25 +298,43 @@
 <pre><code><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">JdbcTemplate</span> <span class="variable">template</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JdbcTemplate</span>(ds);</span><br></pre></td></tr></table></figure>
 </code></pre>
 <ol start="3">
-<li>调用JdbcTemplate的方法来完成CRUD的操作<br>* <code>update()</code>:执行DML语句。增、删、改语句<br>* <code>queryForMap()</code>:查询结果将结果集封装为map集合，将列名作为key，将值作为value 将这条记录封装为一个map集合<ul>
-<li>注意：这个方法查询的结果集长度只能是1<br>* <code>queryForList()</code>:查询结果将结果集封装为list集合</li>
-<li>注意：将每一条记录封装为一个Map集合，再将Map集合装载到List集合中<br>* <code>query()</code>:查询结果，将结果封装为JavaBean对象</li>
-<li>query的参数：RowMapper<ul>
-<li>一般我们使用BeanPropertyRowMapper实现类。可以完成数据到JavaBean的自动封装</li>
-<li>new BeanPropertyRowMapper&lt;类型&gt;(类型.class)<ul>
-<li><code>queryForObject()</code>：查询结果，将结果封装为对象</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>一般用于聚合函数的查询</li>
-</ul>
-</li>
+<li>调用JdbcTemplate的方法来完成CRUD的操作<br>* <code>update()</code>:执行DML语句。增、删、改语句</li>
 </ol>
-<pre><code><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.jdbctemplate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.itcast.utils.JDBCUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.JdbcTemplate;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * JdbcTemplate入门</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JdbcTemplateDemo1</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//1.导入jar包</span></span><br><span class="line">        <span class="comment">//2.创建JDBCTemplate对象</span></span><br><span class="line">        <span class="type">JdbcTemplate</span> <span class="variable">template</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JdbcTemplate</span>(JDBCUtils.getDataSource());</span><br><span class="line">        <span class="comment">//3.调用方法</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;update t_class set classname = &#x27;class2&#x27; where classno = ?&quot;</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> template.update(sql, <span class="number">200</span>);</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>* ```queryForMap()```:查询结果将结果集封装为map集合，将列名作为key，将值作为value 将这条记录封装为一个map集合
+
+     注意：这个方法查询的结果集长度只能是1
+
+* ```queryForList()```:查询结果将结果集封装为list集合
+
+     ​    注意：将每一条记录封装为一个Map集合，再将Map集合装载到List集合中
+
+* ```query()```:查询结果，将结果封装为JavaBean对象
+
+ * query的参数：RowMapper
+      一般我们使用BeanPropertyRowMapper实现类。可以完成数据到JavaBean的自动封装
+                * new BeanPropertyRowMapper&lt;类型&gt;(类型.class)
+
+* ```queryForObject()```：查询结果，将结果封装为对象
+
+ * 一般用于聚合函数的查询
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.jdbctemplate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.itcast.utils.JDBCUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.JdbcTemplate;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * JdbcTemplate入门</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JdbcTemplateDemo1</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//1.导入jar包</span></span><br><span class="line">        <span class="comment">//2.创建JDBCTemplate对象</span></span><br><span class="line">        <span class="type">JdbcTemplate</span> <span class="variable">template</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JdbcTemplate</span>(JDBCUtils.getDataSource());</span><br><span class="line">        <span class="comment">//3.调用方法</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;update t_class set classname = &#x27;class2&#x27; where classno = ?&quot;</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> template.update(sql, <span class="number">200</span>);</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </code></pre>
 </li>
 </ul>
+<p>使用练习：</p>
+<p>table emp格式：</p>
+<p><img src="https://pic.imgdb.cn/item/62547ea4239250f7c59b6709.jpg"></p>
+<ul>
+<li>设计一个emp类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.domain;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Emp</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String ename;</span><br><span class="line">    <span class="keyword">private</span> String job;</span><br><span class="line">    <span class="keyword">private</span> Integer mgr;</span><br><span class="line">    <span class="keyword">private</span> Date joindate;</span><br><span class="line">    <span class="keyword">private</span> Double salary;</span><br><span class="line">    <span class="keyword">private</span> Double bonus;</span><br><span class="line">    <span class="keyword">private</span> Integer dept_id;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Integer <span class="title function_">getId</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setId</span><span class="params">(Integer id)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getEname</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ename;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setEname</span><span class="params">(String ename)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.ename = ename;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getJob_id</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> job;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setJob_id</span><span class="params">(String job)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.job = job;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Integer <span class="title function_">getMgr</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> mgr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMgr</span><span class="params">(Integer mgr)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.mgr = mgr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Date <span class="title function_">getJoindate</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> joindate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setJoindate</span><span class="params">(Date joindate)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.joindate = joindate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Double <span class="title function_">getSalary</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> salary;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSalary</span><span class="params">(Double salary)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.salary = salary;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Double <span class="title function_">getBonus</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> bonus;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setBonus</span><span class="params">(Double bonus)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.bonus = bonus;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Integer <span class="title function_">getDept_id</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> dept_id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setDept_id</span><span class="params">(Integer dept_id)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.dept_id = dept_id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Emp&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;id=&quot;</span> + id +</span><br><span class="line">                <span class="string">&quot;, ename=&#x27;&quot;</span> + ename + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, job_id=&quot;</span> + job +</span><br><span class="line">                <span class="string">&quot;, mgr=&quot;</span> + mgr +</span><br><span class="line">                <span class="string">&quot;, joindate=&quot;</span> + joindate +</span><br><span class="line">                <span class="string">&quot;, salary=&quot;</span> + salary +</span><br><span class="line">                <span class="string">&quot;, bonus=&quot;</span> + bonus +</span><br><span class="line">                <span class="string">&quot;, dept_id=&quot;</span> + dept_id +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用Junit进行测试</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.jdbctemplate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.itcast.domain.Emp;</span><br><span class="line"><span class="keyword">import</span> cn.itcast.utils.JDBCUtils;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.BeanPropertyRowMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.JdbcTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.RowMapper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.Date;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JdbcTemplateDemo2</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Junit单元测试，可以让方法独立执行</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//1. 获取JDBCTemplate对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">JdbcTemplate</span> <span class="variable">template</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JdbcTemplate</span>(JDBCUtils.getDataSource());</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 1. 修改1号数据的 salary 为 10000</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2. 定义sql</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;update emp set SAL = 1000 where EMPNO = 7369&quot;</span>;</span><br><span class="line">        <span class="comment">//3. 执行sql</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> template.update(sql);</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 2. 添加一条记录</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test2</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;insert into emp(empno,ename,deptno) values(?,?,?)&quot;</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> template.update(sql, <span class="number">1015</span>, <span class="string">&quot;郭靖&quot;</span>, <span class="number">10</span>);</span><br><span class="line">        System.out.println(count);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 3.删除刚才添加的记录</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test3</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;delete from emp where empno = ?&quot;</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> template.update(sql, <span class="number">1015</span>);</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 4.查询id为1001的记录，将其封装为Map集合</span></span><br><span class="line"><span class="comment">     * 注意：这个方法查询的结果集长度只能是1</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test4</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from emp where empno = ? or empno = ?&quot;</span>;</span><br><span class="line">        Map&lt;String, Object&gt; map = template.queryForMap(sql, <span class="number">1015</span>,<span class="number">7369</span>);</span><br><span class="line">        System.out.println(map);</span><br><span class="line">        <span class="comment">//&#123;id=1001, ename=孙悟空, job_id=4, mgr=1004, joindate=2000-12-17, salary=10000.00, bonus=null, dept_id=20&#125;</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 5. 查询所有记录，将其封装为List</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test5</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from t_class&quot;</span>;</span><br><span class="line">        List&lt;Map&lt;String, Object&gt;&gt; list = template.queryForList(sql);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Map&lt;String, Object&gt; stringObjectMap : list) &#123;</span><br><span class="line">            System.out.println(stringObjectMap);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 6. 查询所有记录，将其封装为Emp对象的List集合</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test6</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from emp&quot;</span>;</span><br><span class="line">        List&lt;Emp&gt; list = template.query(sql, <span class="keyword">new</span> <span class="title class_">RowMapper</span>&lt;Emp&gt;() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> Emp <span class="title function_">mapRow</span><span class="params">(ResultSet rs, <span class="type">int</span> i)</span> <span class="keyword">throws</span> SQLException &#123;</span><br><span class="line">                <span class="type">Emp</span> <span class="variable">emp</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Emp</span>();</span><br><span class="line">                <span class="type">int</span> <span class="variable">id</span> <span class="operator">=</span> rs.getInt(<span class="string">&quot;EMPNO&quot;</span>);</span><br><span class="line">                <span class="type">String</span> <span class="variable">ename</span> <span class="operator">=</span> rs.getString(<span class="string">&quot;ENAME&quot;</span>);</span><br><span class="line">                <span class="type">String</span> <span class="variable">job</span> <span class="operator">=</span> rs.getString(<span class="string">&quot;JOB&quot;</span>);</span><br><span class="line">                <span class="type">int</span> <span class="variable">mgr</span> <span class="operator">=</span> rs.getInt(<span class="string">&quot;MGR&quot;</span>);</span><br><span class="line">                <span class="type">Date</span> <span class="variable">joindate</span> <span class="operator">=</span> rs.getDate(<span class="string">&quot;HIREDATE&quot;</span>);</span><br><span class="line">                <span class="type">double</span> <span class="variable">salary</span> <span class="operator">=</span> rs.getDouble(<span class="string">&quot;SAL&quot;</span>);</span><br><span class="line">                <span class="type">double</span> <span class="variable">bonus</span> <span class="operator">=</span> rs.getDouble(<span class="string">&quot;COMM&quot;</span>);</span><br><span class="line">                <span class="type">int</span> <span class="variable">dept_id</span> <span class="operator">=</span> rs.getInt(<span class="string">&quot;DEPTNO&quot;</span>);</span><br><span class="line"></span><br><span class="line">                emp.setId(id);</span><br><span class="line">                emp.setEname(ename);</span><br><span class="line">                emp.setJob_id(job);</span><br><span class="line">                emp.setMgr(mgr);</span><br><span class="line">                emp.setJoindate(joindate);</span><br><span class="line">                emp.setSalary(salary);</span><br><span class="line">                emp.setBonus(bonus);</span><br><span class="line">                emp.setDept_id(dept_id);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> emp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Emp emp : list) &#123;</span><br><span class="line">            System.out.println(emp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 6. 查询所有记录，将其封装为Emp对象的List集合</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test6_2</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from emp&quot;</span>;</span><br><span class="line">        List&lt;Emp&gt; list = template.query(sql, <span class="keyword">new</span> <span class="title class_">BeanPropertyRowMapper</span>&lt;Emp&gt;(Emp.class));</span><br><span class="line">        <span class="keyword">for</span> (Emp emp : list) &#123;</span><br><span class="line">            System.out.println(emp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 7. 查询总记录数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test7</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select count(empno) from emp&quot;</span>;</span><br><span class="line">        <span class="type">Long</span> <span class="variable">total</span> <span class="operator">=</span> template.queryForObject(sql, Long.class);</span><br><span class="line">        System.out.println(total);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>MySQL</category>
@@ -343,287 +342,6 @@
       <tags>
         <tag>MySQL</tag>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring01</title>
-    <url>/2022/04/01/Spring01/</url>
-    <content><![CDATA[<p>概述：本文记录了Spring的基础概念和基本配置方法</p>
-<span id="more"></span>
-
-<h3 id="1-Spring简介"><a href="#1-Spring简介" class="headerlink" title="1. Spring简介"></a>1. Spring简介</h3><h4 id="1-1-Spring是什么"><a href="#1-1-Spring是什么" class="headerlink" title="1.1 Spring是什么"></a>1.1 Spring是什么</h4><p>Spring是分层的Java SE&#x2F;EE 应用full-stack轻量级开源框架，以<strong>IoC</strong>（Inverse Of Control：反转控制）和<strong>AOP</strong>（Aspect Oriented Programming：面向切面编程）为内核</p>
-<p>提供了<strong>展现层SpringMVC</strong>和<strong>持久层Spring JDBCTemplate</strong>以及<strong>业务层事务管理</strong>等众多的企业级应用技术，还能整合开源世界众多著名的第三方框架和类库，逐渐成为使用最多的Java EE企业应用开源框架。</p>
-<h4 id="1-2-Spring的优势"><a href="#1-2-Spring的优势" class="headerlink" title="1.2 Spring的优势"></a>1.2 Spring的优势</h4><p>（1）方便解耦：简化开发 通过 Spring提供的 loC容器，可以将对象间的依赖关系交由 Spring 进行控制，避免硬编码所造成的过度耦合。用户也不必再为单例模式类、属性文件解析等这文些很底层的需求编写代码.可以更专注干上层的应用。 </p>
-<p>（2）AOP编程的支持： 通过 Spring的 AOP 功能，方便进行面向切面编程，许多不容易用传统 OOP 实现的功能可以通过 AOP 轻松实现。 </p>
-<p>（3）声明式事务的支持 ：可以将我们从单调烦闷的事务管理代码中解脱出来，通过声明式方式灵活的进行事务管理，提高开发效率和质量。 </p>
-<p>（4）方便程序的测试 ：可以用非容器依赖的编程方式进讲行几平所有的测试工作，测试不再是昂贵的操作，而是随手可做的事情。</p>
-<p>（5）方便集成各种优秀框架： Spring对各种优秀框架（Struts、 Hibernate、Hessian、Quartz等）的支持。</p>
-<p>（ 6）降低 JavaEE API的使用难度： Spring对 JavaEE API（如JDBC、JavaMail、远程调用等）进行了薄薄的封装层，使这些API的使用难度大为降低。 </p>
-<p>（7）Java 源码是经典学习范例： Spring的源代码设计精妙、结构清晰、匠心独用，处处体现着大师对Java 设计模式灵活运用以及对 Java技术的高深造诣。它的源代码是 Java技术的最佳实践的范例。 </p>
-<h4 id="1-3-Spring的体系结构"><a href="#1-3-Spring的体系结构" class="headerlink" title="1.3 Spring的体系结构"></a>1.3 Spring的体系结构</h4><img src="https://pic.imgdb.cn/item/6246961327f86abb2a362a69.jpg" style="zoom: 80%;" />
-
-<h3 id="2-Spring快速配置"><a href="#2-Spring快速配置" class="headerlink" title="2. Spring快速配置"></a>2. Spring快速配置</h3><h4 id="2-1-Spring程序开发步骤"><a href="#2-1-Spring程序开发步骤" class="headerlink" title="2.1 Spring程序开发步骤"></a>2.1 Spring程序开发步骤</h4><p><img src="https://pic.imgdb.cn/item/6246970127f86abb2a37fd13.jpg"></p>
-<p>① 导入 Spring 开发的基本包坐标</p>
-<p>② 编写 Dao 接口和实现类</p>
-<p>③ 创建 Spring核心配置文件 </p>
-<p>④ 在Spring 配置文件中配置 UserDaolmpl </p>
-<p>⑤ 使用 Spring 的API获得 Bean 实例 </p>
-<h4 id="2-2-导入Spring开发的基本包坐标"><a href="#2-2-导入Spring开发的基本包坐标" class="headerlink" title="2.2 导入Spring开发的基本包坐标"></a>2.2 导入Spring开发的基本包坐标</h4><h4 id="2-3-编写Dao接口和实现"><a href="#2-3-编写Dao接口和实现" class="headerlink" title="2.3 编写Dao接口和实现"></a>2.3 编写Dao接口和实现</h4><h4 id="2-4-创建Spring核心配置文件"><a href="#2-4-创建Spring核心配置文件" class="headerlink" title="2.4 创建Spring核心配置文件"></a>2.4 创建Spring核心配置文件</h4><p>在类路径下（resources）创建applicationContext.xml配置文件</p>
-<h4 id="2-5-在Spring配置文件中配置UserDaoImpl"><a href="#2-5-在Spring配置文件中配置UserDaoImpl" class="headerlink" title="2.5 在Spring配置文件中配置UserDaoImpl"></a>2.5 在Spring配置文件中配置UserDaoImpl</h4><h4 id="2-6-使用Spring的API获得Bean实例"><a href="#2-6-使用Spring的API获得Bean实例" class="headerlink" title="2.6 使用Spring的API获得Bean实例"></a>2.6 使用Spring的API获得Bean实例</h4><h4 id="2-7-要点总结"><a href="#2-7-要点总结" class="headerlink" title="2.7 要点总结"></a>2.7 要点总结</h4><p>① 导入坐标</p>
-<p>② 创建Bean </p>
-<p>③ 创建applicationContextxml </p>
-<p>④ 在配置文件中进行配置 </p>
-<p>⑤ 创建ApplicationContext对象getBean</p>
-<h3 id="3-Spring配置文件"><a href="#3-Spring配置文件" class="headerlink" title="3. Spring配置文件"></a>3. Spring配置文件</h3><h4 id="3-1-Bean标签基本配置"><a href="#3-1-Bean标签基本配置" class="headerlink" title="3.1 Bean标签基本配置"></a>3.1 Bean标签基本配置</h4><p>用于配置对象交由Spring 来创建。 默认情况下它调用的是类中的无参构造函数，如果没有无参构造函数则不能创建成功。</p>
-<p> 基本属性∶ </p>
-<p>● id∶Bean实例在Spring容器中的唯一标识</p>
-<p>●class∶Bean的全限定名称 </p>
-<h4 id="3-2-Bean标签范围配置"><a href="#3-2-Bean标签范围配置" class="headerlink" title="3.2 Bean标签范围配置"></a>3.2 Bean标签范围配置</h4><p>scope：指对象的作用范围，取值如下：</p>
-<p><img src="https://pic.imgdb.cn/item/6246b99d27f86abb2a7d1aa9.jpg"></p>
-<p><strong>当scope的取值为singleton时</strong></p>
-<p>Bean的实例化个数：1个</p>
-<p>Bean的实例化时机：当Spring核心文件被加载时，实例化配置的Bean实例</p>
-<p>Bean的生命周期：</p>
-<p>（1） 对象创建：当应用加载，创建容器时，对象就被创建了</p>
-<p>（2）对象运行：只要容器在，对象一直活着</p>
-<p>（3）对象销毁：当应用卸载，销毁容器时，对象就被销毁了</p>
-<p><strong>当scope的取值为prototype时</strong></p>
-<p>Bean的实例化个数：多个</p>
-<p>Bean的实例化时机：当调用getBean()方法时实例化Bean</p>
-<p>（1）对象创建：当使用对象时，创建新的对象实例</p>
-<p>（2）对象运行：只要对象在使用中，就一直活着</p>
-<p>（3）对象销毁：当对象长时间不用时，被 Java 的垃圾回收器回收了</p>
-<h5 id="3-3-Bean生命周期配置"><a href="#3-3-Bean生命周期配置" class="headerlink" title="3.3 Bean生命周期配置"></a>3.3 Bean生命周期配置</h5><p><strong>init-method</strong>：指定类中的初始化方法名称</p>
-<p><strong>destroy-method</strong>：指定类中销毁方法名称</p>
-<h4 id="3-4-Bean实例化三种方式"><a href="#3-4-Bean实例化三种方式" class="headerlink" title="3.4 Bean实例化三种方式"></a>3.4 Bean实例化三种方式</h4><p>（1）无参<strong>构造</strong>方法实例化</p>
-<p>它会根据默认无参构造方法来创建类对象，如果bean中没有默认无参构造函数，将会创建失败。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.dao.impl.UserDaoImpl&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>（2）工厂<strong>静态</strong>方法实例化</p>
-<p>工厂的静态方法返回Bean实例</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StaticFactoryBean</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> UserDao <span class="title function_">createUserDao</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDaoImpl</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.factory.StaticFactoryBean&quot;</span> </span></span><br><span class="line"><span class="tag"><span class="attr">factory-method</span>=<span class="string">&quot;createUserDao&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>（3）工厂<strong>实例</strong>方法实例化</p>
-<p>工厂的非静态方法返回Bean实例</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DynamicFactoryBean</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> UserDao <span class="title function_">createUserDao</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDaoImpl</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;factoryBean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.factory.DynamicFactoryBean&quot;</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">factory-bean</span>=<span class="string">&quot;factoryBean&quot;</span> <span class="attr">factory-method</span>=<span class="string">&quot;createUserDao&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="3-5-Bean的依赖注入"><a href="#3-5-Bean的依赖注入" class="headerlink" title="3.5 Bean的依赖注入"></a>3.5 Bean的依赖注入</h4>]]></content>
-      <categories>
-        <category>Spring</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot —— 基础篇</title>
-    <url>/2022/03/31/SpringBootConfig/</url>
-    <content><![CDATA[<p>概述：SpringBoot基础知识学习与记录，学完这个篇章可以会用SpringBoot</p>
-<span id="more"></span>
-
-<h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>SpringBoot的设计目的是用来简化Spring应用的初始搭建以及开发过程</p>
-<h2 id="SpringBoot基础配置"><a href="#SpringBoot基础配置" class="headerlink" title="SpringBoot基础配置"></a>SpringBoot基础配置</h2><p>（1）IDEA新建项目</p>
-<p>查看版本：File -&gt; Settings -&gt; Maven 可以查看版本（我的版本为3.8.1）</p>
-<p>File -&gt; Project Structure -&gt; Modules -&gt; ‘+’  -&gt;New Module -&gt; Spring Initializr (注意如果没有的话要去settings -&gt;plugins -&gt; marketplace 下搜索并下载)</p>
-<p>进行如下配置</p>
-<p><img src="https://pic.imgdb.cn/item/6245ff0427f86abb2a70bbd8.jpg" alt="image01"></p>
-<p>选择spring web</p>
-<p>基础的环境配置即完成了</p>
-<h2 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h2><ol>
-<li><a href="https://docs.spring.io/spring-boot/docs/3.0.0-M1/reference/htmlsingle/"><em>SpringBoot reference documentation</em></a></li>
-</ol>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java与C++的差异</title>
-    <url>/2022/03/31/java-basic/</url>
-    <content><![CDATA[<p>概述：本文主要记录Java中与C++有明显差异的语言特性</p>
-<span id="more"></span>
-
-<h2 id="与C-的差异"><a href="#与C-的差异" class="headerlink" title="与C++的差异"></a>与C++的差异</h2><p>（1）C++ 支持指针，而 Java 没有指针的概念。</p>
-<p>（2）C++ 支持多继承，而 Java 不支持多重继承，但允许一个类实现多个接口。</p>
-<p>（3）Java 是完全面向对象的语言，并且还取消了 C&#x2F;C++ 中的结构和联合，使编译程序更加简洁</p>
-<p>（4）Java 自动进行无用内存回收操作，不再需要程序员进行手动删除，而 C++ 中必须由程序释放内存资源，这就增加了程序员的负担。</p>
-<p>（5）Java 不支持操作符重载，而操作符重载则被认为是 C++ 的突出特征。</p>
-<p>（6）Java 允许预处理，但不支持预处理器功能，所以为了实现预处理，它提供了引入语句（import），但它与 C++ 预处理器的功能类似。</p>
-<p>（7）Java 不支持缺省参数函数，而 C++ 支持 。</p>
-<p>（8）C 和 C++ 不支持字符串变量，在 C 和 C++ 程序中使用“Null”终止符代表字符串的结束。在 Java 中字符串是用类对象（String 和 StringBuffer）来实现的</p>
-<p>（9）Java 不提供 goto 语句，虽然 Java 指定 goto 作为关键字，但不支持它的使用，这使程序更简洁易读。不过Java中的break&#x2F;continue可以带标签（标签必须放在希望跳出的最外层循环之前，并且必须紧跟一个冒号），用于从内层循环中跳出</p>
-<p>（10）Java 不支持 C++ 中的自动强制类型转换，如果需要，必须由程序显式进行强制类型转换。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Maven-基础</title>
-    <url>/2022/03/31/mavenbasic/</url>
-    <content><![CDATA[<p>概述：本文主要记录Maven工具的思想和基本用法。包括环境配置，基础概念，项目构建，依赖管理等部分</p>
-<span id="more"></span>
-
-
-
-<h2 id="Maven简介"><a href="#Maven简介" class="headerlink" title="Maven简介"></a>Maven简介</h2><h3 id="传统项目管理状态分析"><a href="#传统项目管理状态分析" class="headerlink" title="传统项目管理状态分析"></a>传统项目管理状态分析</h3><p>（1）jar包不统一，jar包不兼容</p>
-<p>（2）工程升级维护过程繁琐</p>
-<h3 id="Maven是什么"><a href="#Maven是什么" class="headerlink" title="Maven是什么"></a>Maven是什么</h3><p>本质是一个项目管理工具，将项目开发和管理过程抽象成一个项目对象模型（POM，Project Object Model）</p>
-<h3 id="Maven的作用"><a href="#Maven的作用" class="headerlink" title="Maven的作用"></a>Maven的作用</h3><p>（1）项目构建：提供标准的、跨平台的自动化项目构建方式</p>
-<p>（2）依赖管理：方便快捷的管理项目依赖的资源（jar包），避免资源间的版本冲突问题</p>
-<p>（3）统一开发结构：提供标准的、统一的项目结构</p>
-<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h3><p><a href="https://maven.apache.org/"><em>官网</em></a></p>
-<p>解压即安装</p>
-<h3 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h3><p>（1）依赖Java，需要配置JAVA_HOME</p>
-<p>（2）设置MAVEN自身的运行环境，需要配置MAVEN_HOME（复制所在路径，在系统变量和环境变量中都加以设置）</p>
-<p>配置完成后可以在cmd中输入 mvn 检查是否成功</p>
-<h2 id="MAVEN基础概念"><a href="#MAVEN基础概念" class="headerlink" title="MAVEN基础概念"></a>MAVEN基础概念</h2><h3 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h3><p>仓库用于存储资源，包含各种jar包</p>
-<p>仓库分类：</p>
-<ol>
-<li><p>本地仓库：自己电脑上存储资源的仓库，连接远程仓库获取资源</p>
-</li>
-<li><p>远程仓库：非本机电脑上的仓库，为本地仓库提供资源</p>
-<p>（1）中央仓库：Maven团队维护，存储所有字眼的仓库</p>
-<p>（2）私服：部门&#x2F;公司范围内存储资源的仓库，从中央仓库获取资源</p>
-</li>
-<li><p>私服的作用：</p>
-<p>（1）保存具有版权的资源，包含购买或自主研发的jar，中央仓库中的jar都是开源的，不能存储具有版权的资源</p>
-<p>（2）一定范围内共享资源，仅对内部开放，不对外共享</p>
-</li>
-</ol>
-<h3 id="坐标"><a href="#坐标" class="headerlink" title="坐标"></a>坐标</h3><p>坐标：</p>
-<p>用于在Maven中描述仓库中资源的位置。  <a href="https://repo1.maven.org/maven2/">https://repo1.maven.org/maven2/</a></p>
-<p>Maven坐标主要组成：</p>
-<p>（1）groupID：定义当前Maven项目隶属组织名称</p>
-<p>（2）artifactID：定义当前Maven项目名称（通常是模块名称）</p>
-<p>（3）version：定义当前项目版本号</p>
-<p>（4）packaging：定义该项目的打包方式</p>
-<p>Maven坐标的作用：使用唯一标识，唯一性定位资源位置，通过该标识可以将资源的识别与下载工作交由机器完成</p>
-<p><a href="https://www.mvnrepository.com/">https://www.mvnrepository.com</a></p>
-<h3 id="本地仓库配置"><a href="#本地仓库配置" class="headerlink" title="本地仓库配置"></a>本地仓库配置</h3><p>本地仓库配置决定了资源下载到哪里</p>
-<p>命令行中输入mvn 即可在 C:\Users\win10 中生成一个空的 .m2文件夹，为默认的仓库</p>
-<p>如果想要将本地仓库设置在别的位置，需要如下配置：</p>
-<p>（1）打开Maven目录下（我的电脑在 F:\Tools\apache-maven-3.8.5\conf）的settings.xml</p>
-<p>（2）将文件中’ <localRepository>&#x2F;path&#x2F;to&#x2F;local&#x2F;repo</localRepository>‘ 复制到下一行未被注释的地方，并将其中路径换成我们自己决定的repository文件夹的位置</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>F:\MyDocuments\Maven\repository<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="远程仓库的配置"><a href="#远程仓库的配置" class="headerlink" title="远程仓库的配置"></a>远程仓库的配置</h3><p>远程仓库决定了资源从哪里来</p>
-<p>默认是从<a href="https://repo1.maven.org/maven2/">https://repo1.maven.org/maven2/</a> 中下载的（不挂梯子会比较慢）</p>
-<p>镜像仓库配置（阿里云）</p>
-<h3 id="全局setting与用户setting的区别"><a href="#全局setting与用户setting的区别" class="headerlink" title="全局setting与用户setting的区别"></a>全局setting与用户setting的区别</h3><p>全局setting定义了当前计算机中Maven的公共配置</p>
-<p>用户setting定义了当前用户的配置</p>
-<h2 id="项目构建"><a href="#项目构建" class="headerlink" title="项目构建"></a>项目构建</h2><h3 id="Maven项目构建命令（手动制作）"><a href="#Maven项目构建命令（手动制作）" class="headerlink" title="Maven项目构建命令（手动制作）"></a>Maven项目构建命令（手动制作）</h3><p>需要在项目目录带有pom.xml层级下进行执行</p>
-<p>Maven构建命令使用mvn开头，后面添加功能参数，可以一次执行多个命令，使用空格分隔</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mvn compile			#编译</span><br><span class="line">mvn clean			#清理</span><br><span class="line">mvn test 			#测试</span><br><span class="line">mvn package			#打包</span><br><span class="line">mvn install			#安装到本地仓库</span><br></pre></td></tr></table></figure>
-
-<h3 id="插件创建工程"><a href="#插件创建工程" class="headerlink" title="插件创建工程"></a>插件创建工程</h3><h3 id="IDEA创建工程"><a href="#IDEA创建工程" class="headerlink" title="IDEA创建工程"></a>IDEA创建工程</h3><h2 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h2><h3 id="依赖配置"><a href="#依赖配置" class="headerlink" title="依赖配置"></a>依赖配置</h3><p>依赖指当前项目运行所需的jar，一个项目可以设置多个依赖</p>
-<p>格式：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--指定了当前pom的版本，4.0.0是固定的 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 主项目标识，用来定义当前maven属于哪个实际的项目 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>反写的公司网址 + 项目名<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 模块名，maven项目和实际的项目不是一一对应的关系，maven项目提现的是模块化的概念，一个实际项目往往会被划分为很多个模块 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>项目名 + 模块名<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 当前项目版本号，一般有三个数字组成 第一个数字：大版本号 第二个数字：分支版本号 第三个数字：先版本号 snapshot: 快照 alpha： </span></span><br><span class="line"><span class="comment">		内测版本 beta： 公测版本 Release： 稳定版本 GA： 正式发布版本 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1snapshot<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- maven项目打包方式，默认情况为jar，还可打包为war，zip，pom等 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span><span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 项目描述名 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span><span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 项目地址 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">url</span>&gt;</span><span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 项目描述 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span><span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 开发人员列表 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">developers</span>&gt;</span><span class="tag">&lt;/<span class="name">developers</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 许可证信息 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">licenses</span>&gt;</span><span class="tag">&lt;/<span class="name">licenses</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 组织信息 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">organization</span>&gt;</span><span class="tag">&lt;/<span class="name">organization</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 依赖列表 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 依赖项目 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">type</span>&gt;</span><span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 依赖范围，控制依赖与三种依赖范围的关系 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 开发中要使用某一个jar，就要将该jar包引入到项目的classpath中 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- maven提供了三种classpath： 1.编译 2.测试 3.运行 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 下面的test表明junit只存在于测试的classpath中 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- maven为scope提供了六个属性：</span></span><br><span class="line"><span class="comment">									compile（默认，编译测试运行都有效）， </span></span><br><span class="line"><span class="comment">									provided（编译和测试）servlet, </span></span><br><span class="line"><span class="comment">									runtime（测试和运行）jdbc, </span></span><br><span class="line"><span class="comment">									test（测试）junit, </span></span><br><span class="line"><span class="comment">									system（编译和测试，与本机系统相关联，可移植性差）, </span></span><br><span class="line"><span class="comment">									import（导入的范围，只使用在dependencyManagerment中，表示从其他的pom中导入dependency的配置） --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 设置依赖是否可选 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 有两个值，true和false，默认是false，继承，若为true，子项目必须显式的引用该依赖 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">optional</span>&gt;</span><span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 排除依赖传递的列表 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 依赖管理 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 这里定义的依赖不会被运行，即不会被引用为实际的依赖，主要是供子模块集成用 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 为构建行为提供相应的支持 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 插件列表 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 插件 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span><span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span><span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 用于子模块中对于父模块的继承 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 聚合运行多个maven项目 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">module</span>&gt;</span><span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="依赖传递"><a href="#依赖传递" class="headerlink" title="依赖传递"></a>依赖传递</h3><p>依赖具有传递性：</p>
-<p>（1）直接依赖：在当前项目中通过依赖配置建立的依赖关系</p>
-<p>（2）间接依赖：被资源的资源如果依赖其他资源，当前项目间接依赖其他资源</p>
-<h3 id="依赖范围"><a href="#依赖范围" class="headerlink" title="依赖范围"></a>依赖范围</h3><p>依赖的jar默认情况可以在任何地方使用，可以通过scope标签设定其作用范围</p>
-<p>作用范围：</p>
-<p>（1）主程序范围有效（main文件夹范围内）</p>
-<p>（2）测试程序范围有效（test文件夹范围内）</p>
-<p>（3）是否参与打包（package指令范围内）</p>
-<img src="https://pic.imgdb.cn/item/6245facd27f86abb2a6cf794.jpg" alt="image1" style="zoom:48%;" />
-
-
-
-<h3 id="依赖范围传递性"><a href="#依赖范围传递性" class="headerlink" title="依赖范围传递性"></a>依赖范围传递性</h3><p>带有依赖范围的资源在进行传递时，作用范围将收到影响</p>
-<img src="https://pic.imgdb.cn/item/6245fb6d27f86abb2a6d85b3.jpg" alt="image2" style="zoom:45%;" />
-
-
-
-<h2 id="生命周期与插件"><a href="#生命周期与插件" class="headerlink" title="生命周期与插件"></a>生命周期与插件</h2><h3 id="项目构建生命周期"><a href="#项目构建生命周期" class="headerlink" title="项目构建生命周期"></a>项目构建生命周期</h3><p>Maven构建生命周期描述的是一次构建过程经历了多少个事件</p>
-<p>Maven对项目构建的生命周期划分为三套：</p>
-<p>（1）clean：清理工作</p>
-<p>（2）default：核心工作，例如编译，测试，打包，部署等</p>
-<p>（3）site：产生报告，发布站点等</p>
-<h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><p><a href="https://maven.apache.org/plugins/index.html"><em>maven官网提供的插件</em></a></p>
-<p>插件与生命周期内的阶段绑定，在执行到对应生命周期时执行对应的插件功能</p>
-<p>默认maven在各个生命周期上绑定有预设的功能</p>
-<p>通过插件可以自定义其他功能</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Good questions —— 数组篇</title>
-    <url>/2022/03/31/questions/</url>
-    <content><![CDATA[<p>概述：本文记录了我在<a href="https://leetcode-cn.com/"><em>Leetcode</em></a>刷题过程中遇到的与数组相关的优质题目及解题思路</p>
-<span id="more"></span>
-
-<h2 id="全排列"><a href="#全排列" class="headerlink" title="全排列"></a>全排列</h2><p>给定一个不含重复数字的数组 nums ，返回其 <a href="https://leetcode-cn.com/problems/permutations/"><em>所有可能的全排列</em></a> 。可以 <strong>按任意顺序</strong> 返回答案。 </p>
-<p>思路：</p>
-<p>使用<strong>dfs+回溯</strong>。比较经典的回溯题。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//dfs(回溯)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permute</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">vis</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums,vector&lt;<span class="type">int</span>&gt;&amp; vis)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()==nums.<span class="built_in">size</span>())</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=nums.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(vis[i]==<span class="number">0</span>)&#123;</span><br><span class="line">                vis[i]=<span class="number">1</span>;</span><br><span class="line">                path.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">                <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">                path.<span class="built_in">pop_back</span>();</span><br><span class="line">                vis[i]=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>非递归版本：</p>
-<p>思路：</p>
-<p>（1）通过实现<a href="https://leetcode-cn.com/problems/next-permutation/">下一个排列</a>函数来实现找到全部排列</p>
-<p>（2）下一个排列：<strong>从后往前</strong>搜索数组，找到第一个逆序对。如&lt;3,4,7,6,5&gt;中4是第一个出现逆序的。将4置换为&lt;7,6,5&gt;中比4大且最小的那个数（即5），数组变为&lt;3,5,7,6,4&gt;。再将&lt;7,6,4&gt;部分升序排列（实际上反转就是排序）即可，变为&lt;3,5,4,6,7&gt;即为下一个排列</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">nextPermutation</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> flag=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=nums.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&lt;=nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">                <span class="keyword">if</span>(i<span class="number">-1</span>==<span class="number">0</span>)      <span class="comment">//已经为最大的排列（全降序），那么下一个即为最小的排列（全升序）</span></span><br><span class="line">                    <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//找到第一个逆序发生的索引i-1</span></span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> j=nums.<span class="built_in">size</span>()<span class="number">-1</span>;j&gt;i<span class="number">-1</span>;--j)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(nums[j]&gt;nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">                        <span class="built_in">swap</span>(nums[j],nums[i<span class="number">-1</span>]);</span><br><span class="line">                        <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>()+i,nums.<span class="built_in">end</span>());</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>给定一个可包含重复数字的数组 nums ，返回其 <em>所有可能的</em><a href="https://leetcode-cn.com/problems/permutations-ii/"><em>全排列</em></a> 。你可以 <strong>按任意顺序</strong> 返回答案。 </p>
-<p>思路：</p>
-<p>（1）相较于上一题，这题需要多考虑去重的问题，即在同一层中，如果可选择的范围（未被访问过的范围）包含重复的数字，那么只能选择第一个，跳过重复的部分。</p>
-<p>（2）另外要预先对nums进行排序，保证重复的数字都是相邻的</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permuteUnique</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());<span class="comment">//为了使重复的数都相邻</span></span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">vis</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums,vector&lt;<span class="type">int</span>&gt;&amp; vis)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()==nums.<span class="built_in">size</span>())&#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=nums.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="comment">//要保证在同一层中使用的是不同的数</span></span><br><span class="line">            <span class="comment">//对于有重复的数，要找到第一个未被使用过的</span></span><br><span class="line">            <span class="keyword">if</span>(i&gt;<span class="number">0</span> &amp;&amp; nums[i]==nums[i<span class="number">-1</span>] &amp;&amp; vis[i<span class="number">-1</span>]==<span class="number">0</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(vis[i]==<span class="number">0</span>)&#123;</span><br><span class="line">                vis[i]=<span class="number">1</span>;</span><br><span class="line">                path.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">                <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">                path.<span class="built_in">pop_back</span>();</span><br><span class="line">                vis[i]=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="最长递增子序列问题"><a href="#最长递增子序列问题" class="headerlink" title="最长递增子序列问题"></a>最长递增子序列问题</h2><p>题目来源：<a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/">最长递增子序列</a>LIS问题及 <a href="https://leetcode-cn.com/problems/minimum-operations-to-make-the-array-k-increasing/submissions/">变体</a></p>
-<p>给定一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p>
-<p>子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p>
-<p>（1）动态规划方法，时间复杂度O(n^2)</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//动态规划：dp[i]=max(dp[i],dp[j]+1)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">lengthOfLIS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(nums.size(),<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=nums.<span class="built_in">size</span>();++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j!=i;++j)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[j]&lt;nums[i])</span><br><span class="line">                dp[i]=<span class="built_in">max</span>(dp[i],dp[j]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> *<span class="built_in">max_element</span>(dp.<span class="built_in">begin</span>(),dp.<span class="built_in">end</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>（2）维护一个记录长度为i时递增子序列末尾元素的最小值，时间复杂度O(n)</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">lengthOfLIS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//维护一个数组 temp[i]，表示长度为 i 的最长上升子序列的末尾元素的最小值，temp[0] = nums[0]</span></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; temp;</span><br><span class="line">        temp.<span class="built_in">emplace_back</span>(nums[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i!=nums.<span class="built_in">size</span>();++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&gt;temp.<span class="built_in">back</span>())</span><br><span class="line">            temp.<span class="built_in">emplace_back</span>(nums[i]);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//注意这里要使用lower_bound</span></span><br><span class="line">                <span class="keyword">auto</span> it=<span class="built_in">lower_bound</span>(temp.<span class="built_in">begin</span>(),temp.<span class="built_in">end</span>(),nums[i]);</span><br><span class="line">                <span class="comment">//if(it==temp.end())</span></span><br><span class="line">                <span class="comment">//continue;</span></span><br><span class="line">                temp[it-temp.<span class="built_in">begin</span>()]=nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> temp.<span class="built_in">size</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="原地哈希"><a href="#原地哈希" class="headerlink" title="原地哈希"></a>原地哈希</h2><p>（1）要求在数组中<a href="https://leetcode-cn.com/problems/find-all-duplicates-in-an-array/">找出所有出现两次的整数</a>，时间复杂度O(n)，空间复杂度O(1)</p>
-<p>思想：原地哈希</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">findDuplicates</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        <span class="type">int</span> n=nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="comment">//思想，将nums[nums[i]-1]位置的数值加上n（由于是出现两次，直接取反也行）</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=n;++i)&#123;</span><br><span class="line">            nums[(nums[i]<span class="number">-1</span>)%n]+=n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=n;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nums[i]<span class="number">-1</span>)/n==<span class="number">2</span>)</span><br><span class="line">                res.<span class="built_in">push_back</span>(i+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>（2）要求在长度为n的数组中[找到没有出现在[1,n]<a href="https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/"><em>范围内的数字</em></a></p>
-<p>思想：将nums中出现过的数字作为索引，将对应位置取反</p>
-<h2 id="打印螺旋矩阵"><a href="#打印螺旋矩阵" class="headerlink" title="打印螺旋矩阵"></a>打印螺旋矩阵</h2><p>题目来源：<a href="https://leetcode-cn.com/problems/spiral-matrix/">打印螺旋矩阵</a>：</p>
-<p>思路：</p>
-<p>（1）想到按层来遍历可以省去空间复杂度</p>
-<p>（2）定义四个变量（left，right，top，bottom）来控制每一层的边界</p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -972,6 +690,340 @@
       </tags>
   </entry>
   <entry>
+    <title>IDEAerror</title>
+    <url>/2022/04/01/IDEAerror/</url>
+    <content><![CDATA[<p>概述：本文记录了使用IDEA过程中遇到的错误以及解决方案</p>
+<span id="more"></span>
+
+
+
+<h4 id="IDEA-Java错误：不支持发行版本"><a href="#IDEA-Java错误：不支持发行版本" class="headerlink" title="IDEA Java错误：不支持发行版本"></a>IDEA Java错误：不支持发行版本</h4><p><a href="https://blog.csdn.net/Deeeelete/article/details/104382752?utm_medium=distribute.pc_relevant.none-task-blog-baidulandingword-3&spm=1001.2101.3001.4242"><em>解决方案</em></a></p>
+<h4 id="Cannot-resolve-symbol-’XXX‘-无法解析的符号-、"><a href="#Cannot-resolve-symbol-’XXX‘-无法解析的符号-、" class="headerlink" title="Cannot resolve symbol ’XXX‘ (无法解析的符号)、"></a>Cannot resolve symbol ’XXX‘ (无法解析的符号)、</h4><p>一般先检查项目结构中是否已经选择了合适的JDK</p>
+<p><a href="https://blog.csdn.net/he99774/article/details/78254262"><em>解决方案</em></a></p>
+]]></content>
+      <categories>
+        <category>tools</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring01</title>
+    <url>/2022/04/01/Spring01/</url>
+    <content><![CDATA[<p>概述：本文记录了Spring的基础概念和基本配置方法</p>
+<span id="more"></span>
+
+<h3 id="1-Spring简介"><a href="#1-Spring简介" class="headerlink" title="1. Spring简介"></a>1. Spring简介</h3><h4 id="1-1-Spring是什么"><a href="#1-1-Spring是什么" class="headerlink" title="1.1 Spring是什么"></a>1.1 Spring是什么</h4><p>Spring是分层的Java SE&#x2F;EE 应用full-stack轻量级开源框架，以<strong>IoC</strong>（Inverse Of Control：反转控制）和<strong>AOP</strong>（Aspect Oriented Programming：面向切面编程）为内核</p>
+<p>提供了<strong>展现层SpringMVC</strong>和<strong>持久层Spring JDBCTemplate</strong>以及<strong>业务层事务管理</strong>等众多的企业级应用技术，还能整合开源世界众多著名的第三方框架和类库，逐渐成为使用最多的Java EE企业应用开源框架。</p>
+<h4 id="1-2-Spring的优势"><a href="#1-2-Spring的优势" class="headerlink" title="1.2 Spring的优势"></a>1.2 Spring的优势</h4><p>（1）方便解耦：简化开发 通过 Spring提供的 loC容器，可以将对象间的依赖关系交由 Spring 进行控制，避免硬编码所造成的过度耦合。用户也不必再为单例模式类、属性文件解析等这文些很底层的需求编写代码.可以更专注干上层的应用。 </p>
+<p>（2）AOP编程的支持： 通过 Spring的 AOP 功能，方便进行面向切面编程，许多不容易用传统 OOP 实现的功能可以通过 AOP 轻松实现。 </p>
+<p>（3）声明式事务的支持 ：可以将我们从单调烦闷的事务管理代码中解脱出来，通过声明式方式灵活的进行事务管理，提高开发效率和质量。 </p>
+<p>（4）方便程序的测试 ：可以用非容器依赖的编程方式进讲行几平所有的测试工作，测试不再是昂贵的操作，而是随手可做的事情。</p>
+<p>（5）方便集成各种优秀框架： Spring对各种优秀框架（Struts、 Hibernate、Hessian、Quartz等）的支持。</p>
+<p>（ 6）降低 JavaEE API的使用难度： Spring对 JavaEE API（如JDBC、JavaMail、远程调用等）进行了薄薄的封装层，使这些API的使用难度大为降低。 </p>
+<p>（7）Java 源码是经典学习范例： Spring的源代码设计精妙、结构清晰、匠心独用，处处体现着大师对Java 设计模式灵活运用以及对 Java技术的高深造诣。它的源代码是 Java技术的最佳实践的范例。 </p>
+<h4 id="1-3-Spring的体系结构"><a href="#1-3-Spring的体系结构" class="headerlink" title="1.3 Spring的体系结构"></a>1.3 Spring的体系结构</h4><img src="https://pic.imgdb.cn/item/6246961327f86abb2a362a69.jpg" style="zoom: 80%;" />
+
+<h3 id="2-Spring快速配置"><a href="#2-Spring快速配置" class="headerlink" title="2. Spring快速配置"></a>2. Spring快速配置</h3><h4 id="2-1-Spring程序开发步骤"><a href="#2-1-Spring程序开发步骤" class="headerlink" title="2.1 Spring程序开发步骤"></a>2.1 Spring程序开发步骤</h4><p><img src="https://pic.imgdb.cn/item/6246970127f86abb2a37fd13.jpg"></p>
+<p>① 导入 Spring 开发的基本包坐标</p>
+<p>② 编写 Dao 接口和实现类</p>
+<p>③ 创建 Spring核心配置文件 </p>
+<p>④ 在Spring 配置文件中配置 UserDaolmpl </p>
+<p>⑤ 使用 Spring 的API获得 Bean 实例 </p>
+<h4 id="2-2-导入Spring开发的基本包坐标"><a href="#2-2-导入Spring开发的基本包坐标" class="headerlink" title="2.2 导入Spring开发的基本包坐标"></a>2.2 导入Spring开发的基本包坐标</h4><h4 id="2-3-编写Dao接口和实现"><a href="#2-3-编写Dao接口和实现" class="headerlink" title="2.3 编写Dao接口和实现"></a>2.3 编写Dao接口和实现</h4><h4 id="2-4-创建Spring核心配置文件"><a href="#2-4-创建Spring核心配置文件" class="headerlink" title="2.4 创建Spring核心配置文件"></a>2.4 创建Spring核心配置文件</h4><p>在类路径下（resources）创建applicationContext.xml配置文件</p>
+<h4 id="2-5-在Spring配置文件中配置UserDaoImpl"><a href="#2-5-在Spring配置文件中配置UserDaoImpl" class="headerlink" title="2.5 在Spring配置文件中配置UserDaoImpl"></a>2.5 在Spring配置文件中配置UserDaoImpl</h4><h4 id="2-6-使用Spring的API获得Bean实例"><a href="#2-6-使用Spring的API获得Bean实例" class="headerlink" title="2.6 使用Spring的API获得Bean实例"></a>2.6 使用Spring的API获得Bean实例</h4><h4 id="2-7-要点总结"><a href="#2-7-要点总结" class="headerlink" title="2.7 要点总结"></a>2.7 要点总结</h4><p>① 导入坐标</p>
+<p>② 创建Bean </p>
+<p>③ 创建applicationContextxml </p>
+<p>④ 在配置文件中进行配置 </p>
+<p>⑤ 创建ApplicationContext对象getBean</p>
+<h3 id="3-Spring配置文件"><a href="#3-Spring配置文件" class="headerlink" title="3. Spring配置文件"></a>3. Spring配置文件</h3><h4 id="3-1-Bean标签基本配置"><a href="#3-1-Bean标签基本配置" class="headerlink" title="3.1 Bean标签基本配置"></a>3.1 Bean标签基本配置</h4><p>用于配置对象交由Spring 来创建。 默认情况下它调用的是类中的无参构造函数，如果没有无参构造函数则不能创建成功。</p>
+<p> 基本属性∶ </p>
+<p>● id∶Bean实例在Spring容器中的唯一标识</p>
+<p>●class∶Bean的全限定名称 </p>
+<h4 id="3-2-Bean标签范围配置"><a href="#3-2-Bean标签范围配置" class="headerlink" title="3.2 Bean标签范围配置"></a>3.2 Bean标签范围配置</h4><p>scope：指对象的作用范围，取值如下：</p>
+<p><img src="https://pic.imgdb.cn/item/6246b99d27f86abb2a7d1aa9.jpg"></p>
+<p><strong>当scope的取值为singleton时</strong></p>
+<p>Bean的实例化个数：1个</p>
+<p>Bean的实例化时机：当Spring核心文件被加载时，实例化配置的Bean实例</p>
+<p>Bean的生命周期：</p>
+<p>（1） 对象创建：当应用加载，创建容器时，对象就被创建了</p>
+<p>（2）对象运行：只要容器在，对象一直活着</p>
+<p>（3）对象销毁：当应用卸载，销毁容器时，对象就被销毁了</p>
+<p><strong>当scope的取值为prototype时</strong></p>
+<p>Bean的实例化个数：多个</p>
+<p>Bean的实例化时机：当调用getBean()方法时实例化Bean</p>
+<p>（1）对象创建：当使用对象时，创建新的对象实例</p>
+<p>（2）对象运行：只要对象在使用中，就一直活着</p>
+<p>（3）对象销毁：当对象长时间不用时，被 Java 的垃圾回收器回收了</p>
+<h5 id="3-3-Bean生命周期配置"><a href="#3-3-Bean生命周期配置" class="headerlink" title="3.3 Bean生命周期配置"></a>3.3 Bean生命周期配置</h5><p><strong>init-method</strong>：指定类中的初始化方法名称</p>
+<p><strong>destroy-method</strong>：指定类中销毁方法名称</p>
+<h4 id="3-4-Bean实例化三种方式"><a href="#3-4-Bean实例化三种方式" class="headerlink" title="3.4 Bean实例化三种方式"></a>3.4 Bean实例化三种方式</h4><p>（1）无参<strong>构造</strong>方法实例化</p>
+<p>它会根据默认无参构造方法来创建类对象，如果bean中没有默认无参构造函数，将会创建失败。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.dao.impl.UserDaoImpl&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）工厂<strong>静态</strong>方法实例化</p>
+<p>工厂的静态方法返回Bean实例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StaticFactoryBean</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> UserDao <span class="title function_">createUserDao</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDaoImpl</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.factory.StaticFactoryBean&quot;</span> </span></span><br><span class="line"><span class="tag"><span class="attr">factory-method</span>=<span class="string">&quot;createUserDao&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>（3）工厂<strong>实例</strong>方法实例化</p>
+<p>工厂的非静态方法返回Bean实例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DynamicFactoryBean</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> UserDao <span class="title function_">createUserDao</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDaoImpl</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;factoryBean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.factory.DynamicFactoryBean&quot;</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">factory-bean</span>=<span class="string">&quot;factoryBean&quot;</span> <span class="attr">factory-method</span>=<span class="string">&quot;createUserDao&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-5-Bean的依赖注入"><a href="#3-5-Bean的依赖注入" class="headerlink" title="3.5 Bean的依赖注入"></a>3.5 Bean的依赖注入</h4>]]></content>
+      <categories>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Maven-基础</title>
+    <url>/2022/03/31/mavenbasic/</url>
+    <content><![CDATA[<p>概述：本文主要记录Maven工具的思想和基本用法。包括环境配置，基础概念，项目构建，依赖管理等部分</p>
+<span id="more"></span>
+
+
+
+<h2 id="Maven简介"><a href="#Maven简介" class="headerlink" title="Maven简介"></a>Maven简介</h2><h3 id="传统项目管理状态分析"><a href="#传统项目管理状态分析" class="headerlink" title="传统项目管理状态分析"></a>传统项目管理状态分析</h3><p>（1）jar包不统一，jar包不兼容</p>
+<p>（2）工程升级维护过程繁琐</p>
+<h3 id="Maven是什么"><a href="#Maven是什么" class="headerlink" title="Maven是什么"></a>Maven是什么</h3><p>本质是一个项目管理工具，将项目开发和管理过程抽象成一个项目对象模型（POM，Project Object Model）</p>
+<h3 id="Maven的作用"><a href="#Maven的作用" class="headerlink" title="Maven的作用"></a>Maven的作用</h3><p>（1）项目构建：提供标准的、跨平台的自动化项目构建方式</p>
+<p>（2）依赖管理：方便快捷的管理项目依赖的资源（jar包），避免资源间的版本冲突问题</p>
+<p>（3）统一开发结构：提供标准的、统一的项目结构</p>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h3><p><a href="https://maven.apache.org/"><em>官网</em></a></p>
+<p>解压即安装</p>
+<h3 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h3><p>（1）依赖Java，需要配置JAVA_HOME</p>
+<p>（2）设置MAVEN自身的运行环境，需要配置MAVEN_HOME（复制所在路径，在系统变量和环境变量中都加以设置）</p>
+<p>配置完成后可以在cmd中输入 mvn 检查是否成功</p>
+<h2 id="MAVEN基础概念"><a href="#MAVEN基础概念" class="headerlink" title="MAVEN基础概念"></a>MAVEN基础概念</h2><h3 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h3><p>仓库用于存储资源，包含各种jar包</p>
+<p>仓库分类：</p>
+<ol>
+<li><p>本地仓库：自己电脑上存储资源的仓库，连接远程仓库获取资源</p>
+</li>
+<li><p>远程仓库：非本机电脑上的仓库，为本地仓库提供资源</p>
+<p>（1）中央仓库：Maven团队维护，存储所有字眼的仓库</p>
+<p>（2）私服：部门&#x2F;公司范围内存储资源的仓库，从中央仓库获取资源</p>
+</li>
+<li><p>私服的作用：</p>
+<p>（1）保存具有版权的资源，包含购买或自主研发的jar，中央仓库中的jar都是开源的，不能存储具有版权的资源</p>
+<p>（2）一定范围内共享资源，仅对内部开放，不对外共享</p>
+</li>
+</ol>
+<h3 id="坐标"><a href="#坐标" class="headerlink" title="坐标"></a>坐标</h3><p>坐标：</p>
+<p>用于在Maven中描述仓库中资源的位置。  <a href="https://repo1.maven.org/maven2/">https://repo1.maven.org/maven2/</a></p>
+<p>Maven坐标主要组成：</p>
+<p>（1）groupID：定义当前Maven项目隶属组织名称</p>
+<p>（2）artifactID：定义当前Maven项目名称（通常是模块名称）</p>
+<p>（3）version：定义当前项目版本号</p>
+<p>（4）packaging：定义该项目的打包方式</p>
+<p>Maven坐标的作用：使用唯一标识，唯一性定位资源位置，通过该标识可以将资源的识别与下载工作交由机器完成</p>
+<p><a href="https://www.mvnrepository.com/">https://www.mvnrepository.com</a></p>
+<h3 id="本地仓库配置"><a href="#本地仓库配置" class="headerlink" title="本地仓库配置"></a>本地仓库配置</h3><p>本地仓库配置决定了资源下载到哪里</p>
+<p>命令行中输入mvn 即可在 C:\Users\win10 中生成一个空的 .m2文件夹，为默认的仓库</p>
+<p>如果想要将本地仓库设置在别的位置，需要如下配置：</p>
+<p>（1）打开Maven目录下（我的电脑在 F:\Tools\apache-maven-3.8.5\conf）的settings.xml</p>
+<p>（2）将文件中’ <localRepository>&#x2F;path&#x2F;to&#x2F;local&#x2F;repo</localRepository>‘ 复制到下一行未被注释的地方，并将其中路径换成我们自己决定的repository文件夹的位置</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>F:\MyDocuments\Maven\repository<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="远程仓库的配置"><a href="#远程仓库的配置" class="headerlink" title="远程仓库的配置"></a>远程仓库的配置</h3><p>远程仓库决定了资源从哪里来</p>
+<p>默认是从<a href="https://repo1.maven.org/maven2/">https://repo1.maven.org/maven2/</a> 中下载的（不挂梯子会比较慢）</p>
+<p>镜像仓库配置（阿里云）</p>
+<h3 id="全局setting与用户setting的区别"><a href="#全局setting与用户setting的区别" class="headerlink" title="全局setting与用户setting的区别"></a>全局setting与用户setting的区别</h3><p>全局setting定义了当前计算机中Maven的公共配置</p>
+<p>用户setting定义了当前用户的配置</p>
+<h2 id="项目构建"><a href="#项目构建" class="headerlink" title="项目构建"></a>项目构建</h2><h3 id="Maven项目构建命令（手动制作）"><a href="#Maven项目构建命令（手动制作）" class="headerlink" title="Maven项目构建命令（手动制作）"></a>Maven项目构建命令（手动制作）</h3><p>需要在项目目录带有pom.xml层级下进行执行</p>
+<p>Maven构建命令使用mvn开头，后面添加功能参数，可以一次执行多个命令，使用空格分隔</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mvn compile			#编译</span><br><span class="line">mvn clean			#清理</span><br><span class="line">mvn test 			#测试</span><br><span class="line">mvn package			#打包</span><br><span class="line">mvn install			#安装到本地仓库</span><br></pre></td></tr></table></figure>
+
+<h3 id="插件创建工程"><a href="#插件创建工程" class="headerlink" title="插件创建工程"></a>插件创建工程</h3><h3 id="IDEA创建工程"><a href="#IDEA创建工程" class="headerlink" title="IDEA创建工程"></a>IDEA创建工程</h3><h2 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h2><h3 id="依赖配置"><a href="#依赖配置" class="headerlink" title="依赖配置"></a>依赖配置</h3><p>依赖指当前项目运行所需的jar，一个项目可以设置多个依赖</p>
+<p>格式：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--指定了当前pom的版本，4.0.0是固定的 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 主项目标识，用来定义当前maven属于哪个实际的项目 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>反写的公司网址 + 项目名<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 模块名，maven项目和实际的项目不是一一对应的关系，maven项目提现的是模块化的概念，一个实际项目往往会被划分为很多个模块 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>项目名 + 模块名<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 当前项目版本号，一般有三个数字组成 第一个数字：大版本号 第二个数字：分支版本号 第三个数字：先版本号 snapshot: 快照 alpha： </span></span><br><span class="line"><span class="comment">		内测版本 beta： 公测版本 Release： 稳定版本 GA： 正式发布版本 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1snapshot<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- maven项目打包方式，默认情况为jar，还可打包为war，zip，pom等 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span><span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 项目描述名 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span><span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 项目地址 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">url</span>&gt;</span><span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 项目描述 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span><span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 开发人员列表 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">developers</span>&gt;</span><span class="tag">&lt;/<span class="name">developers</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 许可证信息 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">licenses</span>&gt;</span><span class="tag">&lt;/<span class="name">licenses</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 组织信息 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">organization</span>&gt;</span><span class="tag">&lt;/<span class="name">organization</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 依赖列表 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 依赖项目 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">type</span>&gt;</span><span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 依赖范围，控制依赖与三种依赖范围的关系 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 开发中要使用某一个jar，就要将该jar包引入到项目的classpath中 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- maven提供了三种classpath： 1.编译 2.测试 3.运行 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 下面的test表明junit只存在于测试的classpath中 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- maven为scope提供了六个属性：</span></span><br><span class="line"><span class="comment">									compile（默认，编译测试运行都有效）， </span></span><br><span class="line"><span class="comment">									provided（编译和测试）servlet, </span></span><br><span class="line"><span class="comment">									runtime（测试和运行）jdbc, </span></span><br><span class="line"><span class="comment">									test（测试）junit, </span></span><br><span class="line"><span class="comment">									system（编译和测试，与本机系统相关联，可移植性差）, </span></span><br><span class="line"><span class="comment">									import（导入的范围，只使用在dependencyManagerment中，表示从其他的pom中导入dependency的配置） --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 设置依赖是否可选 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 有两个值，true和false，默认是false，继承，若为true，子项目必须显式的引用该依赖 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">optional</span>&gt;</span><span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 排除依赖传递的列表 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 依赖管理 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 这里定义的依赖不会被运行，即不会被引用为实际的依赖，主要是供子模块集成用 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 为构建行为提供相应的支持 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 插件列表 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 插件 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span><span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span><span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 用于子模块中对于父模块的继承 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 聚合运行多个maven项目 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">module</span>&gt;</span><span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="依赖传递"><a href="#依赖传递" class="headerlink" title="依赖传递"></a>依赖传递</h3><p>依赖具有传递性：</p>
+<p>（1）直接依赖：在当前项目中通过依赖配置建立的依赖关系</p>
+<p>（2）间接依赖：被资源的资源如果依赖其他资源，当前项目间接依赖其他资源</p>
+<h3 id="依赖范围"><a href="#依赖范围" class="headerlink" title="依赖范围"></a>依赖范围</h3><p>依赖的jar默认情况可以在任何地方使用，可以通过scope标签设定其作用范围</p>
+<p>作用范围：</p>
+<p>（1）主程序范围有效（main文件夹范围内）</p>
+<p>（2）测试程序范围有效（test文件夹范围内）</p>
+<p>（3）是否参与打包（package指令范围内）</p>
+<img src="https://pic.imgdb.cn/item/6245facd27f86abb2a6cf794.jpg" alt="image1" style="zoom:48%;" />
+
+
+
+<h3 id="依赖范围传递性"><a href="#依赖范围传递性" class="headerlink" title="依赖范围传递性"></a>依赖范围传递性</h3><p>带有依赖范围的资源在进行传递时，作用范围将收到影响</p>
+<img src="https://pic.imgdb.cn/item/6245fb6d27f86abb2a6d85b3.jpg" alt="image2" style="zoom:45%;" />
+
+
+
+<h2 id="生命周期与插件"><a href="#生命周期与插件" class="headerlink" title="生命周期与插件"></a>生命周期与插件</h2><h3 id="项目构建生命周期"><a href="#项目构建生命周期" class="headerlink" title="项目构建生命周期"></a>项目构建生命周期</h3><p>Maven构建生命周期描述的是一次构建过程经历了多少个事件</p>
+<p>Maven对项目构建的生命周期划分为三套：</p>
+<p>（1）clean：清理工作</p>
+<p>（2）default：核心工作，例如编译，测试，打包，部署等</p>
+<p>（3）site：产生报告，发布站点等</p>
+<h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><p><a href="https://maven.apache.org/plugins/index.html"><em>maven官网提供的插件</em></a></p>
+<p>插件与生命周期内的阶段绑定，在执行到对应生命周期时执行对应的插件功能</p>
+<p>默认maven在各个生命周期上绑定有预设的功能</p>
+<p>通过插件可以自定义其他功能</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot —— 基础篇</title>
+    <url>/2022/03/31/SpringBootConfig/</url>
+    <content><![CDATA[<p>概述：SpringBoot基础知识学习与记录，学完这个篇章可以会用SpringBoot</p>
+<span id="more"></span>
+
+<h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>SpringBoot的设计目的是用来简化Spring应用的初始搭建以及开发过程</p>
+<h2 id="SpringBoot基础配置"><a href="#SpringBoot基础配置" class="headerlink" title="SpringBoot基础配置"></a>SpringBoot基础配置</h2><p>（1）IDEA新建项目</p>
+<p>查看版本：File -&gt; Settings -&gt; Maven 可以查看版本（我的版本为3.8.1）</p>
+<p>File -&gt; Project Structure -&gt; Modules -&gt; ‘+’  -&gt;New Module -&gt; Spring Initializr (注意如果没有的话要去settings -&gt;plugins -&gt; marketplace 下搜索并下载)</p>
+<p>进行如下配置</p>
+<p><img src="https://pic.imgdb.cn/item/6245ff0427f86abb2a70bbd8.jpg" alt="image01"></p>
+<p>选择spring web</p>
+<p>基础的环境配置即完成了</p>
+<h2 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h2><ol>
+<li><a href="https://docs.spring.io/spring-boot/docs/3.0.0-M1/reference/htmlsingle/"><em>SpringBoot reference documentation</em></a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java与C++的差异</title>
+    <url>/2022/03/31/java-basic/</url>
+    <content><![CDATA[<p>概述：本文主要记录Java中与C++有明显差异的语言特性</p>
+<span id="more"></span>
+
+<h2 id="与C-的差异"><a href="#与C-的差异" class="headerlink" title="与C++的差异"></a>与C++的差异</h2><p>（1）C++ 支持指针，而 Java 没有指针的概念。</p>
+<p>（2）C++ 支持多继承，而 Java 不支持多重继承，但允许一个类实现多个接口。</p>
+<p>（3）Java 是完全面向对象的语言，并且还取消了 C&#x2F;C++ 中的结构和联合，使编译程序更加简洁</p>
+<p>（4）Java 自动进行无用内存回收操作，不再需要程序员进行手动删除，而 C++ 中必须由程序释放内存资源，这就增加了程序员的负担。</p>
+<p>（5）Java 不支持操作符重载，而操作符重载则被认为是 C++ 的突出特征。</p>
+<p>（6）Java 允许预处理，但不支持预处理器功能，所以为了实现预处理，它提供了引入语句（import），但它与 C++ 预处理器的功能类似。</p>
+<p>（7）Java 不支持缺省参数函数，而 C++ 支持 。</p>
+<p>（8）C 和 C++ 不支持字符串变量，在 C 和 C++ 程序中使用“Null”终止符代表字符串的结束。在 Java 中字符串是用类对象（String 和 StringBuffer）来实现的</p>
+<p>（9）Java 不提供 goto 语句，虽然 Java 指定 goto 作为关键字，但不支持它的使用，这使程序更简洁易读。不过Java中的break&#x2F;continue可以带标签（标签必须放在希望跳出的最外层循环之前，并且必须紧跟一个冒号），用于从内层循环中跳出</p>
+<p>（10）Java 不支持 C++ 中的自动强制类型转换，如果需要，必须由程序显式进行强制类型转换。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Good questions —— 链表篇</title>
+    <url>/2022/03/31/questions03/</url>
+    <content><![CDATA[<p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
+<span id="more"></span>
+
+<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
+<p>（1）迭代</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）递归</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
+<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
+<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
+<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
+<p>（1）找到链表中间节点，并断开</p>
+<p>（2）反转后半部分的链表</p>
+<p>（3）合并两个链表</p>
+<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
+<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
+<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Good questions —— 数组篇</title>
+    <url>/2022/03/31/questions/</url>
+    <content><![CDATA[<p>概述：本文记录了我在<a href="https://leetcode-cn.com/"><em>Leetcode</em></a>刷题过程中遇到的与数组相关的优质题目及解题思路</p>
+<span id="more"></span>
+
+<h2 id="全排列"><a href="#全排列" class="headerlink" title="全排列"></a>全排列</h2><p>给定一个不含重复数字的数组 nums ，返回其 <a href="https://leetcode-cn.com/problems/permutations/"><em>所有可能的全排列</em></a> 。可以 <strong>按任意顺序</strong> 返回答案。 </p>
+<p>思路：</p>
+<p>使用<strong>dfs+回溯</strong>。比较经典的回溯题。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//dfs(回溯)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permute</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">vis</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums,vector&lt;<span class="type">int</span>&gt;&amp; vis)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()==nums.<span class="built_in">size</span>())</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=nums.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(vis[i]==<span class="number">0</span>)&#123;</span><br><span class="line">                vis[i]=<span class="number">1</span>;</span><br><span class="line">                path.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">                <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">                path.<span class="built_in">pop_back</span>();</span><br><span class="line">                vis[i]=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>非递归版本：</p>
+<p>思路：</p>
+<p>（1）通过实现<a href="https://leetcode-cn.com/problems/next-permutation/">下一个排列</a>函数来实现找到全部排列</p>
+<p>（2）下一个排列：<strong>从后往前</strong>搜索数组，找到第一个逆序对。如&lt;3,4,7,6,5&gt;中4是第一个出现逆序的。将4置换为&lt;7,6,5&gt;中比4大且最小的那个数（即5），数组变为&lt;3,5,7,6,4&gt;。再将&lt;7,6,4&gt;部分升序排列（实际上反转就是排序）即可，变为&lt;3,5,4,6,7&gt;即为下一个排列</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">nextPermutation</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> flag=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=nums.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&lt;=nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">                <span class="keyword">if</span>(i<span class="number">-1</span>==<span class="number">0</span>)      <span class="comment">//已经为最大的排列（全降序），那么下一个即为最小的排列（全升序）</span></span><br><span class="line">                    <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//找到第一个逆序发生的索引i-1</span></span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> j=nums.<span class="built_in">size</span>()<span class="number">-1</span>;j&gt;i<span class="number">-1</span>;--j)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(nums[j]&gt;nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">                        <span class="built_in">swap</span>(nums[j],nums[i<span class="number">-1</span>]);</span><br><span class="line">                        <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>()+i,nums.<span class="built_in">end</span>());</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>给定一个可包含重复数字的数组 nums ，返回其 <em>所有可能的</em><a href="https://leetcode-cn.com/problems/permutations-ii/"><em>全排列</em></a> 。你可以 <strong>按任意顺序</strong> 返回答案。 </p>
+<p>思路：</p>
+<p>（1）相较于上一题，这题需要多考虑去重的问题，即在同一层中，如果可选择的范围（未被访问过的范围）包含重复的数字，那么只能选择第一个，跳过重复的部分。</p>
+<p>（2）另外要预先对nums进行排序，保证重复的数字都是相邻的</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permuteUnique</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());<span class="comment">//为了使重复的数都相邻</span></span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">vis</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums,vector&lt;<span class="type">int</span>&gt;&amp; vis)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()==nums.<span class="built_in">size</span>())&#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=nums.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            <span class="comment">//要保证在同一层中使用的是不同的数</span></span><br><span class="line">            <span class="comment">//对于有重复的数，要找到第一个未被使用过的</span></span><br><span class="line">            <span class="keyword">if</span>(i&gt;<span class="number">0</span> &amp;&amp; nums[i]==nums[i<span class="number">-1</span>] &amp;&amp; vis[i<span class="number">-1</span>]==<span class="number">0</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(vis[i]==<span class="number">0</span>)&#123;</span><br><span class="line">                vis[i]=<span class="number">1</span>;</span><br><span class="line">                path.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">                <span class="built_in">dfs</span>(nums,vis);</span><br><span class="line">                path.<span class="built_in">pop_back</span>();</span><br><span class="line">                vis[i]=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="最长递增子序列问题"><a href="#最长递增子序列问题" class="headerlink" title="最长递增子序列问题"></a>最长递增子序列问题</h2><p>题目来源：<a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/">最长递增子序列</a>LIS问题及 <a href="https://leetcode-cn.com/problems/minimum-operations-to-make-the-array-k-increasing/submissions/">变体</a></p>
+<p>给定一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p>
+<p>子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p>
+<p>（1）动态规划方法，时间复杂度O(n^2)</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//动态规划：dp[i]=max(dp[i],dp[j]+1)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">lengthOfLIS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(nums.size(),<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=nums.<span class="built_in">size</span>();++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j!=i;++j)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[j]&lt;nums[i])</span><br><span class="line">                dp[i]=<span class="built_in">max</span>(dp[i],dp[j]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> *<span class="built_in">max_element</span>(dp.<span class="built_in">begin</span>(),dp.<span class="built_in">end</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>（2）维护一个记录长度为i时递增子序列末尾元素的最小值，时间复杂度O(n)</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">lengthOfLIS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//维护一个数组 temp[i]，表示长度为 i 的最长上升子序列的末尾元素的最小值，temp[0] = nums[0]</span></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; temp;</span><br><span class="line">        temp.<span class="built_in">emplace_back</span>(nums[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i!=nums.<span class="built_in">size</span>();++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&gt;temp.<span class="built_in">back</span>())</span><br><span class="line">            temp.<span class="built_in">emplace_back</span>(nums[i]);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//注意这里要使用lower_bound</span></span><br><span class="line">                <span class="keyword">auto</span> it=<span class="built_in">lower_bound</span>(temp.<span class="built_in">begin</span>(),temp.<span class="built_in">end</span>(),nums[i]);</span><br><span class="line">                <span class="comment">//if(it==temp.end())</span></span><br><span class="line">                <span class="comment">//continue;</span></span><br><span class="line">                temp[it-temp.<span class="built_in">begin</span>()]=nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> temp.<span class="built_in">size</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="原地哈希"><a href="#原地哈希" class="headerlink" title="原地哈希"></a>原地哈希</h2><p>（1）要求在数组中<a href="https://leetcode-cn.com/problems/find-all-duplicates-in-an-array/">找出所有出现两次的整数</a>，时间复杂度O(n)，空间复杂度O(1)</p>
+<p>思想：原地哈希</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">findDuplicates</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        <span class="type">int</span> n=nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="comment">//思想，将nums[nums[i]-1]位置的数值加上n（由于是出现两次，直接取反也行）</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=n;++i)&#123;</span><br><span class="line">            nums[(nums[i]<span class="number">-1</span>)%n]+=n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=n;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nums[i]<span class="number">-1</span>)/n==<span class="number">2</span>)</span><br><span class="line">                res.<span class="built_in">push_back</span>(i+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>（2）要求在长度为n的数组中[找到没有出现在[1,n]<a href="https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/"><em>范围内的数字</em></a></p>
+<p>思想：将nums中出现过的数字作为索引，将对应位置取反</p>
+<h2 id="打印螺旋矩阵"><a href="#打印螺旋矩阵" class="headerlink" title="打印螺旋矩阵"></a>打印螺旋矩阵</h2><p>题目来源：<a href="https://leetcode-cn.com/problems/spiral-matrix/">打印螺旋矩阵</a>：</p>
+<p>思路：</p>
+<p>（1）想到按层来遍历可以省去空间复杂度</p>
+<p>（2）定义四个变量（left，right，top，bottom）来控制每一层的边界</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Good questions —— 二叉树篇</title>
     <url>/2022/03/31/questions02/</url>
     <content><![CDATA[<p>概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路</p>
@@ -1023,40 +1075,6 @@
 <p>（2）在递归的过程中不断更新一个最大路径和，包含当前节点并且可以同时包含左右子树的节点。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> maxsum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> lval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;left));<span class="comment">//包含根节点root的单条路径的最大值</span></span><br><span class="line">        <span class="type">int</span> rval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;right));</span><br><span class="line">        maxsum = <span class="built_in">max</span>(maxsum,root-&gt;val+lval+rval);</span><br><span class="line">        <span class="keyword">return</span> root-&gt;val + <span class="built_in">max</span>(lval,rval);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> maxsum = INT_MIN;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Good questions —— 链表篇</title>
-    <url>/2022/03/31/questions03/</url>
-    <content><![CDATA[<p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
-<span id="more"></span>
-
-<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
-<p>（1）迭代</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>（2）递归</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
-<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
-<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
-<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
-<p>（1）找到链表中间节点，并断开</p>
-<p>（2）反转后半部分的链表</p>
-<p>（3）合并两个链表</p>
-<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
-<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
-<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
 ]]></content>
       <categories>
         <category>算法</category>
