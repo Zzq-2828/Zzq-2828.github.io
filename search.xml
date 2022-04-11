@@ -3,8 +3,7 @@
   <entry>
     <title>XML</title>
     <url>/2022/04/12/XML/</url>
-    <content><![CDATA[<p>本系列记录了JavaWeb领域服务端程序开发的基础知识。</p>
-<p>本文中包含Junit单元测试，反射，注解</p>
+    <content><![CDATA[<p>本文中包含XML的基础知识</p>
 <span id="more"></span>
 ]]></content>
       <categories>
@@ -352,7 +351,7 @@
 
 ]]></content>
       <categories>
-        <category>-MySQL -JavaWeb</category>
+        <category>MySQL, JavaWeb</category>
       </categories>
       <tags>
         <tag>MySQL</tag>

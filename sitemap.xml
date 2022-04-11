@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.zzzzzq.com/2022/04/12/XML/</loc>
+    <loc>https://www.zzzzzq.com/2022/04/02/JDBC/</loc>
     
     <lastmod>2022-04-11</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/2022/04/02/JDBC/</loc>
+    <loc>https://www.zzzzzq.com/2022/04/12/XML/</loc>
     
     <lastmod>2022-04-11</lastmod>
     
@@ -209,6 +209,13 @@
   </url>
   
   <url>
+    <loc>https://www.zzzzzq.com/categories/JavaWeb/</loc>
+    <lastmod>2022-04-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.zzzzzq.com/categories/Spring/</loc>
     <lastmod>2022-04-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -217,13 +224,6 @@
   
   <url>
     <loc>https://www.zzzzzq.com/categories/Java/</loc>
-    <lastmod>2022-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zzzzzq.com/categories/JavaWeb/</loc>
     <lastmod>2022-04-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
