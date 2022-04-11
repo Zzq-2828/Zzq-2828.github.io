@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">2.7k</span>
+            <span class="post-count">4.4k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">12 分钟</span>
+            <span class="post-count">20 分钟</span>
         </span>
     </span>
 </div>
@@ -114,7 +114,7 @@
   <p>概述：本文记录了JDBC (Java DataBase Connectivity) 的相关知识，JDBC的基本概念级用法，数据库的连接池和JDBCTemplate。</p>
 <span id="more"></span>
 
-<h3 id="JDBC的基本概念"><a href="#JDBC的基本概念" class="headerlink" title="JDBC的基本概念"></a>JDBC的基本概念</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>Java DataBase Connectivity   是Java数据库连接， Java语言操作数据库</p>
+<h2 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h2><h3 id="JDBC的基本概念"><a href="#JDBC的基本概念" class="headerlink" title="JDBC的基本概念"></a>JDBC的基本概念</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>Java DataBase Connectivity   是Java数据库连接， Java语言操作数据库</p>
 <p>JDBC本质：其实是官方（sun公司）<strong>定义的一套操作所有关系型数据库的规则，即接口</strong>。</p>
 <p>各个数据库厂商去实现这套接口，提供数据库驱动jar包。我们可以使用这套接口（JDBC）编程，真正执行的代码是驱动jar包中的实现类。</p>
 <p><img src="https://pic.imgdb.cn/item/6247db5a27f86abb2a4748c1.jpg"></p>
@@ -155,7 +155,7 @@
 </li>
 <li><p>参数：</p>
 <ul>
-<li><p>url：指定连接的路径<br>* <strong>语法：jdbc:mysql:&#x2F;&#x2F;ip地址(域名):端口号&#x2F;数据库名称</strong><br>* 例子：jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;db3<br>* 细节：<strong>如果连接的是本机mysql服务器，并且mysql服务默认端口是3306，则url可以简写为：jdbc:mysql:&#x2F;&#x2F;&#x2F;数据库名称</strong></p>
+<li><p>url：指定连接的路径<br>    * <strong>语法：jdbc:mysql:&#x2F;&#x2F;ip地址(域名):端口号&#x2F;数据库名称</strong><br>    * 例子：jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;db3<br>    * 细节：<strong>如果连接的是本机mysql服务器，并且mysql服务默认端口是3306，则url可以简写为：jdbc:mysql:&#x2F;&#x2F;&#x2F;数据库名称</strong></p>
 </li>
 <li><p>user：用户名</p>
 </li>
@@ -288,6 +288,279 @@
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cn.itcast.util.JDBCUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.PreparedStatement;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 事务操作</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JDBCDemo10</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">PreparedStatement</span> <span class="variable">pstmt1</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">PreparedStatement</span> <span class="variable">pstmt2</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//1.获取连接</span></span><br><span class="line">            conn = JDBCUtils.getConnection();</span><br><span class="line">            <span class="comment">//开启事务</span></span><br><span class="line">            conn.setAutoCommit(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//2.定义sql</span></span><br><span class="line">            <span class="comment">//2.1 张三 - 500</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">sql1</span> <span class="operator">=</span> <span class="string">&quot;update account set balance = balance - ? where id = ?&quot;</span>;</span><br><span class="line">            <span class="comment">//2.2 李四 + 500</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">sql2</span> <span class="operator">=</span> <span class="string">&quot;update account set balance = balance + ? where id = ?&quot;</span>;</span><br><span class="line">            <span class="comment">//3.获取执行sql对象</span></span><br><span class="line">            pstmt1 = conn.prepareStatement(sql1);</span><br><span class="line">            pstmt2 = conn.prepareStatement(sql2);</span><br><span class="line">            <span class="comment">//4. 设置参数</span></span><br><span class="line">            pstmt1.setDouble(<span class="number">1</span>,<span class="number">500</span>);</span><br><span class="line">            pstmt1.setInt(<span class="number">2</span>,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">            pstmt2.setDouble(<span class="number">1</span>,<span class="number">500</span>);</span><br><span class="line">            pstmt2.setInt(<span class="number">2</span>,<span class="number">2</span>);</span><br><span class="line">            <span class="comment">//5.执行sql</span></span><br><span class="line">            pstmt1.executeUpdate();</span><br><span class="line">            <span class="comment">// 手动制造异常</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">3</span>/<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            pstmt2.executeUpdate();</span><br><span class="line">            <span class="comment">//如果没有一场发生，则提交事务</span></span><br><span class="line">            conn.commit();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="comment">//事务回滚</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span>(conn != <span class="literal">null</span>) &#123;</span><br><span class="line">                    conn.rollback();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException e1) &#123;</span><br><span class="line">                e1.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            JDBCUtils.close(pstmt1,conn);</span><br><span class="line">            JDBCUtils.close(pstmt2,<span class="literal">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="数据库连接池"><a href="#数据库连接池" class="headerlink" title="数据库连接池"></a>数据库连接池</h2><ol>
+<li><p>概念：其实就是一个容器(集合)，存放数据库连接的容器。<br> 当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户来访问数据库时，从容器中获取连接对象，用户访问完之后，（不会将连接释放掉）会将连接对象归还给容器。</p>
+</li>
+<li><p>好处：</p>
+<ul>
+<li><p>节约资源</p>
+</li>
+<li><p>用户访问高效（避免了多次向底层申请资源（连接对象））</p>
+</li>
+</ul>
+</li>
+<li><p>实现：</p>
+<p> <strong>标准接口：DataSource</strong>   javax.sql包下的</p>
+<p> <strong>方法</strong>：</p>
+<ul>
+<li><strong>获取连接</strong>：getConnection()</li>
+<li><strong>归还连接</strong>：Connection.close()。如果连接对象Connection是从连接池中获取的，那么调用Connection.close()方法，则不会再关闭连接了。而是归还连接</li>
+</ul>
+<p> 一般我们不去实现它，由数据库厂商来实现</p>
+<ul>
+<li><p>C3P0：数据库连接池技术</p>
+</li>
+<li><p>Druid：数据库连接池实现技术，由阿里巴巴提供的</p>
+</li>
+</ul>
+</li>
+<li><p>C3P0：数据库连接池技术</p>
+<p> 步骤：</p>
+<ol>
+<li><p>导入jar包 (两个) c3p0-0.9.5.2.jar mchange-commons-java-0.2.12.jar ，</p>
+<ul>
+<li>不要忘记导入数据库驱动jar包</li>
+</ul>
+</li>
+<li><p>定义配置文件：</p>
+<ul>
+<li>名称： c3p0.properties 或者 c3p0-config.xml</li>
+<li>路径：直接将文件放在src目录下即可。</li>
+</ul>
+</li>
+<li><p>创建核心对象 数据库连接池对象 ComboPooledDataSource</p>
+</li>
+<li><p>获取连接： getConnection</p>
+</li>
+</ol>
+<ul>
+<li>代码：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.创建数据库连接池对象</span></span><br><span class="line"><span class="type">DataSource</span> <span class="variable">ds</span>  <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ComboPooledDataSource</span>();</span><br><span class="line"><span class="comment">//2. 获取连接对象</span></span><br><span class="line"><span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> ds.getConnection();</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>Druid：数据库连接池实现技术，由阿里巴巴提供的</p>
+<ol>
+<li>步骤：<ol>
+<li>导入jar包 druid-1.0.9.jar</li>
+<li>定义配置文件：<ul>
+<li>是properties形式的</li>
+<li>可以叫任意名称，可以放在任意目录下</li>
+</ul>
+</li>
+<li>加载配置文件。Properties</li>
+<li>获取数据库连接池对象：通过工厂来来获取  DruidDataSourceFactory</li>
+<li>获取连接：getConnection</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>代码：<br>   &#x2F;&#x2F;3.加载配置文件<br>  Properties pro &#x3D; new Properties();<br>  InputStream is &#x3D; DruidDemo.class.getClassLoader().getResourceAsStream(“druid.properties”);<br>  pro.load(is);<br>  &#x2F;&#x2F;4.获取连接池对象<br>  DataSource ds &#x3D; DruidDataSourceFactory.createDataSource(pro);<br>  &#x2F;&#x2F;5.获取连接<br>  Connection conn &#x3D; ds.getConnection();</li>
+</ul>
+<ol start="2">
+<li>定义工具类<ol>
+<li>定义一个类 JDBCUtils</li>
+<li>提供静态代码块加载配置文件，初始化连接池对象</li>
+<li>提供方法<ol>
+<li>获取连接方法：通过数据库连接池获取连接</li>
+<li>释放资源</li>
+<li>获取连接池的方法</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>代码：<br>  public class JDBCUtils {<br><br>      &#x2F;&#x2F;1.定义成员变量 DataSource<br>      private static DataSource ds ;<br><br>      static{<br>          try {<br>              &#x2F;&#x2F;1.加载配置文件<br>              Properties pro &#x3D; new Properties();<br>              pro.load(JDBCUtils.class.getClassLoader().getResourceAsStream(“druid.properties”));<br>              &#x2F;&#x2F;2.获取DataSource<br>              ds &#x3D; DruidDataSourceFactory.createDataSource(pro);<br>          } catch (IOException e) {<br>              e.printStackTrace();<br>          } catch (Exception e) {<br>              e.printStackTrace();<br>          }<br>      }<br><br>      &#x2F;**<br>       * 获取连接<br>       <em>&#x2F;<br>      public static Connection getConnection() throws SQLException {<br>          return ds.getConnection();<br>      }<br><br>      &#x2F;</em>*<br>       * 释放资源<br>       <em>&#x2F;<br>      public static void close(Statement stmt,Connection conn){<br>         &#x2F;</em> if(stmt !&#x3D; null){<br>              try {<br>                  stmt.close();<br>              } catch (SQLException e) {<br>                  e.printStackTrace();<br>              }<br>          }<br><br>          if(conn !&#x3D; null){<br>              try {<br>                  conn.close();&#x2F;&#x2F;归还连接<br>              } catch (SQLException e) {<br>                  e.printStackTrace();<br>              }<br>          }<em>&#x2F;<br><br>         close(null,stmt,conn);<br>      }<br>       public static void close(ResultSet rs , Statement stmt, Connection conn){<br>       if(rs !&#x3D; null){<br>                      try {<br>                          rs.close();<br>                      } catch (SQLException e) {<br>                          e.printStackTrace();<br>                      }<br>                  }<br>       if(stmt !&#x3D; null){<br>                      try {<br>                          stmt.close();<br>                      } catch (SQLException e) {<br>                          e.printStackTrace();<br>                      }<br>                  }<br><br>                  if(conn !&#x3D; null){<br>                      try {<br>                          conn.close();&#x2F;&#x2F;归还连接<br>                      } catch (SQLException e) {<br>                          e.printStackTrace();<br>                      }<br>                  }<br>              }<br><br>              &#x2F;</em>*<br>               * 获取连接池方法<br>               *&#x2F;<br><br>              public static DataSource getDataSource(){<br>                  return  ds;<br>              }<br><br>          }</li>
+</ul>
+<h2 id="Spring-JDBC"><a href="#Spring-JDBC" class="headerlink" title="Spring JDBC"></a>Spring JDBC</h2><ul>
+<li>Spring框架对JDBC的简单封装。提供了一个JDBCTemplate对象简化JDBC的开发</li>
+<li>步骤：<ol>
+<li><p>导入jar包</p>
+</li>
+<li><p>创建JdbcTemplate对象。依赖于数据源DataSource</p>
+<ul>
+<li>JdbcTemplate template &#x3D; new JdbcTemplate(ds);</li>
+</ul>
+</li>
+<li><p>调用JdbcTemplate的方法来完成CRUD的操作</p>
+<ul>
+<li>update():执行DML语句。增、删、改语句</li>
+<li>queryForMap():查询结果将结果集封装为map集合，将列名作为key，将值作为value 将这条记录封装为一个map集合<ul>
+<li>注意：这个方法查询的结果集长度只能是1</li>
+</ul>
+</li>
+<li>queryForList():查询结果将结果集封装为list集合<ul>
+<li>注意：将每一条记录封装为一个Map集合，再将Map集合装载到List集合中</li>
+</ul>
+</li>
+<li>query():查询结果，将结果封装为JavaBean对象<ul>
+<li>query的参数：RowMapper<ul>
+<li>一般我们使用BeanPropertyRowMapper实现类。可以完成数据到JavaBean的自动封装</li>
+<li>new BeanPropertyRowMapper&lt;类型&gt;(类型.class)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>queryForObject：查询结果，将结果封装为对象<ul>
+<li>一般用于聚合函数的查询</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>练习：</p>
+<ul>
+<li><p>需求：</p>
+<ol>
+<li>修改1号数据的 salary 为 10000</li>
+<li>添加一条记录</li>
+<li>删除刚才添加的记录</li>
+<li>查询id为1的记录，将其封装为Map集合</li>
+<li>查询所有记录，将其封装为List</li>
+<li>查询所有记录，将其封装为Emp对象的List集合</li>
+<li>查询总记录数</li>
+</ol>
+</li>
+<li><p>代码：</p>
+<p>  import cn.itcast.domain.Emp;<br>  import cn.itcast.utils.JDBCUtils;<br>  import org.junit.Test;<br>  import org.springframework.jdbc.core.BeanPropertyRowMapper;<br>  import org.springframework.jdbc.core.JdbcTemplate;<br>  import org.springframework.jdbc.core.RowMapper;</p>
+<p>  import java.sql.Date;<br>  import java.sql.ResultSet;<br>  import java.sql.SQLException;<br>  import java.util.List;<br>  import java.util.Map;</p>
+<p>  public class JdbcTemplateDemo2 {</p>
+<pre><code>  //Junit单元测试，可以让方法独立执行
+  //1. 获取JDBCTemplate对象
+                  private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
+                  /**
+                   * 1. 修改1号数据的 salary 为 10000
+                   */
+                  @Test
+                  public void test1()&#123;
+              
+                      //2. 定义sql
+                      String sql = &quot;update emp set salary = 10000 where id = 1001&quot;;
+                      //3. 执行sql
+                      int count = template.update(sql);
+                      System.out.println(count);
+                  &#125;
+              
+                  /**
+                   * 2. 添加一条记录
+                   */
+                  @Test
+                  public void test2()&#123;
+                      String sql = &quot;insert into emp(id,ename,dept_id) values(?,?,?)&quot;;
+                      int count = template.update(sql, 1015, &quot;郭靖&quot;, 10);
+                      System.out.println(count);
+              
+                  &#125;
+              
+                  /**
+                   * 3.删除刚才添加的记录
+                   */
+                  @Test
+                  public void test3()&#123;
+                      String sql = &quot;delete from emp where id = ?&quot;;
+                      int count = template.update(sql, 1015);
+                      System.out.println(count);
+                  &#125;
+              
+                  /**
+                   * 4.查询id为1001的记录，将其封装为Map集合
+                   * 注意：这个方法查询的结果集长度只能是1
+                   */
+                  @Test
+                  public void test4()&#123;
+                      String sql = &quot;select * from emp where id = ? or id = ?&quot;;
+                      Map&lt;String, Object&gt; map = template.queryForMap(sql, 1001,1002);
+                      System.out.println(map);
+                      //&#123;id=1001, ename=孙悟空, job_id=4, mgr=1004, joindate=2000-12-17, salary=10000.00, bonus=null, dept_id=20&#125;
+              
+                  &#125;
+              
+                  /**
+                   * 5. 查询所有记录，将其封装为List
+                   */
+                  @Test
+                  public void test5()&#123;
+                      String sql = &quot;select * from emp&quot;;
+                      List&lt;Map&lt;String, Object&gt;&gt; list = template.queryForList(sql);
+              
+                      for (Map&lt;String, Object&gt; stringObjectMap : list) &#123;
+                          System.out.println(stringObjectMap);
+                      &#125;
+                  &#125;
+              
+                  /**
+                   * 6. 查询所有记录，将其封装为Emp对象的List集合
+                   */
+              
+                  @Test
+                  public void test6()&#123;
+                      String sql = &quot;select * from emp&quot;;
+                      List&lt;Emp&gt; list = template.query(sql, new RowMapper&lt;Emp&gt;() &#123;
+              
+                          @Override
+                          public Emp mapRow(ResultSet rs, int i) throws SQLException &#123;
+                              Emp emp = new Emp();
+                              int id = rs.getInt(&quot;id&quot;);
+                              String ename = rs.getString(&quot;ename&quot;);
+                              int job_id = rs.getInt(&quot;job_id&quot;);
+                              int mgr = rs.getInt(&quot;mgr&quot;);
+                              Date joindate = rs.getDate(&quot;joindate&quot;);
+                              double salary = rs.getDouble(&quot;salary&quot;);
+                              double bonus = rs.getDouble(&quot;bonus&quot;);
+                              int dept_id = rs.getInt(&quot;dept_id&quot;);
+              
+                              emp.setId(id);
+                              emp.setEname(ename);
+                              emp.setJob_id(job_id);
+                              emp.setMgr(mgr);
+                              emp.setJoindate(joindate);
+                              emp.setSalary(salary);
+                              emp.setBonus(bonus);
+                              emp.setDept_id(dept_id);
+              
+                              return emp;
+                          &#125;
+                      &#125;);
+                      for (Emp emp : list) &#123;
+                          System.out.println(emp);
+                      &#125;
+                  &#125;
+              
+                  /**
+                   * 6. 查询所有记录，将其封装为Emp对象的List集合
+                   */
+              
+                  @Test
+                  public void test6_2()&#123;
+                      String sql = &quot;select * from emp&quot;;
+                      List&lt;Emp&gt; list = template.query(sql, new BeanPropertyRowMapper&lt;Emp&gt;(Emp.class));
+                      for (Emp emp : list) &#123;
+                          System.out.println(emp);
+                      &#125;
+                  &#125;
+              
+                  /**
+                   * 7. 查询总记录数
+                   */
+              
+                  @Test
+                  public void test7()&#123;
+                      String sql = &quot;select count(id) from emp&quot;;
+                      Long total = template.queryForObject(sql, Long.class);
+                      System.out.println(total);
+                  &#125;
+              
+              &#125;
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
  
       <!-- reward -->
       
