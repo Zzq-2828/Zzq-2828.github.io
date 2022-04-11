@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-11T19:20:21.188Z</updated>
+  <updated>2022-04-11T19:27:16.178Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,23 +17,47 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>XML</title>
+    <link href="https://www.zzzzzq.com/2022/04/12/XML/"/>
+    <id>https://www.zzzzzq.com/2022/04/12/XML/</id>
+    <published>2022-04-11T19:24:19.000Z</published>
+    <updated>2022-04-11T19:27:16.178Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本系列记录了JavaWeb领域服务端程序开发的基础知识。&lt;/p&gt;
+&lt;p&gt;本文中包含Junit单元测试，反射，注解&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
+    
+  </entry>
+  
+  <entry>
     <title>JDBC、数据库连接池、JDBCTemplate</title>
     <link href="https://www.zzzzzq.com/2022/04/02/JDBC/"/>
     <id>https://www.zzzzzq.com/2022/04/02/JDBC/</id>
     <published>2022-04-02T05:09:03.000Z</published>
-    <updated>2022-04-11T19:20:21.188Z</updated>
+    <updated>2022-04-11T19:26:49.361Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了JDBC (Java DataBase Connectivity) 的相关知识，JDBC的基本概念级用法，数据库的连接池和JDBCTemplate。&lt;/p&gt;</summary>
     
     
     
-    <category term="MySQL" scheme="https://www.zzzzzq.com/categories/MySQL/"/>
+    <category term="-MySQL -JavaWeb" scheme="https://www.zzzzzq.com/categories/MySQL-JavaWeb/"/>
     
     
     <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
     
     <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
     
   </entry>
   
@@ -155,27 +179,6 @@
   </entry>
   
   <entry>
-    <title>Good questions —— 链表篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/questions03/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/questions03/</id>
-    <published>2022-03-30T16:00:00.000Z</published>
-    <updated>2022-03-31T09:38:49.985Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与链表相关的优质题目及解题思路&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
-    
-    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Good questions —— 数组篇</title>
     <link href="https://www.zzzzzq.com/2022/03/31/questions/"/>
     <id>https://www.zzzzzq.com/2022/03/31/questions/</id>
@@ -205,6 +208,27 @@
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Good questions —— 链表篇</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/questions03/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/questions03/</id>
+    <published>2022-03-30T16:00:00.000Z</published>
+    <updated>2022-03-31T09:38:49.985Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与链表相关的优质题目及解题思路&lt;/p&gt;</summary>
     
     
     
