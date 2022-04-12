@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-12T08:17:32.217Z</updated>
+  <updated>2022-04-12T12:23:44.508Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,14 +17,35 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Tomcat</title>
+    <link href="https://www.zzzzzq.com/2022/04/12/Tomcat/"/>
+    <id>https://www.zzzzzq.com/2022/04/12/Tomcat/</id>
+    <published>2022-04-12T08:24:41.000Z</published>
+    <updated>2022-04-12T12:23:44.508Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文中简单介绍了web的相关概念，另外着重介绍了web服务器软件：Tomcat的基础知识&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
+    
+  </entry>
+  
+  <entry>
     <title>XML</title>
     <link href="https://www.zzzzzq.com/2022/04/12/XML/"/>
     <id>https://www.zzzzzq.com/2022/04/12/XML/</id>
     <published>2022-04-11T19:24:19.000Z</published>
-    <updated>2022-04-12T08:17:32.217Z</updated>
+    <updated>2022-04-12T12:28:17.885Z</updated>
     
     
-    <summary type="html">&lt;p&gt;本文中包含XML的基础知识&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;本文中包含XML的基础知识，包含基本概念、语法及解析&lt;/p&gt;</summary>
     
     
     
