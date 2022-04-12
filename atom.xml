@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-11T19:29:58.381Z</updated>
+  <updated>2022-04-12T08:17:32.217Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.zzzzzq.com/2022/04/12/XML/"/>
     <id>https://www.zzzzzq.com/2022/04/12/XML/</id>
     <published>2022-04-11T19:24:19.000Z</published>
-    <updated>2022-04-11T19:29:58.381Z</updated>
+    <updated>2022-04-12T08:17:32.217Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文中包含XML的基础知识&lt;/p&gt;</summary>
@@ -42,23 +42,23 @@
     <link href="https://www.zzzzzq.com/2022/04/02/JDBC/"/>
     <id>https://www.zzzzzq.com/2022/04/02/JDBC/</id>
     <published>2022-04-02T05:09:03.000Z</published>
-    <updated>2022-04-11T19:45:11.138Z</updated>
+    <updated>2022-04-11T19:46:18.416Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了JDBC (Java DataBase Connectivity) 的相关知识，JDBC的基本概念级用法，数据库的连接池和JDBCTemplate。&lt;/p&gt;</summary>
     
     
     
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
-    
     <category term="MySQL" scheme="https://www.zzzzzq.com/categories/MySQL/"/>
     
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
+    
+    
+    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
     
     <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
     
     <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
-    
-    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
     
   </entry>
   
