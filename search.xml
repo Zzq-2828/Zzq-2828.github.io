@@ -1,6 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Redis</title>
+    <url>/2022/04/12/Redis/</url>
+    <content><![CDATA[<p>本文简单介绍了Redis这一种非关系型数据库</p>
+<span id="more"></span>
+
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>Redis是一款高性能的NOSQL系列的非关系型数据库</p>
+<h4 id="什么是NOSQL"><a href="#什么是NOSQL" class="headerlink" title="什么是NOSQL"></a>什么是NOSQL</h4><p>NoSQL(NoSQL &#x3D; Not Only SQL)，意即“不仅仅是SQL”，是一项全新的数据库理念，泛指非关系型的数据库。</p>
+<p>随着互联网web2.0网站的兴起，传统的关系数据库在应付web2.0网站，特别是超大规模和高并发的SNS类型的web2.0纯动态网站已经显得力不从心，暴露了很多难以克服的问题，而非关系型的数据库则由于其本身的特点得到了非常迅速的发展。NoSQL数据库的产生就是为了解决大规模数据集合多重数据种类带来的挑战，尤其是大数据应用难题。</p>
+<h5 id="NOSQL和关系型数据库比较"><a href="#NOSQL和关系型数据库比较" class="headerlink" title="NOSQL和关系型数据库比较"></a>NOSQL和关系型数据库比较</h5><p><img src="https://pic.imgdb.cn/item/62558c7c239250f7c5009c49.jpg"></p>
+<p>优点：</p>
+<p>1）成本：nosql数据库简单易部署，基本都是开源软件，不需要像使用oracle那样花费大量成本购买使用，相比关系型数据库价格便宜。</p>
+<p>2）查询速度：nosql数据库将数据存储于缓存之中，关系型数据库将数据存储在硬盘中，自然查询速度远不及nosql数据库。                </p>
+<p>3）存储数据的格式：nosql的存储格式是key,value形式、文档形式、图片形式等等，所以可以存储基础类型以及对象或者是集合等各种格式，而数据库则只支持基础类型。</p>
+<p>4）扩展性：关系型数据库有类似join这样的多表查询机制的限制导致扩展很艰难。</p>
+<p>缺点：</p>
+<p>1）维护的工具和资料有限，因为nosql是属于新的技术，不能和关系型数据库十几年的技术同日而语。            </p>
+<p>2）不提供对sql的支持，如果不支持sql这样的工业标准，将产生一定用户的学习和使用成本。</p>
+<p>3）不提供关系型数据库对事务的处理。</p>
+<h5 id="非关系型数据库的优势："><a href="#非关系型数据库的优势：" class="headerlink" title="非关系型数据库的优势："></a>非关系型数据库的优势：</h5><p>1）性能NOSQL是基于键值对的，可以想象成表中的主键和值的对应关系，而且不需要经过SQL层的解析，所以性能非常高。</p>
+<p>2）可扩展性同样也是因为基于键值对，数据之间没有耦合性，所以非常容易水平扩展。</p>
+<h5 id="关系型数据库的优势："><a href="#关系型数据库的优势：" class="headerlink" title="关系型数据库的优势："></a>关系型数据库的优势：</h5><p>1）复杂查询可以用SQL语句方便的在一个表以及多个表之间做非常复杂的数据查询。</p>
+<p>2）事务支持使得对于安全性能很高的数据访问要求得以实现。对于这两类数据库，对方的优势就是自己的弱势，反之亦然。</p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>关系型数据库与NoSQL数据库并非对立而是互补的关系，即通常情况下使用关系型数据库，在适合使用NoSQL的时候使用NoSQL数据库，</p>
+<p>让NoSQL数据库对关系型数据库的不足进行弥补。</p>
+<p>一般会将数据存储在关系型数据库中，在nosql数据库中备份存储关系型数据库的数据</p>
+<h4 id="主流的NOSQL产品"><a href="#主流的NOSQL产品" class="headerlink" title="主流的NOSQL产品"></a>主流的NOSQL产品</h4><p>​        •    键值(Key-Value)存储数据库<br>​                相关产品： Tokyo Cabinet&#x2F;Tyrant、Redis、Voldemort、Berkeley DB<br>​                典型应用： 内容缓存，主要用于处理大量数据的高访问负载。<br>​                数据模型： 一系列键值对<br>​                优势： 快速查询<br>​                劣势： 存储的数据缺少结构化<br>​        •    列存储数据库<br>​                相关产品：Cassandra, HBase, Riak<br>​                典型应用：分布式的文件系统<br>​                数据模型：以列簇式存储，将同一列数据存在一起<br>​                优势：查找速度快，可扩展性强，更容易进行分布式扩展<br>​                劣势：功能相对局限<br>​        •    文档型数据库<br>​                相关产品：CouchDB、MongoDB<br>​                典型应用：Web应用（与Key-Value类似，Value是结构化的）<br>​                数据模型： 一系列键值对<br>​                优势：数据结构要求不严格<br>​                劣势： 查询性能不高，而且缺乏统一的查询语法<br>​        •    图形(Graph)数据库<br>​                相关数据库：Neo4J、InfoGrid、Infinite Graph<br>​                典型应用：社交网络<br>​                数据模型：图结构<br>​                优势：利用图结构相关算法。<br>​                劣势：需要对整个图做计算才能得出结果，不容易做分布式的集群方案。</p>
+<h4 id="什么是Redis"><a href="#什么是Redis" class="headerlink" title="什么是Redis"></a>什么是Redis</h4><p>Redis是用C语言开发的一个开源的高性能键值对（key-value）数据库，官方提供测试数据，50个并发执行100000个请求,读的速度是110000次&#x2F;s,写的速度是81000次&#x2F;s ，且Redis通过提供多种键值数据类型来适应不同场景下的存储需求，目前为止Redis支持的键值数据类型如下：</p>
+<pre><code>           1) 字符串类型 string
+           2) 哈希类型 hash
+           3) 列表类型 list
+           4) 集合类型 set
+           5) 有序集合类型 sortedset
+</code></pre>
+<h5 id="redis的应用场景"><a href="#redis的应用场景" class="headerlink" title="redis的应用场景"></a>redis的应用场景</h5><p>•    缓存（数据查询、短连接、新闻内容、商品内容等等）<br>•    聊天室的在线好友列表<br>•    任务队列。（秒杀、抢购、12306等等）<br>•    应用排行榜<br>•    网站访问统计<br>•    数据过期处理（可以精确到毫秒<br>•    分布式集群架构中的session分离</p>
+<h3 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h3><ol>
+<li>官网：<a href="https://redis.io/">https://redis.io</a></li>
+<li>中文网：<a href="http://www.redis.net.cn/">http://www.redis.net.cn/</a> （可以查询常用命令）</li>
+<li>centos安装redis： <a href="https://zhuanlan.zhihu.com/p/34527270">https://zhuanlan.zhihu.com/p/34527270</a></li>
+</ol>
+<h3 id="命令操作"><a href="#命令操作" class="headerlink" title="命令操作"></a>命令操作</h3><h4 id="redis的数据结构"><a href="#redis的数据结构" class="headerlink" title="redis的数据结构"></a>redis的数据结构</h4><ul>
+<li>redis存储的是：key,value格式的数据，其中<strong>key都是字符串</strong>，value有5种不同的数据结构<ul>
+<li><strong>value的数据结构</strong>：<ol>
+<li>字符串类型 <strong>string</strong></li>
+<li>哈希类型 <strong>hash</strong> ： map格式  </li>
+<li>列表类型 <strong>list</strong> ： linkedlist格式。支持重复元素</li>
+<li>集合类型 <strong>set</strong>  ： 不允许重复元素</li>
+<li>有序集合类型 <strong>sortedset</strong>：不允许重复元素，且元素有顺序</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><strong>字符串类型 string</strong></li>
+</ol>
+<ul>
+<li><p>存储： <code>set key value</code></p>
+</li>
+<li><p>获取： <code>get key</code></p>
+</li>
+<li><p>删除： <code>del key</code></p>
+</li>
+</ul>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set username zhangsan</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; get username</span><br><span class="line">&quot;zhangsan&quot;</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; del age</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><strong>哈希类型 hash</strong></li>
+</ol>
+<ul>
+<li><p>存储： <code>hset key field value</code></p>
+</li>
+<li><p>获取： </p>
+<p>（1）<code>hget key field</code>: 获取指定的field对应的值</p>
+<p>（2）<code>hgetall key</code>：获取所有的field和value</p>
+</li>
+<li><p>删除： <code>hdel key field</code></p>
+</li>
+</ul>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hset myhash username lisi</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; hset myhash password 123</span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; hget myhash username</span><br><span class="line">&quot;lisi&quot;</span><br><span class="line">127.0.0.1:6379&gt; hgetall myhash</span><br><span class="line">1) &quot;username&quot;</span><br><span class="line">2) &quot;zzq&quot;</span><br><span class="line">3) &quot;password&quot;</span><br><span class="line">4) &quot;123&quot;</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; hdel myhash username</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>**列表类型 list:**可以添加一个元素到列表的头部（左边）或者尾部（右边）</li>
+</ol>
+<ul>
+<li><p>添加：</p>
+<p>（1）<code>lpush key value</code>: 将元素加入列表左表</p>
+<p>（2）<code>rpush key value</code>：将元素加入列表右边</p>
+</li>
+<li><p>获取：</p>
+<p><code>lrange key start end</code> ：范围获取</p>
+</li>
+<li><p>删除：</p>
+<p>（1）<code>lpop key</code>： 删除列表最左边的元素，并将元素返回</p>
+<p>（2）<code>rpop key</code>： 删除列表最右边的元素，并将元素返回</p>
+</li>
+</ul>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lpush myList a</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; lpush myList b</span><br><span class="line">(integer) 2</span><br><span class="line">127.0.0.1:6379&gt; rpush myList c</span><br><span class="line">(integer) 3</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; lrange myList 0 -1</span><br><span class="line">1) &quot;b&quot;</span><br><span class="line">2) &quot;a&quot;</span><br><span class="line">3) &quot;c&quot;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p><strong>集合类型 set</strong> ： 不允许重复元素</p>
+<ul>
+<li><p>存储：<code>sadd key value</code></p>
+</li>
+<li><p>获取：<code>smembers key</code>：获取set集合中所有元素</p>
+</li>
+<li><p>删除：<code>srem key value</code>：删除set集合中的某个元素</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6379&gt; sadd myset a</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; sadd myset a</span><br><span class="line">(integer) 0</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; smembers myset</span><br><span class="line">1) &quot;a&quot;</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; srem myset a</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>有序集合类型 sortedset</strong>：不允许重复元素，且元素有顺序.每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。</p>
+<ul>
+<li><p>存储：<code>zadd key score value</code></p>
+</li>
+<li><p>获取：<code>zrange key start end [withscores]</code></p>
+</li>
+<li><p>删除：<code>zrem key value</code></p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zadd mysort 60 zhangsan</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zadd mysort 50 lisi</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zadd mysort 80 wangwu</span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; zrange mysort 0 -1</span><br><span class="line"></span><br><span class="line">1) &quot;lisi&quot;</span><br><span class="line">2) &quot;zhangsan&quot;</span><br><span class="line">3) &quot;wangwu&quot;</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; zrange mysort 0 -1 withscores</span><br><span class="line">1) &quot;zhangsan&quot;</span><br><span class="line">2) &quot;60&quot;</span><br><span class="line">3) &quot;wangwu&quot;</span><br><span class="line">4) &quot;80&quot;</span><br><span class="line">5) &quot;lisi&quot;</span><br><span class="line">6) &quot;500&quot;</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; zrem mysort lisi</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通用命令</p>
+</li>
+</ol>
+<ul>
+<li><p><code>keys </code>*  : 查询所有的键</p>
+</li>
+<li><p><code>type key</code> ： 获取键对应的value的类型</p>
+</li>
+<li><p><code>del key</code>：删除指定的key value</p>
+</li>
+</ul>
+<h3 id="Redis的持久化"><a href="#Redis的持久化" class="headerlink" title="Redis的持久化"></a>Redis的持久化</h3><p>Redis是一个内存数据库，当Redis服务器重启，获取电脑重启，数据会丢失，我们可以将Redis内存中的数据持久化保存到硬盘的文件中。</p>
+<p>如果不进行持久化，那么Redis就相当于一个很大的map集合</p>
+<h4 id="Redis持久化机制"><a href="#Redis持久化机制" class="headerlink" title="Redis持久化机制"></a>Redis持久化机制</h4><ol>
+<li><p>RDB：默认方式，不需要进行配置，默认就使用这种机制</p>
+<ul>
+<li>在一定的间隔时间中，检测key的变化情况，然后持久化数据</li>
+</ul>
+</li>
+<li><p>AOF：日志记录的方式，可以记录每一条命令的操作。可以每一次命令操作后，持久化数据</p>
+</li>
+</ol>
+<p>linux下查看持久化机制命令：<code>info persistence</code></p>
+<p><a href="https://blog.csdn.net/weixin_42510262/article/details/112716638">配置方法</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6379&gt; INFO persistence</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Persistence</span></span><br><span class="line">loading:0</span><br><span class="line">current_cow_size:0</span><br><span class="line">current_cow_size_age:0</span><br><span class="line">current_fork_perc:0.00</span><br><span class="line">current_save_keys_processed:0</span><br><span class="line">current_save_keys_total:0</span><br><span class="line">rdb_changes_since_last_save:7</span><br><span class="line">rdb_bgsave_in_progress:0</span><br><span class="line">rdb_last_save_time:1649782802</span><br><span class="line">rdb_last_bgsave_status:ok</span><br><span class="line">rdb_last_bgsave_time_sec:0</span><br><span class="line">rdb_current_bgsave_time_sec:-1</span><br><span class="line">rdb_last_cow_size:2256896</span><br><span class="line">aof_enabled:0</span><br><span class="line">aof_rewrite_in_progress:0</span><br><span class="line">aof_rewrite_scheduled:0</span><br><span class="line">aof_last_rewrite_time_sec:-1</span><br><span class="line">aof_current_rewrite_time_sec:-1</span><br><span class="line">aof_last_bgrewrite_status:ok</span><br><span class="line">aof_last_write_status:ok</span><br><span class="line">aof_last_cow_size:0</span><br><span class="line">module_fork_in_progress:0</span><br><span class="line">module_fork_last_cow_size:0</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Java客户端-Jedis"><a href="#Java客户端-Jedis" class="headerlink" title="Java客户端  Jedis"></a>Java客户端  Jedis</h3><p>Jedis: 一款java操作redis数据库的工具.</p>
+<p>使用步骤：</p>
+<ol>
+<li>下载jedis的jar包</li>
+<li>使用（注意打开Redis服务器，并要导入相关jar包，如junit, servlet）</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.jedis.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.itcast.jedis.util.JedisPoolUtils;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.Jedis;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.JedisPool;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.JedisPoolConfig;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * jedis的测试类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JedisTest</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 快速入门</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//1. 获取连接</span></span><br><span class="line">        <span class="type">Jedis</span> <span class="variable">jedis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jedis</span>(<span class="string">&quot;localhost&quot;</span>,<span class="number">6379</span>);</span><br><span class="line">        <span class="comment">//2. 操作</span></span><br><span class="line">        jedis.set(<span class="string">&quot;username&quot;</span>,<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">        <span class="comment">//3. 关闭连接</span></span><br><span class="line">        jedis.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * string 数据结构操作</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test2</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//1. 获取连接</span></span><br><span class="line">        <span class="type">Jedis</span> <span class="variable">jedis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jedis</span>();<span class="comment">//如果使用空参构造，默认值 &quot;localhost&quot;,6379端口</span></span><br><span class="line">        <span class="comment">//2. 操作</span></span><br><span class="line">        <span class="comment">//存储</span></span><br><span class="line">        jedis.set(<span class="string">&quot;username&quot;</span>,<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">        <span class="comment">//获取</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">username</span> <span class="operator">=</span> jedis.get(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        System.out.println(username);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//可以使用setex()方法存储可以指定过期时间的 key value</span></span><br><span class="line">        jedis.setex(<span class="string">&quot;activecode&quot;</span>,<span class="number">20</span>,<span class="string">&quot;hehe&quot;</span>);<span class="comment">//将activecode：hehe键值对存入redis，并且20秒后自动删除该键值对</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//3. 关闭连接</span></span><br><span class="line">        jedis.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * hash 数据结构操作</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test3</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//1. 获取连接</span></span><br><span class="line">        <span class="type">Jedis</span> <span class="variable">jedis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jedis</span>();<span class="comment">//如果使用空参构造，默认值 &quot;localhost&quot;,6379端口</span></span><br><span class="line">        <span class="comment">//2. 操作</span></span><br><span class="line">        <span class="comment">// 存储hash</span></span><br><span class="line">        jedis.hset(<span class="string">&quot;user&quot;</span>,<span class="string">&quot;name&quot;</span>,<span class="string">&quot;lisi&quot;</span>);</span><br><span class="line">        jedis.hset(<span class="string">&quot;user&quot;</span>,<span class="string">&quot;age&quot;</span>,<span class="string">&quot;23&quot;</span>);</span><br><span class="line">        jedis.hset(<span class="string">&quot;user&quot;</span>,<span class="string">&quot;gender&quot;</span>,<span class="string">&quot;female&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取hash</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> jedis.hget(<span class="string">&quot;user&quot;</span>, <span class="string">&quot;name&quot;</span>);</span><br><span class="line">        System.out.println(name);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取hash的所有map中的数据</span></span><br><span class="line">        Map&lt;String, String&gt; user = jedis.hgetAll(<span class="string">&quot;user&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// keyset</span></span><br><span class="line">        Set&lt;String&gt; keySet = user.keySet();</span><br><span class="line">        <span class="keyword">for</span> (String key : keySet) &#123;</span><br><span class="line">            <span class="comment">//获取value</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> user.get(key);</span><br><span class="line">            System.out.println(key + <span class="string">&quot;:&quot;</span> + value);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//3. 关闭连接</span></span><br><span class="line">        jedis.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * list 数据结构操作</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test4</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//1. 获取连接</span></span><br><span class="line">        <span class="type">Jedis</span> <span class="variable">jedis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jedis</span>();<span class="comment">//如果使用空参构造，默认值 &quot;localhost&quot;,6379端口</span></span><br><span class="line">        <span class="comment">//2. 操作</span></span><br><span class="line">        <span class="comment">// list 存储</span></span><br><span class="line">        jedis.lpush(<span class="string">&quot;mylist&quot;</span>,<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>);<span class="comment">//从左边存</span></span><br><span class="line">        jedis.rpush(<span class="string">&quot;mylist&quot;</span>,<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>);<span class="comment">//从右边存</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// list 范围获取</span></span><br><span class="line">        List&lt;String&gt; mylist = jedis.lrange(<span class="string">&quot;mylist&quot;</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line">        System.out.println(mylist);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// list 弹出</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">element1</span> <span class="operator">=</span> jedis.lpop(<span class="string">&quot;mylist&quot;</span>);<span class="comment">//c</span></span><br><span class="line">        System.out.println(element1);</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">element2</span> <span class="operator">=</span> jedis.rpop(<span class="string">&quot;mylist&quot;</span>);<span class="comment">//c</span></span><br><span class="line">        System.out.println(element2);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// list 范围获取</span></span><br><span class="line">        List&lt;String&gt; mylist2 = jedis.lrange(<span class="string">&quot;mylist&quot;</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line">        System.out.println(mylist2);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//3. 关闭连接</span></span><br><span class="line">        jedis.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * set 数据结构操作</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test5</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//1. 获取连接</span></span><br><span class="line">        <span class="type">Jedis</span> <span class="variable">jedis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jedis</span>();<span class="comment">//如果使用空参构造，默认值 &quot;localhost&quot;,6379端口</span></span><br><span class="line">        <span class="comment">//2. 操作</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// set 存储</span></span><br><span class="line">        jedis.sadd(<span class="string">&quot;myset&quot;</span>,<span class="string">&quot;java&quot;</span>,<span class="string">&quot;php&quot;</span>,<span class="string">&quot;c++&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// set 获取</span></span><br><span class="line">        Set&lt;String&gt; myset = jedis.smembers(<span class="string">&quot;myset&quot;</span>);</span><br><span class="line">        System.out.println(myset);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//3. 关闭连接</span></span><br><span class="line">        jedis.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * sortedset 数据结构操作</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test6</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//1. 获取连接</span></span><br><span class="line">        <span class="type">Jedis</span> <span class="variable">jedis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jedis</span>();<span class="comment">//如果使用空参构造，默认值 &quot;localhost&quot;,6379端口</span></span><br><span class="line">        <span class="comment">//2. 操作</span></span><br><span class="line">        <span class="comment">// sortedset 存储</span></span><br><span class="line">        jedis.zadd(<span class="string">&quot;mysortedset&quot;</span>,<span class="number">3</span>,<span class="string">&quot;亚瑟&quot;</span>);</span><br><span class="line">        jedis.zadd(<span class="string">&quot;mysortedset&quot;</span>,<span class="number">30</span>,<span class="string">&quot;后裔&quot;</span>);</span><br><span class="line">        jedis.zadd(<span class="string">&quot;mysortedset&quot;</span>,<span class="number">55</span>,<span class="string">&quot;孙悟空&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// sortedset 获取</span></span><br><span class="line">        Set&lt;String&gt; mysortedset = jedis.zrange(<span class="string">&quot;mysortedset&quot;</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(mysortedset);</span><br><span class="line">        <span class="comment">//3. 关闭连接</span></span><br><span class="line">        jedis.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * jedis连接池使用</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test7</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//0.创建一个配置对象</span></span><br><span class="line">        <span class="type">JedisPoolConfig</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JedisPoolConfig</span>();</span><br><span class="line">        config.setMaxTotal(<span class="number">50</span>);</span><br><span class="line">        config.setMaxIdle(<span class="number">10</span>);</span><br><span class="line">        <span class="comment">//1.创建Jedis连接池对象</span></span><br><span class="line">        <span class="type">JedisPool</span> <span class="variable">jedisPool</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JedisPool</span>(config,<span class="string">&quot;localhost&quot;</span>,<span class="number">6379</span>);</span><br><span class="line">        <span class="comment">//2.获取连接</span></span><br><span class="line">        <span class="type">Jedis</span> <span class="variable">jedis</span> <span class="operator">=</span> jedisPool.getResource();</span><br><span class="line">        <span class="comment">//3. 使用</span></span><br><span class="line">        jedis.set(<span class="string">&quot;hehe&quot;</span>,<span class="string">&quot;heihei&quot;</span>);</span><br><span class="line">        <span class="comment">//4. 关闭 归还到连接池中</span></span><br><span class="line">        jedis.close();;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * jedis连接池工具类使用</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test8</span><span class="params">()</span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//通过连接池工具类获取</span></span><br><span class="line">        <span class="type">Jedis</span> <span class="variable">jedis</span> <span class="operator">=</span> JedisPoolUtils.getJedis();</span><br><span class="line">        <span class="comment">//3. 使用</span></span><br><span class="line">        jedis.set(<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;world&quot;</span>);</span><br><span class="line">        <span class="comment">//4. 关闭 归还到连接池中</span></span><br><span class="line">        jedis.close();;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>JavaWeb</tag>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Servlet</title>
+    <url>/2022/04/12/servlet/</url>
+    <content><![CDATA[<p>本文简单介绍了Servlet的相关概念</p>
+<span id="more"></span>
+
+<h3 id="Servlet：-server-applet"><a href="#Servlet：-server-applet" class="headerlink" title="Servlet： server applet"></a>Servlet： server applet</h3><ul>
+<li><p>概念：运行在服务器端的小程序</p>
+<ul>
+<li>Servlet就是一个接口，定义了Java类被浏览器访问到(tomcat识别)的规则。</li>
+<li>将来我们自定义一个类，实现Servlet接口，复写方法。</li>
+</ul>
+</li>
+<li><p>快速入门：</p>
+<ol>
+<li><p>创建JavaEE项目</p>
+</li>
+<li><p>定义一个类，实现Servlet接口</p>
+<ul>
+<li>public class ServletDemo1 implements Servlet</li>
+</ul>
+</li>
+<li><p>实现接口中的抽象方法</p>
+</li>
+<li><p>配置Servlet<br>  在web.xml中配置：</p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--配置Servlet --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>demo1<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>cn.itcast.web.servlet.ServletDemo1<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>demo1<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/demo1<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>执行原理：</p>
+<ol>
+<li>当服务器接受到客户端浏览器的请求后，会解析请求URL路径，获取访问的Servlet的资源路径</li>
+<li>查找web.xml文件，是否有对应的<code>&lt;url-pattern&gt;</code>标签体内容。</li>
+<li>如果有，则在找到对应的<code>&lt;servlet-class&gt;</code>全类名</li>
+<li>tomcat会将字节码文件加载进内存，并且创建其对象</li>
+<li>调用其方法</li>
+</ol>
+</li>
+<li><p>Servlet中的生命周期方法：</p>
+<ol>
+<li>被创建：执行init方法，只执行一次<ul>
+<li>Servlet什么时候被创建？<ul>
+<li>默认情况下，第一次被访问时，Servlet被创建</li>
+<li>可以配置执行Servlet的创建时机。<ul>
+<li>在<code>&lt;servlet&gt;</code>标签下配置<ol>
+<li>第一次被访问时，创建</li>
+</ol>
+<ul>
+<li><code>&lt;load-on-startup&gt;</code>的值为负数</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>在服务器启动时，创建<ul>
+<li><code>&lt;load-on-startup&gt;</code>的值为0或正整数</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>Servlet的init方法，只执行一次，说明一个Servlet在内存中只存在一个对象，Servlet是单例的<br>      * 多个用户同时访问时，可能存在线程安全问题。<br>      * 解决：尽量不要在Servlet中定义成员变量。即使定义了成员变量，也不要对修改值</p>
+<ol start="2">
+<li>提供服务：执行service方法，执行多次<ul>
+<li>每次访问Servlet时，Service方法都会被调用一次。</li>
+</ul>
+</li>
+<li>被销毁：执行destroy方法，只执行一次<ul>
+<li>Servlet被销毁时执行。服务器关闭时，Servlet被销毁</li>
+<li>只有服务器正常关闭时，才会执行destroy方法。</li>
+<li>destroy方法在Servlet被销毁之前执行，一般用于释放资源</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>Servlet3.0：</p>
+<ul>
+<li><p>好处：</p>
+<ul>
+<li>支持注解配置。可以不需要web.xml了。</li>
+</ul>
+</li>
+<li><p>步骤：</p>
+<ol>
+<li>创建JavaEE项目，选择Servlet的版本3.0以上，可以不创建web.xml</li>
+<li>定义一个类，实现Servlet接口</li>
+<li>复写方法</li>
+<li>在类上使用@WebServlet注解，进行配置</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>JavaWeb</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>JavaWeb</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Tomcat</title>
     <url>/2022/04/12/Tomcat/</url>
     <content><![CDATA[<p>本文中简单介绍了web的相关概念，另外着重介绍了web服务器软件：Tomcat的基础知识</p>
@@ -52,7 +324,7 @@
 <li><p>web服务器软件：接收用户的请求，处理请求，做出响应。</p>
 <ul>
 <li>在web服务器软件中，可以部署web项目，让用户通过浏览器来访问这些项目</li>
-<li>web容器</li>
+<li>web容器（动态资源必须在web容器中运行）</li>
 </ul>
 </li>
 <li><p>常见的java相关的web服务器软件：</p>
@@ -60,23 +332,30 @@
 <li>webLogic：oracle公司，大型的JavaEE服务器，支持所有的JavaEE规范，收费的。</li>
 <li>webSphere：IBM公司，大型的JavaEE服务器，支持所有的JavaEE规范，收费的。</li>
 <li>JBOSS：JBOSS公司的，大型的JavaEE服务器，支持所有的JavaEE规范，收费的。</li>
-<li>Tomcat：Apache基金组织，中小型的JavaEE服务器，仅仅支持少量的JavaEE规范servlet&#x2F;jsp。开源的，免费的。</li>
+<li><strong>Tomcat</strong>：Apache基金组织，中小型的JavaEE服务器，仅仅支持少量的JavaEE规范servlet&#x2F;jsp。开源的，免费的。</li>
 </ul>
 </li>
-<li><p>JavaEE：Java语言在企业级开发中使用的技术规范的总和，一共规定了13项大的规范</p>
+<li><p><strong>JavaEE：Java语言在企业级开发中使用的技术规范的总和</strong>，一共规定了13项大的规范</p>
 </li>
 <li><p>Tomcat：web服务器软件</p>
 <ol>
-<li>下载：<a href="http://tomcat.apache.org/">http://tomcat.apache.org/</a></li>
-<li>安装：解压压缩包即可。<ul>
+<li><p>下载：<a href="http://tomcat.apache.org/">http://tomcat.apache.org/</a></p>
+</li>
+<li><p>安装：解压压缩包即可。</p>
+<ul>
 <li>注意：安装目录建议不要有中文和空格</li>
 </ul>
+<p> <img src="C:\Users\win10\AppData\Roaming\Typora\typora-user-images\image-20220412205215019.png" alt="Tomcat目录结构">
+ </p>
 </li>
-<li>卸载：删除目录就行了</li>
-<li>启动：<ul>
+<li><p>卸载：删除目录就行了</p>
+</li>
+<li><p>启动：</p>
+<ul>
 <li><p>bin&#x2F;startup.bat ,双击运行该文件即可</p>
+<p>   （如果出现乱码问题，需要打开conf&#x2F;logging.properties，找到<code>java.util.logging.ConsoleHandler.encoding = UTF-8</code>，将UTF-8修改为GDB，保存后重启）</p>
 </li>
-<li><p>访问：浏览器输入：<a href="http://localhost:8080/">http://localhost:8080</a> 回车访问自己<br>            http:&#x2F;&#x2F;别人的ip:8080 访问别人</p>
+<li><p>访问：浏览器输入：<a href="http://localhost:8080/">http://localhost:8080</a> 回车访问自己（我的本地ip为192.168.17.1）<br>            http:&#x2F;&#x2F;别人的ip:8080 访问别人</p>
 </li>
 <li><p>可能遇到的问题：</p>
 <ol>
@@ -86,69 +365,66 @@
 <li>解决方案：正确配置JAVA_HOME环境变量</li>
 </ul>
 </li>
-<li><p>启动报错：</p>
-<ol>
-<li>暴力：找到占用的端口号，并且找到对应的进程，杀死该进程<ul>
-<li>netstat -ano</li>
+<li><p>启动报错（出现403错误，为端口被占用的问题）：</p>
+<p> 暴力：找到占用的端口号，并且找到对应的进程，杀死该进程</p>
+<ul>
+<li>cmd输入 netstat -ano  （或加入端口号搜索更为方便<code>netstat -aon | findstr 8080</code>）</li>
 </ul>
+<p> 温柔：修改自身的端口号</p>
 </li>
-<li>温柔：修改自身的端口号<ul>
-<li>conf&#x2F;server.xml</li>
-<li><Connector port="8888" protocol="HTTP/1.1"
- connectionTimeout="20000"
- redirectPort="8445" /></li>
+</ol>
+<ul>
+<li>在tomcat目录下打开：conf&#x2F;server.xml</li>
+<li><code>&lt;Connector port=&quot;8888&quot; protocol=&quot;HTTP/1.1&quot;     connectionTimeout=&quot;20000&quot;     redirectPort=&quot;8445&quot; /&gt;</code><ul>
 <li>一般会将tomcat的默认端口号修改为80。80端口号是http协议的默认端口号。<ul>
 <li>好处：在访问时，就不用输入端口号</li>
 </ul>
 </li>
 </ul>
 </li>
-</ol>
-</li>
-</ol>
+</ul>
 </li>
 </ul>
 </li>
-<li>关闭：<ol>
+<li><p>关闭：</p>
+<ol>
 <li>正常关闭：<ul>
 <li>bin&#x2F;shutdown.bat</li>
 <li>ctrl+c</li>
 </ul>
 </li>
-<li>强制关闭：<ul>
-<li>点击启动窗口的×</li>
-</ul>
-</li>
+<li>强制关闭：点击启动窗口的×</li>
 </ol>
 </li>
-<li>配置:<ul>
-<li><p>部署项目的方式：</p>
+<li><p>配置:</p>
+<p> <strong>部署项目的方式：</strong>（三种方式）</p>
 <ol>
 <li><p>直接将项目放到webapps目录下即可。</p>
 <ul>
 <li>&#x2F;hello：项目的访问路径–&gt;虚拟目录</li>
-<li>简化部署：将项目打成一个war包，再将war包放置到webapps目录下。<ul>
+<li>简化部署：将项目打成一个war包（简单起见可以先压缩成zip再改后缀为war），再将war包放置到webapps目录下。<ul>
 <li>war包会自动解压缩</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>配置conf&#x2F;server.xml文件<br> 在<Host>标签体中配置</p>
- <Context docBase="D:\hello" path="/hehe" />
- * docBase:项目存放的路径
- * path：虚拟目录
-</li>
-<li><p>在conf\Catalina\localhost创建任意名称的xml文件。在文件中编写</p>
- <Context docBase="D:\hello" />
- * 虚拟目录：xml文件的名称</li>
-</ol>
-</li>
-<li><p>静态项目和动态项目：</p>
+<li><p>配置conf&#x2F;server.xml文件<br> 在<code>&lt;Host&gt;</code>标签体中配置<br> <code>&lt;Context docBase=&quot;D:\hello&quot; path=&quot;/hehe&quot; /&gt;</code></p>
 <ul>
-<li>目录结构<ul>
-<li>java动态项目的目录结构：<br>  – 项目的根目录<br>  – WEB-INF目录：<br>      – web.xml：web项目的核心配置文件<br>      – classes目录：放置字节码文件的目录<br>      – lib目录：放置依赖的jar包</li>
+<li>docBase:项目存放的路径</li>
+<li>path：虚拟目录</li>
 </ul>
 </li>
+<li><p>在conf\Catalina\localhost创建任意名称的xml文件。在文件中编写<br> <code>&lt;Context docBase=&quot;D:\hello&quot; /&gt;</code></p>
+<ul>
+<li>虚拟目录：xml文件的名称</li>
+</ul>
+</li>
+</ol>
+<p> <strong>静态项目和动态项目：</strong></p>
+<ul>
+<li><p>目录结构</p>
+<ul>
+<li>java动态项目的目录结构：<br>  – 项目的根目录<br>  – WEB-INF目录：<br>      – web.xml：web项目的核心配置文件<br>      – classes目录：放置字节码文件的目录<br>      – lib目录：放置依赖的jar包</li>
 </ul>
 </li>
 <li><p>将Tomcat集成到IDEA中，并且创建JavaEE的项目，部署项目。</p>
@@ -1313,6 +1589,67 @@
       </tags>
   </entry>
   <entry>
+    <title>Good questions —— 二叉树篇</title>
+    <url>/2022/03/31/questions02/</url>
+    <content><![CDATA[<p>概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路</p>
+<span id="more"></span>
+
+<h2 id="二叉树的前中后序遍历"><a href="#二叉树的前中后序遍历" class="headerlink" title="二叉树的前中后序遍历"></a>二叉树的前中后序遍历</h2><h3 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h3><p>（1）递归实现</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(TreeNode* node)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(node==<span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        res.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">        <span class="built_in">dfs</span>(node-&gt;left);</span><br><span class="line">        <span class="built_in">dfs</span>(node-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）迭代实现</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//迭代</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>)</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        stack&lt;TreeNode*&gt; stk;</span><br><span class="line">        stk.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            TreeNode* temp=stk.<span class="built_in">top</span>();</span><br><span class="line">            stk.<span class="built_in">pop</span>();       <span class="comment">//必须先pop出来</span></span><br><span class="line">            res.<span class="built_in">push_back</span>(temp-&gt;val);<span class="comment">//根节点先push到结果数组中</span></span><br><span class="line">            <span class="keyword">if</span>(temp-&gt;right) stk.<span class="built_in">push</span>(temp-&gt;right);</span><br><span class="line">            <span class="keyword">if</span>(temp-&gt;left)  stk.<span class="built_in">push</span>(temp-&gt;left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>（3）风格统一的迭代写法</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//迭代2 用这种写法与中序风格统一</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>)</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        stack&lt;TreeNode*&gt; stk;</span><br><span class="line">        TreeNode* cur= root;</span><br><span class="line">        <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>() || cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="comment">//前序遍历在节点入栈时即可直接将val放到res中</span></span><br><span class="line">            <span class="keyword">if</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">                res.<span class="built_in">push_back</span>(cur-&gt;val);</span><br><span class="line">                stk.<span class="built_in">push</span>(cur);</span><br><span class="line">                cur=cur-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;<span class="comment">//当访问到最底层时</span></span><br><span class="line">                <span class="comment">//关键步骤，理解cur的改变</span></span><br><span class="line">                cur=stk.<span class="built_in">top</span>()-&gt;right;</span><br><span class="line">                stk.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h3><p>（1）递归实现</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(root-&gt;left);</span><br><span class="line">        res.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">        <span class="built_in">dfs</span>(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>（2）迭代实现</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        stack&lt;TreeNode*&gt; stk;</span><br><span class="line">        TreeNode* cur=root;</span><br><span class="line">        <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>()||cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="comment">// 指针来访问节点，访问到最底层</span></span><br><span class="line">            <span class="keyword">if</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">                <span class="comment">// 将访问的节点放进栈</span></span><br><span class="line">                stk.<span class="built_in">push</span>(cur);</span><br><span class="line">                cur=cur-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">//从栈里弹出的数据，就是要处理的数据（放进result数组里的数据）</span></span><br><span class="line">                res.<span class="built_in">push_back</span>(stk.<span class="built_in">top</span>()-&gt;val);<span class="comment">//中</span></span><br><span class="line">                cur=stk.<span class="built_in">top</span>()-&gt;right;</span><br><span class="line">                stk.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h3><p>（1）递归实现</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">postorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//1.确定终止条件</span></span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>)</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">        <span class="comment">//前中后序遍历只需要改换这三条的顺序</span></span><br><span class="line">        <span class="built_in">postorderTraversal</span>(root-&gt;left);</span><br><span class="line">        <span class="built_in">postorderTraversal</span>(root-&gt;right);</span><br><span class="line">        res.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>（2）迭代实现</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//迭代2 可与前中后序相应写法风格相统一，思想是中右左顺序遍历，最后reverse</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">postorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        stack&lt;TreeNode*&gt; stk;</span><br><span class="line">        TreeNode* cur= root;</span><br><span class="line">        <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>() || cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">                res.<span class="built_in">push_back</span>(cur-&gt;val);</span><br><span class="line">                stk.<span class="built_in">push</span>(cur);</span><br><span class="line">                cur=cur-&gt;right;  <span class="comment">//注意这里是right,前序是left</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="comment">//当访问到最底层时&#123;</span></span><br><span class="line">                <span class="comment">//关键步骤，理解cur的改变</span></span><br><span class="line">                cur=stk.<span class="built_in">top</span>()-&gt;left; <span class="comment">//这里是left，前序是right</span></span><br><span class="line">                stk.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">reverse</span>(res.<span class="built_in">begin</span>(),res.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="重建二叉树"><a href="#重建二叉树" class="headerlink" title="重建二叉树"></a>重建二叉树</h2><h3 id="从前序和中序遍历序列构造二叉树"><a href="#从前序和中序遍历序列构造二叉树" class="headerlink" title="从前序和中序遍历序列构造二叉树"></a><a href="https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/">从前序和中序遍历序列构造二叉树</a></h3><p>思路：</p>
+<p>（1）明白前序遍历的第一个节点永远是根节点</p>
+<p>（2）用哈希表记录中序遍历中每个节点值对应的索引位置</p>
+<p>（3）结合（1）（2）可知根节点在中序遍历中的位置，从而可以知道<strong>左子树和右子树的大小</strong></p>
+<p>（4）递归地进行左右子树的构建，<strong>函数返回根节点</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; mp;      <span class="comment">//&#123;value, index in inorder array&#125;</span></span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; preorder, vector&lt;<span class="type">int</span>&gt;&amp; inorder)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = preorder.<span class="built_in">size</span>();    <span class="comment">//两个数组长度相等</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=inorder.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            mp[inorder[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode* root = <span class="built_in">rebuild</span>(preorder,inorder,<span class="number">0</span>,n<span class="number">-1</span>,<span class="number">0</span>,n<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">rebuild</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; pv,vector&lt;<span class="type">int</span>&gt;&amp; iv,<span class="type">int</span> pl,<span class="type">int</span> pr, <span class="type">int</span> il, <span class="type">int</span> ir)</span></span>&#123;</span><br><span class="line">        <span class="comment">//注意不要落下递归的终止条件</span></span><br><span class="line">        <span class="keyword">if</span>(pr&lt;pl) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="comment">//前序遍历的第一个节点即为根节点</span></span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(pv[pl]);</span><br><span class="line">        <span class="comment">//在中序遍历中找到对应根节点，即可知道左子树和右子树的大小</span></span><br><span class="line">        <span class="type">int</span> leftsize = mp[pv[pl]] - il;</span><br><span class="line">        root-&gt;left = <span class="built_in">rebuild</span>(pv,iv,pl+<span class="number">1</span>,pl+leftsize,il,il+leftsize<span class="number">-1</span>);</span><br><span class="line">        root-&gt;right = <span class="built_in">rebuild</span>(pv,iv,pl+leftsize+<span class="number">1</span>,pr,il+leftsize+<span class="number">1</span>,ir);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="从中序遍历和后序遍历序列构造二叉树"><a href="#从中序遍历和后序遍历序列构造二叉树" class="headerlink" title="从中序遍历和后序遍历序列构造二叉树"></a>从中序遍历和后序遍历序列构造二叉树</h3><p>思路近似，都是要计算出左右子树的大小，然后进行递归</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; mp;      <span class="comment">//&#123;value, index in inorder array&#125;</span></span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; inorder, vector&lt;<span class="type">int</span>&gt;&amp; postorder)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = inorder.<span class="built_in">size</span>();    <span class="comment">//两个数组长度相等</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=inorder.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            mp[inorder[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode* root = <span class="built_in">rebuild</span>(inorder,postorder,<span class="number">0</span>,n<span class="number">-1</span>,<span class="number">0</span>,n<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">rebuild</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; iv,vector&lt;<span class="type">int</span>&gt;&amp; pv,<span class="type">int</span> il,<span class="type">int</span> ir, <span class="type">int</span> pl, <span class="type">int</span> pr)</span></span>&#123;</span><br><span class="line">        <span class="comment">//注意不要落下递归的终止条件</span></span><br><span class="line">        <span class="keyword">if</span>(ir&lt;il) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="comment">//后序遍历的最后一个节点即为根节点</span></span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(pv[pr]);</span><br><span class="line">        <span class="comment">//在中序遍历中找到对应根节点，即可知道左子树和右子树的大小</span></span><br><span class="line">        <span class="type">int</span> leftsize = mp[pv[pr]] - il;</span><br><span class="line">        root-&gt;left = <span class="built_in">rebuild</span>(iv,pv,il,il+leftsize<span class="number">-1</span>,pl,pl+leftsize<span class="number">-1</span>);</span><br><span class="line">        root-&gt;right = <span class="built_in">rebuild</span>(iv,pv,il+leftsize+<span class="number">1</span>,ir,pl+leftsize,pr<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二叉搜索树中第k小的元素"><a href="#二叉搜索树中第k小的元素" class="headerlink" title="二叉搜索树中第k小的元素"></a>二叉搜索树中第k小的元素</h2><p>给定一个二叉搜索树的根节点 root ，和一个整数 k ，请你设计一个算法查<a href="https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/">找其中第 k 个最小元素（从 1 开始计数）</a>。</p>
+<p>思路：</p>
+<p>（1）要反应过来二叉搜索树的中序遍历即为一个升序数组</p>
+<p>（2）取升序数组中的第k个就行</p>
+<p>如果要搜索第k大的元素，其实只要调整一下遍历的顺序，先遍历右子树，再遍历左子树即可</p>
+<h2 id="二叉树中节点和最大的路径"><a href="#二叉树中节点和最大的路径" class="headerlink" title="二叉树中节点和最大的路径"></a>二叉树中节点和最大的路径</h2><ol>
+<li>求二叉树中<a href="https://leetcode-cn.com/problems/jC7MId/"><em>节点之和最大的路径</em></a>，必须至少包含一个节点</li>
+</ol>
+<p>思路：</p>
+<p>（1）关键就是想清楚递归的返回值：应该返回包含当前节点在内的并且最多只包含左右子树其中之一边的最大路径。</p>
+<p>（2）在递归的过程中不断更新一个最大路径和，包含当前节点并且可以同时包含左右子树的节点。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> maxsum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> lval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;left));<span class="comment">//包含根节点root的单条路径的最大值</span></span><br><span class="line">        <span class="type">int</span> rval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;right));</span><br><span class="line">        maxsum = <span class="built_in">max</span>(maxsum,root-&gt;val+lval+rval);</span><br><span class="line">        <span class="keyword">return</span> root-&gt;val + <span class="built_in">max</span>(lval,rval);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> maxsum = INT_MIN;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Good questions —— 数组篇</title>
     <url>/2022/03/31/questions/</url>
     <content><![CDATA[<p>概述：本文记录了我在<a href="https://leetcode-cn.com/"><em>Leetcode</em></a>刷题过程中遇到的与数组相关的优质题目及解题思路</p>
@@ -1388,67 +1725,6 @@
 <h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
 <p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
 <p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Good questions —— 二叉树篇</title>
-    <url>/2022/03/31/questions02/</url>
-    <content><![CDATA[<p>概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路</p>
-<span id="more"></span>
-
-<h2 id="二叉树的前中后序遍历"><a href="#二叉树的前中后序遍历" class="headerlink" title="二叉树的前中后序遍历"></a>二叉树的前中后序遍历</h2><h3 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h3><p>（1）递归实现</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(TreeNode* node)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(node==<span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        res.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">        <span class="built_in">dfs</span>(node-&gt;left);</span><br><span class="line">        <span class="built_in">dfs</span>(node-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>（2）迭代实现</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//迭代</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>)</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        stack&lt;TreeNode*&gt; stk;</span><br><span class="line">        stk.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            TreeNode* temp=stk.<span class="built_in">top</span>();</span><br><span class="line">            stk.<span class="built_in">pop</span>();       <span class="comment">//必须先pop出来</span></span><br><span class="line">            res.<span class="built_in">push_back</span>(temp-&gt;val);<span class="comment">//根节点先push到结果数组中</span></span><br><span class="line">            <span class="keyword">if</span>(temp-&gt;right) stk.<span class="built_in">push</span>(temp-&gt;right);</span><br><span class="line">            <span class="keyword">if</span>(temp-&gt;left)  stk.<span class="built_in">push</span>(temp-&gt;left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>（3）风格统一的迭代写法</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//迭代2 用这种写法与中序风格统一</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>)</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        stack&lt;TreeNode*&gt; stk;</span><br><span class="line">        TreeNode* cur= root;</span><br><span class="line">        <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>() || cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="comment">//前序遍历在节点入栈时即可直接将val放到res中</span></span><br><span class="line">            <span class="keyword">if</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">                res.<span class="built_in">push_back</span>(cur-&gt;val);</span><br><span class="line">                stk.<span class="built_in">push</span>(cur);</span><br><span class="line">                cur=cur-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;<span class="comment">//当访问到最底层时</span></span><br><span class="line">                <span class="comment">//关键步骤，理解cur的改变</span></span><br><span class="line">                cur=stk.<span class="built_in">top</span>()-&gt;right;</span><br><span class="line">                stk.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h3><p>（1）递归实现</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(root-&gt;left);</span><br><span class="line">        res.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">        <span class="built_in">dfs</span>(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>（2）迭代实现</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        stack&lt;TreeNode*&gt; stk;</span><br><span class="line">        TreeNode* cur=root;</span><br><span class="line">        <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>()||cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="comment">// 指针来访问节点，访问到最底层</span></span><br><span class="line">            <span class="keyword">if</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">                <span class="comment">// 将访问的节点放进栈</span></span><br><span class="line">                stk.<span class="built_in">push</span>(cur);</span><br><span class="line">                cur=cur-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">//从栈里弹出的数据，就是要处理的数据（放进result数组里的数据）</span></span><br><span class="line">                res.<span class="built_in">push_back</span>(stk.<span class="built_in">top</span>()-&gt;val);<span class="comment">//中</span></span><br><span class="line">                cur=stk.<span class="built_in">top</span>()-&gt;right;</span><br><span class="line">                stk.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h3><p>（1）递归实现</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">postorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//1.确定终止条件</span></span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>)</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">        <span class="comment">//前中后序遍历只需要改换这三条的顺序</span></span><br><span class="line">        <span class="built_in">postorderTraversal</span>(root-&gt;left);</span><br><span class="line">        <span class="built_in">postorderTraversal</span>(root-&gt;right);</span><br><span class="line">        res.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>（2）迭代实现</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//迭代2 可与前中后序相应写法风格相统一，思想是中右左顺序遍历，最后reverse</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">postorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        stack&lt;TreeNode*&gt; stk;</span><br><span class="line">        TreeNode* cur= root;</span><br><span class="line">        <span class="keyword">while</span>(!stk.<span class="built_in">empty</span>() || cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">                res.<span class="built_in">push_back</span>(cur-&gt;val);</span><br><span class="line">                stk.<span class="built_in">push</span>(cur);</span><br><span class="line">                cur=cur-&gt;right;  <span class="comment">//注意这里是right,前序是left</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="comment">//当访问到最底层时&#123;</span></span><br><span class="line">                <span class="comment">//关键步骤，理解cur的改变</span></span><br><span class="line">                cur=stk.<span class="built_in">top</span>()-&gt;left; <span class="comment">//这里是left，前序是right</span></span><br><span class="line">                stk.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">reverse</span>(res.<span class="built_in">begin</span>(),res.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="重建二叉树"><a href="#重建二叉树" class="headerlink" title="重建二叉树"></a>重建二叉树</h2><h3 id="从前序和中序遍历序列构造二叉树"><a href="#从前序和中序遍历序列构造二叉树" class="headerlink" title="从前序和中序遍历序列构造二叉树"></a><a href="https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/">从前序和中序遍历序列构造二叉树</a></h3><p>思路：</p>
-<p>（1）明白前序遍历的第一个节点永远是根节点</p>
-<p>（2）用哈希表记录中序遍历中每个节点值对应的索引位置</p>
-<p>（3）结合（1）（2）可知根节点在中序遍历中的位置，从而可以知道<strong>左子树和右子树的大小</strong></p>
-<p>（4）递归地进行左右子树的构建，<strong>函数返回根节点</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; mp;      <span class="comment">//&#123;value, index in inorder array&#125;</span></span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; preorder, vector&lt;<span class="type">int</span>&gt;&amp; inorder)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = preorder.<span class="built_in">size</span>();    <span class="comment">//两个数组长度相等</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=inorder.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            mp[inorder[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode* root = <span class="built_in">rebuild</span>(preorder,inorder,<span class="number">0</span>,n<span class="number">-1</span>,<span class="number">0</span>,n<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">rebuild</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; pv,vector&lt;<span class="type">int</span>&gt;&amp; iv,<span class="type">int</span> pl,<span class="type">int</span> pr, <span class="type">int</span> il, <span class="type">int</span> ir)</span></span>&#123;</span><br><span class="line">        <span class="comment">//注意不要落下递归的终止条件</span></span><br><span class="line">        <span class="keyword">if</span>(pr&lt;pl) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="comment">//前序遍历的第一个节点即为根节点</span></span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(pv[pl]);</span><br><span class="line">        <span class="comment">//在中序遍历中找到对应根节点，即可知道左子树和右子树的大小</span></span><br><span class="line">        <span class="type">int</span> leftsize = mp[pv[pl]] - il;</span><br><span class="line">        root-&gt;left = <span class="built_in">rebuild</span>(pv,iv,pl+<span class="number">1</span>,pl+leftsize,il,il+leftsize<span class="number">-1</span>);</span><br><span class="line">        root-&gt;right = <span class="built_in">rebuild</span>(pv,iv,pl+leftsize+<span class="number">1</span>,pr,il+leftsize+<span class="number">1</span>,ir);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="从中序遍历和后序遍历序列构造二叉树"><a href="#从中序遍历和后序遍历序列构造二叉树" class="headerlink" title="从中序遍历和后序遍历序列构造二叉树"></a>从中序遍历和后序遍历序列构造二叉树</h3><p>思路近似，都是要计算出左右子树的大小，然后进行递归</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; mp;      <span class="comment">//&#123;value, index in inorder array&#125;</span></span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; inorder, vector&lt;<span class="type">int</span>&gt;&amp; postorder)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = inorder.<span class="built_in">size</span>();    <span class="comment">//两个数组长度相等</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=inorder.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">            mp[inorder[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode* root = <span class="built_in">rebuild</span>(inorder,postorder,<span class="number">0</span>,n<span class="number">-1</span>,<span class="number">0</span>,n<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">rebuild</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; iv,vector&lt;<span class="type">int</span>&gt;&amp; pv,<span class="type">int</span> il,<span class="type">int</span> ir, <span class="type">int</span> pl, <span class="type">int</span> pr)</span></span>&#123;</span><br><span class="line">        <span class="comment">//注意不要落下递归的终止条件</span></span><br><span class="line">        <span class="keyword">if</span>(ir&lt;il) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="comment">//后序遍历的最后一个节点即为根节点</span></span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(pv[pr]);</span><br><span class="line">        <span class="comment">//在中序遍历中找到对应根节点，即可知道左子树和右子树的大小</span></span><br><span class="line">        <span class="type">int</span> leftsize = mp[pv[pr]] - il;</span><br><span class="line">        root-&gt;left = <span class="built_in">rebuild</span>(iv,pv,il,il+leftsize<span class="number">-1</span>,pl,pl+leftsize<span class="number">-1</span>);</span><br><span class="line">        root-&gt;right = <span class="built_in">rebuild</span>(iv,pv,il+leftsize+<span class="number">1</span>,ir,pl+leftsize,pr<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="二叉搜索树中第k小的元素"><a href="#二叉搜索树中第k小的元素" class="headerlink" title="二叉搜索树中第k小的元素"></a>二叉搜索树中第k小的元素</h2><p>给定一个二叉搜索树的根节点 root ，和一个整数 k ，请你设计一个算法查<a href="https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/">找其中第 k 个最小元素（从 1 开始计数）</a>。</p>
-<p>思路：</p>
-<p>（1）要反应过来二叉搜索树的中序遍历即为一个升序数组</p>
-<p>（2）取升序数组中的第k个就行</p>
-<p>如果要搜索第k大的元素，其实只要调整一下遍历的顺序，先遍历右子树，再遍历左子树即可</p>
-<h2 id="二叉树中节点和最大的路径"><a href="#二叉树中节点和最大的路径" class="headerlink" title="二叉树中节点和最大的路径"></a>二叉树中节点和最大的路径</h2><ol>
-<li>求二叉树中<a href="https://leetcode-cn.com/problems/jC7MId/"><em>节点之和最大的路径</em></a>，必须至少包含一个节点</li>
-</ol>
-<p>思路：</p>
-<p>（1）关键就是想清楚递归的返回值：应该返回包含当前节点在内的并且最多只包含左右子树其中之一边的最大路径。</p>
-<p>（2）在递归的过程中不断更新一个最大路径和，包含当前节点并且可以同时包含左右子树的节点。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> maxsum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> lval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;left));<span class="comment">//包含根节点root的单条路径的最大值</span></span><br><span class="line">        <span class="type">int</span> rval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;right));</span><br><span class="line">        maxsum = <span class="built_in">max</span>(maxsum,root-&gt;val+lval+rval);</span><br><span class="line">        <span class="keyword">return</span> root-&gt;val + <span class="built_in">max</span>(lval,rval);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> maxsum = INT_MIN;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <categories>
         <category>算法</category>

@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.zzzzzq.com/2022/04/12/Redis/</loc>
+    
+    <lastmod>2022-04-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/2022/04/12/servlet/</loc>
+    
+    <lastmod>2022-04-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.zzzzzq.com/2022/04/12/Tomcat/</loc>
     
     <lastmod>2022-04-12</lastmod>
@@ -153,13 +171,6 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/tags/Spring/</loc>
-    <lastmod>2022-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.zzzzzq.com/tags/MySQL/</loc>
     <lastmod>2022-04-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -175,6 +186,20 @@
   
   <url>
     <loc>https://www.zzzzzq.com/tags/JavaWeb/</loc>
+    <lastmod>2022-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/tags/Spring/</loc>
+    <lastmod>2022-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/tags/Redis/</loc>
     <lastmod>2022-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -211,6 +236,13 @@
   </url>
   
   <url>
+    <loc>https://www.zzzzzq.com/categories/MySQL/</loc>
+    <lastmod>2022-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.zzzzzq.com/categories/Spring/</loc>
     <lastmod>2022-04-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -218,7 +250,7 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/categories/MySQL/</loc>
+    <loc>https://www.zzzzzq.com/categories/Redis/</loc>
     <lastmod>2022-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

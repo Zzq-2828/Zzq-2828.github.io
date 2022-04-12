@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-12T12:37:33.514Z</updated>
+  <updated>2022-04-12T17:57:59.994Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,55 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Redis</title>
+    <link href="https://www.zzzzzq.com/2022/04/12/Redis/"/>
+    <id>https://www.zzzzzq.com/2022/04/12/Redis/</id>
+    <published>2022-04-12T13:58:33.000Z</published>
+    <updated>2022-04-12T17:57:59.994Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文简单介绍了Redis这一种非关系型数据库&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Redis" scheme="https://www.zzzzzq.com/categories/Redis/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
+    
+    <category term="Redis" scheme="https://www.zzzzzq.com/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Servlet</title>
+    <link href="https://www.zzzzzq.com/2022/04/12/servlet/"/>
+    <id>https://www.zzzzzq.com/2022/04/12/servlet/</id>
+    <published>2022-04-12T13:41:26.000Z</published>
+    <updated>2022-04-12T13:58:50.034Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文简单介绍了Servlet的相关概念&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Tomcat</title>
     <link href="https://www.zzzzzq.com/2022/04/12/Tomcat/"/>
     <id>https://www.zzzzzq.com/2022/04/12/Tomcat/</id>
     <published>2022-04-12T08:24:41.000Z</published>
-    <updated>2022-04-12T12:37:33.514Z</updated>
+    <updated>2022-04-12T13:41:41.927Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文中简单介绍了web的相关概念，另外着重介绍了web服务器软件：Tomcat的基础知识&lt;/p&gt;</summary>
@@ -201,6 +245,27 @@
   </entry>
   
   <entry>
+    <title>Good questions —— 二叉树篇</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/questions02/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/questions02/</id>
+    <published>2022-03-30T16:00:00.000Z</published>
+    <updated>2022-03-31T08:53:49.582Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Good questions —— 数组篇</title>
     <link href="https://www.zzzzzq.com/2022/03/31/questions/"/>
     <id>https://www.zzzzzq.com/2022/03/31/questions/</id>
@@ -230,27 +295,6 @@
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与链表相关的优质题目及解题思路&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
-    
-    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Good questions —— 二叉树篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/questions02/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/questions02/</id>
-    <published>2022-03-30T16:00:00.000Z</published>
-    <updated>2022-03-31T08:53:49.582Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路&lt;/p&gt;</summary>
     
     
     
