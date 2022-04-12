@@ -1,22 +1,375 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>IDEAerror</title>
-    <url>/2022/04/01/IDEAerror/</url>
-    <content><![CDATA[<p>概述：本文记录了使用IDEA过程中遇到的错误以及解决方案</p>
+    <title>Tomcat</title>
+    <url>/2022/04/12/Tomcat/</url>
+    <content><![CDATA[<p>本文中简单介绍了web的相关概念，另外着重介绍了web服务器软件：Tomcat的基础知识</p>
 <span id="more"></span>
 
-
-
-<h4 id="IDEA-Java错误：不支持发行版本"><a href="#IDEA-Java错误：不支持发行版本" class="headerlink" title="IDEA Java错误：不支持发行版本"></a>IDEA Java错误：不支持发行版本</h4><p><a href="https://blog.csdn.net/Deeeelete/article/details/104382752?utm_medium=distribute.pc_relevant.none-task-blog-baidulandingword-3&spm=1001.2101.3001.4242"><em>解决方案</em></a></p>
-<h4 id="Cannot-resolve-symbol-’XXX‘-无法解析的符号-、"><a href="#Cannot-resolve-symbol-’XXX‘-无法解析的符号-、" class="headerlink" title="Cannot resolve symbol ’XXX‘ (无法解析的符号)、"></a>Cannot resolve symbol ’XXX‘ (无法解析的符号)、</h4><p>一般先检查项目结构中是否已经选择了合适的JDK</p>
-<p><a href="https://blog.csdn.net/he99774/article/details/78254262"><em>解决方案</em></a></p>
+<h3 id="Web相关概念"><a href="#Web相关概念" class="headerlink" title="Web相关概念"></a>Web相关概念</h3><ol>
+<li><p><strong>软件架构</strong></p>
+<ul>
+<li><p>C&#x2F;S：客户端&#x2F;服务器端</p>
+</li>
+<li><p>B&#x2F;S：浏览器&#x2F;服务器端</p>
+</li>
+</ul>
+</li>
+<li><p><strong>资源分类</strong></p>
+<ul>
+<li><p><strong>静态资源</strong>：所有用户访问后，得到的结果都是一样的，称为静态资源。静态资源可以直接被浏览器解析</p>
+<p>如： html,css,JavaScript</p>
+</li>
+<li><p><strong>动态资源</strong>：每个用户访问相同资源后，得到的结果可能不一样。称为动态资源。动态资源被访问后，需要先转换为静态资源，在返回给浏览器</p>
+<p>如：servlet&#x2F;jsp,php,asp….</p>
+<img src="https://pic.imgdb.cn/item/625571df239250f7c5d34f65.jpg" style="zoom: 67%;" /></li>
+</ul>
+</li>
+<li><p><strong>网络通信三要素</strong></p>
+<ul>
+<li><p><strong>IP</strong>：电子设备(计算机)在网络中的唯一标识。</p>
+</li>
+<li><p><strong>端口</strong>：应用程序在计算机中的唯一标识。 0~65536</p>
+</li>
+<li><p><strong>传输协议</strong>：规定了数据传输的规则</p>
+</li>
+<li><p><strong>基础协议</strong>：</p>
+<ul>
+<li><p>TCP：安全协议，三次握手。 速度稍慢</p>
+</li>
+<li><p>UDP：不安全协议。 速度快</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Web服务器软件"><a href="#Web服务器软件" class="headerlink" title="Web服务器软件"></a>Web服务器软件</h3><ul>
+<li><p>服务器：安装了服务器软件的计算机</p>
+</li>
+<li><p>服务器软件：接收用户的请求，处理请求，做出响应</p>
+</li>
+<li><p>web服务器软件：接收用户的请求，处理请求，做出响应。</p>
+<ul>
+<li>在web服务器软件中，可以部署web项目，让用户通过浏览器来访问这些项目</li>
+<li>web容器</li>
+</ul>
+</li>
+<li><p>常见的java相关的web服务器软件：</p>
+<ul>
+<li>webLogic：oracle公司，大型的JavaEE服务器，支持所有的JavaEE规范，收费的。</li>
+<li>webSphere：IBM公司，大型的JavaEE服务器，支持所有的JavaEE规范，收费的。</li>
+<li>JBOSS：JBOSS公司的，大型的JavaEE服务器，支持所有的JavaEE规范，收费的。</li>
+<li>Tomcat：Apache基金组织，中小型的JavaEE服务器，仅仅支持少量的JavaEE规范servlet&#x2F;jsp。开源的，免费的。</li>
+</ul>
+</li>
+<li><p>JavaEE：Java语言在企业级开发中使用的技术规范的总和，一共规定了13项大的规范</p>
+</li>
+<li><p>Tomcat：web服务器软件</p>
+<ol>
+<li>下载：<a href="http://tomcat.apache.org/">http://tomcat.apache.org/</a></li>
+<li>安装：解压压缩包即可。<ul>
+<li>注意：安装目录建议不要有中文和空格</li>
+</ul>
+</li>
+<li>卸载：删除目录就行了</li>
+<li>启动：<ul>
+<li><p>bin&#x2F;startup.bat ,双击运行该文件即可</p>
+</li>
+<li><p>访问：浏览器输入：<a href="http://localhost:8080/">http://localhost:8080</a> 回车访问自己<br>            http:&#x2F;&#x2F;别人的ip:8080 访问别人</p>
+</li>
+<li><p>可能遇到的问题：</p>
+<ol>
+<li><p>黑窗口一闪而过：</p>
+<ul>
+<li>原因： 没有正确配置JAVA_HOME环境变量</li>
+<li>解决方案：正确配置JAVA_HOME环境变量</li>
+</ul>
+</li>
+<li><p>启动报错：</p>
+<ol>
+<li>暴力：找到占用的端口号，并且找到对应的进程，杀死该进程<ul>
+<li>netstat -ano</li>
+</ul>
+</li>
+<li>温柔：修改自身的端口号<ul>
+<li>conf&#x2F;server.xml</li>
+<li><Connector port="8888" protocol="HTTP/1.1"
+ connectionTimeout="20000"
+ redirectPort="8445" /></li>
+<li>一般会将tomcat的默认端口号修改为80。80端口号是http协议的默认端口号。<ul>
+<li>好处：在访问时，就不用输入端口号</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>关闭：<ol>
+<li>正常关闭：<ul>
+<li>bin&#x2F;shutdown.bat</li>
+<li>ctrl+c</li>
+</ul>
+</li>
+<li>强制关闭：<ul>
+<li>点击启动窗口的×</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>配置:<ul>
+<li><p>部署项目的方式：</p>
+<ol>
+<li><p>直接将项目放到webapps目录下即可。</p>
+<ul>
+<li>&#x2F;hello：项目的访问路径–&gt;虚拟目录</li>
+<li>简化部署：将项目打成一个war包，再将war包放置到webapps目录下。<ul>
+<li>war包会自动解压缩</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>配置conf&#x2F;server.xml文件<br> 在<Host>标签体中配置</p>
+ <Context docBase="D:\hello" path="/hehe" />
+ * docBase:项目存放的路径
+ * path：虚拟目录
+</li>
+<li><p>在conf\Catalina\localhost创建任意名称的xml文件。在文件中编写</p>
+ <Context docBase="D:\hello" />
+ * 虚拟目录：xml文件的名称</li>
+</ol>
+</li>
+<li><p>静态项目和动态项目：</p>
+<ul>
+<li>目录结构<ul>
+<li>java动态项目的目录结构：<br>  – 项目的根目录<br>  – WEB-INF目录：<br>      – web.xml：web项目的核心配置文件<br>      – classes目录：放置字节码文件的目录<br>      – lib目录：放置依赖的jar包</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>将Tomcat集成到IDEA中，并且创建JavaEE的项目，部署项目。</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
 ]]></content>
       <categories>
-        <category>tools</category>
+        <category>JavaWeb</category>
       </categories>
       <tags>
-        <tag>tools</tag>
+        <tag>Java</tag>
+        <tag>JavaWeb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XML</title>
+    <url>/2022/04/12/XML/</url>
+    <content><![CDATA[<p>本文中包含XML的基础知识，包含基本概念、语法及解析</p>
+<span id="more"></span>
+
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>Extensible Markup Language 可扩展标记语言</p>
+<ul>
+<li>可扩展：标签都是自定义的。 <code>&lt;user&gt;  &lt;student&gt;</code></li>
+<li>功能：<strong>存储数据</strong><ol>
+<li>作为配置文件使用</li>
+<li>在网络中传输（与web service有关）</li>
+</ol>
+</li>
+<li>xml与html的区别<ol>
+<li>xml标签都是自定义的，html标签是预定义。</li>
+<li>xml的语法非常严格，html语法松散</li>
+<li>xml是存储数据的，html是展示数据</li>
+</ol>
+</li>
+<li>w3c:万维网联盟</li>
+</ul>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><ul>
+<li><p>基本语法：</p>
+<ol>
+<li>xml文档的后缀名 .xml</li>
+<li>xml第一行必须定义为文档声明</li>
+<li>xml文档中有且仅有一个根标签</li>
+<li>属性值必须使用引号(单双都可)引起来</li>
+<li>标签必须正确关闭</li>
+<li>xml标签名称区分大小写（html标签不区分大小写）</li>
+</ol>
+</li>
+<li><p>快速入门：</p>
+  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&#x27;1.0&#x27; ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">users</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">user</span> <span class="attr">id</span>=<span class="string">&#x27;1&#x27;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>zhangsan<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">age</span>&gt;</span>23<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">gender</span>&gt;</span>male<span class="tag">&lt;/<span class="name">gender</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">user</span> <span class="attr">id</span>=<span class="string">&#x27;2&#x27;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>lisi<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">age</span>&gt;</span>24<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">gender</span>&gt;</span>female<span class="tag">&lt;/<span class="name">gender</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">users</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  （XML可以被浏览器解析，因此可以直接拖到浏览器中判断是否写对）</p>
+</li>
+<li><p>组成部分：</p>
+<ol>
+<li>文档声明<ol>
+<li>格式：<code>&lt;?xml 属性列表 ?&gt;</code></li>
+<li>属性列表：</li>
+</ol>
+<ul>
+<li>version：版本号，必须的属性</li>
+<li>encoding：编码方式。告知解析引擎当前文档使用的字符集，默认值：ISO-8859-1</li>
+<li>standalone：是否独立<ul>
+<li>取值：<br>* yes：不依赖其他文件<br>* no：依赖其他文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>指令(了解)：结合css的<ul>
+<li><code>&lt;?xml-stylesheet type=&quot;text/css&quot; href=&quot;a.css&quot; ?&gt;</code></li>
+</ul>
+</li>
+<li>标签：标签名称自定义的<ul>
+<li>规则：<ul>
+<li>名称可以包含字母、数字以及其他的字符 </li>
+<li>名称不能以数字或者标点符号开始 </li>
+<li>名称不能以字母 xml（或者 XML、Xml 等等）开始 </li>
+<li>名称不能包含空格</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>属性：<br> id属性值唯一</li>
+<li>文本：<ul>
+<li>CDATA区：在该区域中的数据会被原样展示<ul>
+<li>格式：  <code>&lt;![CDATA[ 数据 ]]&gt;</code>   (Alt+Enter)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>约束：规定xml文档的书写规则<br>  * 作为框架的使用者(程序员)：<br>      1. 能够在xml中引入约束文档<br>  2. 能够简单的读懂约束文档</p>
+<ul>
+<li><p>分类：</p>
+<ol>
+<li>DTD:一种简单的约束技术</li>
+<li>Schema:一种复杂的约束技术</li>
+</ol>
+</li>
+<li><p>DTD：<br>      * 引入dtd文档到xml文档中<br>          * 内部dtd：将约束规则定义在xml文档中<br>  * 外部dtd：将约束的规则定义在外部的dtd文件中<br>       * 本地：<code>&lt;!DOCTYPE 根标签名 SYSTEM &quot;dtd文件的位置&quot;&gt;</code><br>       * 网络：<code>&lt;!DOCTYPE 根标签名 PUBLIC &quot;dtd文件名字&quot; &quot;dtd文件的位置URL&quot;&gt;</code></p>
+</li>
+<li><p>Schema:<br>   * 引入：<br>    1. 填写xml文档的根元素<br>    2. 引入xsi前缀.  xmlns:xsi&#x3D;”<a href="http://www.w3.org/2001/XMLSchema-instance&quot;">http://www.w3.org/2001/XMLSchema-instance&quot;</a><br>    3. 引入xsd文件命名空间.  xsi:schemaLocation&#x3D;”<a href="http://www.itcast.cn/xml">http://www.itcast.cn/xml</a>  student.xsd”<br>    4. 为每一个xsd约束声明一个前缀,作为标识  xmlns&#x3D;”<a href="http://www.itcast.cn/xml&quot;">http://www.itcast.cn/xml&quot;</a> </p>
+  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">students</span>   <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">			<span class="attr">xmlns</span>=<span class="string">&quot;http://www.itcast.cn/xml&quot;</span></span></span><br><span class="line"><span class="tag">			<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.itcast.cn/xml  student.xsd&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">student</span> <span class="attr">number</span>=<span class="string">&quot;heima_0001&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>tom<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">age</span>&gt;</span>18<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">sex</span>&gt;</span>male<span class="tag">&lt;/<span class="name">sex</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">student</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">students</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3><p>操作xml文档，将文档中的数据读取到内存中</p>
+<ul>
+<li><p>操作xml文档</p>
+<ol>
+<li>解析(读取)：将文档中的数据读取到内存中</li>
+<li>写入：将内存中的数据保存到xml文档中。持久化的存储</li>
+</ol>
+</li>
+<li><p>解析xml的方式（两种思想）：</p>
+<ol>
+<li>DOM：将标记语言文档一次性加载进内存，在内存中形成一颗dom树 (一般用于服务端)<ul>
+<li>优点：操作方便，可以对文档进行CRUD的所有操作</li>
+<li>缺点：占内存</li>
+</ul>
+</li>
+<li>SAX：逐行读取，基于事件驱动的。<ul>
+<li>优点：不占内存。</li>
+<li>缺点：只能读取，不能增删改</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>xml常见的解析器：<br>  1. JAXP：sun公司提供的解析器，支持dom和sax两种思想<br>  2. DOM4J：一款非常优秀的解析器<br>  3. Jsoup：jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。<br>  4. PULL：Android操作系统内置的解析器，sax方式的。</p>
+</li>
+<li><p>Jsoup：jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。</p>
+<ul>
+<li>步骤：<br>        1. 导入jar包<br>          2. 获取Document对象<br>          3. 获取对应的标签Element对象<br>          4. 获取数据</li>
+</ul>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.jsoup.Jsoup;</span><br><span class="line"><span class="keyword">import</span> org.jsoup.nodes.Document;</span><br><span class="line"><span class="keyword">import</span> org.jsoup.nodes.Element;</span><br><span class="line"><span class="keyword">import</span> org.jsoup.select.Elements;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.URISyntaxException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Jsoup快速入门</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JsoupDemo1</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, URISyntaxException &#123;</span><br><span class="line">        <span class="comment">//2.获取Document对象，根据xml文档获取</span></span><br><span class="line">        <span class="comment">//2.1获取student.xml的path</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">path</span> <span class="operator">=</span> JsoupDemo1.class.getClassLoader().getResource(<span class="string">&quot;student.xml&quot;</span>).toURI().getPath();</span><br><span class="line">        <span class="comment">//2.2解析xml文档，加载文档进内存，获取dom树---&gt;Document</span></span><br><span class="line">        <span class="type">Document</span> <span class="variable">document</span> <span class="operator">=</span> Jsoup.parse(<span class="keyword">new</span> <span class="title class_">File</span>(path), <span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        <span class="comment">//3.获取元素对象 Element</span></span><br><span class="line">        <span class="type">Elements</span> <span class="variable">elements</span> <span class="operator">=</span> document.getElementsByTag(<span class="string">&quot;name&quot;</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(elements.size());</span><br><span class="line">        <span class="comment">//3.1获取第一个name的Element对象</span></span><br><span class="line">        <span class="type">Element</span> <span class="variable">element</span> <span class="operator">=</span> elements.get(<span class="number">0</span>);</span><br><span class="line">        <span class="comment">//3.2获取数据</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> element.text();</span><br><span class="line">        System.out.println(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>对象的使用：</p>
+<ol>
+<li><p>Jsoup：工具类，可以解析html或xml文档，返回Document</p>
+<ul>
+<li>parse：解析html或xml文档，返回Document<ul>
+<li><code>parse(File in, String charsetName)</code>：解析xml或html文件的。</li>
+<li><code>parse(String html)</code>：解析xml或html字符串</li>
+<li><code>parse(URL url, int timeoutMillis)</code>：通过网络路径获取指定的html或xml的文档对象</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Document：文档对象。代表内存中的dom树</p>
+<ul>
+<li>获取Element对象<ul>
+<li><code>getElementById(String id)</code>：根据id属性值获取唯一的element对象</li>
+<li><code>getElementsByTag(String tagName)</code>：根据标签名称获取元素对象集合</li>
+<li><code>getElementsByAttribute(String key)</code>：根据属性名称获取元素对象集合</li>
+<li><code>getElementsByAttributeValue(String key, String value)</code>：根据对应的属性名和属性值获取元素对象集合</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Elements：元素Element对象的集合。可以当做 <code>ArrayList&lt;Element&gt;</code>来使用</p>
+</li>
+<li><p>Element：元素对象</p>
+<ol>
+<li><p>获取子元素对象</p>
+<ul>
+<li><code>getElementById(String id)</code>：根据id属性值获取唯一的element对象</li>
+<li><code>getElementsByTag(String tagName)</code>：根据标签名称获取元素对象集合</li>
+<li><code>getElementsByAttribute(String key)</code>：根据属性名称获取元素对象集合</li>
+<li><code>getElementsByAttributeValue(String key, String value)</code>：根据对应的属性名和属性值获取元素对象集合</li>
+</ul>
+</li>
+<li><p>获取属性值</p>
+<ul>
+<li><code>String attr(String key)</code>：根据属性名称获取属性值</li>
+</ul>
+</li>
+<li><p>获取文本内容</p>
+<ul>
+<li><code>String text()</code>:获取文本内容</li>
+<li><code>String html()</code>:获取标签体的所有内容(包括字标签的字符串内容)</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>Node：节点对象</p>
+<ul>
+<li>是Document和Element的父类</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>快捷查询方式：</p>
+<ol>
+<li>selector:选择器<ul>
+<li>使用的方法：<code>Elements select(String cssQuery)</code><ul>
+<li>语法：参考Selector类中定义的语法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>XPath：XPath即为XML路径语言，它是一种用来确定XML（标准通用标记语言的子集）文档中某部分位置的语言<ul>
+<li>使用Jsoup的Xpath需要额外导入jar包。</li>
+<li>查询w3cshool参考手册，使用xpath的语法完成查询</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *XPath查询</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JsoupDemo6</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, XpathSyntaxErrorException &#123;</span><br><span class="line">        <span class="comment">//1.获取student.xml的path</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">path</span> <span class="operator">=</span> JsoupDemo6.class.getClassLoader().getResource(<span class="string">&quot;student.xml&quot;</span>).toURI().getPath();</span><br><span class="line">        <span class="comment">//2.获取Document对象</span></span><br><span class="line">        <span class="type">Document</span> <span class="variable">document</span> <span class="operator">=</span> Jsoup.parse(<span class="keyword">new</span> <span class="title class_">File</span>(path), <span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//3.根据document对象，创建JXDocument对象</span></span><br><span class="line">        <span class="type">JXDocument</span> <span class="variable">jxDocument</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JXDocument</span>(document);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//4.结合xpath语法查询</span></span><br><span class="line">        <span class="comment">//4.1查询所有student标签</span></span><br><span class="line">        List&lt;JXNode&gt; jxNodes = jxDocument.selN(<span class="string">&quot;//student&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (JXNode jxNode : jxNodes) &#123;</span><br><span class="line">            System.out.println(jxNode);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;--------------------&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//4.2查询所有student标签下的name标签</span></span><br><span class="line">        List&lt;JXNode&gt; jxNodes2 = jxDocument.selN(<span class="string">&quot;//student/name&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (JXNode jxNode : jxNodes2) &#123;</span><br><span class="line">            System.out.println(jxNode);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;--------------------&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//4.3查询student标签下带有id属性的name标签</span></span><br><span class="line">        List&lt;JXNode&gt; jxNodes3 = jxDocument.selN(<span class="string">&quot;//student/name[@id]&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (JXNode jxNode : jxNodes3) &#123;</span><br><span class="line">            System.out.println(jxNode);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;--------------------&quot;</span>);</span><br><span class="line">        <span class="comment">//4.4查询student标签下带有id属性的name标签 并且id属性值为itcast</span></span><br><span class="line"></span><br><span class="line">        List&lt;JXNode&gt; jxNodes4 = jxDocument.selN(<span class="string">&quot;//student/name[@id=&#x27;itcast&#x27;]&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (JXNode jxNode : jxNodes4) &#123;</span><br><span class="line">            System.out.println(jxNode);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>JavaWeb</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>JavaWeb</tag>
       </tags>
   </entry>
   <entry>
@@ -361,504 +714,6 @@
       </categories>
       <tags>
         <tag>MySQL</tag>
-        <tag>Java</tag>
-        <tag>JavaWeb</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring01</title>
-    <url>/2022/04/01/Spring01/</url>
-    <content><![CDATA[<p>概述：本文记录了Spring的基础概念和基本配置方法</p>
-<span id="more"></span>
-
-<h3 id="1-Spring简介"><a href="#1-Spring简介" class="headerlink" title="1. Spring简介"></a>1. Spring简介</h3><h4 id="1-1-Spring是什么"><a href="#1-1-Spring是什么" class="headerlink" title="1.1 Spring是什么"></a>1.1 Spring是什么</h4><p>Spring是分层的Java SE&#x2F;EE 应用full-stack轻量级开源框架，以<strong>IoC</strong>（Inverse Of Control：反转控制）和<strong>AOP</strong>（Aspect Oriented Programming：面向切面编程）为内核</p>
-<p>提供了<strong>展现层SpringMVC</strong>和<strong>持久层Spring JDBCTemplate</strong>以及<strong>业务层事务管理</strong>等众多的企业级应用技术，还能整合开源世界众多著名的第三方框架和类库，逐渐成为使用最多的Java EE企业应用开源框架。</p>
-<h4 id="1-2-Spring的优势"><a href="#1-2-Spring的优势" class="headerlink" title="1.2 Spring的优势"></a>1.2 Spring的优势</h4><p>（1）方便解耦：简化开发 通过 Spring提供的 loC容器，可以将对象间的依赖关系交由 Spring 进行控制，避免硬编码所造成的过度耦合。用户也不必再为单例模式类、属性文件解析等这文些很底层的需求编写代码.可以更专注干上层的应用。 </p>
-<p>（2）AOP编程的支持： 通过 Spring的 AOP 功能，方便进行面向切面编程，许多不容易用传统 OOP 实现的功能可以通过 AOP 轻松实现。 </p>
-<p>（3）声明式事务的支持 ：可以将我们从单调烦闷的事务管理代码中解脱出来，通过声明式方式灵活的进行事务管理，提高开发效率和质量。 </p>
-<p>（4）方便程序的测试 ：可以用非容器依赖的编程方式进讲行几平所有的测试工作，测试不再是昂贵的操作，而是随手可做的事情。</p>
-<p>（5）方便集成各种优秀框架： Spring对各种优秀框架（Struts、 Hibernate、Hessian、Quartz等）的支持。</p>
-<p>（ 6）降低 JavaEE API的使用难度： Spring对 JavaEE API（如JDBC、JavaMail、远程调用等）进行了薄薄的封装层，使这些API的使用难度大为降低。 </p>
-<p>（7）Java 源码是经典学习范例： Spring的源代码设计精妙、结构清晰、匠心独用，处处体现着大师对Java 设计模式灵活运用以及对 Java技术的高深造诣。它的源代码是 Java技术的最佳实践的范例。 </p>
-<h4 id="1-3-Spring的体系结构"><a href="#1-3-Spring的体系结构" class="headerlink" title="1.3 Spring的体系结构"></a>1.3 Spring的体系结构</h4><img src="https://pic.imgdb.cn/item/6246961327f86abb2a362a69.jpg" style="zoom: 80%;" />
-
-<h3 id="2-Spring快速配置"><a href="#2-Spring快速配置" class="headerlink" title="2. Spring快速配置"></a>2. Spring快速配置</h3><h4 id="2-1-Spring程序开发步骤"><a href="#2-1-Spring程序开发步骤" class="headerlink" title="2.1 Spring程序开发步骤"></a>2.1 Spring程序开发步骤</h4><p><img src="https://pic.imgdb.cn/item/6246970127f86abb2a37fd13.jpg"></p>
-<p>① 导入 Spring 开发的基本包坐标</p>
-<p>② 编写 Dao 接口和实现类</p>
-<p>③ 创建 Spring核心配置文件 </p>
-<p>④ 在Spring 配置文件中配置 UserDaolmpl </p>
-<p>⑤ 使用 Spring 的API获得 Bean 实例 </p>
-<h4 id="2-2-导入Spring开发的基本包坐标"><a href="#2-2-导入Spring开发的基本包坐标" class="headerlink" title="2.2 导入Spring开发的基本包坐标"></a>2.2 导入Spring开发的基本包坐标</h4><h4 id="2-3-编写Dao接口和实现"><a href="#2-3-编写Dao接口和实现" class="headerlink" title="2.3 编写Dao接口和实现"></a>2.3 编写Dao接口和实现</h4><h4 id="2-4-创建Spring核心配置文件"><a href="#2-4-创建Spring核心配置文件" class="headerlink" title="2.4 创建Spring核心配置文件"></a>2.4 创建Spring核心配置文件</h4><p>在类路径下（resources）创建applicationContext.xml配置文件</p>
-<h4 id="2-5-在Spring配置文件中配置UserDaoImpl"><a href="#2-5-在Spring配置文件中配置UserDaoImpl" class="headerlink" title="2.5 在Spring配置文件中配置UserDaoImpl"></a>2.5 在Spring配置文件中配置UserDaoImpl</h4><h4 id="2-6-使用Spring的API获得Bean实例"><a href="#2-6-使用Spring的API获得Bean实例" class="headerlink" title="2.6 使用Spring的API获得Bean实例"></a>2.6 使用Spring的API获得Bean实例</h4><h4 id="2-7-要点总结"><a href="#2-7-要点总结" class="headerlink" title="2.7 要点总结"></a>2.7 要点总结</h4><p>① 导入坐标</p>
-<p>② 创建Bean </p>
-<p>③ 创建applicationContextxml </p>
-<p>④ 在配置文件中进行配置 </p>
-<p>⑤ 创建ApplicationContext对象getBean</p>
-<h3 id="3-Spring配置文件"><a href="#3-Spring配置文件" class="headerlink" title="3. Spring配置文件"></a>3. Spring配置文件</h3><h4 id="3-1-Bean标签基本配置"><a href="#3-1-Bean标签基本配置" class="headerlink" title="3.1 Bean标签基本配置"></a>3.1 Bean标签基本配置</h4><p>用于配置对象交由Spring 来创建。 默认情况下它调用的是类中的无参构造函数，如果没有无参构造函数则不能创建成功。</p>
-<p> 基本属性∶ </p>
-<p>● id∶Bean实例在Spring容器中的唯一标识</p>
-<p>●class∶Bean的全限定名称 </p>
-<h4 id="3-2-Bean标签范围配置"><a href="#3-2-Bean标签范围配置" class="headerlink" title="3.2 Bean标签范围配置"></a>3.2 Bean标签范围配置</h4><p>scope：指对象的作用范围，取值如下：</p>
-<p><img src="https://pic.imgdb.cn/item/6246b99d27f86abb2a7d1aa9.jpg"></p>
-<p><strong>当scope的取值为singleton时</strong></p>
-<p>Bean的实例化个数：1个</p>
-<p>Bean的实例化时机：当Spring核心文件被加载时，实例化配置的Bean实例</p>
-<p>Bean的生命周期：</p>
-<p>（1） 对象创建：当应用加载，创建容器时，对象就被创建了</p>
-<p>（2）对象运行：只要容器在，对象一直活着</p>
-<p>（3）对象销毁：当应用卸载，销毁容器时，对象就被销毁了</p>
-<p><strong>当scope的取值为prototype时</strong></p>
-<p>Bean的实例化个数：多个</p>
-<p>Bean的实例化时机：当调用getBean()方法时实例化Bean</p>
-<p>（1）对象创建：当使用对象时，创建新的对象实例</p>
-<p>（2）对象运行：只要对象在使用中，就一直活着</p>
-<p>（3）对象销毁：当对象长时间不用时，被 Java 的垃圾回收器回收了</p>
-<h5 id="3-3-Bean生命周期配置"><a href="#3-3-Bean生命周期配置" class="headerlink" title="3.3 Bean生命周期配置"></a>3.3 Bean生命周期配置</h5><p><strong>init-method</strong>：指定类中的初始化方法名称</p>
-<p><strong>destroy-method</strong>：指定类中销毁方法名称</p>
-<h4 id="3-4-Bean实例化三种方式"><a href="#3-4-Bean实例化三种方式" class="headerlink" title="3.4 Bean实例化三种方式"></a>3.4 Bean实例化三种方式</h4><p>（1）无参<strong>构造</strong>方法实例化</p>
-<p>它会根据默认无参构造方法来创建类对象，如果bean中没有默认无参构造函数，将会创建失败。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.dao.impl.UserDaoImpl&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>（2）工厂<strong>静态</strong>方法实例化</p>
-<p>工厂的静态方法返回Bean实例</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StaticFactoryBean</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> UserDao <span class="title function_">createUserDao</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDaoImpl</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.factory.StaticFactoryBean&quot;</span> </span></span><br><span class="line"><span class="tag"><span class="attr">factory-method</span>=<span class="string">&quot;createUserDao&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>（3）工厂<strong>实例</strong>方法实例化</p>
-<p>工厂的非静态方法返回Bean实例</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DynamicFactoryBean</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> UserDao <span class="title function_">createUserDao</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDaoImpl</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;factoryBean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.factory.DynamicFactoryBean&quot;</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">factory-bean</span>=<span class="string">&quot;factoryBean&quot;</span> <span class="attr">factory-method</span>=<span class="string">&quot;createUserDao&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="3-5-Bean的依赖注入"><a href="#3-5-Bean的依赖注入" class="headerlink" title="3.5 Bean的依赖注入"></a>3.5 Bean的依赖注入</h4>]]></content>
-      <categories>
-        <category>Spring</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot —— 基础篇</title>
-    <url>/2022/03/31/SpringBootConfig/</url>
-    <content><![CDATA[<p>概述：SpringBoot基础知识学习与记录，学完这个篇章可以会用SpringBoot</p>
-<span id="more"></span>
-
-<h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>SpringBoot的设计目的是用来简化Spring应用的初始搭建以及开发过程</p>
-<h2 id="SpringBoot基础配置"><a href="#SpringBoot基础配置" class="headerlink" title="SpringBoot基础配置"></a>SpringBoot基础配置</h2><p>（1）IDEA新建项目</p>
-<p>查看版本：File -&gt; Settings -&gt; Maven 可以查看版本（我的版本为3.8.1）</p>
-<p>File -&gt; Project Structure -&gt; Modules -&gt; ‘+’  -&gt;New Module -&gt; Spring Initializr (注意如果没有的话要去settings -&gt;plugins -&gt; marketplace 下搜索并下载)</p>
-<p>进行如下配置</p>
-<p><img src="https://pic.imgdb.cn/item/6245ff0427f86abb2a70bbd8.jpg" alt="image01"></p>
-<p>选择spring web</p>
-<p>基础的环境配置即完成了</p>
-<h2 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h2><ol>
-<li><a href="https://docs.spring.io/spring-boot/docs/3.0.0-M1/reference/htmlsingle/"><em>SpringBoot reference documentation</em></a></li>
-</ol>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Tomcat</title>
-    <url>/2022/04/12/Tomcat/</url>
-    <content><![CDATA[<p>本文中简单介绍了web的相关概念，另外着重介绍了web服务器软件：Tomcat的基础知识</p>
-<span id="more"></span>
-
-<h3 id="Web相关概念"><a href="#Web相关概念" class="headerlink" title="Web相关概念"></a>Web相关概念</h3><ol>
-<li><p>软件架构</p>
-<ol>
-<li>C&#x2F;S：客户端&#x2F;服务器端</li>
-<li>B&#x2F;S：浏览器&#x2F;服务器端</li>
-</ol>
-</li>
-<li><p>资源分类</p>
-<ol>
-<li>静态资源：所有用户访问后，得到的结果都是一样的，称为静态资源.静态资源可以直接被浏览器解析<ul>
-<li>如： html,css,JavaScript</li>
-</ul>
-</li>
-<li>动态资源:每个用户访问相同资源后，得到的结果可能不一样。称为动态资源。动态资源被访问后，需要先转换为静态资源，在返回给浏览器<ul>
-<li>如：servlet&#x2F;jsp,php,asp….</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p>网络通信三要素</p>
-<ol>
-<li>IP：电子设备(计算机)在网络中的唯一标识。</li>
-<li>端口：应用程序在计算机中的唯一标识。 0~65536</li>
-<li>传输协议：规定了数据传输的规则<ol>
-<li>基础协议：<ol>
-<li>tcp:安全协议，三次握手。 速度稍慢</li>
-<li>udp：不安全协议。 速度快</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<h3 id="Web服务器软件"><a href="#Web服务器软件" class="headerlink" title="Web服务器软件"></a>Web服务器软件</h3><ul>
-<li><p>服务器：安装了服务器软件的计算机</p>
-</li>
-<li><p>服务器软件：接收用户的请求，处理请求，做出响应</p>
-</li>
-<li><p>web服务器软件：接收用户的请求，处理请求，做出响应。</p>
-<ul>
-<li>在web服务器软件中，可以部署web项目，让用户通过浏览器来访问这些项目</li>
-<li>web容器</li>
-</ul>
-</li>
-<li><p>常见的java相关的web服务器软件：</p>
-<ul>
-<li>webLogic：oracle公司，大型的JavaEE服务器，支持所有的JavaEE规范，收费的。</li>
-<li>webSphere：IBM公司，大型的JavaEE服务器，支持所有的JavaEE规范，收费的。</li>
-<li>JBOSS：JBOSS公司的，大型的JavaEE服务器，支持所有的JavaEE规范，收费的。</li>
-<li>Tomcat：Apache基金组织，中小型的JavaEE服务器，仅仅支持少量的JavaEE规范servlet&#x2F;jsp。开源的，免费的。</li>
-</ul>
-</li>
-<li><p>JavaEE：Java语言在企业级开发中使用的技术规范的总和，一共规定了13项大的规范</p>
-</li>
-<li><p>Tomcat：web服务器软件</p>
-<ol>
-<li>下载：<a href="http://tomcat.apache.org/">http://tomcat.apache.org/</a></li>
-<li>安装：解压压缩包即可。<ul>
-<li>注意：安装目录建议不要有中文和空格</li>
-</ul>
-</li>
-<li>卸载：删除目录就行了</li>
-<li>启动：<ul>
-<li><p>bin&#x2F;startup.bat ,双击运行该文件即可</p>
-</li>
-<li><p>访问：浏览器输入：<a href="http://localhost:8080/">http://localhost:8080</a> 回车访问自己<br>            http:&#x2F;&#x2F;别人的ip:8080 访问别人</p>
-</li>
-<li><p>可能遇到的问题：</p>
-<ol>
-<li><p>黑窗口一闪而过：</p>
-<ul>
-<li>原因： 没有正确配置JAVA_HOME环境变量</li>
-<li>解决方案：正确配置JAVA_HOME环境变量</li>
-</ul>
-</li>
-<li><p>启动报错：</p>
-<ol>
-<li>暴力：找到占用的端口号，并且找到对应的进程，杀死该进程<ul>
-<li>netstat -ano</li>
-</ul>
-</li>
-<li>温柔：修改自身的端口号<ul>
-<li>conf&#x2F;server.xml</li>
-<li><Connector port="8888" protocol="HTTP/1.1"
- connectionTimeout="20000"
- redirectPort="8445" /></li>
-<li>一般会将tomcat的默认端口号修改为80。80端口号是http协议的默认端口号。<ul>
-<li>好处：在访问时，就不用输入端口号</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>关闭：<ol>
-<li>正常关闭：<ul>
-<li>bin&#x2F;shutdown.bat</li>
-<li>ctrl+c</li>
-</ul>
-</li>
-<li>强制关闭：<ul>
-<li>点击启动窗口的×</li>
-</ul>
-</li>
-</ol>
-</li>
-<li>配置:<ul>
-<li><p>部署项目的方式：</p>
-<ol>
-<li><p>直接将项目放到webapps目录下即可。</p>
-<ul>
-<li>&#x2F;hello：项目的访问路径–&gt;虚拟目录</li>
-<li>简化部署：将项目打成一个war包，再将war包放置到webapps目录下。<ul>
-<li>war包会自动解压缩</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>配置conf&#x2F;server.xml文件<br> 在<Host>标签体中配置</p>
- <Context docBase="D:\hello" path="/hehe" />
- * docBase:项目存放的路径
- * path：虚拟目录
-</li>
-<li><p>在conf\Catalina\localhost创建任意名称的xml文件。在文件中编写</p>
- <Context docBase="D:\hello" />
- * 虚拟目录：xml文件的名称</li>
-</ol>
-</li>
-<li><p>静态项目和动态项目：</p>
-<ul>
-<li>目录结构<ul>
-<li>java动态项目的目录结构：<br>  – 项目的根目录<br>  – WEB-INF目录：<br>      – web.xml：web项目的核心配置文件<br>      – classes目录：放置字节码文件的目录<br>      – lib目录：放置依赖的jar包</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>将Tomcat集成到IDEA中，并且创建JavaEE的项目，部署项目。</p>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>JavaWeb</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>JavaWeb</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java与C++的差异</title>
-    <url>/2022/03/31/java-basic/</url>
-    <content><![CDATA[<p>概述：本文主要记录Java中与C++有明显差异的语言特性</p>
-<span id="more"></span>
-
-<h2 id="与C-的差异"><a href="#与C-的差异" class="headerlink" title="与C++的差异"></a>与C++的差异</h2><p>（1）C++ 支持指针，而 Java 没有指针的概念。</p>
-<p>（2）C++ 支持多继承，而 Java 不支持多重继承，但允许一个类实现多个接口。</p>
-<p>（3）Java 是完全面向对象的语言，并且还取消了 C&#x2F;C++ 中的结构和联合，使编译程序更加简洁</p>
-<p>（4）Java 自动进行无用内存回收操作，不再需要程序员进行手动删除，而 C++ 中必须由程序释放内存资源，这就增加了程序员的负担。</p>
-<p>（5）Java 不支持操作符重载，而操作符重载则被认为是 C++ 的突出特征。</p>
-<p>（6）Java 允许预处理，但不支持预处理器功能，所以为了实现预处理，它提供了引入语句（import），但它与 C++ 预处理器的功能类似。</p>
-<p>（7）Java 不支持缺省参数函数，而 C++ 支持 。</p>
-<p>（8）C 和 C++ 不支持字符串变量，在 C 和 C++ 程序中使用“Null”终止符代表字符串的结束。在 Java 中字符串是用类对象（String 和 StringBuffer）来实现的</p>
-<p>（9）Java 不提供 goto 语句，虽然 Java 指定 goto 作为关键字，但不支持它的使用，这使程序更简洁易读。不过Java中的break&#x2F;continue可以带标签（标签必须放在希望跳出的最外层循环之前，并且必须紧跟一个冒号），用于从内层循环中跳出</p>
-<p>（10）Java 不支持 C++ 中的自动强制类型转换，如果需要，必须由程序显式进行强制类型转换。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>XML</title>
-    <url>/2022/04/12/XML/</url>
-    <content><![CDATA[<p>本文中包含XML的基础知识，包含基本概念、语法及解析</p>
-<span id="more"></span>
-
-<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>Extensible Markup Language 可扩展标记语言</p>
-<ul>
-<li>可扩展：标签都是自定义的。 <code>&lt;user&gt;  &lt;student&gt;</code></li>
-<li>功能：<strong>存储数据</strong><ol>
-<li>作为配置文件使用</li>
-<li>在网络中传输（与web service有关）</li>
-</ol>
-</li>
-<li>xml与html的区别<ol>
-<li>xml标签都是自定义的，html标签是预定义。</li>
-<li>xml的语法非常严格，html语法松散</li>
-<li>xml是存储数据的，html是展示数据</li>
-</ol>
-</li>
-<li>w3c:万维网联盟</li>
-</ul>
-<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><ul>
-<li><p>基本语法：</p>
-<ol>
-<li>xml文档的后缀名 .xml</li>
-<li>xml第一行必须定义为文档声明</li>
-<li>xml文档中有且仅有一个根标签</li>
-<li>属性值必须使用引号(单双都可)引起来</li>
-<li>标签必须正确关闭</li>
-<li>xml标签名称区分大小写（html标签不区分大小写）</li>
-</ol>
-</li>
-<li><p>快速入门：</p>
-  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&#x27;1.0&#x27; ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">users</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">user</span> <span class="attr">id</span>=<span class="string">&#x27;1&#x27;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>zhangsan<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">age</span>&gt;</span>23<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">gender</span>&gt;</span>male<span class="tag">&lt;/<span class="name">gender</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">user</span> <span class="attr">id</span>=<span class="string">&#x27;2&#x27;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>lisi<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">age</span>&gt;</span>24<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">gender</span>&gt;</span>female<span class="tag">&lt;/<span class="name">gender</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">users</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>  （XML可以被浏览器解析，因此可以直接拖到浏览器中判断是否写对）</p>
-</li>
-<li><p>组成部分：</p>
-<ol>
-<li>文档声明<ol>
-<li>格式：<code>&lt;?xml 属性列表 ?&gt;</code></li>
-<li>属性列表：</li>
-</ol>
-<ul>
-<li>version：版本号，必须的属性</li>
-<li>encoding：编码方式。告知解析引擎当前文档使用的字符集，默认值：ISO-8859-1</li>
-<li>standalone：是否独立<ul>
-<li>取值：<br>* yes：不依赖其他文件<br>* no：依赖其他文件</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>指令(了解)：结合css的<ul>
-<li><code>&lt;?xml-stylesheet type=&quot;text/css&quot; href=&quot;a.css&quot; ?&gt;</code></li>
-</ul>
-</li>
-<li>标签：标签名称自定义的<ul>
-<li>规则：<ul>
-<li>名称可以包含字母、数字以及其他的字符 </li>
-<li>名称不能以数字或者标点符号开始 </li>
-<li>名称不能以字母 xml（或者 XML、Xml 等等）开始 </li>
-<li>名称不能包含空格</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>属性：<br> id属性值唯一</li>
-<li>文本：<ul>
-<li>CDATA区：在该区域中的数据会被原样展示<ul>
-<li>格式：  <code>&lt;![CDATA[ 数据 ]]&gt;</code>   (Alt+Enter)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p>约束：规定xml文档的书写规则<br>  * 作为框架的使用者(程序员)：<br>      1. 能够在xml中引入约束文档<br>  2. 能够简单的读懂约束文档</p>
-<ul>
-<li><p>分类：</p>
-<ol>
-<li>DTD:一种简单的约束技术</li>
-<li>Schema:一种复杂的约束技术</li>
-</ol>
-</li>
-<li><p>DTD：<br>      * 引入dtd文档到xml文档中<br>          * 内部dtd：将约束规则定义在xml文档中<br>  * 外部dtd：将约束的规则定义在外部的dtd文件中<br>       * 本地：<code>&lt;!DOCTYPE 根标签名 SYSTEM &quot;dtd文件的位置&quot;&gt;</code><br>       * 网络：<code>&lt;!DOCTYPE 根标签名 PUBLIC &quot;dtd文件名字&quot; &quot;dtd文件的位置URL&quot;&gt;</code></p>
-</li>
-<li><p>Schema:<br>   * 引入：<br>    1. 填写xml文档的根元素<br>    2. 引入xsi前缀.  xmlns:xsi&#x3D;”<a href="http://www.w3.org/2001/XMLSchema-instance&quot;">http://www.w3.org/2001/XMLSchema-instance&quot;</a><br>    3. 引入xsd文件命名空间.  xsi:schemaLocation&#x3D;”<a href="http://www.itcast.cn/xml">http://www.itcast.cn/xml</a>  student.xsd”<br>    4. 为每一个xsd约束声明一个前缀,作为标识  xmlns&#x3D;”<a href="http://www.itcast.cn/xml&quot;">http://www.itcast.cn/xml&quot;</a> </p>
-  <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">students</span>   <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">			<span class="attr">xmlns</span>=<span class="string">&quot;http://www.itcast.cn/xml&quot;</span></span></span><br><span class="line"><span class="tag">			<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.itcast.cn/xml  student.xsd&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">student</span> <span class="attr">number</span>=<span class="string">&quot;heima_0001&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>tom<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">age</span>&gt;</span>18<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">sex</span>&gt;</span>male<span class="tag">&lt;/<span class="name">sex</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">student</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">students</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3><p>操作xml文档，将文档中的数据读取到内存中</p>
-<ul>
-<li><p>操作xml文档</p>
-<ol>
-<li>解析(读取)：将文档中的数据读取到内存中</li>
-<li>写入：将内存中的数据保存到xml文档中。持久化的存储</li>
-</ol>
-</li>
-<li><p>解析xml的方式（两种思想）：</p>
-<ol>
-<li>DOM：将标记语言文档一次性加载进内存，在内存中形成一颗dom树 (一般用于服务端)<ul>
-<li>优点：操作方便，可以对文档进行CRUD的所有操作</li>
-<li>缺点：占内存</li>
-</ul>
-</li>
-<li>SAX：逐行读取，基于事件驱动的。<ul>
-<li>优点：不占内存。</li>
-<li>缺点：只能读取，不能增删改</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p>xml常见的解析器：<br>  1. JAXP：sun公司提供的解析器，支持dom和sax两种思想<br>  2. DOM4J：一款非常优秀的解析器<br>  3. Jsoup：jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。<br>  4. PULL：Android操作系统内置的解析器，sax方式的。</p>
-</li>
-<li><p>Jsoup：jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。</p>
-<ul>
-<li>步骤：<br>        1. 导入jar包<br>          2. 获取Document对象<br>          3. 获取对应的标签Element对象<br>          4. 获取数据</li>
-</ul>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.jsoup.Jsoup;</span><br><span class="line"><span class="keyword">import</span> org.jsoup.nodes.Document;</span><br><span class="line"><span class="keyword">import</span> org.jsoup.nodes.Element;</span><br><span class="line"><span class="keyword">import</span> org.jsoup.select.Elements;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.URISyntaxException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Jsoup快速入门</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JsoupDemo1</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, URISyntaxException &#123;</span><br><span class="line">        <span class="comment">//2.获取Document对象，根据xml文档获取</span></span><br><span class="line">        <span class="comment">//2.1获取student.xml的path</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">path</span> <span class="operator">=</span> JsoupDemo1.class.getClassLoader().getResource(<span class="string">&quot;student.xml&quot;</span>).toURI().getPath();</span><br><span class="line">        <span class="comment">//2.2解析xml文档，加载文档进内存，获取dom树---&gt;Document</span></span><br><span class="line">        <span class="type">Document</span> <span class="variable">document</span> <span class="operator">=</span> Jsoup.parse(<span class="keyword">new</span> <span class="title class_">File</span>(path), <span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        <span class="comment">//3.获取元素对象 Element</span></span><br><span class="line">        <span class="type">Elements</span> <span class="variable">elements</span> <span class="operator">=</span> document.getElementsByTag(<span class="string">&quot;name&quot;</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(elements.size());</span><br><span class="line">        <span class="comment">//3.1获取第一个name的Element对象</span></span><br><span class="line">        <span class="type">Element</span> <span class="variable">element</span> <span class="operator">=</span> elements.get(<span class="number">0</span>);</span><br><span class="line">        <span class="comment">//3.2获取数据</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> element.text();</span><br><span class="line">        System.out.println(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>对象的使用：</p>
-<ol>
-<li><p>Jsoup：工具类，可以解析html或xml文档，返回Document</p>
-<ul>
-<li>parse：解析html或xml文档，返回Document<ul>
-<li><code>parse(File in, String charsetName)</code>：解析xml或html文件的。</li>
-<li><code>parse(String html)</code>：解析xml或html字符串</li>
-<li><code>parse(URL url, int timeoutMillis)</code>：通过网络路径获取指定的html或xml的文档对象</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Document：文档对象。代表内存中的dom树</p>
-<ul>
-<li>获取Element对象<ul>
-<li><code>getElementById(String id)</code>：根据id属性值获取唯一的element对象</li>
-<li><code>getElementsByTag(String tagName)</code>：根据标签名称获取元素对象集合</li>
-<li><code>getElementsByAttribute(String key)</code>：根据属性名称获取元素对象集合</li>
-<li><code>getElementsByAttributeValue(String key, String value)</code>：根据对应的属性名和属性值获取元素对象集合</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Elements：元素Element对象的集合。可以当做 <code>ArrayList&lt;Element&gt;</code>来使用</p>
-</li>
-<li><p>Element：元素对象</p>
-<ol>
-<li><p>获取子元素对象</p>
-<ul>
-<li><code>getElementById(String id)</code>：根据id属性值获取唯一的element对象</li>
-<li><code>getElementsByTag(String tagName)</code>：根据标签名称获取元素对象集合</li>
-<li><code>getElementsByAttribute(String key)</code>：根据属性名称获取元素对象集合</li>
-<li><code>getElementsByAttributeValue(String key, String value)</code>：根据对应的属性名和属性值获取元素对象集合</li>
-</ul>
-</li>
-<li><p>获取属性值</p>
-<ul>
-<li><code>String attr(String key)</code>：根据属性名称获取属性值</li>
-</ul>
-</li>
-<li><p>获取文本内容</p>
-<ul>
-<li><code>String text()</code>:获取文本内容</li>
-<li><code>String html()</code>:获取标签体的所有内容(包括字标签的字符串内容)</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p>Node：节点对象</p>
-<ul>
-<li>是Document和Element的父类</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p>快捷查询方式：</p>
-<ol>
-<li>selector:选择器<ul>
-<li>使用的方法：<code>Elements select(String cssQuery)</code><ul>
-<li>语法：参考Selector类中定义的语法</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>XPath：XPath即为XML路径语言，它是一种用来确定XML（标准通用标记语言的子集）文档中某部分位置的语言<ul>
-<li>使用Jsoup的Xpath需要额外导入jar包。</li>
-<li>查询w3cshool参考手册，使用xpath的语法完成查询</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *XPath查询</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JsoupDemo6</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, XpathSyntaxErrorException &#123;</span><br><span class="line">        <span class="comment">//1.获取student.xml的path</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">path</span> <span class="operator">=</span> JsoupDemo6.class.getClassLoader().getResource(<span class="string">&quot;student.xml&quot;</span>).toURI().getPath();</span><br><span class="line">        <span class="comment">//2.获取Document对象</span></span><br><span class="line">        <span class="type">Document</span> <span class="variable">document</span> <span class="operator">=</span> Jsoup.parse(<span class="keyword">new</span> <span class="title class_">File</span>(path), <span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//3.根据document对象，创建JXDocument对象</span></span><br><span class="line">        <span class="type">JXDocument</span> <span class="variable">jxDocument</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JXDocument</span>(document);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//4.结合xpath语法查询</span></span><br><span class="line">        <span class="comment">//4.1查询所有student标签</span></span><br><span class="line">        List&lt;JXNode&gt; jxNodes = jxDocument.selN(<span class="string">&quot;//student&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (JXNode jxNode : jxNodes) &#123;</span><br><span class="line">            System.out.println(jxNode);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;--------------------&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//4.2查询所有student标签下的name标签</span></span><br><span class="line">        List&lt;JXNode&gt; jxNodes2 = jxDocument.selN(<span class="string">&quot;//student/name&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (JXNode jxNode : jxNodes2) &#123;</span><br><span class="line">            System.out.println(jxNode);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;--------------------&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//4.3查询student标签下带有id属性的name标签</span></span><br><span class="line">        List&lt;JXNode&gt; jxNodes3 = jxDocument.selN(<span class="string">&quot;//student/name[@id]&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (JXNode jxNode : jxNodes3) &#123;</span><br><span class="line">            System.out.println(jxNode);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;--------------------&quot;</span>);</span><br><span class="line">        <span class="comment">//4.4查询student标签下带有id属性的name标签 并且id属性值为itcast</span></span><br><span class="line"></span><br><span class="line">        List&lt;JXNode&gt; jxNodes4 = jxDocument.selN(<span class="string">&quot;//student/name[@id=&#x27;itcast&#x27;]&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (JXNode jxNode : jxNodes4) &#123;</span><br><span class="line">            System.out.println(jxNode);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>JavaWeb</category>
-      </categories>
-      <tags>
         <tag>Java</tag>
         <tag>JavaWeb</tag>
       </tags>
@@ -1209,6 +1064,105 @@
       </tags>
   </entry>
   <entry>
+    <title>IDEAerror</title>
+    <url>/2022/04/01/IDEAerror/</url>
+    <content><![CDATA[<p>概述：本文记录了使用IDEA过程中遇到的错误以及解决方案</p>
+<span id="more"></span>
+
+
+
+<h4 id="IDEA-Java错误：不支持发行版本"><a href="#IDEA-Java错误：不支持发行版本" class="headerlink" title="IDEA Java错误：不支持发行版本"></a>IDEA Java错误：不支持发行版本</h4><p><a href="https://blog.csdn.net/Deeeelete/article/details/104382752?utm_medium=distribute.pc_relevant.none-task-blog-baidulandingword-3&spm=1001.2101.3001.4242"><em>解决方案</em></a></p>
+<h4 id="Cannot-resolve-symbol-’XXX‘-无法解析的符号-、"><a href="#Cannot-resolve-symbol-’XXX‘-无法解析的符号-、" class="headerlink" title="Cannot resolve symbol ’XXX‘ (无法解析的符号)、"></a>Cannot resolve symbol ’XXX‘ (无法解析的符号)、</h4><p>一般先检查项目结构中是否已经选择了合适的JDK</p>
+<p><a href="https://blog.csdn.net/he99774/article/details/78254262"><em>解决方案</em></a></p>
+]]></content>
+      <categories>
+        <category>tools</category>
+      </categories>
+      <tags>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring01</title>
+    <url>/2022/04/01/Spring01/</url>
+    <content><![CDATA[<p>概述：本文记录了Spring的基础概念和基本配置方法</p>
+<span id="more"></span>
+
+<h3 id="1-Spring简介"><a href="#1-Spring简介" class="headerlink" title="1. Spring简介"></a>1. Spring简介</h3><h4 id="1-1-Spring是什么"><a href="#1-1-Spring是什么" class="headerlink" title="1.1 Spring是什么"></a>1.1 Spring是什么</h4><p>Spring是分层的Java SE&#x2F;EE 应用full-stack轻量级开源框架，以<strong>IoC</strong>（Inverse Of Control：反转控制）和<strong>AOP</strong>（Aspect Oriented Programming：面向切面编程）为内核</p>
+<p>提供了<strong>展现层SpringMVC</strong>和<strong>持久层Spring JDBCTemplate</strong>以及<strong>业务层事务管理</strong>等众多的企业级应用技术，还能整合开源世界众多著名的第三方框架和类库，逐渐成为使用最多的Java EE企业应用开源框架。</p>
+<h4 id="1-2-Spring的优势"><a href="#1-2-Spring的优势" class="headerlink" title="1.2 Spring的优势"></a>1.2 Spring的优势</h4><p>（1）方便解耦：简化开发 通过 Spring提供的 loC容器，可以将对象间的依赖关系交由 Spring 进行控制，避免硬编码所造成的过度耦合。用户也不必再为单例模式类、属性文件解析等这文些很底层的需求编写代码.可以更专注干上层的应用。 </p>
+<p>（2）AOP编程的支持： 通过 Spring的 AOP 功能，方便进行面向切面编程，许多不容易用传统 OOP 实现的功能可以通过 AOP 轻松实现。 </p>
+<p>（3）声明式事务的支持 ：可以将我们从单调烦闷的事务管理代码中解脱出来，通过声明式方式灵活的进行事务管理，提高开发效率和质量。 </p>
+<p>（4）方便程序的测试 ：可以用非容器依赖的编程方式进讲行几平所有的测试工作，测试不再是昂贵的操作，而是随手可做的事情。</p>
+<p>（5）方便集成各种优秀框架： Spring对各种优秀框架（Struts、 Hibernate、Hessian、Quartz等）的支持。</p>
+<p>（ 6）降低 JavaEE API的使用难度： Spring对 JavaEE API（如JDBC、JavaMail、远程调用等）进行了薄薄的封装层，使这些API的使用难度大为降低。 </p>
+<p>（7）Java 源码是经典学习范例： Spring的源代码设计精妙、结构清晰、匠心独用，处处体现着大师对Java 设计模式灵活运用以及对 Java技术的高深造诣。它的源代码是 Java技术的最佳实践的范例。 </p>
+<h4 id="1-3-Spring的体系结构"><a href="#1-3-Spring的体系结构" class="headerlink" title="1.3 Spring的体系结构"></a>1.3 Spring的体系结构</h4><img src="https://pic.imgdb.cn/item/6246961327f86abb2a362a69.jpg" style="zoom: 80%;" />
+
+<h3 id="2-Spring快速配置"><a href="#2-Spring快速配置" class="headerlink" title="2. Spring快速配置"></a>2. Spring快速配置</h3><h4 id="2-1-Spring程序开发步骤"><a href="#2-1-Spring程序开发步骤" class="headerlink" title="2.1 Spring程序开发步骤"></a>2.1 Spring程序开发步骤</h4><p><img src="https://pic.imgdb.cn/item/6246970127f86abb2a37fd13.jpg"></p>
+<p>① 导入 Spring 开发的基本包坐标</p>
+<p>② 编写 Dao 接口和实现类</p>
+<p>③ 创建 Spring核心配置文件 </p>
+<p>④ 在Spring 配置文件中配置 UserDaolmpl </p>
+<p>⑤ 使用 Spring 的API获得 Bean 实例 </p>
+<h4 id="2-2-导入Spring开发的基本包坐标"><a href="#2-2-导入Spring开发的基本包坐标" class="headerlink" title="2.2 导入Spring开发的基本包坐标"></a>2.2 导入Spring开发的基本包坐标</h4><h4 id="2-3-编写Dao接口和实现"><a href="#2-3-编写Dao接口和实现" class="headerlink" title="2.3 编写Dao接口和实现"></a>2.3 编写Dao接口和实现</h4><h4 id="2-4-创建Spring核心配置文件"><a href="#2-4-创建Spring核心配置文件" class="headerlink" title="2.4 创建Spring核心配置文件"></a>2.4 创建Spring核心配置文件</h4><p>在类路径下（resources）创建applicationContext.xml配置文件</p>
+<h4 id="2-5-在Spring配置文件中配置UserDaoImpl"><a href="#2-5-在Spring配置文件中配置UserDaoImpl" class="headerlink" title="2.5 在Spring配置文件中配置UserDaoImpl"></a>2.5 在Spring配置文件中配置UserDaoImpl</h4><h4 id="2-6-使用Spring的API获得Bean实例"><a href="#2-6-使用Spring的API获得Bean实例" class="headerlink" title="2.6 使用Spring的API获得Bean实例"></a>2.6 使用Spring的API获得Bean实例</h4><h4 id="2-7-要点总结"><a href="#2-7-要点总结" class="headerlink" title="2.7 要点总结"></a>2.7 要点总结</h4><p>① 导入坐标</p>
+<p>② 创建Bean </p>
+<p>③ 创建applicationContextxml </p>
+<p>④ 在配置文件中进行配置 </p>
+<p>⑤ 创建ApplicationContext对象getBean</p>
+<h3 id="3-Spring配置文件"><a href="#3-Spring配置文件" class="headerlink" title="3. Spring配置文件"></a>3. Spring配置文件</h3><h4 id="3-1-Bean标签基本配置"><a href="#3-1-Bean标签基本配置" class="headerlink" title="3.1 Bean标签基本配置"></a>3.1 Bean标签基本配置</h4><p>用于配置对象交由Spring 来创建。 默认情况下它调用的是类中的无参构造函数，如果没有无参构造函数则不能创建成功。</p>
+<p> 基本属性∶ </p>
+<p>● id∶Bean实例在Spring容器中的唯一标识</p>
+<p>●class∶Bean的全限定名称 </p>
+<h4 id="3-2-Bean标签范围配置"><a href="#3-2-Bean标签范围配置" class="headerlink" title="3.2 Bean标签范围配置"></a>3.2 Bean标签范围配置</h4><p>scope：指对象的作用范围，取值如下：</p>
+<p><img src="https://pic.imgdb.cn/item/6246b99d27f86abb2a7d1aa9.jpg"></p>
+<p><strong>当scope的取值为singleton时</strong></p>
+<p>Bean的实例化个数：1个</p>
+<p>Bean的实例化时机：当Spring核心文件被加载时，实例化配置的Bean实例</p>
+<p>Bean的生命周期：</p>
+<p>（1） 对象创建：当应用加载，创建容器时，对象就被创建了</p>
+<p>（2）对象运行：只要容器在，对象一直活着</p>
+<p>（3）对象销毁：当应用卸载，销毁容器时，对象就被销毁了</p>
+<p><strong>当scope的取值为prototype时</strong></p>
+<p>Bean的实例化个数：多个</p>
+<p>Bean的实例化时机：当调用getBean()方法时实例化Bean</p>
+<p>（1）对象创建：当使用对象时，创建新的对象实例</p>
+<p>（2）对象运行：只要对象在使用中，就一直活着</p>
+<p>（3）对象销毁：当对象长时间不用时，被 Java 的垃圾回收器回收了</p>
+<h5 id="3-3-Bean生命周期配置"><a href="#3-3-Bean生命周期配置" class="headerlink" title="3.3 Bean生命周期配置"></a>3.3 Bean生命周期配置</h5><p><strong>init-method</strong>：指定类中的初始化方法名称</p>
+<p><strong>destroy-method</strong>：指定类中销毁方法名称</p>
+<h4 id="3-4-Bean实例化三种方式"><a href="#3-4-Bean实例化三种方式" class="headerlink" title="3.4 Bean实例化三种方式"></a>3.4 Bean实例化三种方式</h4><p>（1）无参<strong>构造</strong>方法实例化</p>
+<p>它会根据默认无参构造方法来创建类对象，如果bean中没有默认无参构造函数，将会创建失败。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.dao.impl.UserDaoImpl&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）工厂<strong>静态</strong>方法实例化</p>
+<p>工厂的静态方法返回Bean实例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StaticFactoryBean</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> UserDao <span class="title function_">createUserDao</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDaoImpl</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.factory.StaticFactoryBean&quot;</span> </span></span><br><span class="line"><span class="tag"><span class="attr">factory-method</span>=<span class="string">&quot;createUserDao&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>（3）工厂<strong>实例</strong>方法实例化</p>
+<p>工厂的非静态方法返回Bean实例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DynamicFactoryBean</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> UserDao <span class="title function_">createUserDao</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">UserDaoImpl</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;factoryBean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.itheima.factory.DynamicFactoryBean&quot;</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;userDao&quot;</span> <span class="attr">factory-bean</span>=<span class="string">&quot;factoryBean&quot;</span> <span class="attr">factory-method</span>=<span class="string">&quot;createUserDao&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-5-Bean的依赖注入"><a href="#3-5-Bean的依赖注入" class="headerlink" title="3.5 Bean的依赖注入"></a>3.5 Bean的依赖注入</h4>]]></content>
+      <categories>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Maven-基础</title>
     <url>/2022/03/31/mavenbasic/</url>
     <content><![CDATA[<p>概述：本文主要记录Maven工具的思想和基本用法。包括环境配置，基础概念，项目构建，依赖管理等部分</p>
@@ -1309,6 +1263,56 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot —— 基础篇</title>
+    <url>/2022/03/31/SpringBootConfig/</url>
+    <content><![CDATA[<p>概述：SpringBoot基础知识学习与记录，学完这个篇章可以会用SpringBoot</p>
+<span id="more"></span>
+
+<h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>SpringBoot的设计目的是用来简化Spring应用的初始搭建以及开发过程</p>
+<h2 id="SpringBoot基础配置"><a href="#SpringBoot基础配置" class="headerlink" title="SpringBoot基础配置"></a>SpringBoot基础配置</h2><p>（1）IDEA新建项目</p>
+<p>查看版本：File -&gt; Settings -&gt; Maven 可以查看版本（我的版本为3.8.1）</p>
+<p>File -&gt; Project Structure -&gt; Modules -&gt; ‘+’  -&gt;New Module -&gt; Spring Initializr (注意如果没有的话要去settings -&gt;plugins -&gt; marketplace 下搜索并下载)</p>
+<p>进行如下配置</p>
+<p><img src="https://pic.imgdb.cn/item/6245ff0427f86abb2a70bbd8.jpg" alt="image01"></p>
+<p>选择spring web</p>
+<p>基础的环境配置即完成了</p>
+<h2 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h2><ol>
+<li><a href="https://docs.spring.io/spring-boot/docs/3.0.0-M1/reference/htmlsingle/"><em>SpringBoot reference documentation</em></a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java与C++的差异</title>
+    <url>/2022/03/31/java-basic/</url>
+    <content><![CDATA[<p>概述：本文主要记录Java中与C++有明显差异的语言特性</p>
+<span id="more"></span>
+
+<h2 id="与C-的差异"><a href="#与C-的差异" class="headerlink" title="与C++的差异"></a>与C++的差异</h2><p>（1）C++ 支持指针，而 Java 没有指针的概念。</p>
+<p>（2）C++ 支持多继承，而 Java 不支持多重继承，但允许一个类实现多个接口。</p>
+<p>（3）Java 是完全面向对象的语言，并且还取消了 C&#x2F;C++ 中的结构和联合，使编译程序更加简洁</p>
+<p>（4）Java 自动进行无用内存回收操作，不再需要程序员进行手动删除，而 C++ 中必须由程序释放内存资源，这就增加了程序员的负担。</p>
+<p>（5）Java 不支持操作符重载，而操作符重载则被认为是 C++ 的突出特征。</p>
+<p>（6）Java 允许预处理，但不支持预处理器功能，所以为了实现预处理，它提供了引入语句（import），但它与 C++ 预处理器的功能类似。</p>
+<p>（7）Java 不支持缺省参数函数，而 C++ 支持 。</p>
+<p>（8）C 和 C++ 不支持字符串变量，在 C 和 C++ 程序中使用“Null”终止符代表字符串的结束。在 Java 中字符串是用类对象（String 和 StringBuffer）来实现的</p>
+<p>（9）Java 不提供 goto 语句，虽然 Java 指定 goto 作为关键字，但不支持它的使用，这使程序更简洁易读。不过Java中的break&#x2F;continue可以带标签（标签必须放在希望跳出的最外层循环之前，并且必须紧跟一个冒号），用于从内层循环中跳出</p>
+<p>（10）Java 不支持 C++ 中的自动强制类型转换，如果需要，必须由程序显式进行强制类型转换。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Good questions —— 数组篇</title>
     <url>/2022/03/31/questions/</url>
     <content><![CDATA[<p>概述：本文记录了我在<a href="https://leetcode-cn.com/"><em>Leetcode</em></a>刷题过程中遇到的与数组相关的优质题目及解题思路</p>
@@ -1350,6 +1354,40 @@
 <p>思路：</p>
 <p>（1）想到按层来遍历可以省去空间复杂度</p>
 <p>（2）定义四个变量（left，right，top，bottom）来控制每一层的边界</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Good questions —— 链表篇</title>
+    <url>/2022/03/31/questions03/</url>
+    <content><![CDATA[<p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
+<span id="more"></span>
+
+<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
+<p>（1）迭代</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）递归</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
+<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
+<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
+<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
+<p>（1）找到链表中间节点，并断开</p>
+<p>（2）反转后半部分的链表</p>
+<p>（3）合并两个链表</p>
+<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
+<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
+<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
 ]]></content>
       <categories>
         <category>算法</category>
@@ -1411,40 +1449,6 @@
 <p>（2）在递归的过程中不断更新一个最大路径和，包含当前节点并且可以同时包含左右子树的节点。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> maxsum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> lval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;left));<span class="comment">//包含根节点root的单条路径的最大值</span></span><br><span class="line">        <span class="type">int</span> rval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;right));</span><br><span class="line">        maxsum = <span class="built_in">max</span>(maxsum,root-&gt;val+lval+rval);</span><br><span class="line">        <span class="keyword">return</span> root-&gt;val + <span class="built_in">max</span>(lval,rval);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> maxsum = INT_MIN;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Good questions —— 链表篇</title>
-    <url>/2022/03/31/questions03/</url>
-    <content><![CDATA[<p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
-<span id="more"></span>
-
-<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
-<p>（1）迭代</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>（2）递归</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
-<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
-<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
-<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
-<p>（1）找到链表中间节点，并断开</p>
-<p>（2）反转后半部分的链表</p>
-<p>（3）合并两个链表</p>
-<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
-<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
-<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
 ]]></content>
       <categories>
         <category>算法</category>
