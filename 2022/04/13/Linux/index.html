@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">3.1k</span>
+            <span class="post-count">3.2k</span>
         </span>
     </span>
 
@@ -125,8 +125,7 @@
 <p>移动手持系统</p>
 <h4 id="Linux的版本"><a href="#Linux的版本" class="headerlink" title="Linux的版本"></a>Linux的版本</h4><p><strong>Linux</strong>的版本分为两种：<strong>内核版本</strong>和<strong>发行版本</strong>；内核版本是指在Linus领导下的内核小组开发维护的系统内核的版本号 ；</p>
 <p>Linux的主流版本</p>
-<img src="file:///C:\Users\win10\AppData\Local\Temp\ksohtml\wps76FF.tmp.jpg" alt="img" style="zoom:70%;" />
-
+<p><img src="https://pic.imgdb.cn/item/62570546239250f7c5ee87ae.jpg"></p>
 <h3 id="Linux远程访问"><a href="#Linux远程访问" class="headerlink" title="Linux远程访问"></a>Linux远程访问</h3><p>通过远程访问软件CRT进行连接</p>
 <h3 id="Linux的目录结构"><a href="#Linux的目录结构" class="headerlink" title="Linux的目录结构"></a>Linux的目录结构</h3><p><img src="https://pic.imgdb.cn/item/6255c46a239250f7c54d003b.jpg"></p>
 <p>root管理员的home目录root</p>
@@ -366,26 +365,40 @@
 <p><code>service iptables start</code> 启动防火墙</p>
 <p><code>chkconfig  iptables off</code> 禁止防火墙自启</p>
 <h3 id="Linux上软件安装"><a href="#Linux上软件安装" class="headerlink" title="Linux上软件安装"></a>Linux上软件安装</h3><h4 id="Linux上的软件安装的几种常见方式"><a href="#Linux上的软件安装的几种常见方式" class="headerlink" title="Linux上的软件安装的几种常见方式"></a>Linux上的软件安装的几种常见方式</h4><ol>
-<li>二进制发布包</li>
+<li><p>二进制发布包</p>
+<p>软件已经针对具体平台编译打包发布，只要解压，修改配置即可</p>
+</li>
+<li><p>RPM包</p>
+<p>软件已经按照redhat的包管理工具规范RPM进行打包发布，需要获取到相应的软件RPM发布包，然后用RPM命令进行安装</p>
+</li>
+<li><p>Yum在线安装</p>
+<p>软件已经以RPM规范打包，但发布在了网络上的一些服务器上，可用yum在线安装服务器上的rpm软件，并且会自动解决软件安装过程中的库依赖问题</p>
+</li>
+<li><p>源码编译安装</p>
+<p>软件以源码工程的形式发布，需要获取到源码工程后用相应开发工具进行编译打包部署。</p>
+</li>
 </ol>
-<p>​    软件已经针对具体平台编译打包发布，只要解压，修改配置即可</p>
-<ol start="2">
-<li>RPM包</li>
-</ol>
-<p>​    软件已经按照redhat的包管理工具规范RPM进行打包发布，需要获取到相应的软件RPM发布包，然后用RPM命令进行安装</p>
-<ol start="3">
-<li>Yum在线安装</li>
-</ol>
-<p>​    软件已经以RPM规范打包，但发布在了网络上的一些服务器上，可用yum在线安装服务器上的rpm软件，并且会自动解决软件安装过程中的库依赖问题</p>
-<ol start="4">
-<li>源码编译安装</li>
-</ol>
-<p>​    软件以源码工程的形式发布，需要获取到源码工程后用相应开发工具进行编译打包部署。</p>
 <h4 id="上传与下载工具"><a href="#上传与下载工具" class="headerlink" title="上传与下载工具"></a>上传与下载工具</h4><ol>
-<li>FileZilla</li>
-<li>Irzsz</li>
+<li><p><strong>FileZilla</strong></p>
+<p>主机名：192.168.18.128    用户名：root   密码：***   端口号：22</p>
+<p>一般上传到 &#x2F;usr&#x2F;local 目录下 通过<code>cd /usr/local</code> 查看</p>
+</li>
+<li><p><strong>Irzsz</strong></p>
+<p>使用<code>yum install lrzsz</code>安装</p>
+<p>设置目录：</p>
+<img src="https://pic.imgdb.cn/item/6257099d239250f7c5f39927.jpg" style="zoom: 67%;" /></li>
 </ol>
-<h4 id="Linux上安装JDK"><a href="#Linux上安装JDK" class="headerlink" title="Linux上安装JDK"></a>Linux上安装JDK</h4><ul>
+<p>​    上传文件，放到upload文件夹内，<code>rz</code></p>
+<p>​    下载文件：<code>sz 文件名</code>（下载到当前目录）</p>
+<ol start="3">
+<li><p><strong>sftp</strong></p>
+<p>使用 alt + P 打开sftp窗口</p>
+<p>上传：<code>put 文件目录</code> </p>
+<p>下载：<code>get 文件目录</code></p>
+</li>
+</ol>
+<h4 id="Linux上安装JDK"><a href="#Linux上安装JDK" class="headerlink" title="Linux上安装JDK"></a>Linux上安装JDK</h4><p><a target="_blank" rel="noopener" href="https://www.timberkito.com/?p=12">yum安装</a></p>
+<ul>
 <li>上传JDK到Linux服务器</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(1) 上传JDK</span><br><span class="line">(2) 卸载open-JDK</span><br><span class="line"></span><br><span class="line">java –version</span><br><span class="line">rpm -qa | grep java</span><br><span class="line"></span><br><span class="line">rpm -e --nodeps java-1.6.0-openjdk-1.6.0.35-1.13.7.1.el6_6.i686</span><br><span class="line">rpm -e --nodeps java-1.7.0-openjdk-1.7.0.79-2.5.5.4.el6.i686</span><br></pre></td></tr></table></figure>
@@ -398,15 +411,19 @@
 <ul>
 <li>配置JDK的环境变量</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> vi /etc/profile</span><br><span class="line"></span><br><span class="line">* 在末尾行添加</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="built_in">set</span> java environment</span></span><br><span class="line">JAVA_HOME=/usr/local/jdk/jdk1.7.0_71</span><br><span class="line">CLASSPATH=.:$JAVA_HOME/lib.tools.jar</span><br><span class="line">PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line">export JAVA_HOME CLASSPATH PATH</span><br><span class="line"></span><br><span class="line">* 保存退出</span><br><span class="line">source /etc/profile  使更改的配置立即生效</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> vim /etc/profile</span><br><span class="line"></span><br><span class="line">* 在末尾行添加</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="built_in">set</span> java environment</span></span><br><span class="line">JAVA_HOME=/usr/local/jdk1.7.0_71</span><br><span class="line">CLASSPATH=.:$JAVA_HOME/lib.tools.jar</span><br><span class="line">PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line">export JAVA_HOME CLASSPATH PATH</span><br><span class="line"></span><br><span class="line">* 保存退出（esc  :wq）</span><br><span class="line">source /etc/profile  使更改的配置立即生效</span><br></pre></td></tr></table></figure>
 
-<h4 id="在Linux上安装MySQL"><a href="#在Linux上安装MySQL" class="headerlink" title="在Linux上安装MySQL"></a>在Linux上安装MySQL</h4><ul>
+<h4 id="在Linux上安装MySQL"><a href="#在Linux上安装MySQL" class="headerlink" title="在Linux上安装MySQL"></a>在Linux上安装MySQL</h4><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000022843273">教程</a> （ 重新设置密码为 ‘MyNewPass4!’ ）</p>
+<ul>
 <li>将MySQL的安装文件上传到Linux的服务器</li>
 </ul>
 <p>​    （1）将MySQL的tar解压</p>
 <p>​    （2）将系统自带的MySQL卸载</p>
+<p>​        搜索：<code>rpm -qa | grep mysql</code></p>
+<p>​        删除：<code>rpm -e --nodeps 文件名</code></p>
 <ul>
 <li><p>安装MySQL服务端</p>
+<p><code>rpm -ivh MySQL-server-5.6.22-1.el6.i686.rpm</code></p>
 </li>
 <li><p>安装MySQL客户端</p>
 </li>
@@ -420,6 +437,9 @@
 <p>​    <code>chkconfig</code></p>
 <ul>
 <li><p>关于MySQL远程访问设置</p>
+<p>在mysql中设置：</p>
+<p><code>grant all privileges on *.* to &#39;root&#39; @&#39;%&#39; identified by &#39;root&#39;;</code></p>
+<p><code>finish privileges;</code></p>
 <p>在linux中很多软件的端口都被”防火墙”限止，我们需要将防火墙关闭</p>
 <p>防火墙打开3306端口</p>
 <p><code>/sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT</code></p>
@@ -431,8 +451,9 @@
 </ul>
 <h4 id="在Linux上安装Tomcat"><a href="#在Linux上安装Tomcat" class="headerlink" title="在Linux上安装Tomcat"></a>在Linux上安装Tomcat</h4><p>1.Tomcat上传到linux上</p>
 <p>2.将上传的tomcat解压</p>
-<p>3.在tomcat&#x2F;bin目录下执行 startup.sh（注意防火墙）</p>
+<p>3.在tomcat&#x2F;bin目录下执行 startup.sh（注意防火墙）<code>./startup.sh</code></p>
 <p>4.查看目标 tomcat&#x2F;logs&#x2F;catalina.out</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Al_assad/article/details/76383107">出现无法连接的错误</a></p>
  
       <!-- reward -->
       
