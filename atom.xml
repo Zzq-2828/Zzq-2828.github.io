@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-13T19:55:29.025Z</updated>
+  <updated>2022-04-14T13:20:34.800Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,14 +17,33 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Spring01 —— IoC和DI</title>
+    <link href="https://www.zzzzzq.com/2022/04/14/Spring01/"/>
+    <id>https://www.zzzzzq.com/2022/04/14/Spring01/</id>
+    <published>2022-04-14T05:07:27.000Z</published>
+    <updated>2022-04-14T13:20:34.800Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了Spring的基础概念和基本配置方法&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Spring" scheme="https://www.zzzzzq.com/categories/Spring/"/>
+    
+    
+    <category term="Spring" scheme="https://www.zzzzzq.com/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Linux</title>
     <link href="https://www.zzzzzq.com/2022/04/13/Linux/"/>
     <id>https://www.zzzzzq.com/2022/04/13/Linux/</id>
     <published>2022-04-12T18:20:06.000Z</published>
-    <updated>2022-04-13T19:55:29.025Z</updated>
+    <updated>2022-04-13T20:01:40.115Z</updated>
     
     
-    <summary type="html">&lt;p&gt;概述：本文记录了Linux的基础知识和常用命令&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;概述：本文记录了Linux的基础知识和常用命令，并且记录了常用软件（JDK，MySQL，Tomcat）的安装步骤和出问题的解决方案。&lt;/p&gt;</summary>
     
     
     
@@ -52,9 +71,9 @@
     
     <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
     
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
-    
     <category term="Redis" scheme="https://www.zzzzzq.com/tags/Redis/"/>
+    
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
     
   </entry>
   
@@ -138,11 +157,11 @@
     <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
     
     
-    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
-    
     <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
     
     <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
+    
+    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
     
   </entry>
   
@@ -182,25 +201,6 @@
     
     
     <category term="tools" scheme="https://www.zzzzzq.com/tags/tools/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring01</title>
-    <link href="https://www.zzzzzq.com/2022/04/01/Spring01/"/>
-    <id>https://www.zzzzzq.com/2022/04/01/Spring01/</id>
-    <published>2022-04-01T05:07:27.000Z</published>
-    <updated>2022-04-01T09:15:56.859Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了Spring的基础概念和基本配置方法&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Spring" scheme="https://www.zzzzzq.com/categories/Spring/"/>
-    
-    
-    <category term="Spring" scheme="https://www.zzzzzq.com/tags/Spring/"/>
     
   </entry>
   
@@ -264,14 +264,14 @@
   </entry>
   
   <entry>
-    <title>Good questions —— 数组篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/questions/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/questions/</id>
+    <title>Good questions —— 二叉树篇</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/questions02/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/questions02/</id>
     <published>2022-03-30T16:00:00.000Z</published>
-    <updated>2022-03-31T08:53:47.883Z</updated>
+    <updated>2022-03-31T08:53:49.582Z</updated>
     
     
-    <summary type="html">&lt;p&gt;概述：本文记录了我在&lt;a href=&quot;https://leetcode-cn.com/&quot;&gt;&lt;em&gt;Leetcode&lt;/em&gt;&lt;/a&gt;刷题过程中遇到的与数组相关的优质题目及解题思路&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路&lt;/p&gt;</summary>
     
     
     
@@ -285,14 +285,14 @@
   </entry>
   
   <entry>
-    <title>Good questions —— 二叉树篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/questions02/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/questions02/</id>
+    <title>Good questions —— 数组篇</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/questions/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/questions/</id>
     <published>2022-03-30T16:00:00.000Z</published>
-    <updated>2022-03-31T08:53:49.582Z</updated>
+    <updated>2022-03-31T08:53:47.883Z</updated>
     
     
-    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;概述：本文记录了我在&lt;a href=&quot;https://leetcode-cn.com/&quot;&gt;&lt;em&gt;Leetcode&lt;/em&gt;&lt;/a&gt;刷题过程中遇到的与数组相关的优质题目及解题思路&lt;/p&gt;</summary>
     
     
     
