@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">75</span>
+            <span class="post-count">242</span>
         </span>
     </span>
 
@@ -117,8 +117,20 @@
 
 
 <h4 id="IDEA-Java错误：不支持发行版本"><a href="#IDEA-Java错误：不支持发行版本" class="headerlink" title="IDEA Java错误：不支持发行版本"></a>IDEA Java错误：不支持发行版本</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Deeeelete/article/details/104382752?utm_medium=distribute.pc_relevant.none-task-blog-baidulandingword-3&spm=1001.2101.3001.4242"><em>解决方案</em></a></p>
+<p>查看几个地方：</p>
+<p>（1）项目结构 - 项目 - SDK版本</p>
+<p>（2）项目结构 - 模块 - 源 - 语言级别</p>
+<p>（3）项目结构 - 模块 - 依赖 - 模块SDK</p>
+<p>（4）设置 - Java编译器 - 项目字节码版本和目标字节码版本</p>
 <h4 id="Cannot-resolve-symbol-’XXX‘-无法解析的符号-、"><a href="#Cannot-resolve-symbol-’XXX‘-无法解析的符号-、" class="headerlink" title="Cannot resolve symbol ’XXX‘ (无法解析的符号)、"></a>Cannot resolve symbol ’XXX‘ (无法解析的符号)、</h4><p>一般先检查项目结构中是否已经选择了合适的JDK</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/he99774/article/details/78254262"><em>解决方案</em></a></p>
+<h4 id="mysql驱动连接-Cannot-load-driver-class-com-mysql-cj-jdbc-Driver"><a href="#mysql驱动连接-Cannot-load-driver-class-com-mysql-cj-jdbc-Driver" class="headerlink" title="mysql驱动连接 Cannot load driver class:com.mysql.cj.jdbc.Driver"></a>mysql驱动连接 Cannot load driver class:com.mysql.cj.jdbc.Driver</h4><p>（1）检查MySQL版本</p>
+<p>（2）注意新版本MySQL的写法</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jdbc.driver</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">jdbc.url</span>=<span class="string">jdbc:mysql://localhost:3306/bjpowernode?useSSL=false&amp;serverTimezone=GMT%2B8</span></span><br><span class="line"><span class="attr">jdbc.username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">jdbc.password</span>=<span class="string">123456</span></span><br></pre></td></tr></table></figure>
+
+<p>（3）pom.xml中进行版本修改,在库中删除原来的版本</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>      </span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.28<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
  
       <!-- reward -->
       

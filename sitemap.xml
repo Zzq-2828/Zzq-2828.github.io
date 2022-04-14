@@ -2,6 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.zzzzzq.com/2022/04/14/spring02/</loc>
+    
+    <lastmod>2022-04-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/2022/04/01/IDEAerror/</loc>
+    
+    <lastmod>2022-04-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/2022/04/02/JDBC/</loc>
+    
+    <lastmod>2022-04-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/2022/03/31/mavenbasic/</loc>
+    
+    <lastmod>2022-04-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.zzzzzq.com/2022/04/14/Spring01/</loc>
     
     <lastmod>2022-04-14</lastmod>
@@ -56,34 +92,7 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/2022/04/02/JDBC/</loc>
-    
-    <lastmod>2022-04-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zzzzzq.com/2022/04/01/IDEAerror/</loc>
-    
-    <lastmod>2022-04-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.zzzzzq.com/2022/04/01/javaweb01/</loc>
-    
-    <lastmod>2022-04-01</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zzzzzq.com/2022/03/31/mavenbasic/</loc>
     
     <lastmod>2022-04-01</lastmod>
     
@@ -180,7 +189,7 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/tags/Linux/</loc>
+    <loc>https://www.zzzzzq.com/tags/MySQL/</loc>
     <lastmod>2022-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -194,13 +203,6 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/tags/Redis/</loc>
-    <lastmod>2022-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.zzzzzq.com/tags/JavaWeb/</loc>
     <lastmod>2022-04-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -208,14 +210,14 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/tags/MySQL/</loc>
+    <loc>https://www.zzzzzq.com/tags/Linux/</loc>
     <lastmod>2022-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/tags/SpringBoot/</loc>
+    <loc>https://www.zzzzzq.com/tags/Redis/</loc>
     <lastmod>2022-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -223,6 +225,13 @@
   
   <url>
     <loc>https://www.zzzzzq.com/tags/Spring/</loc>
+    <lastmod>2022-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/tags/SpringBoot/</loc>
     <lastmod>2022-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -252,6 +261,13 @@
   </url>
   
   <url>
+    <loc>https://www.zzzzzq.com/categories/MySQL/</loc>
+    <lastmod>2022-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.zzzzzq.com/categories/Linux/</loc>
     <lastmod>2022-04-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -266,7 +282,7 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/categories/MySQL/</loc>
+    <loc>https://www.zzzzzq.com/categories/Spring/</loc>
     <lastmod>2022-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -274,13 +290,6 @@
   
   <url>
     <loc>https://www.zzzzzq.com/categories/Java/</loc>
-    <lastmod>2022-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zzzzzq.com/categories/Spring/</loc>
     <lastmod>2022-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

@@ -154,7 +154,7 @@
 <p>命令行中输入mvn 即可在 C:\Users\win10 中生成一个空的 .m2文件夹，为默认的仓库</p>
 <p>如果想要将本地仓库设置在别的位置，需要如下配置：</p>
 <p>（1）打开Maven目录下（我的电脑在 F:\Tools\apache-maven-3.8.5\conf）的settings.xml</p>
-<p>（2）将文件中’ <localRepository>&#x2F;path&#x2F;to&#x2F;local&#x2F;repo</localRepository>‘ 复制到下一行未被注释的地方，并将其中路径换成我们自己决定的repository文件夹的位置</p>
+<p>（2）将文件中<code>&lt;localRepository&gt;/path/to/local/repo&lt;/localRepository&gt;</code>复制到下一行未被注释的地方，并将其中路径换成我们自己决定的repository文件夹的位置</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>F:\MyDocuments\Maven\repository<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 

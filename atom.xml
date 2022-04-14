@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-14T13:20:34.800Z</updated>
+  <updated>2022-04-14T17:24:58.728Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>spring02 —— 数据源、注解、整合Junit</title>
+    <link href="https://www.zzzzzq.com/2022/04/14/spring02/"/>
+    <id>https://www.zzzzzq.com/2022/04/14/spring02/</id>
+    <published>2022-04-14T13:21:27.000Z</published>
+    <updated>2022-04-14T17:24:58.728Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了Spring配置数据源、注解开发、整合Junit部分的基础知识&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Spring" scheme="https://www.zzzzzq.com/categories/Spring/"/>
+    
+    
+    <category term="Spring" scheme="https://www.zzzzzq.com/tags/Spring/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring01 —— IoC和DI</title>
@@ -71,9 +90,9 @@
     
     <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
     
-    <category term="Redis" scheme="https://www.zzzzzq.com/tags/Redis/"/>
-    
     <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
+    
+    <category term="Redis" scheme="https://www.zzzzzq.com/tags/Redis/"/>
     
   </entry>
   
@@ -145,7 +164,7 @@
     <link href="https://www.zzzzzq.com/2022/04/02/JDBC/"/>
     <id>https://www.zzzzzq.com/2022/04/02/JDBC/</id>
     <published>2022-04-02T05:09:03.000Z</published>
-    <updated>2022-04-11T19:46:18.416Z</updated>
+    <updated>2022-04-14T15:15:06.559Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了JDBC (Java DataBase Connectivity) 的相关知识，JDBC的基本概念级用法，数据库的连接池和JDBCTemplate。&lt;/p&gt;</summary>
@@ -157,11 +176,11 @@
     <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
     
     
+    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
+    
     <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
     
     <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
-    
-    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
     
   </entry>
   
@@ -190,7 +209,7 @@
     <link href="https://www.zzzzzq.com/2022/04/01/IDEAerror/"/>
     <id>https://www.zzzzzq.com/2022/04/01/IDEAerror/</id>
     <published>2022-04-01T06:40:33.000Z</published>
-    <updated>2022-04-11T17:07:20.630Z</updated>
+    <updated>2022-04-14T15:24:12.023Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了使用IDEA过程中遇到的错误以及解决方案&lt;/p&gt;</summary>
@@ -209,7 +228,7 @@
     <link href="https://www.zzzzzq.com/2022/03/31/mavenbasic/"/>
     <id>https://www.zzzzzq.com/2022/03/31/mavenbasic/</id>
     <published>2022-03-31T15:35:17.000Z</published>
-    <updated>2022-04-01T13:57:59.291Z</updated>
+    <updated>2022-04-14T14:41:06.465Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文主要记录Maven工具的思想和基本用法。包括环境配置，基础概念，项目构建，依赖管理等部分&lt;/p&gt;</summary>
@@ -264,27 +283,6 @@
   </entry>
   
   <entry>
-    <title>Good questions —— 二叉树篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/questions02/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/questions02/</id>
-    <published>2022-03-30T16:00:00.000Z</published>
-    <updated>2022-03-31T08:53:49.582Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
-    
-    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Good questions —— 数组篇</title>
     <link href="https://www.zzzzzq.com/2022/03/31/questions/"/>
     <id>https://www.zzzzzq.com/2022/03/31/questions/</id>
@@ -314,6 +312,27 @@
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与链表相关的优质题目及解题思路&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Good questions —— 二叉树篇</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/questions02/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/questions02/</id>
+    <published>2022-03-30T16:00:00.000Z</published>
+    <updated>2022-03-31T08:53:49.582Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路&lt;/p&gt;</summary>
     
     
     
