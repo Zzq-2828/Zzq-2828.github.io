@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-14T19:20:03.801Z</updated>
+  <updated>2022-04-15T08:49:38.996Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,30 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>spring02 —— 数据源、注解、整合Junit</title>
+    <title>Spring03 —— 集成Web,SpringMVC</title>
+    <link href="https://www.zzzzzq.com/2022/04/15/spring03/"/>
+    <id>https://www.zzzzzq.com/2022/04/15/spring03/</id>
+    <published>2022-04-14T19:22:05.000Z</published>
+    <updated>2022-04-15T08:49:38.996Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了Spring与Web环境的集成与SpringMVC的简介和组件解析&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Spring" scheme="https://www.zzzzzq.com/categories/Spring/"/>
+    
+    
+    <category term="Spring" scheme="https://www.zzzzzq.com/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring02 —— 数据源、注解、整合Junit</title>
     <link href="https://www.zzzzzq.com/2022/04/14/spring02/"/>
     <id>https://www.zzzzzq.com/2022/04/14/spring02/</id>
     <published>2022-04-14T13:21:27.000Z</published>
-    <updated>2022-04-14T19:20:03.801Z</updated>
+    <updated>2022-04-14T19:24:46.996Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了Spring配置数据源、注解开发、整合Junit部分的基础知识&lt;/p&gt;</summary>
@@ -122,7 +141,7 @@
     <link href="https://www.zzzzzq.com/2022/04/12/Tomcat/"/>
     <id>https://www.zzzzzq.com/2022/04/12/Tomcat/</id>
     <published>2022-04-12T08:24:41.000Z</published>
-    <updated>2022-04-12T13:41:41.927Z</updated>
+    <updated>2022-04-15T06:27:04.566Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文中简单介绍了web的相关概念，另外着重介绍了web服务器软件：Tomcat的基础知识&lt;/p&gt;</summary>
@@ -209,7 +228,7 @@
     <link href="https://www.zzzzzq.com/2022/04/01/IDEAerror/"/>
     <id>https://www.zzzzzq.com/2022/04/01/IDEAerror/</id>
     <published>2022-04-01T06:40:33.000Z</published>
-    <updated>2022-04-14T15:24:12.023Z</updated>
+    <updated>2022-04-15T06:29:18.334Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了使用IDEA过程中遇到的错误以及解决方案&lt;/p&gt;</summary>
@@ -304,14 +323,14 @@
   </entry>
   
   <entry>
-    <title>Good questions —— 数组篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/questions/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/questions/</id>
+    <title>Good questions —— 链表篇</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/questions03/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/questions03/</id>
     <published>2022-03-30T16:00:00.000Z</published>
-    <updated>2022-03-31T08:53:47.883Z</updated>
+    <updated>2022-03-31T09:38:49.985Z</updated>
     
     
-    <summary type="html">&lt;p&gt;概述：本文记录了我在&lt;a href=&quot;https://leetcode-cn.com/&quot;&gt;&lt;em&gt;Leetcode&lt;/em&gt;&lt;/a&gt;刷题过程中遇到的与数组相关的优质题目及解题思路&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与链表相关的优质题目及解题思路&lt;/p&gt;</summary>
     
     
     
@@ -325,14 +344,14 @@
   </entry>
   
   <entry>
-    <title>Good questions —— 链表篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/questions03/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/questions03/</id>
+    <title>Good questions —— 数组篇</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/questions/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/questions/</id>
     <published>2022-03-30T16:00:00.000Z</published>
-    <updated>2022-03-31T09:38:49.985Z</updated>
+    <updated>2022-03-31T08:53:47.883Z</updated>
     
     
-    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与链表相关的优质题目及解题思路&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;概述：本文记录了我在&lt;a href=&quot;https://leetcode-cn.com/&quot;&gt;&lt;em&gt;Leetcode&lt;/em&gt;&lt;/a&gt;刷题过程中遇到的与数组相关的优质题目及解题思路&lt;/p&gt;</summary>
     
     
     

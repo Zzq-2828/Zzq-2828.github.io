@@ -1,7 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>spring02 —— 数据源、注解、整合Junit</title>
+    <title>Spring03 —— 集成Web,SpringMVC</title>
+    <url>/2022/04/15/spring03/</url>
+    <content><![CDATA[<p>概述：本文记录了Spring与Web环境的集成与SpringMVC的简介和组件解析</p>
+<span id="more"></span>
+
+<h3 id="Spring集成Web环境"><a href="#Spring集成Web环境" class="headerlink" title="Spring集成Web环境"></a>Spring集成Web环境</h3><h4 id="ApplicationContext应用上下文获取方式"><a href="#ApplicationContext应用上下文获取方式" class="headerlink" title="ApplicationContext应用上下文获取方式"></a>ApplicationContext应用上下文获取方式</h4><p>应用上下文对象是通过<code>new ClasspathXmlApplicationContext(spring配置文件)</code> 方式获取的，但是每次从<br>容器中获得Bean时都要编写<code>new ClasspathXmlApplicationContext(spring配置文件)</code> ，这样的弊端是配置<br>文件加载多次，应用上下文对象创建多次。</p>
+<p>在Web项目中，可以使用<code>ServletContextListener</code>监听Web应用的启动，我们可以在Web应用启动时，就加载Spring的配置文件，创建应用上下文对象<code>ApplicationContext</code>，在将其存储到最大的域<code>servletContext</code>域中，这样就可以在任意位置从域中获得应用上下文<code>ApplicationContext</code>对象了。</p>
+<h4 id="Spring提供获取应用上下文的工具"><a href="#Spring提供获取应用上下文的工具" class="headerlink" title="Spring提供获取应用上下文的工具"></a>Spring提供获取应用上下文的工具</h4><p>上面的分析不用手动实现，Spring提供了一个监听器<code>ContextLoaderListener</code>就是对上述功能的封装，该监听器内部加载Spring配置文件，创建应用上下文对象，并存储到<code>ServletContext</code>域中，提供了一个客户端工具<code>WebApplicationContextUtils</code>供使用者获得应用上下文对象。<br>所以我们需要做的只有两件事：</p>
+<ul>
+<li><strong>在web.xml中配置ContextLoaderListener监听器（导入spring-web坐标）</strong></li>
+<li><strong>使用WebApplicationContextUtils获得应用上下文对象ApplicationContext</strong></li>
+</ul>
+<h4 id="导入Spring集成Web的坐标"><a href="#导入Spring集成Web的坐标" class="headerlink" title="导入Spring集成Web的坐标"></a>导入Spring集成Web的坐标</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.0.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="配置ContextLoaderListener监听器"><a href="#配置ContextLoaderListener监听器" class="headerlink" title="配置ContextLoaderListener监听器"></a>配置ContextLoaderListener监听器</h4><p>web.xml中：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--全局参数--&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:applicationContext.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--Spring的监听器--&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">listener</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">listener-class</span>&gt;</span></span><br><span class="line">        org.springframework.web.context.ContextLoaderListener</span><br><span class="line">    <span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="通过工具获得应用上下文对象"><a href="#通过工具获得应用上下文对象" class="headerlink" title="通过工具获得应用上下文对象"></a>通过工具获得应用上下文对象</h5><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">ApplicationContext</span> <span class="variable">applicationContext</span> <span class="operator">=</span> WebApplicationContextUtils.getWebApplicationContext(servletContext);</span><br><span class="line"><span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> applicationContext.getBean(<span class="string">&quot;id&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="SpringMVC简介"><a href="#SpringMVC简介" class="headerlink" title="SpringMVC简介"></a>SpringMVC简介</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>SpringMVC 是一种基于 Java 的实现 MVC 设计模型的请求驱动类型的轻量级 Web 框架，属于SpringFrameWork 的后续产品，已经融合在 Spring Web Flow 中。</p>
+<p>SpringMVC 已经成为目前最主流的MVC框架之一，并且随着Spring3.0 的发布，全面超越 Struts2，成为最优秀的 MVC 框架。它通过一套注解，让一个简单的 Java 类成为处理请求的控制器，而无须实现任何接口。同时它还支持 RESTful 编程风格的请求。</p>
+<h4 id="开发步骤"><a href="#开发步骤" class="headerlink" title="开发步骤"></a>开发步骤</h4><p>需求：客户端发起请求，服务器端接收请求，执行逻辑并进行视图跳转</p>
+<p><img src="https://pic.imgdb.cn/item/6259237a239250f7c59923d8.jpg"></p>
+<p>步骤：</p>
+<ul>
+<li><p>导入SpringMVC相关坐标</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--Spring坐标--&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-context<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.0.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--SpringMVC坐标--&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.0.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--Servlet坐标--&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--Jsp坐标--&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet.jsp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jsp-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置SpringMVC核心控制器DispathcerServlet (web.xml中)</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--配置SpringMVC的前端控制器--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:spring-mvc.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建Controller类和视图页面</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">save</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Controller save running....&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>视图页面xxx.jsp</p>
+<figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1&gt;Success!&lt;/h1&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>使用注解配置Controller类中业务方法的映射地址</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 请求地址  http://localhost:8080/user/quick</span></span><br><span class="line">    <span class="meta">@RequestMapping(value=&quot;/quick&quot;,method = RequestMethod.GET,params = &#123;&quot;username&quot;&#125;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">save</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Controller save running....&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置SpringMVC核心文件 spring-mvc.xml</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">&quot;http://www.springframework.org/schema/context&quot;</span> <span class="attr">xmlns:mvc</span>=<span class="string">&quot;http://www.alibaba.com/schema/stat&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.alibaba.com/schema/stat http://www.alibaba.com/schema/stat.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--Controller的组件扫描--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.itheima&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">context:include-filter</span> <span class="attr">type</span>=<span class="string">&quot;annotation&quot;</span> <span class="attr">expression</span>=<span class="string">&quot;org.springframework.stereotype.Controller&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--配置内部资源视图解析器--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;viewResolver&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--  /jsp/success.jsp  --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;prefix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;/jsp/&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suffix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;.jsp&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>客户端发起请求测试</p>
+</li>
+</ul>
+<h4 id="SpringMVC流程图示"><a href="#SpringMVC流程图示" class="headerlink" title="SpringMVC流程图示"></a>SpringMVC流程图示</h4><p><img src="https://pic.imgdb.cn/item/6259286d239250f7c5a24ad3.jpg"></p>
+<h3 id="SpringMVC组件解析"><a href="#SpringMVC组件解析" class="headerlink" title="SpringMVC组件解析"></a>SpringMVC组件解析</h3><h4 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h4><p><img src="https://pic.imgdb.cn/item/625928bf239250f7c5a2fd19.jpg"></p>
+<ol>
+<li>用户发送请求至前端控制器DispatcherServlet。</li>
+<li>DispatcherServlet收到请求调用HandlerMapping处理器映射器。</li>
+<li>处理器映射器找到具体的处理器(可以根据xml配置、注解进行查找)，生成处理器对象及处理器拦截器(如果有则生成)一并返回给DispatcherServlet。 </li>
+<li>DispatcherServlet调用HandlerAdapter处理器适配器。</li>
+<li>HandlerAdapter经过适配调用具体的处理器(Controller，也叫后端控制器)。 </li>
+<li>Controller执行完成返回ModelAndView。 </li>
+<li>HandlerAdapter将controller执行结果ModelAndView返回给DispatcherServlet。</li>
+<li>DispatcherServlet将ModelAndView传给ViewReslover视图解析器。</li>
+<li>ViewReslover解析后返回具体View。 </li>
+<li>DispatcherServlet根据View进行渲染视图（即将模型数据填充至视图中）。DispatcherServlet响应用户。</li>
+</ol>
+<h4 id="SpringMVC组件解析-1"><a href="#SpringMVC组件解析-1" class="headerlink" title="SpringMVC组件解析"></a>SpringMVC组件解析</h4><ol>
+<li><strong>前端控制器：DispatcherServlet</strong></li>
+</ol>
+<p>  用户请求到达前端控制器，它就相当于 MVC 模式中的 C，DispatcherServlet 是整个流程控制的中心，由它调用其它组件处理用户的请求，DispatcherServlet 的存在降低了组件之间的耦合性。</p>
+<ol start="2">
+<li><strong>处理器映射器：HandlerMapping</strong></li>
+</ol>
+<p>  HandlerMapping 负责根据用户请求找到 Handler 即处理器，SpringMVC 提供了不同的映射器实现不同的映射方式，例如：配置文件方式，实现接口方式，注解方式等。</p>
+<ol start="3">
+<li><strong>处理器适配器：HandlerAdapter</strong></li>
+</ol>
+<p>  通过 HandlerAdapter 对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行。</p>
+<ol start="4">
+<li><strong>处理器：Handler</strong></li>
+</ol>
+<p>  它就是我们开发中要编写的具体业务控制器。由 DispatcherServlet 把用户请求转发到 Handler。由Handler 对具体的用户请求进行处理。</p>
+<ol start="5">
+<li><p><strong>视图解析器：View Resolver</strong><br>  View Resolver 负责将处理结果生成 View 视图，View Resolver 首先根据逻辑视图名解析成物理视图名，即具体的页面地址，再生成 View 视图对象，最后对 View 进行渲染将处理结果通过页面展示给用户。</p>
+</li>
+<li><p><strong>视图：View</strong><br>  SpringMVC 框架提供了很多的 View 视图类型的支持，包括：jstlView、freemarkerView、pdfView等。最常用的视图就是 jsp。一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由程序员根据业务需求开发具体的页面</p>
+</li>
+</ol>
+<h4 id="SpringMVC注解解析"><a href="#SpringMVC注解解析" class="headerlink" title="SpringMVC注解解析"></a>SpringMVC注解解析</h4><p><code>@RequestMapping</code><br>作用：用于建立请求 URL 和处理请求方法之间的对应关系<br>位置：</p>
+<ul>
+<li><p>类上，请求URL 的第一级访问目录。此处不写的话，就相当于应用的根目录</p>
+</li>
+<li><p>方法上，请求 URL 的第二级访问目录，与类上的使用@ReqquestMapping标注的一级目录一起组成访问虚拟路径</p>
+</li>
+<li><p>属性：</p>
+<ul>
+<li><code>value</code>：用于指定请求的URL。它和path属性的作用是一样的</li>
+<li><code>method</code>：用于指定请求的方式</li>
+<li><code>params</code>：用于指定限制请求参数的条件。它支持简单的表达式。要求请求参数的key和value必须和配置的一模一样</li>
+</ul>
+<p>例如：</p>
+<ul>
+<li><code>params = &#123;&quot;accountName&quot;&#125;</code>，表示请求参数必须有accountName</li>
+<li><code>params = &#123;&quot;moeny!100&quot;&#125;</code>，表示请求参数中money不能是100</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p>mvc命名空间引入</p>
+<p>命名空间：</p>
+<p><code>xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</code><br><code>xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;</code><br>约束地址：</p>
+<p><code>http://www.springframework.org/schema/context</code><br><code>http://www.springframework.org/schema/context/spring-context.xsd</code><br><code>http://www.springframework.org/schema/mvc</code><br><code>http://www.springframework.org/schema/mvc/spring-mvc.xsd</code></p>
+</li>
+<li><p><strong>组件扫描</strong></p>
+<p>SpringMVC基于Spring容器，所以在进行SpringMVC操作时，需要将Controller存储到Spring容器中，如果使用<code>@Controller</code>注解标注的话，就需要使用<code>&lt;context:component-scan base-package=&quot;com.itheima.controller&quot;/&gt;</code>进行组件扫描。</p>
+</li>
+</ol>
+<h4 id="SpringMVC的XML配置解析"><a href="#SpringMVC的XML配置解析" class="headerlink" title="SpringMVC的XML配置解析"></a>SpringMVC的XML配置解析</h4><p><strong>视图解析器</strong><br>SpringMVC有默认组件配置，默认组件都是<code>DispatcherServlet.properties</code>配置文件中配置的，该配置文件地址<code>org/springframework/web/servlet/DispatcherServlet.properties</code>，该文件中配置了默认的视图解析器，如下：</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">org.springframework.web.servlet.ViewResolver</span>=<span class="string">org.springframework.web.servlet.view.InternalResourceViewResolver</span></span><br></pre></td></tr></table></figure>
+
+<p>翻看该解析器源码，可以看到该解析器的默认设置，如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">REDIRECT_URL_PREFIX = &quot;redirect:&quot; --重定向前缀</span><br><span class="line">FORWARD_URL_PREFIX = &quot;forward:&quot; --转发前缀（默认值）</span><br><span class="line">prefix = &quot;&quot;; --视图名称前缀</span><br><span class="line">suffix = &quot;&quot;; --视图名称后缀</span><br></pre></td></tr></table></figure>
+
+<p>我们可以通过属性注入的方式修改视图的的前后缀</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--配置内部资源视图解析器--&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;prefix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;/WEB-INF/views/&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suffix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;.jsp&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring02 —— 数据源、注解、整合Junit</title>
     <url>/2022/04/14/spring02/</url>
     <content><![CDATA[<p>概述：本文记录了Spring配置数据源、注解开发、整合Junit部分的基础知识</p>
 <span id="more"></span>
@@ -160,7 +295,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringJUnit4ClassRunner.class)</span></span><br><span class="line"><span class="meta">@ContextConfiguration(classes = &#123;SpringConfiguration.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringJunitTest</span> &#123;</span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	<span class="keyword">private</span> UserService userService; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>创建测试方法进行测试</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringJUnit4ClassRunner.class)</span></span><br><span class="line"><span class="meta">@ContextConfiguration(classes = &#123;SpringConfiguration.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringJunitTest</span> &#123;</span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	<span class="keyword">private</span> UserService userService;</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testUserService</span><span class="params">()</span>&#123;</span><br><span class="line">	userService.save();</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringJUnit4ClassRunner.class)</span></span><br><span class="line"><span class="meta">@ContextConfiguration(classes = &#123;SpringConfiguration.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringJunitTest</span> &#123;</span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	<span class="keyword">private</span> UserService userService;</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testUserService</span><span class="params">()</span>&#123;</span><br><span class="line">		userService.save();</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
@@ -1120,7 +1255,7 @@
 <li><p>启动报错（出现403错误，为端口被占用的问题）：</p>
 <p> 暴力：找到占用的端口号，并且找到对应的进程，杀死该进程</p>
 <ul>
-<li>cmd输入 netstat -ano  （或加入端口号搜索更为方便<code>netstat -aon | findstr 8080</code>）</li>
+<li>cmd输入 netstat -ano  （或加入端口号搜索更为方便<code>netstat -an0 | findstr 8080</code>）</li>
 </ul>
 <p> 温柔：修改自身的端口号</p>
 </li>
@@ -2114,6 +2249,10 @@
 <p>（3）pom.xml中进行版本修改,在库中删除原来的版本</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>      </span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.28<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+
+
+<h4 id="启动Web项目时出现org-apache-catalina-LifecycleException-协议处理程序初始化失败"><a href="#启动Web项目时出现org-apache-catalina-LifecycleException-协议处理程序初始化失败" class="headerlink" title="启动Web项目时出现org.apache.catalina.LifecycleException: 协议处理程序初始化失败"></a>启动Web项目时出现<code>org.apache.catalina.LifecycleException: 协议处理程序初始化失败</code></h4><p>原因：8080端口被占用了</p>
+<p>解决方案：cmd中<code>netstat -ano | findstr 8080</code>找到对应进程杀死</p>
 ]]></content>
       <categories>
         <category>tools</category>
@@ -2334,6 +2473,40 @@
       </tags>
   </entry>
   <entry>
+    <title>Good questions —— 链表篇</title>
+    <url>/2022/03/31/questions03/</url>
+    <content><![CDATA[<p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
+<span id="more"></span>
+
+<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
+<p>（1）迭代</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）递归</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
+<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
+<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
+<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
+<p>（1）找到链表中间节点，并断开</p>
+<p>（2）反转后半部分的链表</p>
+<p>（3）合并两个链表</p>
+<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
+<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
+<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Good questions —— 数组篇</title>
     <url>/2022/03/31/questions/</url>
     <content><![CDATA[<p>概述：本文记录了我在<a href="https://leetcode-cn.com/"><em>Leetcode</em></a>刷题过程中遇到的与数组相关的优质题目及解题思路</p>
@@ -2375,40 +2548,6 @@
 <p>思路：</p>
 <p>（1）想到按层来遍历可以省去空间复杂度</p>
 <p>（2）定义四个变量（left，right，top，bottom）来控制每一层的边界</p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Good questions —— 链表篇</title>
-    <url>/2022/03/31/questions03/</url>
-    <content><![CDATA[<p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
-<span id="more"></span>
-
-<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
-<p>（1）迭代</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>（2）递归</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
-<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
-<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
-<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
-<p>（1）找到链表中间节点，并断开</p>
-<p>（2）反转后半部分的链表</p>
-<p>（3）合并两个链表</p>
-<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
-<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
-<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
 ]]></content>
       <categories>
         <category>算法</category>

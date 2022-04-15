@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">242</span>
+            <span class="post-count">290</span>
         </span>
     </span>
 
@@ -131,6 +131,10 @@
 <p>（3）pom.xml中进行版本修改,在库中删除原来的版本</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>      </span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.28<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+
+
+<h4 id="启动Web项目时出现org-apache-catalina-LifecycleException-协议处理程序初始化失败"><a href="#启动Web项目时出现org-apache-catalina-LifecycleException-协议处理程序初始化失败" class="headerlink" title="启动Web项目时出现org.apache.catalina.LifecycleException: 协议处理程序初始化失败"></a>启动Web项目时出现<code>org.apache.catalina.LifecycleException: 协议处理程序初始化失败</code></h4><p>原因：8080端口被占用了</p>
+<p>解决方案：cmd中<code>netstat -ano | findstr 8080</code>找到对应进程杀死</p>
  
       <!-- reward -->
       

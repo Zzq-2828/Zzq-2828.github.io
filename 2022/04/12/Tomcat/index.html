@@ -204,7 +204,7 @@
 <li><p>启动报错（出现403错误，为端口被占用的问题）：</p>
 <p> 暴力：找到占用的端口号，并且找到对应的进程，杀死该进程</p>
 <ul>
-<li>cmd输入 netstat -ano  （或加入端口号搜索更为方便<code>netstat -aon | findstr 8080</code>）</li>
+<li>cmd输入 netstat -ano  （或加入端口号搜索更为方便<code>netstat -an0 | findstr 8080</code>）</li>
 </ul>
 <p> 温柔：修改自身的端口号</p>
 </li>
