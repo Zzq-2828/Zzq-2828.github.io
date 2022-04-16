@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-16T08:41:35.481Z</updated>
+  <updated>2022-04-16T18:47:07.390Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,30 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>AOP</title>
+    <link href="https://www.zzzzzq.com/2022/04/16/AOP/"/>
+    <id>https://www.zzzzzq.com/2022/04/16/AOP/</id>
+    <published>2022-04-16T08:42:45.000Z</published>
+    <updated>2022-04-16T18:47:07.390Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本问记录了AOP编程的基本概念和在java开发中的底层实现，对动态代理技术作了介绍和演示&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="SSM" scheme="https://www.zzzzzq.com/categories/SSM/"/>
+    
+    
+    <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SSM04 —— Interceptor</title>
     <link href="https://www.zzzzzq.com/2022/04/16/Interceptor/"/>
     <id>https://www.zzzzzq.com/2022/04/16/Interceptor/</id>
     <published>2022-04-16T08:04:08.000Z</published>
-    <updated>2022-04-16T08:41:35.481Z</updated>
+    <updated>2022-04-16T08:42:49.424Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文记录了SpringMVC拦截器的相关概念和简单使用方法&lt;/p&gt;</summary>
