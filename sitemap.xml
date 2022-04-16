@@ -2,7 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.zzzzzq.com/2022/04/16/AOP/</loc>
+    <loc>https://www.zzzzzq.com/2022/04/17/SSM05/</loc>
+    
+    <lastmod>2022-04-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/2022/04/16/SSM04/</loc>
+    
+    <lastmod>2022-04-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/2022/04/14/SSM01/</loc>
     
     <lastmod>2022-04-16</lastmod>
     
@@ -20,7 +38,7 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/2022/04/15/spring03/</loc>
+    <loc>https://www.zzzzzq.com/2022/04/15/SSM03/</loc>
     
     <lastmod>2022-04-16</lastmod>
     
@@ -38,16 +56,7 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/2022/04/14/spring02/</loc>
-    
-    <lastmod>2022-04-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zzzzzq.com/2022/04/14/Spring01/</loc>
+    <loc>https://www.zzzzzq.com/2022/04/14/SSM02/</loc>
     
     <lastmod>2022-04-15</lastmod>
     
@@ -216,20 +225,6 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/tags/SSM/</loc>
-    <lastmod>2022-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zzzzzq.com/tags/SpringMVC/</loc>
-    <lastmod>2022-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.zzzzzq.com/tags/MySQL/</loc>
     <lastmod>2022-04-16</lastmod>
     <changefreq>weekly</changefreq>
@@ -251,7 +246,21 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/tags/Redis/</loc>
+    <loc>https://www.zzzzzq.com/tags/SSM/</loc>
+    <lastmod>2022-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/tags/SpringMVC/</loc>
+    <lastmod>2022-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/tags/Linux/</loc>
     <lastmod>2022-04-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -265,7 +274,7 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/tags/Linux/</loc>
+    <loc>https://www.zzzzzq.com/tags/Redis/</loc>
     <lastmod>2022-04-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -302,13 +311,6 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/categories/SSM/</loc>
-    <lastmod>2022-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.zzzzzq.com/categories/MySQL/</loc>
     <lastmod>2022-04-16</lastmod>
     <changefreq>weekly</changefreq>
@@ -316,21 +318,7 @@
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/categories/Redis/</loc>
-    <lastmod>2022-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zzzzzq.com/categories/SSM/Spring/</loc>
-    <lastmod>2022-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zzzzzq.com/categories/JavaWeb/</loc>
+    <loc>https://www.zzzzzq.com/categories/SSM/</loc>
     <lastmod>2022-04-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -344,7 +332,28 @@
   </url>
   
   <url>
+    <loc>https://www.zzzzzq.com/categories/Redis/</loc>
+    <lastmod>2022-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/categories/JavaWeb/</loc>
+    <lastmod>2022-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.zzzzzq.com/categories/SSM/SpringMVC/</loc>
+    <lastmod>2022-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/categories/SSM/Spring/</loc>
     <lastmod>2022-04-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

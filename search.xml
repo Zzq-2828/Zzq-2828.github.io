@@ -1,9 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>AOP</title>
-    <url>/2022/04/16/AOP/</url>
-    <content><![CDATA[<p>本问记录了AOP编程的基本概念和在java开发中的底层实现，对动态代理技术作了介绍和演示</p>
+    <title>SSM05 —— 事务控制</title>
+    <url>/2022/04/17/SSM05/</url>
+    <content><![CDATA[<p>本文记录了Spring的事务控制，包含编程式事务控制相关对象、基于XML的声明式事务控制和基于注解的声明式事务控制</p>
+<span id="more"></span>
+
+<h3 id="编程式事务控制三大对象"><a href="#编程式事务控制三大对象" class="headerlink" title="编程式事务控制三大对象"></a>编程式事务控制三大对象</h3><h4 id="PlatformTransactionManager"><a href="#PlatformTransactionManager" class="headerlink" title="PlatformTransactionManager"></a>PlatformTransactionManager</h4><p>PlatformTransactionManager 接口是 spring 的<strong>事务管理器</strong>，它里面提供了我们常用的操作事务的方法。</p>
+<p><img src="https://pic.imgdb.cn/item/625b10df239250f7c5ca131c.jpg"></p>
+<p>注意：<br>PlatformTransactionManager 是接口类型，不同的 Dao 层技术则有不同的实现类，例如：Dao 层技术是Jdbc 或 Mybatis 时：<code>org.springframework.jdbc.datasource.DataSourceTransactionManager</code><br>Dao 层技术是hibernate时：<code>org.springframework.orm.hibernate5.HibernateTransactionManager</code></p>
+<h4 id="TransactionDefinition"><a href="#TransactionDefinition" class="headerlink" title="TransactionDefinition"></a>TransactionDefinition</h4><p>TransactionDefinition 是事务的定义信息对象，里面有如下方法：</p>
+<p><img src="https://pic.imgdb.cn/item/625b1134239250f7c5ca683c.jpg"></p>
+<p><strong>事务隔离级别</strong><br>设置隔离级别，可以解决事务并发产生的问题，如脏读、不可重复读和虚读。</p>
+<ul>
+<li>ISOLATION_DEFAULT</li>
+<li>ISOLATION_READ_UNCOMMITTED</li>
+<li>ISOLATION_READ_COMMITTED</li>
+<li>ISOLATION_REPEATABLE_READ</li>
+<li>ISOLATION_SERIALIZABLE</li>
+</ul>
+<p><strong>事务传播行为</strong></p>
+<ul>
+<li>REQUIRED：如果当前没有事务，就新建一个事务，如果已经存在一个事务中，加入到这个事务中。一般的选择（默认值）</li>
+<li>SUPPORTS：支持当前事务，如果当前没有事务，就以非事务方式执行（没有事务）</li>
+<li>MANDATORY：使用当前的事务，如果当前没有事务，就抛出异常</li>
+<li>REQUERS_NEW：新建事务，如果当前在事务中，把当前事务挂起。</li>
+<li>NOT_SUPPORTED：以非事务方式执行操作，如果当前存在事务，就把当前事务挂起</li>
+<li>NEVER：以非事务方式运行，如果当前存在事务，抛出异常</li>
+<li>NESTED：如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行 REQUIRED 类似的操作</li>
+<li>超时时间：默认值是-1，没有超时限制。如果有，以秒为单位进行设置</li>
+<li>是否只读：建议查询时设置为只读</li>
+</ul>
+<h4 id="TransactionStatus"><a href="#TransactionStatus" class="headerlink" title="TransactionStatus"></a>TransactionStatus</h4><p>TransactionStatus 接口提供的是事务具体的运行状态，方法介绍如下：</p>
+<p><img src="https://pic.imgdb.cn/item/625b1201239250f7c5cb339b.jpg"></p>
+<h3 id="基于XML的声明式事务控制"><a href="#基于XML的声明式事务控制" class="headerlink" title="基于XML的声明式事务控制"></a>基于XML的声明式事务控制</h3><p><strong>什么是声明式事务控制</strong></p>
+<p>Spring 的声明式事务顾名思义就是采用声明的方式来处理事务。这里所说的声明，就是<strong>指在配置文件中声明</strong>，用在 Spring 配置文件中声明式的处理事务来代替代码式的处理事务。</p>
+<p><strong>声明式事务处理的作用</strong></p>
+<ul>
+<li><strong>事务管理不侵入开发的组件</strong>。具体来说，业务逻辑对象就不会意识到正在事务管理之中，事实上也应该如此，因为事务管理是属于系统层面的服务，而不是业务逻辑的一部分，如果想要改变事务管理策划的话，也只需要在定义文件中重新配置即可。</li>
+<li>在不需要事务管理的时候，只要在设定文件上修改一下，即可移去事务管理服务，无需改变代码重新编译，这样维护起来极其方便</li>
+</ul>
+<p><strong>注意</strong>：Spring 声明式事务控制底层就是AOP。</p>
+<h4 id="声明式事务控制的实现"><a href="#声明式事务控制的实现" class="headerlink" title="声明式事务控制的实现"></a>声明式事务控制的实现</h4><p>声明式事务控制明确事项：</p>
+<p>（1）谁是切点？</p>
+<p>（2）谁是通知？</p>
+<p>（3）配置切面？</p>
+<ul>
+<li><p>引入tx命名空间</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:aop</span>=<span class="string">&quot;http://www.springframework.org/schema/aop&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:tx</span>=<span class="string">&quot;http://www.springframework.org/schema/tx&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置事务增强</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--配置平台事务管理器--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;transactionManager&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--通知  事务的增强--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">&quot;txAdvice&quot;</span> <span class="attr">transaction-manager</span>=<span class="string">&quot;transactionManager&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--设置事务的属性信息的--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">&quot;transfer&quot;</span> <span class="attr">isolation</span>=<span class="string">&quot;REPEATABLE_READ&quot;</span> <span class="attr">propagation</span>=<span class="string">&quot;REQUIRED&quot;</span> <span class="attr">read-only</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">&quot;save&quot;</span> <span class="attr">isolation</span>=<span class="string">&quot;REPEATABLE_READ&quot;</span> <span class="attr">propagation</span>=<span class="string">&quot;REQUIRED&quot;</span> <span class="attr">read-only</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">&quot;findAll&quot;</span> <span class="attr">isolation</span>=<span class="string">&quot;REPEATABLE_READ&quot;</span> <span class="attr">propagation</span>=<span class="string">&quot;REQUIRED&quot;</span> <span class="attr">read-only</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">&quot;update*&quot;</span> <span class="attr">isolation</span>=<span class="string">&quot;REPEATABLE_READ&quot;</span> <span class="attr">propagation</span>=<span class="string">&quot;REQUIRED&quot;</span> <span class="attr">read-only</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">&quot;*&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置事务 AOP 织入（Spring为事务增强专门有一个advisor）</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--配置事务的aop织入--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">&quot;txPointcut&quot;</span> <span class="attr">expression</span>=<span class="string">&quot;execution(* com.itheima.service.impl.*.*(..))&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">&quot;txAdvice&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;txPointcut&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试事务控制转账业务代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">transfer</span><span class="params">(String outMan, String inMan, <span class="type">double</span> money)</span> &#123;</span><br><span class="line">    accountDao.out(outMan,money);</span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>/<span class="number">0</span>;</span><br><span class="line">    accountDao.in(inMan,money);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="切点方法的事务参数的配置"><a href="#切点方法的事务参数的配置" class="headerlink" title="切点方法的事务参数的配置"></a>切点方法的事务参数的配置</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--通知  事务的增强--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">&quot;txAdvice&quot;</span> <span class="attr">transaction-manager</span>=<span class="string">&quot;transactionManager&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--设置事务的属性信息的--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">&quot;transfer&quot;</span> <span class="attr">isolation</span>=<span class="string">&quot;REPEATABLE_READ&quot;</span> <span class="attr">propagation</span>=<span class="string">&quot;REQUIRED&quot;</span> <span class="attr">read-only</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">&quot;*&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>&lt;tx:method&gt;</code> 代表切点方法的事务参数的配置，例如：<br><code>&lt;tx:method name=&quot;transfer&quot; isolation=&quot;REPEATABLE_READ&quot; propagation=&quot;REQUIRED&quot; timeout=&quot;-1&quot; read-only=&quot;false&quot;/&gt;</code></p>
+<ul>
+<li>name：切点方法名称</li>
+<li>isolation:事务的隔离级别</li>
+<li>propagation：事务的传播行为</li>
+<li>timeout：超时时间</li>
+<li>read-only：是否只读</li>
+</ul>
+<h3 id="基于注解的声明式事务控制"><a href="#基于注解的声明式事务控制" class="headerlink" title="基于注解的声明式事务控制"></a>基于注解的声明式事务控制</h3><ul>
+<li><p>编写AccountDao</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Repository(&quot;accountDao&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AccountDaoImpl</span> <span class="keyword">implements</span> <span class="title class_">AccountDao</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JdbcTemplate jdbcTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">out</span><span class="params">(String outMan, <span class="type">double</span> money)</span> &#123;</span><br><span class="line">        jdbcTemplate.update(<span class="string">&quot;update account set money=money-? where name=?&quot;</span>,money,outMan);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">in</span><span class="params">(String inMan, <span class="type">double</span> money)</span> &#123;</span><br><span class="line">        jdbcTemplate.update(<span class="string">&quot;update account set money=money+? where name=?&quot;</span>,money,inMan);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写AccountService</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;accountService&quot;)</span></span><br><span class="line"><span class="meta">@Transactional(isolation = Isolation.REPEATABLE_READ)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AccountServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">AccountService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AccountDao accountDao;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">transfer</span><span class="params">(String outMan, String inMan, <span class="type">double</span> money)</span> &#123;</span><br><span class="line">        accountDao.out(outMan,money);</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>/<span class="number">0</span>;</span><br><span class="line">        accountDao.in(inMan,money);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//@Transactional(isolation = Isolation.DEFAULT)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">xxx</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写applicationContext.xml配置文件</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--之前省略datsSource、jdbcTemplate、平台事务管理器的配置--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--组件扫描--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.itheima&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;transactionManager&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--事物的注解驱动--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tx:annotation-driven</span> <span class="attr">transaction-manager</span>=<span class="string">&quot;transactionManager&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>解析</p>
+<ul>
+<li>使用 <code>@Transactional</code> 在需要进行事务控制的类或是方法上修饰，注解可用的属性同 xml 配置方式，例如隔离级别、传播行为等。</li>
+<li>注解使用在类上，那么该类下的所有方法都使用同一套注解参数配置。</li>
+<li>使用在方法上，不同的方法可以采用不同的事务参数配置。</li>
+<li>Xml配置文件中要开启事务的注解驱动<code>&lt;tx:annotation-driven /&gt;</code></li>
+</ul>
+<p><strong>注解声明式事务控制的配置要点</strong></p>
+<ul>
+<li>平台事务管理器配置（xml方式）</li>
+<li>事务通知的配置（<code>@Transactional</code>注解配置）</li>
+<li>事务注解驱动的配置 <code>&lt;tx:annotation-driven/&gt;</code></li>
+</ul>
+]]></content>
+      <categories>
+        <category>SSM</category>
+      </categories>
+      <tags>
+        <tag>SSM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SSM04 —— AOP</title>
+    <url>/2022/04/16/SSM04/</url>
+    <content><![CDATA[<p>本文记录了AOP编程的基本概念和在java开发中的底层实现，对动态代理技术作了介绍和演示</p>
 <span id="more"></span>
 
 <h3 id="Spring的AOP简介"><a href="#Spring的AOP简介" class="headerlink" title="Spring的AOP简介"></a>Spring的AOP简介</h3><h4 id="AOP及其作用和优势"><a href="#AOP及其作用和优势" class="headerlink" title="AOP及其作用和优势"></a>AOP及其作用和优势</h4><p><strong>AOP</strong> 为 <strong>A</strong>spect <strong>O</strong>riented <strong>P</strong>rogramming 的缩写，意思为<strong>面向切面编程</strong>，是通过预编译方式和<strong>运行期动态代理</strong>实现程序功能的统一维护的一种技术。<br>AOP 是 OOP 的延续，是软件开发中的一个热点，也是Spring框架中的一个重要内容，是函数式编程的一种衍生范型。利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各部分之间的耦合度降低，提高程序的可重用性，同时提高了开发的效率。</p>
@@ -190,7 +289,7 @@
   </entry>
   <entry>
     <title>SSM03 —— 集成Web,SpringMVC</title>
-    <url>/2022/04/15/spring03/</url>
+    <url>/2022/04/15/SSM03/</url>
     <content><![CDATA[<p>概述：本文记录了Spring与Web环境的集成与SpringMVC的简介和组件解析</p>
 <span id="more"></span>
 
@@ -537,7 +636,7 @@
   </entry>
   <entry>
     <title>SSM02 —— 数据源、注解、整合Junit</title>
-    <url>/2022/04/14/spring02/</url>
+    <url>/2022/04/14/SSM02/</url>
     <content><![CDATA[<p>概述：本文记录了Spring配置数据源、注解开发、整合Junit部分的基础知识</p>
 <span id="more"></span>
 
@@ -708,8 +807,8 @@
       </tags>
   </entry>
   <entry>
-    <title>SSM01 —— IoC和DI</title>
-    <url>/2022/04/14/Spring01/</url>
+    <title>SSM01 —— IoC,DI</title>
+    <url>/2022/04/14/SSM01/</url>
     <content><![CDATA[<p>概述：本文记录了Spring的基础概念和基本配置方法</p>
 <span id="more"></span>
 
@@ -2839,6 +2938,40 @@
       </tags>
   </entry>
   <entry>
+    <title>Good questions —— 链表篇</title>
+    <url>/2022/03/31/questions03/</url>
+    <content><![CDATA[<p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
+<span id="more"></span>
+
+<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
+<p>（1）迭代</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）递归</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
+<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
+<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
+<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
+<p>（1）找到链表中间节点，并断开</p>
+<p>（2）反转后半部分的链表</p>
+<p>（3）合并两个链表</p>
+<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
+<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
+<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Good questions —— 数组篇</title>
     <url>/2022/03/31/questions/</url>
     <content><![CDATA[<p>概述：本文记录了我在<a href="https://leetcode-cn.com/"><em>Leetcode</em></a>刷题过程中遇到的与数组相关的优质题目及解题思路</p>
@@ -2941,40 +3074,6 @@
 <p>（2）在递归的过程中不断更新一个最大路径和，包含当前节点并且可以同时包含左右子树的节点。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> maxsum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> lval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;left));<span class="comment">//包含根节点root的单条路径的最大值</span></span><br><span class="line">        <span class="type">int</span> rval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;right));</span><br><span class="line">        maxsum = <span class="built_in">max</span>(maxsum,root-&gt;val+lval+rval);</span><br><span class="line">        <span class="keyword">return</span> root-&gt;val + <span class="built_in">max</span>(lval,rval);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> maxsum = INT_MIN;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Good questions —— 链表篇</title>
-    <url>/2022/03/31/questions03/</url>
-    <content><![CDATA[<p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
-<span id="more"></span>
-
-<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
-<p>（1）迭代</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>（2）递归</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
-<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
-<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
-<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
-<p>（1）找到链表中间节点，并断开</p>
-<p>（2）反转后半部分的链表</p>
-<p>（3）合并两个链表</p>
-<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
-<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
-<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
 ]]></content>
       <categories>
         <category>算法</category>

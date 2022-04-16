@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-16T18:47:07.390Z</updated>
+  <updated>2022-04-16T19:48:36.656Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,14 +17,33 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>AOP</title>
-    <link href="https://www.zzzzzq.com/2022/04/16/AOP/"/>
-    <id>https://www.zzzzzq.com/2022/04/16/AOP/</id>
+    <title>SSM05 —— 事务控制</title>
+    <link href="https://www.zzzzzq.com/2022/04/17/SSM05/"/>
+    <id>https://www.zzzzzq.com/2022/04/17/SSM05/</id>
+    <published>2022-04-16T18:49:20.000Z</published>
+    <updated>2022-04-16T19:48:36.656Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文记录了Spring的事务控制，包含编程式事务控制相关对象、基于XML的声明式事务控制和基于注解的声明式事务控制&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="SSM" scheme="https://www.zzzzzq.com/categories/SSM/"/>
+    
+    
+    <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SSM04 —— AOP</title>
+    <link href="https://www.zzzzzq.com/2022/04/16/SSM04/"/>
+    <id>https://www.zzzzzq.com/2022/04/16/SSM04/</id>
     <published>2022-04-16T08:42:45.000Z</published>
-    <updated>2022-04-16T18:47:07.390Z</updated>
+    <updated>2022-04-16T18:51:19.731Z</updated>
     
     
-    <summary type="html">&lt;p&gt;本问记录了AOP编程的基本概念和在java开发中的底层实现，对动态代理技术作了介绍和演示&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;本文记录了AOP编程的基本概念和在java开发中的底层实现，对动态代理技术作了介绍和演示&lt;/p&gt;</summary>
     
     
     
@@ -60,8 +79,8 @@
   
   <entry>
     <title>SSM03 —— 集成Web,SpringMVC</title>
-    <link href="https://www.zzzzzq.com/2022/04/15/spring03/"/>
-    <id>https://www.zzzzzq.com/2022/04/15/spring03/</id>
+    <link href="https://www.zzzzzq.com/2022/04/15/SSM03/"/>
+    <id>https://www.zzzzzq.com/2022/04/15/SSM03/</id>
     <published>2022-04-14T19:22:05.000Z</published>
     <updated>2022-04-16T07:28:12.917Z</updated>
     
@@ -83,8 +102,8 @@
   
   <entry>
     <title>SSM02 —— 数据源、注解、整合Junit</title>
-    <link href="https://www.zzzzzq.com/2022/04/14/spring02/"/>
-    <id>https://www.zzzzzq.com/2022/04/14/spring02/</id>
+    <link href="https://www.zzzzzq.com/2022/04/14/SSM02/"/>
+    <id>https://www.zzzzzq.com/2022/04/14/SSM02/</id>
     <published>2022-04-14T13:21:27.000Z</published>
     <updated>2022-04-15T18:10:08.006Z</updated>
     
@@ -105,11 +124,11 @@
   </entry>
   
   <entry>
-    <title>SSM01 —— IoC和DI</title>
-    <link href="https://www.zzzzzq.com/2022/04/14/Spring01/"/>
-    <id>https://www.zzzzzq.com/2022/04/14/Spring01/</id>
+    <title>SSM01 —— IoC,DI</title>
+    <link href="https://www.zzzzzq.com/2022/04/14/SSM01/"/>
+    <id>https://www.zzzzzq.com/2022/04/14/SSM01/</id>
     <published>2022-04-14T05:07:27.000Z</published>
-    <updated>2022-04-15T18:09:44.124Z</updated>
+    <updated>2022-04-16T18:50:26.543Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了Spring的基础概念和基本配置方法&lt;/p&gt;</summary>
@@ -356,6 +375,27 @@
   </entry>
   
   <entry>
+    <title>Good questions —— 链表篇</title>
+    <link href="https://www.zzzzzq.com/2022/03/31/questions03/"/>
+    <id>https://www.zzzzzq.com/2022/03/31/questions03/</id>
+    <published>2022-03-30T16:00:00.000Z</published>
+    <updated>2022-03-31T09:38:49.985Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与链表相关的优质题目及解题思路&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Good questions —— 数组篇</title>
     <link href="https://www.zzzzzq.com/2022/03/31/questions/"/>
     <id>https://www.zzzzzq.com/2022/03/31/questions/</id>
@@ -385,27 +425,6 @@
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
-    
-    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Good questions —— 链表篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/questions03/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/questions03/</id>
-    <published>2022-03-30T16:00:00.000Z</published>
-    <updated>2022-03-31T09:38:49.985Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与链表相关的优质题目及解题思路&lt;/p&gt;</summary>
     
     
     
