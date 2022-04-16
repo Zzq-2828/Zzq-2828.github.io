@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-15T18:10:31.453Z</updated>
+  <updated>2022-04-16T08:41:35.481Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>SSM04 —— Interceptor</title>
+    <link href="https://www.zzzzzq.com/2022/04/16/Interceptor/"/>
+    <id>https://www.zzzzzq.com/2022/04/16/Interceptor/</id>
+    <published>2022-04-16T08:04:08.000Z</published>
+    <updated>2022-04-16T08:41:35.481Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文记录了SpringMVC拦截器的相关概念和简单使用方法&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="SSM" scheme="https://www.zzzzzq.com/categories/SSM/"/>
+    
+    <category term="SpringMVC" scheme="https://www.zzzzzq.com/categories/SSM/SpringMVC/"/>
+    
+    
+    <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
+    
+    <category term="SpringMVC" scheme="https://www.zzzzzq.com/tags/SpringMVC/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SSM03 —— 集成Web,SpringMVC</title>
     <link href="https://www.zzzzzq.com/2022/04/15/spring03/"/>
     <id>https://www.zzzzzq.com/2022/04/15/spring03/</id>
     <published>2022-04-14T19:22:05.000Z</published>
-    <updated>2022-04-15T18:10:31.453Z</updated>
+    <updated>2022-04-16T07:28:12.917Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了Spring与Web环境的集成与SpringMVC的简介和组件解析&lt;/p&gt;</summary>
@@ -195,7 +218,7 @@
     <link href="https://www.zzzzzq.com/2022/04/02/JDBC/"/>
     <id>https://www.zzzzzq.com/2022/04/02/JDBC/</id>
     <published>2022-04-02T05:09:03.000Z</published>
-    <updated>2022-04-14T15:15:06.559Z</updated>
+    <updated>2022-04-16T07:04:09.529Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了JDBC (Java DataBase Connectivity) 的相关知识，JDBC的基本概念级用法，数据库的连接池和JDBCTemplate。&lt;/p&gt;</summary>

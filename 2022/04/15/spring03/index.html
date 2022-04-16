@@ -436,6 +436,15 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(value=&quot;/quick23&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">save23</span><span class="params">(String username, MultipartFile[] uploadFile)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    System.out.println(username);</span><br><span class="line">    <span class="keyword">for</span> (MultipartFile multipartFile : uploadFile) &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">originalFilename</span> <span class="operator">=</span> multipartFile.getOriginalFilename();</span><br><span class="line">        multipartFile.transferTo(<span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;F:\\test\\&quot;</span>+originalFilename));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="Spring环境搭建步骤"><a href="#Spring环境搭建步骤" class="headerlink" title="Spring环境搭建步骤"></a>Spring环境搭建步骤</h3><ul>
+<li>创建工程（Project&amp;Module） </li>
+<li>导入静态页面（jsp页面）</li>
+<li>导入需要坐标（pom.xml） </li>
+<li>创建包结构（controller、service、dao、domain、utils） </li>
+<li>导入数据库脚本（见资料test.sql） </li>
+<li>创建POJO类（见资料User.java和Role.java） </li>
+<li>创建配置文件（applicationContext.xml、spring-mvc.xml、jdbc.properties、log4j.properties）</li>
+</ul>
  
       <!-- reward -->
       
@@ -512,6 +521,15 @@
 
    
   <nav class="article-nav">
+    
+      <a href="/2022/04/16/Interceptor/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            SSM04 —— Interceptor
+          
+        </div>
+      </a>
     
     
       <a href="/2022/04/14/spring02/" class="article-nav-link">
