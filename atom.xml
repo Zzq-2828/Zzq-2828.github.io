@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-19T15:36:34.070Z</updated>
+  <updated>2022-04-19T19:34:48.620Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SpringBoot01 —— 概览及Demo运行</title>
+    <link href="https://www.zzzzzq.com/2022/04/20/SpringBoot01/"/>
+    <id>https://www.zzzzzq.com/2022/04/20/SpringBoot01/</id>
+    <published>2022-04-20T10:22:59.000Z</published>
+    <updated>2022-04-19T19:34:48.620Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：SpringBoot入门程序搭建和运行&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://www.zzzzzq.com/tags/SpringBoot/"/>
+    
+  </entry>
   
   <entry>
     <title>SSM08 —— SSM整合</title>
@@ -147,7 +168,7 @@
     <link href="https://www.zzzzzq.com/2022/04/15/SSM03/"/>
     <id>https://www.zzzzzq.com/2022/04/15/SSM03/</id>
     <published>2022-04-14T19:22:05.000Z</published>
-    <updated>2022-04-16T07:28:12.917Z</updated>
+    <updated>2022-04-19T19:34:38.298Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了Spring与Web环境的集成与SpringMVC的简介和组件解析&lt;/p&gt;</summary>
@@ -396,27 +417,6 @@
     
     
     <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringBoot —— 基础篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/SpringBootConfig/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/SpringBootConfig/</id>
-    <published>2022-03-31T10:22:59.000Z</published>
-    <updated>2022-03-31T19:21:02.878Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：SpringBoot基础知识学习与记录，学完这个篇章可以会用SpringBoot&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://www.zzzzzq.com/tags/SpringBoot/"/>
     
   </entry>
   

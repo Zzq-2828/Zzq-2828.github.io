@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">6.5k</span>
+            <span class="post-count">6.7k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">30 分钟</span>
+            <span class="post-count">31 分钟</span>
         </span>
     </span>
 </div>
@@ -346,7 +346,24 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(value=&quot;/quick16&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">save16</span><span class="params">(<span class="meta">@RequestParam(value=&quot;name&quot;,required = false,defaultValue = &quot;itcast&quot;)</span> String username)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    System.out.println(username);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="获得Restful风格的参数"><a href="#获得Restful风格的参数" class="headerlink" title="获得Restful风格的参数"></a>获得Restful风格的参数</h4><p><strong>Restful</strong>是一种软件<strong>架构风格</strong>、<strong>设计风格</strong>，而不是标准，只是提供了一组设计原则和约束条件。主要用于客户端和服务器交互类的软件，基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存机制等。<br><strong>Restful</strong>风格的请求是使用<strong>“url+请求方式”</strong>表示一次请求目的的，HTTP 协议里面四个表示操作方式的动词如下：</p>
+
+
+<h4 id="获得Rest风格的参数"><a href="#获得Rest风格的参数" class="headerlink" title="获得Rest风格的参数"></a>获得Rest风格的参数</h4><p>REST（Representional State Transfer）,表现形式状态转换</p>
+<p><strong>Rest</strong>是一种软件<strong>架构风格</strong>、<strong>设计风格</strong>，而不是标准，只是提供了一组设计原则和约束条件。主要用于客户端和服务器交互类的软件，基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存机制等。</p>
+<p>根据Rest风格对资源进行访问称为<strong>Restful</strong></p>
+<p>描述模块的名称通常使用复数，也就是加s的格式描述，表示此类资源而非单个资源，例如：users，books，accounts</p>
+<p><strong>传统风格资源描述形式：</strong></p>
+<p><code>http://localhost/user/getByID?id=1</code></p>
+<p><code>http://localhost/user/saveUser</code></p>
+<p><strong>Rest风格描述形式：</strong></p>
+<p><code>http://localhost/user/1</code></p>
+<p><code>http://localhost/user</code></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>隐藏资源的访问行为，无法通过地址得知对资源是何种操作</li>
+<li>书写简化</li>
+</ul>
+<p><strong>Rest</strong>风格的请求是使用<strong>“url+请求方式”</strong>表示一次请求目的的，HTTP 协议里面四个表示操作方式的动词如下：</p>
 <ul>
 <li><code>GET</code>：用于获取资源</li>
 <li><code>POST</code>：用于新建资源</li>
@@ -360,9 +377,12 @@
 <li><code>/user/1 PUT</code>： 更新 id &#x3D; 1 的 user</li>
 <li><code>/user POST</code>： 新增 user</li>
 </ul>
-<p>上述url地址<code>/user/1</code>中的1就是要获得的请求参数，在SpringMVC中可以使用占位符进行参数绑定。地址<code>/user/1</code>可以写成<code>/user/&#123;id&#125;</code>，占位符<code>&#123;id&#125;</code>对应的就是1的值。在业务方法中我们可以使用<code>@PathVariable</code>注解进行占位符的匹配获取工作。</p>
+<p>上述url地址<code>/user/1</code>中的1就是要获得的请求参数，在SpringMVC中可以使用占位符进行参数绑定。地址<code>/user/1</code>可以写成<code>/user/&#123;id&#125;</code>，占位符<code>&#123;id&#125;</code>对应的就是1的值。</p>
+<p>在业务方法中我们可以使用<code>@PathVariable</code>注解进行占位符的匹配获取工作。</p>
 <p><code>http://localhost:8080/itheima_spring_mvc/user/quick17/zhangsan</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(value=&quot;/quick17/&#123;name&#125;&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">save17</span><span class="params">(<span class="meta">@PathVariable(value=&quot;name&quot;)</span> String username)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    System.out.println(username);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 
 <h4 id="自定义类型转换器"><a href="#自定义类型转换器" class="headerlink" title="自定义类型转换器"></a>自定义类型转换器</h4><p>SpringMVC 默认已经提供了一些常用的类型转换器，例如客户端提交的字符串转换成int型进行参数设置。</p>
 <p>但是不是所有的数据类型都提供了转换器，没有提供的就需要自定义转换器，例如：日期类型的数据就需要自定义转换器。</p>

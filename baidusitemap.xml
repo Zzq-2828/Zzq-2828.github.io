@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.zzzzzq.com/2022/04/20/SpringBoot01/</loc>
+    <lastmod>2022-04-19</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zzzzzq.com/2022/04/15/SSM03/</loc>
+    <lastmod>2022-04-19</lastmod>
+  </url>
+  <url>
     <loc>https://www.zzzzzq.com/2022/04/19/SSM08/</loc>
     <lastmod>2022-04-19</lastmod>
   </url>
@@ -30,10 +38,6 @@
   </url>
   <url>
     <loc>https://www.zzzzzq.com/2022/04/16/Interceptor/</loc>
-    <lastmod>2022-04-16</lastmod>
-  </url>
-  <url>
-    <loc>https://www.zzzzzq.com/2022/04/15/SSM03/</loc>
     <lastmod>2022-04-16</lastmod>
   </url>
   <url>
@@ -71,10 +75,6 @@
   <url>
     <loc>https://www.zzzzzq.com/2022/04/01/javaweb01/</loc>
     <lastmod>2022-04-01</lastmod>
-  </url>
-  <url>
-    <loc>https://www.zzzzzq.com/2022/03/31/SpringBootConfig/</loc>
-    <lastmod>2022-03-31</lastmod>
   </url>
   <url>
     <loc>https://www.zzzzzq.com/2022/03/31/java-basic/</loc>

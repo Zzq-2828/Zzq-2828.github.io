@@ -1,6 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SpringBoot01 —— 概览及Demo运行</title>
+    <url>/2022/04/20/SpringBoot01/</url>
+    <content><![CDATA[<p>概述：SpringBoot入门程序搭建和运行</p>
+<span id="more"></span>
+
+<h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><p>SpringBoot是由Pivotal团队提供的全新框架，其设计目的是用来简化Spring应用的初始搭建以及开发过程</p>
+<p><strong>Spring程序缺点</strong></p>
+<ul>
+<li>依赖设置繁琐</li>
+<li>配置繁琐</li>
+</ul>
+<p><strong>SpringBoot程序优点</strong></p>
+<ul>
+<li>起步依赖（简化依赖配置）</li>
+<li>自动配置（简化常用工程相关配置）</li>
+<li>辅助功能（内置服务器，……）</li>
+</ul>
+<h3 id="快速构建一个SpringMVC控制器程序"><a href="#快速构建一个SpringMVC控制器程序" class="headerlink" title="快速构建一个SpringMVC控制器程序"></a>快速构建一个SpringMVC控制器程序</h3><p><strong>IDEA新建项目</strong></p>
+<p>查看版本：File -&gt; Settings -&gt; Maven 可以查看版本（我的版本为3.8.1）</p>
+<p>File -&gt; Project Structure -&gt; Modules -&gt; ‘+’  -&gt;New Module -&gt; Spring Initializr (注意如果没有的话要去settings -&gt;plugins -&gt; marketplace 下搜索并下载)</p>
+<p>进行如下配置</p>
+<p><img src="https://pic.imgdb.cn/item/6245ff0427f86abb2a70bbd8.jpg" alt="image01"></p>
+<p>SpringBoot程序中需要使用何种功能即勾选选择技术，目前选择spring web</p>
+<p>基础的环境配置即完成了</p>
+<p><strong>开发控制器类</strong></p>
+<p>入门案例制作的SpringMVC的控制器基于Rest风格开发.</p>
+<p>以下程序中的<code>@RestController</code>与<code>@GetMapping</code>注解是基于Restful开发的典型注解。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Rest模式</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/books&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BookController</span> &#123;</span><br><span class="line">    <span class="meta">@GetMapping</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getById</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;springboot is running...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;springboot is running...&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用带main方法的java程序的运行形式来运行程序（运行SpringBoot程序通过运行Application程序入口进行）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Springboot0101QuickstartApplication</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ConfigurableApplicationContext</span> <span class="variable">ctx</span> <span class="operator">=</span> SpringApplication.run(Springboot0101QuickstartApplication.class, args);</span><br><span class="line">        <span class="type">BookController</span> <span class="variable">bean</span> <span class="operator">=</span> ctx.getBean(BookController.class);</span><br><span class="line">        System.out.println(<span class="string">&quot;bean======&gt;&quot;</span> + bean);</span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> ctx.getBean(User.class);</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果</p>
+<p><img src="https://pic.imgdb.cn/item/625ef571239250f7c5a4e46e.jpg"></p>
+<p>Spring程序与SpringBoot程序对比：</p>
+<img src="https://pic.imgdb.cn/item/625ef5ac239250f7c5a52ceb.jpg" style="zoom: 80%;" />
+
+<p>注意基于IDEA开发SpringBoot程序需要确保联网并且能够加载到程序框架结构</p>
+<p><strong>如果无法联网（外网连接慢）：</strong></p>
+<ul>
+<li><p>进入<a href="spring.io">Spring的官网</a>  </p>
+</li>
+<li><p>通过项目一级一级的找到SpringBoot技术的介绍页，然后在页面中间部位找到如下内容</p>
+</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/625ef76f239250f7c5a7ab22.jpg" style="zoom:67%;" />
+
+<ul>
+<li>点击<strong>Spring Initializr</strong>后进入到创建SpringBoot程序界面，接下来就是输入信息的过程，和在Idea中制作是一样的，只是界面发生了变化，根据自己的要求，在左侧选择对应信息和输入对应的信息。</li>
+<li>右侧的<strong>ADD DEPENDENCIES</strong>用于选择使用何种技术，和之前勾选的Spring WEB是在做同一件事，仅仅是界面不同而已，点击后打开网页版的技术选择界面。</li>
+<li>所有信息设置完毕后，点击下面左侧<strong>GENERATE</strong>按钮，生成一个文件包。</li>
+<li>保存后得到一个压缩文件，这个文件就是创建的SpringBoot工程    </li>
+<li>解压缩此文件得到工程目录，在Idea中导入即可直接使用，和之前在Idea环境下根据向导创建的工程完全一样</li>
+</ul>
+<p>实际上，Idea工具中创建SpringBoot工程其实连接的就是SpringBoot的官网，还句话说这种方式和第一种方式是一模一样的，只不过Idea把界面给整合了一下，读取Spring官网信息，然后展示到Idea界面中而已</p>
+<p><strong>在Idea中隐藏指定文件&#x2F;文件夹</strong></p>
+<p>Idea中隐藏指定文件或指定类型文件</p>
+<ul>
+<li>【Files】→【Settings】</li>
+<li>【Editor】→【File Types】→【Ignored Files and Folders】</li>
+<li>输入要隐藏的名称，支持*号通配符</li>
+<li>回车确认添加</li>
+</ul>
+<h3 id="入门案例详解"><a href="#入门案例详解" class="headerlink" title="入门案例详解"></a>入门案例详解</h3><h4 id="parent"><a href="#parent" class="headerlink" title="parent"></a>parent</h4><img src="https://pic.imgdb.cn/item/625efd37239250f7c5af0b73.jpg" style="zoom:80%;" />
+
+<ul>
+<li>开发SpringBoot程序要继承spring-boot-starter-parent</li>
+<li>spring-boot-starter-parent中定义了若干个依赖管理（继承于spring-boot-starter-parent）</li>
+<li><strong>继承parent模块可以避免多个依赖使用相同技术时出现依赖版本冲突</strong></li>
+<li>继承parent的形式也可以采用引入依赖的形式实现效果（aliyun版本的实现方式）</li>
+</ul>
+<h4 id="starter"><a href="#starter" class="headerlink" title="starter"></a>starter</h4><p>SpringBoot关注到实际开发时，开发者对于依赖坐标的使用往往都有一些固定的组合方式，比如使用spring-webmvc就一定要使用spring-web。每次都要固定搭配着写，非常繁琐，而且格式固定，没有任何技术含量。</p>
+<p>SpringBoot把所有的技术使用的固定搭配格式都给开发出来，以后使用某个技术，就不用每次写一堆依赖了，我给你做一个东西，代表一堆东西，开发者使用的时候，直接用做好的这个东西就好了，对于这样的固定技术搭配，SpringBoot给它起了个名字叫做<font color="#ff0000"><b>starter</b></font>。</p>
+<p>starter定义了使用某种技术时对于依赖的固定搭配格式，也是一种最佳解决方案，<font color="#ff0000"><b>使用starter可以帮助开发者减少依赖配置</b></font>。</p>
+<p><strong>实际开发</strong></p>
+<ul>
+<li><p>使用任意坐标时，仅书写GAV中的G和A，V由SpringBoot提供，除非SpringBoot未提供对应版本V </p>
+</li>
+<li><p>如发生坐标错误，再指定Version（要小心版本冲突）</p>
+</li>
+</ul>
+<p><strong>总结</strong></p>
+<ul>
+<li><p>开发SpringBoot程序需要导入坐标时通常导入对应的starter</p>
+</li>
+<li><p>每个不同的starter根据功能不同，通常包含多个依赖坐标</p>
+</li>
+<li><p>使用starter可以实现快速配置的效果，达到简化配置的目的</p>
+</li>
+</ul>
+<h4 id="引导类"><a href="#引导类" class="headerlink" title="引导类"></a>引导类</h4><p>其实SpringBoot程序启动还是创建了一个Spring容器对象。当前运行的这个类在SpringBoot程序中是所有功能的入口，称为<font color="#ff0000"><b>引导类</b></font>。</p>
+<p>作为一个引导类最典型的特征就是当前类上方声明了一个注解<font color="#ff0000"><b>@SpringBootApplication</b></font>。</p>
+<p>启动方式：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Springboot0101QuickstartApplication</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ConfigurableApplicationContext</span> <span class="variable">ctx</span> <span class="operator">=</span> SpringApplication.run(Springboot0101QuickstartApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>ingBoot的引导类是Boot工程的执行入口，运行main方法就可以启动项目</p>
+</li>
+<li><p>SpringBoot工程运行后初始化Spring容器，扫描引导类所在包加载bean</p>
+</li>
+</ul>
+<p><strong>总结</strong></p>
+<ul>
+<li>SpringBoot工程提供引导类用来启动程序</li>
+<li>SpringBoot工程启动后创建并初始化Spring容器</li>
+</ul>
+<h4 id="内嵌tomcat"><a href="#内嵌tomcat" class="headerlink" title="内嵌tomcat"></a>内嵌tomcat</h4><p>当前我们做的SpringBoot入门案例勾选了Spring-web的功能，并且导入了对应的starter。</p>
+<p><strong>更换内嵌Tomcat</strong></p>
+<p>SpringBoot提供了3款内置的服务器：</p>
+<ul>
+<li><p>tomcat(默认) ：apache出品，粉丝多，应用面广，负载了若干较重的组件</p>
+</li>
+<li><p>jetty：更轻量级，负载性能远不及tomcat</p>
+</li>
+<li><p>undertow：undertow，负载性能勉强跑赢tomcat</p>
+</li>
+</ul>
+<p>想用哪个，加个坐标就行。前提是把tomcat排除掉，因为tomcat是默认加载的</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jetty<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>现在就已经成功替换了web服务器，核心思想就是用什么加入对应坐标就可以了。如果有starter，优先使用starter。</p>
+<p><strong>总结</strong></p>
+<ul>
+<li><p>内嵌Tomcat服务器是SpringBoot辅助功能之一</p>
+</li>
+<li><p>内嵌Tomcat工作原理是将Tomcat服务器作为对象运行，并将该对象交给Spring容器管理</p>
+</li>
+<li><p>变更内嵌服务器思想是去除现有服务器，添加全新的服务器</p>
+</li>
+</ul>
+<h3 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h3><ol>
+<li><a href="https://docs.spring.io/spring-boot/docs/3.0.0-M1/reference/htmlsingle/"><em>SpringBoot reference documentation</em></a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SSM08 —— SSM整合</title>
     <url>/2022/04/19/SSM08/</url>
     <content><![CDATA[<p>本文记录了SSM框架的原始整合方式，mybatis整合spring，声明式事务控制实现</p>
@@ -981,7 +1124,24 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(value=&quot;/quick16&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">save16</span><span class="params">(<span class="meta">@RequestParam(value=&quot;name&quot;,required = false,defaultValue = &quot;itcast&quot;)</span> String username)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    System.out.println(username);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="获得Restful风格的参数"><a href="#获得Restful风格的参数" class="headerlink" title="获得Restful风格的参数"></a>获得Restful风格的参数</h4><p><strong>Restful</strong>是一种软件<strong>架构风格</strong>、<strong>设计风格</strong>，而不是标准，只是提供了一组设计原则和约束条件。主要用于客户端和服务器交互类的软件，基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存机制等。<br><strong>Restful</strong>风格的请求是使用<strong>“url+请求方式”</strong>表示一次请求目的的，HTTP 协议里面四个表示操作方式的动词如下：</p>
+
+
+<h4 id="获得Rest风格的参数"><a href="#获得Rest风格的参数" class="headerlink" title="获得Rest风格的参数"></a>获得Rest风格的参数</h4><p>REST（Representional State Transfer）,表现形式状态转换</p>
+<p><strong>Rest</strong>是一种软件<strong>架构风格</strong>、<strong>设计风格</strong>，而不是标准，只是提供了一组设计原则和约束条件。主要用于客户端和服务器交互类的软件，基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存机制等。</p>
+<p>根据Rest风格对资源进行访问称为<strong>Restful</strong></p>
+<p>描述模块的名称通常使用复数，也就是加s的格式描述，表示此类资源而非单个资源，例如：users，books，accounts</p>
+<p><strong>传统风格资源描述形式：</strong></p>
+<p><code>http://localhost/user/getByID?id=1</code></p>
+<p><code>http://localhost/user/saveUser</code></p>
+<p><strong>Rest风格描述形式：</strong></p>
+<p><code>http://localhost/user/1</code></p>
+<p><code>http://localhost/user</code></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>隐藏资源的访问行为，无法通过地址得知对资源是何种操作</li>
+<li>书写简化</li>
+</ul>
+<p><strong>Rest</strong>风格的请求是使用<strong>“url+请求方式”</strong>表示一次请求目的的，HTTP 协议里面四个表示操作方式的动词如下：</p>
 <ul>
 <li><code>GET</code>：用于获取资源</li>
 <li><code>POST</code>：用于新建资源</li>
@@ -995,9 +1155,12 @@
 <li><code>/user/1 PUT</code>： 更新 id &#x3D; 1 的 user</li>
 <li><code>/user POST</code>： 新增 user</li>
 </ul>
-<p>上述url地址<code>/user/1</code>中的1就是要获得的请求参数，在SpringMVC中可以使用占位符进行参数绑定。地址<code>/user/1</code>可以写成<code>/user/&#123;id&#125;</code>，占位符<code>&#123;id&#125;</code>对应的就是1的值。在业务方法中我们可以使用<code>@PathVariable</code>注解进行占位符的匹配获取工作。</p>
+<p>上述url地址<code>/user/1</code>中的1就是要获得的请求参数，在SpringMVC中可以使用占位符进行参数绑定。地址<code>/user/1</code>可以写成<code>/user/&#123;id&#125;</code>，占位符<code>&#123;id&#125;</code>对应的就是1的值。</p>
+<p>在业务方法中我们可以使用<code>@PathVariable</code>注解进行占位符的匹配获取工作。</p>
 <p><code>http://localhost:8080/itheima_spring_mvc/user/quick17/zhangsan</code></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(value=&quot;/quick17/&#123;name&#125;&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">save17</span><span class="params">(<span class="meta">@PathVariable(value=&quot;name&quot;)</span> String username)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    System.out.println(username);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 
 <h4 id="自定义类型转换器"><a href="#自定义类型转换器" class="headerlink" title="自定义类型转换器"></a>自定义类型转换器</h4><p>SpringMVC 默认已经提供了一些常用的类型转换器，例如客户端提交的字符串转换成int型进行参数设置。</p>
 <p>但是不是所有的数据类型都提供了转换器，没有提供的就需要自定义转换器，例如：日期类型的数据就需要自定义转换器。</p>
@@ -3344,32 +3507,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot —— 基础篇</title>
-    <url>/2022/03/31/SpringBootConfig/</url>
-    <content><![CDATA[<p>概述：SpringBoot基础知识学习与记录，学完这个篇章可以会用SpringBoot</p>
-<span id="more"></span>
-
-<h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>SpringBoot的设计目的是用来简化Spring应用的初始搭建以及开发过程</p>
-<h2 id="SpringBoot基础配置"><a href="#SpringBoot基础配置" class="headerlink" title="SpringBoot基础配置"></a>SpringBoot基础配置</h2><p>（1）IDEA新建项目</p>
-<p>查看版本：File -&gt; Settings -&gt; Maven 可以查看版本（我的版本为3.8.1）</p>
-<p>File -&gt; Project Structure -&gt; Modules -&gt; ‘+’  -&gt;New Module -&gt; Spring Initializr (注意如果没有的话要去settings -&gt;plugins -&gt; marketplace 下搜索并下载)</p>
-<p>进行如下配置</p>
-<p><img src="https://pic.imgdb.cn/item/6245ff0427f86abb2a70bbd8.jpg" alt="image01"></p>
-<p>选择spring web</p>
-<p>基础的环境配置即完成了</p>
-<h2 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h2><ol>
-<li><a href="https://docs.spring.io/spring-boot/docs/3.0.0-M1/reference/htmlsingle/"><em>SpringBoot reference documentation</em></a></li>
-</ol>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java与C++的差异</title>
     <url>/2022/03/31/java-basic/</url>
     <content><![CDATA[<p>概述：本文主要记录Java中与C++有明显差异的语言特性</p>
@@ -3445,6 +3582,40 @@
       </tags>
   </entry>
   <entry>
+    <title>Good questions —— 链表篇</title>
+    <url>/2022/03/31/questions03/</url>
+    <content><![CDATA[<p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
+<span id="more"></span>
+
+<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
+<p>（1）迭代</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）递归</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
+<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
+<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
+<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
+<p>（1）找到链表中间节点，并断开</p>
+<p>（2）反转后半部分的链表</p>
+<p>（3）合并两个链表</p>
+<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
+<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
+<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Good questions —— 二叉树篇</title>
     <url>/2022/03/31/questions02/</url>
     <content><![CDATA[<p>概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路</p>
@@ -3496,40 +3667,6 @@
 <p>（2）在递归的过程中不断更新一个最大路径和，包含当前节点并且可以同时包含左右子树的节点。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> maxsum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> lval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;left));<span class="comment">//包含根节点root的单条路径的最大值</span></span><br><span class="line">        <span class="type">int</span> rval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;right));</span><br><span class="line">        maxsum = <span class="built_in">max</span>(maxsum,root-&gt;val+lval+rval);</span><br><span class="line">        <span class="keyword">return</span> root-&gt;val + <span class="built_in">max</span>(lval,rval);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> maxsum = INT_MIN;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Good questions —— 链表篇</title>
-    <url>/2022/03/31/questions03/</url>
-    <content><![CDATA[<p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
-<span id="more"></span>
-
-<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
-<p>（1）迭代</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>（2）递归</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
-<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
-<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
-<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
-<p>（1）找到链表中间节点，并断开</p>
-<p>（2）反转后半部分的链表</p>
-<p>（3）合并两个链表</p>
-<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
-<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
-<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
 ]]></content>
       <categories>
         <category>算法</category>
