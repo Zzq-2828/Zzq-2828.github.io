@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-18T17:46:36.871Z</updated>
+  <updated>2022-04-19T15:36:34.070Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,53 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>SSM06 —— MyBatis</title>
+    <title>SSM08 —— SSM整合</title>
+    <link href="https://www.zzzzzq.com/2022/04/19/SSM08/"/>
+    <id>https://www.zzzzzq.com/2022/04/19/SSM08/</id>
+    <published>2022-04-19T14:56:15.000Z</published>
+    <updated>2022-04-19T15:36:34.070Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文记录了SSM框架的原始整合方式，mybatis整合spring，声明式事务控制实现&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="SSM" scheme="https://www.zzzzzq.com/categories/SSM/"/>
+    
+    
+    <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SSM07 —— MyBatis的Dao层实现</title>
+    <link href="https://www.zzzzzq.com/2022/04/19/SSM07/"/>
+    <id>https://www.zzzzzq.com/2022/04/19/SSM07/</id>
+    <published>2022-04-18T17:57:19.000Z</published>
+    <updated>2022-04-19T14:56:58.356Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文记录了MyBatis的进阶知识，包括：Dao层（持久层）实现，映射文件的深入知识，核心配置文件的深入知识，多表操作，注解开发&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="SSM" scheme="https://www.zzzzzq.com/categories/SSM/"/>
+    
+    <category term="MyBatis" scheme="https://www.zzzzzq.com/categories/SSM/MyBatis/"/>
+    
+    
+    <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
+    
+    <category term="MyBatis" scheme="https://www.zzzzzq.com/tags/MyBatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SSM06 —— MyBatis基础</title>
     <link href="https://www.zzzzzq.com/2022/04/17/SSM06/"/>
     <id>https://www.zzzzzq.com/2022/04/17/SSM06/</id>
     <published>2022-04-16T19:49:31.000Z</published>
-    <updated>2022-04-18T17:46:36.871Z</updated>
+    <updated>2022-04-18T17:57:34.004Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文记录了MyBatis的基础知识，包括映射文件，增删改查操作，核心配置文件概述和基本的API介绍&lt;/p&gt;</summary>
@@ -394,48 +436,6 @@
     
     
     <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Good questions —— 数组篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/questions/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/questions/</id>
-    <published>2022-03-30T16:00:00.000Z</published>
-    <updated>2022-03-31T08:53:47.883Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了我在&lt;a href=&quot;https://leetcode-cn.com/&quot;&gt;&lt;em&gt;Leetcode&lt;/em&gt;&lt;/a&gt;刷题过程中遇到的与数组相关的优质题目及解题思路&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
-    
-    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Good questions —— 二叉树篇</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/questions02/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/questions02/</id>
-    <published>2022-03-30T16:00:00.000Z</published>
-    <updated>2022-03-31T08:53:49.582Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
-    
-    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
