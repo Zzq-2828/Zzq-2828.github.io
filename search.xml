@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SpringBoot02 —— 基础配置</title>
+    <url>/2022/04/20/SpringBoot02/</url>
+    <content><![CDATA[<p>概述：SpringBoot的基础配置，包括属性配置，配置文件分类，yaml文件，yaml数据读取</p>
+<span id="more"></span>
+
+<h3 id="属性配置"><a href="#属性配置" class="headerlink" title="属性配置"></a>属性配置</h3><h3 id="配置文件分类"><a href="#配置文件分类" class="headerlink" title="配置文件分类"></a>配置文件分类</h3><h3 id="yaml文件"><a href="#yaml文件" class="headerlink" title="yaml文件"></a>yaml文件</h3><h3 id="yaml数据读取"><a href="#yaml数据读取" class="headerlink" title="yaml数据读取"></a>yaml数据读取</h3>]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot01 —— 概览及Demo运行</title>
     <url>/2022/04/20/SpringBoot01/</url>
     <content><![CDATA[<p>概述：SpringBoot入门程序搭建和运行</p>
@@ -1162,6 +1177,14 @@
 
 
 
+<p>Restful快速开发：</p>
+<ul>
+<li>名称：<code>@GetMapping</code> <code>@POSTMapping</code> <code>@ PutMapping</code> <code>@DeleteMapping</code></li>
+<li>类型：方法注解</li>
+<li>位置：基于SpringMVC的Restful开发控制器方法定义上方</li>
+<li>作用：设置当前控制器方法请求访问路径与请求动作，每种对应一个请求动作，例如@GetMapping对应GET请求</li>
+<li>属性：value(默认)：请求访问路径</li>
+</ul>
 <h4 id="自定义类型转换器"><a href="#自定义类型转换器" class="headerlink" title="自定义类型转换器"></a>自定义类型转换器</h4><p>SpringMVC 默认已经提供了一些常用的类型转换器，例如客户端提交的字符串转换成int型进行参数设置。</p>
 <p>但是不是所有的数据类型都提供了转换器，没有提供的就需要自定义转换器，例如：日期类型的数据就需要自定义转换器。</p>
 <p>自定义类型转换器的开发步骤：</p>
@@ -3582,40 +3605,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Good questions —— 链表篇</title>
-    <url>/2022/03/31/questions03/</url>
-    <content><![CDATA[<p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
-<span id="more"></span>
-
-<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
-<p>（1）迭代</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>（2）递归</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
-<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
-<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
-<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
-<p>（1）找到链表中间节点，并断开</p>
-<p>（2）反转后半部分的链表</p>
-<p>（3）合并两个链表</p>
-<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
-<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
-<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Good questions —— 二叉树篇</title>
     <url>/2022/03/31/questions02/</url>
     <content><![CDATA[<p>概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路</p>
@@ -3667,6 +3656,40 @@
 <p>（2）在递归的过程中不断更新一个最大路径和，包含当前节点并且可以同时包含左右子树的节点。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> maxsum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> lval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;left));<span class="comment">//包含根节点root的单条路径的最大值</span></span><br><span class="line">        <span class="type">int</span> rval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;right));</span><br><span class="line">        maxsum = <span class="built_in">max</span>(maxsum,root-&gt;val+lval+rval);</span><br><span class="line">        <span class="keyword">return</span> root-&gt;val + <span class="built_in">max</span>(lval,rval);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> maxsum = INT_MIN;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Good questions —— 链表篇</title>
+    <url>/2022/03/31/questions03/</url>
+    <content><![CDATA[<p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
+<span id="more"></span>
+
+<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
+<p>（1）迭代</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）递归</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
+<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
+<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
+<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
+<p>（1）找到链表中间节点，并断开</p>
+<p>（2）反转后半部分的链表</p>
+<p>（3）合并两个链表</p>
+<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
+<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
+<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
 ]]></content>
       <categories>
         <category>算法</category>
