@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">45</span>
+            <span class="post-count">1.5k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">5 分钟</span>
         </span>
     </span>
 </div>
@@ -114,7 +114,138 @@
   <p>概述：SpringBoot的基础配置，包括属性配置，配置文件分类，yaml文件，yaml数据读取</p>
 <span id="more"></span>
 
-<h3 id="属性配置"><a href="#属性配置" class="headerlink" title="属性配置"></a>属性配置</h3><h3 id="配置文件分类"><a href="#配置文件分类" class="headerlink" title="配置文件分类"></a>配置文件分类</h3><h3 id="yaml文件"><a href="#yaml文件" class="headerlink" title="yaml文件"></a>yaml文件</h3><h3 id="yaml数据读取"><a href="#yaml数据读取" class="headerlink" title="yaml数据读取"></a>yaml数据读取</h3> 
+<h3 id="复制工程"><a href="#复制工程" class="headerlink" title="复制工程"></a>复制工程</h3><p><strong>原则</strong></p>
+<ul>
+<li><p>保留工程基础结构</p>
+</li>
+<li><p>抹掉原始工程痕迹</p>
+</li>
+</ul>
+<p><strong>步骤</strong></p>
+<ul>
+<li><p>在工作空间中复制对应工程，并修改工程名称</p>
+</li>
+<li><p>删除与Idea相关配置文件，<strong>仅保留src目录与pom.xml文件</strong></p>
+</li>
+<li><p>修改pom.xml文件中的artifactId与新工程&#x2F;模块名相同（务必注意！）</p>
+</li>
+<li><p>删除name标签（可选）</p>
+</li>
+<li><p>保留备份工程供后期使用</p>
+</li>
+</ul>
+<h3 id="属性配置"><a href="#属性配置" class="headerlink" title="属性配置"></a>属性配置</h3><p><strong>SpringBoot通过配置文件application.properties就可以修改默认的配置</strong></p>
+<p><strong>服务器端口配置</strong></p>
+<p>当前访问tomcat的默认端口是8080，尝试改成80：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 服务器端口配置</span></span><br><span class="line"><span class="attr">server.port</span>=<span class="string">80</span></span><br></pre></td></tr></table></figure>
+
+<p>注意要实现查看端口是否占用</p>
+<p><strong>关闭运行日志图标（banner）</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改banner</span></span><br><span class="line"><span class="attr">spring.main.banner-mode</span>=<span class="string">off</span></span><br><span class="line"><span class="comment"># spring.banner.image.location=logo.png</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>设置日志相关</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 日志debug info error</span></span><br><span class="line"><span class="attr">logging.level.root</span>=<span class="string">info</span></span><br><span class="line"><span class="comment"># logging.level.com.itheima=warn</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>SpringBoot内置属性查询</strong></p>
+<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#application-properties">官方文档</a></p>
+<p>官方文档中参考文档第一项：Application Properties</p>
+<p><strong>总结</strong></p>
+<ul>
+<li><p>SpringBoot中导入对应starter后，提供对应配置属性</p>
+</li>
+<li><p>书写SpringBoot配置采用关键字+提示形式书写</p>
+</li>
+</ul>
+<h3 id="配置文件分类"><a href="#配置文件分类" class="headerlink" title="配置文件分类"></a>配置文件分类</h3><p>SpringBoot除了支持properties格式的配置文件，还支持另外两种格式的配置文件。三种配置文件格式分别如下:</p>
+<ul>
+<li>properties格式（传统格式&#x2F;默认格式）</li>
+<li>yml格式（主流格式）</li>
+<li>yaml格式</li>
+</ul>
+<p>下面列举三种不同文件格式配置相同的属性范例：</p>
+<ul>
+<li>application.properties（properties格式）</li>
+</ul>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server.port</span>=<span class="string">80</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>application.yml（yml格式）</li>
+</ul>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">81</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>application.yaml（yaml格式）</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">82</span></span><br></pre></td></tr></table></figure>
+
+<p>yml格式和yaml格式除了文件名后缀不一样，格式完全一样，所以可以合并成一种格式来看。</p>
+<p>对于这三种格式来说，yml格式在实际中用得比较多</p>
+<p><strong>配置文件优先级</strong></p>
+<p>3种类型的文件如果同时存在，那么加载优先顺序是：</p>
+<p><code>.properties</code>  &gt;  <code>.yml</code>  &gt;  <code>.yaml</code></p>
+<p>不同配置文件中相同配置按照加载优先级相互覆盖，不同配置文件中不同配置全部保留 </p>
+<h3 id="yaml文件"><a href="#yaml文件" class="headerlink" title="yaml文件"></a>yaml文件</h3><p>YAML（YAML Ain’t Markup Language），一种数据序列化格式</p>
+<p>优点：</p>
+<ul>
+<li>容易阅读</li>
+<li>容易与脚本语言交互</li>
+<li>以数据为核心，重数据轻格式</li>
+</ul>
+<p>YAML文件扩展名</p>
+<ul>
+<li><p><strong>.yml</strong>（主流）</p>
+</li>
+<li><p>.yaml</p>
+</li>
+</ul>
+<p><strong>yaml语法规则</strong></p>
+<ul>
+<li>大小写敏感</li>
+<li>属性不允许同名</li>
+<li>属性层级关系使用多行描述，每行结尾使用冒号结束</li>
+<li>使用缩进表示层级关系，同层级左侧对齐，<strong>只允许使用空格</strong>（不允许使用Tab键）</li>
+<li>属性值前面添加空格（属性名与属性值之间使用冒号+空格作为分隔）</li>
+<li># 表示注释</li>
+<li>核心规则：<strong>数据前面要加空格与冒号隔开</strong></li>
+</ul>
+<p>示例：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">boolean:</span> <span class="literal">TRUE</span>  						<span class="comment">#TRUE,true,True,FALSE,false，False均可</span></span><br><span class="line"><span class="attr">float:</span> <span class="number">3.14</span>    						<span class="comment">#6.8523015e+5  #支持科学计数法</span></span><br><span class="line"><span class="attr">int:</span> <span class="number">123</span>       						<span class="comment">#0b1010_0111_0100_1010_1110    #支持二进制、八进制、十六进制</span></span><br><span class="line"><span class="attr">null:</span> <span class="string">~</span>        						<span class="comment">#使用~表示null</span></span><br><span class="line"><span class="attr">string:</span> <span class="string">HelloWorld</span>      			<span class="comment">#字符串可以直接书写</span></span><br><span class="line"><span class="attr">string2:</span> <span class="string">&quot;Hello World&quot;</span>  			<span class="comment">#可以使用双引号包裹特殊字符</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2018-02-17</span>        			<span class="comment">#日期必须使用yyyy-MM-dd格式</span></span><br><span class="line"><span class="attr">datetime:</span> <span class="number">2018-02-17T15:02:31+08:00</span>  <span class="comment">#时间和日期之间使用T连接，最后使用+代表时区</span></span><br></pre></td></tr></table></figure>
+
+<p>yaml格式中也可以表示数组，<strong>在属性名书写位置的下方使用减号作为数据开始符号</strong>，<strong>每行书写一个数据，减号与数据间空格分隔</strong>。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">subject:</span></span><br><span class="line">	<span class="bullet">-</span> <span class="string">Java</span></span><br><span class="line">	<span class="bullet">-</span> <span class="string">前端</span></span><br><span class="line">	<span class="bullet">-</span> <span class="string">大数据</span></span><br><span class="line"><span class="attr">enterprise:</span></span><br><span class="line">	<span class="attr">name:</span> <span class="string">itcast</span></span><br><span class="line">    <span class="attr">age:</span> <span class="number">16</span></span><br><span class="line">    <span class="attr">subject:</span></span><br><span class="line">    	<span class="bullet">-</span> <span class="string">Java</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">前端</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">大数据</span></span><br><span class="line"><span class="attr">likes:</span> [<span class="string">game</span>,<span class="string">study</span>]				  <span class="comment">#数组书写缩略格式</span></span><br><span class="line"><span class="attr">users:</span>							 <span class="comment">#对象数组格式一</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Tom</span></span><br><span class="line">   	<span class="attr">age:</span> <span class="number">4</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Jerry</span></span><br><span class="line">    <span class="attr">age:</span> <span class="number">5</span></span><br><span class="line"><span class="attr">users:</span>							 <span class="comment">#对象数组格式二</span></span><br><span class="line">  <span class="bullet">-</span>  </span><br><span class="line">    <span class="attr">name:</span> <span class="string">Tom</span></span><br><span class="line">    <span class="attr">age:</span> <span class="number">4</span></span><br><span class="line">  <span class="bullet">-</span>   </span><br><span class="line">    <span class="attr">name:</span> <span class="string">Jerry</span></span><br><span class="line">    <span class="attr">age:</span> <span class="number">5</span>			    </span><br><span class="line"><span class="attr">users2:</span> [ &#123; <span class="string">name:Tom</span> , <span class="string">age:4</span> &#125; , &#123; <span class="string">name:Jerry</span> , <span class="string">age:5</span> &#125; ]	<span class="comment">#对象数组缩略格式</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="yaml数据读取"><a href="#yaml数据读取" class="headerlink" title="yaml数据读取"></a>yaml数据读取</h3><p>对于yaml文件中的数据，其实可以想象成这就是一个小型的数据库，里面保存有若干数据，每个数据都有一个独立的名字</p>
+<h4 id="读取单一数据"><a href="#读取单一数据" class="headerlink" title="读取单一数据"></a>读取单一数据</h4><p>yaml中保存的单个数据，可以使用Spring中的注解<code>@Value</code>读取单个数据，属性名引用方式：<code>$&#123;一级属性名.二级属性名……&#125;</code></p>
+<img src="https://pic.imgdb.cn/item/62603d05239250f7c5d952c8.jpg" style="zoom:80%;" />
+
+<h4 id="读取全部数据"><a href="#读取全部数据" class="headerlink" title="读取全部数据"></a>读取全部数据</h4><p>SpringBoot提供了一个对象，能够把所有的数据都封装到这一个对象中，这个对象叫Environment，使用自动装配注解可以将所有的yaml数据封装到这个对象中</p>
+<img src="https://pic.imgdb.cn/item/62603df5239250f7c5dabfe4.jpg" style="zoom:80%;" />
+
+<h4 id="读取对象数据"><a href="#读取对象数据" class="headerlink" title="读取对象数据"></a>读取对象数据</h4><p>由于Java是一个面向对象的语言，很多情况下，我们会将<strong>一组数据封装成一个对象</strong>。SpringBoot也提供了可以将一组yaml对象数据封装一个Java对象的操作</p>
+<p>首先定义一个对象，并将该对象纳入Spring管控的范围，也就是定义成一个bean，然后使用注解<code>@ConfigurationProperties</code>指定该对象加载哪一组yaml中配置的信息。</p>
+<img src="https://pic.imgdb.cn/item/62603ed0239250f7c5dc1248.jpg" style="zoom:80%;" />
+
+<p>这个<code>@ConfigurationProperties</code>必须告诉他加载的数据前缀是什么，这样指定前缀下的所有属性就封装到这个对象中。注意数据属性名要与对象的变量名一一对应.</p>
+<img src="https://pic.imgdb.cn/item/62604187239250f7c5dfc918.jpg" style="zoom:80%;" />
+
+<ul>
+<li>使用@ConfigurationProperties注解绑定配置信息到封装类中</li>
+<li>封装类需要定义为Spring管理的bean（使用<code>@Component</code>），否则无法进行属性注入</li>
+</ul>
+<h4 id="yaml文件中的数据引用"><a href="#yaml文件中的数据引用" class="headerlink" title="yaml文件中的数据引用"></a>yaml文件中的数据引用</h4><p>如果在书写yaml数据时，经常出现如下现象，比如很多个文件都具有相同的目录前缀</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">center:</span></span><br><span class="line">	<span class="attr">dataDir:</span> <span class="string">D:/usr/local/fire/data</span></span><br><span class="line">    <span class="attr">tmpDir:</span> <span class="string">D:/usr/local/fire/tmp</span></span><br><span class="line">    <span class="attr">logDir:</span> <span class="string">D:/usr/local/fire/log</span></span><br><span class="line">    <span class="attr">msgDir:</span> <span class="string">D:/usr/local/fire/msgDir</span></span><br></pre></td></tr></table></figure>
+
+<p>这个时候可以使用引用格式来定义数据，其实就是定义了一个变量名，然后引用变量，格式如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">baseDir:</span> <span class="string">/usr/local/fire</span></span><br><span class="line"><span class="attr">center:</span></span><br><span class="line">    <span class="attr">dataDir:</span> <span class="string">$&#123;baseDir&#125;/data</span></span><br><span class="line">    <span class="attr">tmpDir:</span> <span class="string">$&#123;baseDir&#125;/tmp</span></span><br><span class="line">    <span class="attr">logDir:</span> <span class="string">$&#123;baseDir&#125;/log</span></span><br><span class="line">    <span class="attr">msgDir:</span> <span class="string">$&#123;baseDir&#125;/msgDir</span></span><br></pre></td></tr></table></figure>
+
+<p>还有一个注意事项，在书写字符串时，如果需要使用转义字符，需要<strong>将数据字符串使用双引号包裹起来</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">lesson:</span> <span class="string">&quot;Spring\tboot\nlesson&quot;</span></span><br></pre></td></tr></table></figure>
+
+ 
       <!-- reward -->
       
     </div>
@@ -190,6 +321,15 @@
 
    
   <nav class="article-nav">
+    
+      <a href="/2022/04/21/SpringBoot03/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            SpringBoot03 —— 第三方技术整合
+          
+        </div>
+      </a>
     
     
       <a href="/2022/04/20/SpringBoot01/" class="article-nav-link">

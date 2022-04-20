@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-19T19:53:25.149Z</updated>
+  <updated>2022-04-20T17:48:42.560Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,33 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>SpringBoot03 —— 第三方技术整合</title>
+    <link href="https://www.zzzzzq.com/2022/04/21/SpringBoot03/"/>
+    <id>https://www.zzzzzq.com/2022/04/21/SpringBoot03/</id>
+    <published>2022-04-20T17:26:01.000Z</published>
+    <updated>2022-04-20T17:48:42.560Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：SpringBoot整合JUnit，MyBatis，MyBatis-Plus，Druid&lt;/p&gt;
+&lt;p&gt;SpringBoot之所以好用，就是它能方便快捷的整合其他技术&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://www.zzzzzq.com/tags/SpringBoot/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SpringBoot02 —— 基础配置</title>
     <link href="https://www.zzzzzq.com/2022/04/20/SpringBoot02/"/>
     <id>https://www.zzzzzq.com/2022/04/20/SpringBoot02/</id>
     <published>2022-04-19T19:50:59.000Z</published>
-    <updated>2022-04-19T19:53:25.149Z</updated>
+    <updated>2022-04-20T17:26:28.144Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：SpringBoot的基础配置，包括属性配置，配置文件分类，yaml文件，yaml数据读取&lt;/p&gt;</summary>
@@ -419,25 +441,6 @@
     
     
     <category term="tools" scheme="https://www.zzzzzq.com/tags/tools/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Maven-基础</title>
-    <link href="https://www.zzzzzq.com/2022/03/31/mavenbasic/"/>
-    <id>https://www.zzzzzq.com/2022/03/31/mavenbasic/</id>
-    <published>2022-03-31T15:35:17.000Z</published>
-    <updated>2022-04-14T14:41:06.465Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文主要记录Maven工具的思想和基本用法。包括环境配置，基础概念，项目构建，依赖管理等部分&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
     
   </entry>
   

@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>Java与C++的差异 |  Keep Making Progress</title>
+      <title>SpringBoot03 —— 第三方技术整合 |  Keep Making Progress</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-java-basic"
+  id="post-SpringBoot03"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Java与C++的差异
+  SpringBoot03 —— 第三方技术整合
 </h1>
  
 
@@ -75,8 +75,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2022/03/31/java-basic/" class="article-date">
-  <time datetime="2022-03-31T09:38:44.000Z" itemprop="datePublished">2022-03-31</time>
+      <a href="/2022/04/21/SpringBoot03/" class="article-date">
+  <time datetime="2022-04-20T17:26:01.000Z" itemprop="datePublished">2022-04-21</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/Java/">Java</a>
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">420</span>
+            <span class="post-count">815</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">3 分钟</span>
         </span>
     </span>
 </div>
@@ -111,19 +111,38 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>概述：本文主要记录Java中与C++有明显差异的语言特性</p>
+  <p>概述：SpringBoot整合JUnit，MyBatis，MyBatis-Plus，Druid</p>
+<p>SpringBoot之所以好用，就是它能方便快捷的整合其他技术</p>
 <span id="more"></span>
 
-<h2 id="与C-的差异"><a href="#与C-的差异" class="headerlink" title="与C++的差异"></a>与C++的差异</h2><p>（1）C++ 支持指针，而 Java 没有指针的概念。</p>
-<p>（2）C++ 支持多继承，而 Java 不支持多重继承，但允许一个类实现多个接口。</p>
-<p>（3）Java 是完全面向对象的语言，并且还取消了 C&#x2F;C++ 中的结构和联合，使编译程序更加简洁</p>
-<p>（4）Java 自动进行无用内存回收操作，不再需要程序员进行手动删除，而 C++ 中必须由程序释放内存资源，这就增加了程序员的负担。</p>
-<p>（5）Java 不支持操作符重载，而操作符重载则被认为是 C++ 的突出特征。</p>
-<p>（6）Java 允许预处理，但不支持预处理器功能，所以为了实现预处理，它提供了引入语句（import），但它与 C++ 预处理器的功能类似。</p>
-<p>（7）Java 不支持缺省参数函数，而 C++ 支持 。</p>
-<p>（8）C 和 C++ 不支持字符串变量，在 C 和 C++ 程序中使用“Null”终止符代表字符串的结束。在 Java 中字符串是用类对象（String 和 StringBuffer）来实现的</p>
-<p>（9）Java 不提供 goto 语句，虽然 Java 指定 goto 作为关键字，但不支持它的使用，这使程序更简洁易读。不过Java中的break&#x2F;continue可以带标签（标签必须放在希望跳出的最外层循环之前，并且必须紧跟一个冒号），用于从内层循环中跳出</p>
-<p>（10）Java 不支持 C++ 中的自动强制类型转换，如果需要，必须由程序显式进行强制类型转换。</p>
+<h3 id="整合JUnit"><a href="#整合JUnit" class="headerlink" title="整合JUnit"></a>整合JUnit</h3><p>SpringBoot技术的定位用于简化开发，再具体点是简化Spring程序的开发。</p>
+<p>使用SpringBoot整合JUnit需要保障导入test对应的starter，初始化项目时此项是默认导入的，导入了<code>spring-boot-starter-test</code>。</p>
+<p>先看一下不使用SpringBoot技术时，Spring整合JUnit的制作方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加载spring整合junit专用的类运行器</span></span><br><span class="line"><span class="meta">@RunWith(SpringJUnit4ClassRunner.class)</span></span><br><span class="line"><span class="comment">//指定对应的配置信息</span></span><br><span class="line"><span class="meta">@ContextConfiguration(classes = SpringConfig.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AccountServiceTestCase</span> &#123;</span><br><span class="line">    <span class="comment">//注入你要测试的对象</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AccountService accountService;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testGetById</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//执行要测试的对象对应的方法</span></span><br><span class="line">        System.out.println(accountService.findById(<span class="number">2</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>其中核心代码是前两个注解：</p>
+<p>第一个注解<code>@RunWith</code>是设置Spring专用的测试类运行器，简单说就是Spring程序执行程序有自己的一套独立的运行程序的方式，不能使用JUnit提供的类运行方式了，必须指定一下，但是格式是固定的</p>
+<p>第二个注解<code>@ContextConfiguration</code>是用来设置Spring核心配置文件或配置类的，简单说就是加载Spring的环境你要告诉Spring具体的环境配置是在哪里写的，虽然每次加载的文件都有可能不同，但是如果文件名是固定的，这个也是一个固定格式。</p>
+<p>SpringBoot就抓住上述两条内容书写进行开发简化，能走默认值的走默认值，能不写的就不写，具体格式如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Springboot04JunitApplicationTests</span> &#123;</span><br><span class="line">    <span class="comment">//注入你要测试的对象</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> BookDao bookDao;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">contextLoads</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//执行要测试的对象对应的方法</span></span><br><span class="line">        bookDao.save();</span><br><span class="line">        System.out.println(<span class="string">&quot;two...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用一个注解<code>@SpringBootTest</code>替换了前面两个注解。</p>
+<p>那么加载的配置类或者配置文件是哪一个？其实就是我们前面启动程序使用的引导类。</p>
+<p>如果想手工指定引导类有两种方式，第一种方式使用属性的形式进行，在注解<code>@SpringBootTest</code>中添加classes属性指定配置类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest(classes = Springboot04JunitApplication.class)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Springboot04JunitApplicationTests</span> &#123;</span><br><span class="line">    <span class="comment">//注入你要测试的对象</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> BookDao bookDao;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">contextLoads</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//执行要测试的对象对应的方法</span></span><br><span class="line">        bookDao.save();</span><br><span class="line">        System.out.println(<span class="string">&quot;two...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二种方式回归原始配置方式，仍然使用<code>@ContextConfiguration</code>注解进行，效果是一样的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="meta">@ContextConfiguration(classes = Springboot04JunitApplication.class)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Springboot04JunitApplicationTests</span> &#123;</span><br><span class="line">    <span class="comment">//注入你要测试的对象</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> BookDao bookDao;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">contextLoads</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//执行要测试的对象对应的方法</span></span><br><span class="line">        bookDao.save();</span><br><span class="line">        System.out.println(<span class="string">&quot;two...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用SpringBoot整合JUnit需要保障导入test对应的starter，由于初始化项目时此项是默认导入的，所以此处没有提及，其实和之前学习的内容一样，用什么技术导入对应的starter即可。</p>
+<p><strong>总结</strong></p>
+<ol>
+<li>导入测试对应的starter</li>
+<li>测试类使用@SpringBootTest修饰</li>
+<li>使用自动装配的形式添加要测试的对象</li>
+<li>测试类如果存在于引导类所在包或子包中无需指定引导类</li>
+<li>测试类如果不存在于引导类所在的包或子包中需要通过classes属性指定引导类</li>
+</ol>
  
       <!-- reward -->
       
@@ -188,12 +207,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/03/31/java-basic/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/04/21/SpringBoot03/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
 
     </footer>
   </div>
@@ -201,19 +220,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2022/03/31/mavenbasic/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            Maven-基础
-          
-        </div>
-      </a>
     
-    
-      <a href="/2022/03/31/questions02/" class="article-nav-link">
+      <a href="/2022/04/20/SpringBoot02/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Good questions —— 二叉树篇</div>
+        <div class="article-nav-title">SpringBoot02 —— 基础配置</div>
       </a>
     
   </nav>
