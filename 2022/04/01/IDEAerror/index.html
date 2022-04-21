@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">297</span>
+            <span class="post-count">339</span>
         </span>
     </span>
 
@@ -135,6 +135,7 @@
 
 <h4 id="启动Web项目时出现org-apache-catalina-LifecycleException-协议处理程序初始化失败"><a href="#启动Web项目时出现org-apache-catalina-LifecycleException-协议处理程序初始化失败" class="headerlink" title="启动Web项目时出现org.apache.catalina.LifecycleException: 协议处理程序初始化失败"></a>启动Web项目时出现<code>org.apache.catalina.LifecycleException: 协议处理程序初始化失败</code></h4><p>原因：8080端口被占用了</p>
 <p>解决方案：cmd中<code>netstat -ano | findstr 8080</code>找到对应进程杀死</p>
+<h4 id="使用SpringBoot时出现Failed-to-read-candidate-component-class"><a href="#使用SpringBoot时出现Failed-to-read-candidate-component-class" class="headerlink" title="使用SpringBoot时出现Failed to read candidate component class"></a>使用SpringBoot时出现<code>Failed to read candidate component class</code></h4><p>原因：SpringBoot版本比较低，但是编译器设置版本过高，降低编译环境版本（如降到8）</p>
  
       <!-- reward -->
       
