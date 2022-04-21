@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-21T12:27:15.059Z</updated>
+  <updated>2022-04-21T18:45:52.325Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>SpringBoot04 —— SSMP整合案例</title>
+    <link href="https://www.zzzzzq.com/2022/04/21/SpringBoot04/"/>
+    <id>https://www.zzzzzq.com/2022/04/21/SpringBoot04/</id>
+    <published>2022-04-21T12:35:19.000Z</published>
+    <updated>2022-04-21T18:45:52.325Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：SpringBoot整合JUnit，MyBatis，MyBatis-Plus，Druid的简单案例&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://www.zzzzzq.com/tags/SpringBoot/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SpringBoot03 —— 第三方技术整合</title>
     <link href="https://www.zzzzzq.com/2022/04/21/SpringBoot03/"/>
     <id>https://www.zzzzzq.com/2022/04/21/SpringBoot03/</id>
     <published>2022-04-20T17:26:01.000Z</published>
-    <updated>2022-04-21T12:27:15.059Z</updated>
+    <updated>2022-04-21T12:35:35.875Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：SpringBoot整合JUnit，MyBatis，MyBatis-Plus，Druid&lt;/p&gt;
@@ -311,9 +332,9 @@
     
     <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
     
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
-    
     <category term="Redis" scheme="https://www.zzzzzq.com/tags/Redis/"/>
+    
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
     
   </entry>
   
@@ -397,11 +418,11 @@
     <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
     
     
-    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
-    
     <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
     
     <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
+    
+    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
     
   </entry>
   
@@ -422,25 +443,6 @@
     
     
     <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>IDEAerror</title>
-    <link href="https://www.zzzzzq.com/2022/04/01/IDEAerror/"/>
-    <id>https://www.zzzzzq.com/2022/04/01/IDEAerror/</id>
-    <published>2022-04-01T06:40:33.000Z</published>
-    <updated>2022-04-21T07:43:57.102Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了使用IDEA过程中遇到的错误以及解决方案&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="tools" scheme="https://www.zzzzzq.com/categories/tools/"/>
-    
-    
-    <category term="tools" scheme="https://www.zzzzzq.com/tags/tools/"/>
     
   </entry>
   
