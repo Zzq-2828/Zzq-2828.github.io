@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-21T18:45:52.325Z</updated>
+  <updated>2022-04-23T06:33:24.609Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>SpringBoot05 —— 程序运行相关</title>
+    <link href="https://www.zzzzzq.com/2022/04/23/SpringBoot05/"/>
+    <id>https://www.zzzzzq.com/2022/04/23/SpringBoot05/</id>
+    <published>2022-04-22T17:19:36.000Z</published>
+    <updated>2022-04-23T06:33:24.609Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：SpringBoot框架中程序的打包与运行，高级配置相关，多环境开发，日志&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://www.zzzzzq.com/tags/SpringBoot/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SpringBoot04 —— SSMP整合案例</title>
     <link href="https://www.zzzzzq.com/2022/04/21/SpringBoot04/"/>
     <id>https://www.zzzzzq.com/2022/04/21/SpringBoot04/</id>
     <published>2022-04-21T12:35:19.000Z</published>
-    <updated>2022-04-21T18:45:52.325Z</updated>
+    <updated>2022-04-22T17:20:21.465Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：SpringBoot整合JUnit，MyBatis，MyBatis-Plus，Druid的简单案例&lt;/p&gt;</summary>
@@ -332,9 +353,9 @@
     
     <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
     
-    <category term="Redis" scheme="https://www.zzzzzq.com/tags/Redis/"/>
-    
     <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
+    
+    <category term="Redis" scheme="https://www.zzzzzq.com/tags/Redis/"/>
     
   </entry>
   
@@ -418,29 +439,9 @@
     <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
     
     
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
-    
     <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
     
-  </entry>
-  
-  <entry>
-    <title>Junit、反射、注解</title>
-    <link href="https://www.zzzzzq.com/2022/04/01/javaweb01/"/>
-    <id>https://www.zzzzzq.com/2022/04/01/javaweb01/</id>
-    <published>2022-04-01T09:16:23.000Z</published>
-    <updated>2022-04-01T18:51:45.157Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本系列记录了JavaWeb领域服务端程序开发的基础知识。&lt;/p&gt;
-&lt;p&gt;本文中包含Junit单元测试，反射，注解&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
-    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
     
     <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
     

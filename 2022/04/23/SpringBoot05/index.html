@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>IDEAerror |  Keep Making Progress</title>
+      <title>SpringBoot05 —— 程序运行相关 |  Keep Making Progress</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-IDEAerror"
+  id="post-SpringBoot05"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  IDEAerror
+  SpringBoot05 —— 程序运行相关
 </h1>
  
 
@@ -75,11 +75,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2022/04/01/IDEAerror/" class="article-date">
-  <time datetime="2022-04-01T06:40:33.000Z" itemprop="datePublished">2022-04-01</time>
+      <a href="/2022/04/23/SpringBoot05/" class="article-date">
+  <time datetime="2022-04-22T17:19:36.000Z" itemprop="datePublished">2022-04-23</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/tools/">tools</a>
+    <a class="article-category-link" href="/categories/Java/">Java</a>
   </div>
   
 <div class="word_count">
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">341</span>
+            <span class="post-count">1.1k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">3 分钟</span>
         </span>
     </span>
 </div>
@@ -111,34 +111,61 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>概述：本文记录了使用IDEA过程中遇到的错误以及解决方案</p>
+  <p>概述：SpringBoot框架中程序的打包与运行，高级配置相关，多环境开发，日志</p>
 <span id="more"></span>
 
+<h3 id="程序的打包与运行"><a href="#程序的打包与运行" class="headerlink" title="程序的打包与运行"></a>程序的打包与运行</h3><p><strong>为什么要打包？</strong></p>
+<p>实际开发完成后，我们的项目是不可能运行在自己的电脑上的。</p>
+<p>我们以后制作的程序是运行在专用的服务器上的，这就要将我们的程序先组织成一个文件，然后将这个文件传输到这台服务器上。这里面就存在两个过程，一个是打包的过程，另一个是运行的过程。</p>
+<p><strong>程序打包</strong></p>
+<p>SpringBoot程序是基于Maven创建的，在Maven中提供有打包的指令，叫做package。本操作可以在Idea环境下执行。（注意打包应该把test部分排除）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn <span class="keyword">package</span></span><br></pre></td></tr></table></figure>
 
+<p>打包后会产生一个与工程名类似的jar文件，其名称是由模块名+版本号+.jar组成的。</p>
+<p><strong>程序运行</strong></p>
+<p>程序包打好以后，就可以直接执行了。在程序包所在路径下，执行指令。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar 工程包名.jar</span><br></pre></td></tr></table></figure>
 
-<h4 id="IDEA-Java错误：不支持发行版本"><a href="#IDEA-Java错误：不支持发行版本" class="headerlink" title="IDEA Java错误：不支持发行版本"></a>IDEA Java错误：不支持发行版本</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Deeeelete/article/details/104382752?utm_medium=distribute.pc_relevant.none-task-blog-baidulandingword-3&spm=1001.2101.3001.4242"><em>解决方案</em></a></p>
-<p>查看几个地方：</p>
-<p>（1）项目结构 - 项目 - SDK版本</p>
-<p>（2）项目结构 - 模块 - 源 - 语言级别</p>
-<p>（3）项目结构 - 模块 - 依赖 - 模块SDK</p>
-<p>（4）设置 - Java编译器 - 项目字节码版本和目标字节码版本</p>
-<h4 id="Cannot-resolve-symbol-’XXX‘-无法解析的符号-、"><a href="#Cannot-resolve-symbol-’XXX‘-无法解析的符号-、" class="headerlink" title="Cannot resolve symbol ’XXX‘ (无法解析的符号)、"></a>Cannot resolve symbol ’XXX‘ (无法解析的符号)、</h4><p>一般先检查项目结构中是否已经选择了合适的JDK</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/he99774/article/details/78254262"><em>解决方案</em></a></p>
-<h4 id="mysql驱动连接-Cannot-load-driver-class-com-mysql-cj-jdbc-Driver"><a href="#mysql驱动连接-Cannot-load-driver-class-com-mysql-cj-jdbc-Driver" class="headerlink" title="mysql驱动连接 Cannot load driver class:com.mysql.cj.jdbc.Driver"></a>mysql驱动连接 Cannot load driver class:com.mysql.cj.jdbc.Driver</h4><p>（1）检查MySQL版本</p>
-<p>（2）注意新版本MySQL的写法</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jdbc.driver</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">jdbc.url</span>=<span class="string">jdbc:mysql://localhost:3306/bjpowernode?useSSL=false&amp;serverTimezone=GMT%2B8</span></span><br><span class="line"><span class="attr">jdbc.username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">jdbc.password</span>=<span class="string">123456</span></span><br></pre></td></tr></table></figure>
+<p>执行程序打包指令后，程序正常运行，与在Idea下执行程序没有区别。</p>
+<p><strong>特别关注</strong>：</p>
+<ul>
+<li>如果你的计算机中没有安装java的jdk环境，是无法正确执行上述操作的，因为程序执行使用的是java指令。</li>
+<li>在使用向导创建SpringBoot工程时，pom.xml文件中会有如下配置，这一段配置千万不能删除，否则打包后无法正常执行程序。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>（3）pom.xml中进行版本修改,在库中删除原来的版本，再重新打开项目</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>      </span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.28<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>总结</strong></p>
+<ul>
+<li>SpringBoot工程可以基于java环境下独立运行jar文件启动服务</li>
+<li>SpringBoot工程执行mvn命令package进行打包</li>
+<li>执行jar命令：java –jar 工程名.jar</li>
+</ul>
+<p><strong>程序的打包与运行（Linux版本）</strong></p>
+<ul>
+<li>基于Linux（CenterOS7） </li>
+<li>安装JDK，且版本不低于打包时使用的JDK版本</li>
+<li>安装包保存在&#x2F;usr&#x2F;local&#x2F;自定义目录中或$HOME下 </li>
+<li>其他操作参照Windows版进行</li>
+</ul>
+<h3 id="配置高级"><a href="#配置高级" class="headerlink" title="配置高级"></a>配置高级</h3><h4 id="临时属性设置"><a href="#临时属性设置" class="headerlink" title="临时属性设置"></a>临时属性设置</h4><p>我们的程序包打好了，可以发布了。但是程序包打好以后，里面的配置都已经是固定的了，比如配置了服务器的端口是8080。如果我要启动项目，发现当前我的服务器上已经有应用启动起来并且占用了8080端口，此时就需要临时设置端口数形。</p>
+<p>SpringBoot提供了灵活的配置方式，如果你发现你的项目中有个别属性需要重新配置，可以使用临时属性的方式快速修改某些配置。方法也特别简单，在启动的时候添加上对应参数就可以了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java –jar springboot.jar --server.port=<span class="number">80</span></span><br></pre></td></tr></table></figure>
 
+<p>上面的命令是启动SpringBoot程序包的命令，在命令输入完毕后，空一格，然后输入两个<code>-</code>号。下面按照属性名<code>=</code>属性值的形式添加对应参数就可以了。</p>
+<p>注意这里的格式不是yaml中的书写格式，当属性存在多级名称时，中间使用点分隔，和properties文件中的属性格式完全相同。</p>
+<p>如果你发现要修改的属性不止一个，可以按照上述格式继续写，属性与属性之间使用空格分隔。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java –jar springboot.jar –-server.port=<span class="number">80</span> --logging.level.root=debug</span><br></pre></td></tr></table></figure>
 
-
-<h4 id="启动Web项目时出现org-apache-catalina-LifecycleException-协议处理程序初始化失败"><a href="#启动Web项目时出现org-apache-catalina-LifecycleException-协议处理程序初始化失败" class="headerlink" title="启动Web项目时出现org.apache.catalina.LifecycleException: 协议处理程序初始化失败"></a>启动Web项目时出现<code>org.apache.catalina.LifecycleException: 协议处理程序初始化失败</code></h4><p>原因：8080端口被占用了</p>
-<p>解决方案：cmd中<code>netstat -ano | findstr 8080</code>找到对应进程杀死</p>
-<p>补充：</p>
-<p><img src="https://pic.imgdb.cn/item/6262e777239250f7c5cb5445.jpg"></p>
-<h4 id="使用SpringBoot时出现Failed-to-read-candidate-component-class"><a href="#使用SpringBoot时出现Failed-to-read-candidate-component-class" class="headerlink" title="使用SpringBoot时出现Failed to read candidate component class"></a>使用SpringBoot时出现<code>Failed to read candidate component class</code></h4><p>原因：SpringBoot版本比较低，但是编译器设置版本过高，降低编译环境版本（如降到8）</p>
- 
+<p>现在我们的程序配置受配置文件和临时属性共同控制。并且我们发现临时属性的加载优先级要高于配置文件的。</p>
+<p>那是否还有其他的配置方式呢？其实是有的，打开官方文档中对应的内容，就可以查看配置读取的优先顺序。<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html">地址</a></p>
+<p><strong>总结</strong></p>
+<ul>
+<li>使用jar命令启动SpringBoot工程时可以使用临时属性替换配置文件中的属性</li>
+<li>临时属性添加方式：java –jar 工程名.jar –-属性名&#x3D;值</li>
+<li>多个临时属性之间使用空格分隔</li>
+<li>临时属性必须是当前boot工程支持的属性，否则设置无效</li>
+</ul>
+<h4 id="配置文件分配"><a href="#配置文件分配" class="headerlink" title="配置文件分配"></a>配置文件分配</h4><h4 id="自定义配置文件"><a href="#自定义配置文件" class="headerlink" title="自定义配置文件"></a>自定义配置文件</h4> 
       <!-- reward -->
       
     </div>
@@ -202,12 +229,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/04/01/IDEAerror/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/04/23/SpringBoot05/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/" rel="tag">tools</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
 
     </footer>
   </div>
@@ -215,19 +242,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2022/04/01/javaweb01/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            Junit、反射、注解
-          
-        </div>
-      </a>
     
-    
-      <a href="/2022/03/31/mavenbasic/" class="article-nav-link">
+      <a href="/2022/04/21/SpringBoot04/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Maven-基础</div>
+        <div class="article-nav-title">SpringBoot04 —— SSMP整合案例</div>
       </a>
     
   </nav>
