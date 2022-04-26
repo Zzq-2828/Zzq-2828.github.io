@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-23T06:33:24.609Z</updated>
+  <updated>2022-04-26T13:08:13.429Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>buildup</title>
+    <link href="https://www.zzzzzq.com/2022/04/26/buildup/"/>
+    <id>https://www.zzzzzq.com/2022/04/26/buildup/</id>
+    <published>2022-04-26T06:16:18.000Z</published>
+    <updated>2022-04-26T13:08:13.429Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文主要介绍了在Mac上进行开发环境搭建的主要步骤&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Mac" scheme="https://www.zzzzzq.com/categories/Mac/"/>
+    
+    <category term="EnvBuildUp" scheme="https://www.zzzzzq.com/categories/Mac/EnvBuildUp/"/>
+    
+    
+    <category term="Mac" scheme="https://www.zzzzzq.com/tags/Mac/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SpringBoot05 —— 程序运行相关</title>
     <link href="https://www.zzzzzq.com/2022/04/23/SpringBoot05/"/>
     <id>https://www.zzzzzq.com/2022/04/23/SpringBoot05/</id>
     <published>2022-04-22T17:19:36.000Z</published>
-    <updated>2022-04-23T06:33:24.609Z</updated>
+    <updated>2022-04-25T08:35:11.552Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：SpringBoot框架中程序的打包与运行，高级配置相关，多环境开发，日志&lt;/p&gt;</summary>
@@ -415,31 +436,6 @@
     
     <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
     
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JDBC、数据库连接池、JDBCTemplate</title>
-    <link href="https://www.zzzzzq.com/2022/04/02/JDBC/"/>
-    <id>https://www.zzzzzq.com/2022/04/02/JDBC/</id>
-    <published>2022-04-02T05:09:03.000Z</published>
-    <updated>2022-04-16T07:04:09.529Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了JDBC (Java DataBase Connectivity) 的相关知识，JDBC的基本概念级用法，数据库的连接池和JDBCTemplate。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="MySQL" scheme="https://www.zzzzzq.com/categories/MySQL/"/>
-    
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
-    
-    
-    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
     
     <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
     
