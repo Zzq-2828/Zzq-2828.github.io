@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-26T13:08:13.429Z</updated>
+  <updated>2022-04-27T09:07:02.749Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Sort Algorithms</title>
+    <link href="https://www.zzzzzq.com/2022/04/27/SortAlgorithms/"/>
+    <id>https://www.zzzzzq.com/2022/04/27/SortAlgorithms/</id>
+    <published>2022-04-27T08:59:38.000Z</published>
+    <updated>2022-04-27T09:07:02.749Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文主要记录了八大排序算法的Java实现&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>buildup</title>
@@ -410,27 +431,6 @@
     
     
     <summary type="html">&lt;p&gt;本文中简单介绍了web的相关概念，另外着重介绍了web服务器软件：Tomcat的基础知识&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>XML</title>
-    <link href="https://www.zzzzzq.com/2022/04/12/XML/"/>
-    <id>https://www.zzzzzq.com/2022/04/12/XML/</id>
-    <published>2022-04-11T19:24:19.000Z</published>
-    <updated>2022-04-12T12:30:24.979Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文中包含XML的基础知识，包含基本概念、语法及解析&lt;/p&gt;</summary>
     
     
     
