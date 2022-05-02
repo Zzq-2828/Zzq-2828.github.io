@@ -1,6 +1,414 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>High Performance Computer Architecture</title>
+    <url>/2022/05/01/HighPerformance/</url>
+    <content><![CDATA[<p>Hong Kong University 2022 summer semester class review —— ELEC6036 High Performance Computer Architecture.</p>
+<span id="more"></span>
+
+<h3 id="Pipelining"><a href="#Pipelining" class="headerlink" title="Pipelining"></a>Pipelining</h3><h4 id="Pipelining-Lessons"><a href="#Pipelining-Lessons" class="headerlink" title="Pipelining Lessons"></a>Pipelining Lessons</h4><ul>
+<li><p>Pipelining is an implementation technique whereby <strong>multiple instructions are</strong> <strong>overlapped in execution</strong>.</p>
+</li>
+<li><p>Pipelining is the key implementation technique that is currently used to make high</p>
+<p>performance CPUs.</p>
+</li>
+<li><p>Pipelining doesn’t help to lower the <strong>latency</strong> of single task, it helps to increase the <strong>throughput</strong>(overall system performance) of entire workload.</p>
+</li>
+<li><p>Pipeline rate limited by <strong>slowest</strong> (longest) pipeline stage.</p>
+</li>
+<li><p>The principle: <strong>Multiple</strong> tasks operating simultaneously using different resources.</p>
+</li>
+<li><p>Potential speedup &#x3D; <strong>Number pipe stages</strong></p>
+</li>
+<li><p><strong>Unbalanced</strong> lengths of pipe stages reduces speedup: that is, the key is every stage should have <strong>the same duration</strong>.</p>
+</li>
+<li><p>Time to “<strong>fill</strong>“ pipeline and time to “<strong>drain</strong>“ it reduces speedup.</p>
+</li>
+<li><p>Stall for Dependences. (stall &#x3D; delay, i.e we will have delay in the pipelined computer whenever there is contro&#x2F;data dependences between the instructions)</p>
+</li>
+</ul>
+<h4 id="The-Five-Stages-of-Load"><a href="#The-Five-Stages-of-Load" class="headerlink" title="The Five Stages of Load"></a>The Five Stages of Load</h4><img src="https://pic.imgdb.cn/item/626e714f239250f7c5ad139b.jpg" style="zoom:80%;" />
+
+<ul>
+<li><strong>Ifetch</strong>: Instruction Fetch, fetch the instruction <u>from the instruction memory</u>.</li>
+<li><strong>Reg&#x2F;Dec</strong>: Registers Fetch and Instruction Decode <u>from register file’s Read ports</u></li>
+<li><strong>Exec</strong>: Calculate the memory address <u>from ALU</u></li>
+<li><strong>Mem</strong>: Read the data <u>from the Data Memory</u></li>
+<li><strong>Wr</strong>: Write the data back to the register file <u>from register file’s Write port</u></li>
+</ul>
+<img src="https://pic.imgdb.cn/item/626e756b239250f7c5b713f8.jpg" style="zoom:80%;" />
+
+<p>As the instruction execution cycle uses different hardware components for different steps, it is possible to set up a <strong>pipeline</strong>.</p>
+<p><img src="https://pic.imgdb.cn/item/626e77d2239250f7c5bce44c.jpg"></p>
+<p>Suppose each stage takes 1 nsec(nano-second). Then each instruction still takes 5 nsec. But once the pipeline has been filled, a complete instruction rolls out every 1 nsec. Thus, the <strong>speedup</strong> is 5.</p>
+<h4 id="Pipelining-in-the-CPU"><a href="#Pipelining-in-the-CPU" class="headerlink" title="Pipelining in the CPU"></a>Pipelining in the CPU</h4><p>(instruction-level parallelism)</p>
+<ul>
+<li>Pipelining is an implementation technique that exploits <strong>parallelism</strong> among instructions in a sequential instruction stream.</li>
+<li>A major advantage of pipelining over “<strong>parallel processing</strong>” is that <strong>it is not visible to the programmer</strong> (whereas in parallel processing, the program usually needs to specify what kinds of tasks to be executed in parallel).</li>
+<li>In a computer system, each pipeline stage completes a part of the instruction being executed. </li>
+<li>The time required between <u>moving an instruction one step down the pipeline is a machine cycle</u> (<strong>the clock cycle</strong>). The length of a machine cycle is determined by the time required for <u>the slowest stage to proceed</u>.</li>
+<li>The computer engineer should try to balance the length of each pipeline stage so as to achieve the ideal speedup. In practice, however, the pipeline stages will not be perfectly the same, and there are additional <strong>overheads</strong>. But we can get close to the <strong>ideal case</strong> (i.e. CPI &#x3D; 1, Cycle Per Instruction).</li>
+</ul>
+<p><strong>Design Issues</strong></p>
+<ul>
+<li>We have to make sure that <u>the same resource (e.g., ALU) is not used in more than one pipeline stage</u>.</li>
+<li>If the resources used in the same pipelining stage are different, then <strong>overlapping</strong> is possible.</li>
+<li>However, we must note that to retain the <strong>intermediate values</strong> produced by an individual instruction for all its pipeline stages, we must include <strong>temporary registers</strong> between the pipeline stages.</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/626e8d05239250f7c5f37bbf.jpg" style="zoom: 67%;" />
+
+<p>($1, $2 or $3 - represent Register #1, #2 and #3)</p>
+<ul>
+<li>Pipelining increases the processor <strong>instruction throughput</strong> — the <u>number of instructions completed per unit time</u>.</li>
+<li>Remember: pipelining does not reduce the execution time of a single instruction.</li>
+<li>The increase in instruction throughput means that <u>the program runs faster</u>, even though no single instruction runs faster.</li>
+<li>Imbalance among the pipeline stages reduces performance since the <strong>clock</strong> cannot run faster than the time needed for the slowest pipeline stage.</li>
+<li>Pipelining overhead can arise from the combination of <strong>pipeline register delay</strong> (propagation delay of the register to transfer the values between the pipeline stages) and other factors.</li>
+</ul>
+<h4 id="Graphically-Representing-Pipelines"><a href="#Graphically-Representing-Pipelines" class="headerlink" title="Graphically Representing Pipelines"></a>Graphically Representing Pipelines</h4><p><strong>Conventional Pipelined Execution Representation</strong></p>
+<img src="https://pic.imgdb.cn/item/626e8f04239250f7c5fa5f47.jpg" style="zoom:80%;" />
+
+<p><strong>Single Cycle, Multiple Cycle, vs. Pipeline</strong></p>
+<img src="https://pic.imgdb.cn/item/626e8f3a239250f7c5fb2a2c.jpg" style="zoom:80%;" />
+
+<p>Suppose we execute 100 instructions:</p>
+<ul>
+<li><p><strong>Single Cycle Machine</strong></p>
+<p>- 45 ns&#x2F;cycle x 1 CPI x 100 instructions &#x3D; 4500ns</p>
+</li>
+<li><p><strong>Multi-Cycle Machine</strong></p>
+<p>- 10 ns&#x2F;cycle x 4.6 CPI (due to instruction mix) x 100 instructions &#x3D; 4600ns</p>
+</li>
+<li><p><strong>Ideal pipelined machine</strong></p>
+</li>
+</ul>
+<p>  - 10 ns&#x2F;cycle x (1 CPI x 100 instructions + 4 cycles drain) &#x3D; 1040ns!!</p>
+<p>Ans: pipelining is much faster, i.e. in the above example, the total duration is around 1&#x2F;4 of the total time required for single-sysle machine!</p>
+<p><strong>Why Pipeline? Because We Can!</strong></p>
+<img src="https://pic.imgdb.cn/item/626e9041239250f7c5fecac6.jpg" style="zoom:80%;" />
+
+<h4 id="Pipeline-Hazards"><a href="#Pipeline-Hazards" class="headerlink" title="Pipeline Hazards"></a>Pipeline Hazards</h4><h5 id="Structural-Hazards"><a href="#Structural-Hazards" class="headerlink" title="Structural Hazards:"></a><strong>Structural Hazards</strong>:</h5><p>attempt to use the same resource in two different ways (e.g., by two different instructions) at the same time.</p>
+<p>- e.g., combined washer&#x2F;dryer would be a structural hazard or “folder” busy doing something else (e.g., watching TV ;-)</p>
+<img src="https://pic.imgdb.cn/item/626e9224239250f7c5055a4b.jpg" style="zoom:80%;" />
+
+
+
+<h5 id="Control-Hazards"><a href="#Control-Hazards" class="headerlink" title="Control Hazards:"></a><strong>Control Hazards</strong>:</h5><p>attempt to make a decision before condition is evaluated</p>
+<p>- e.g., washing football uniforms and need to get proper detergent level; need to see after dryer before next load in</p>
+<p>- <u>branch instructions</u></p>
+<ul>
+<li><p>Control Hazard Solution #1: Stall</p>
+<img src="https://pic.imgdb.cn/item/626e952d239250f7c50f6c42.jpg" style="zoom:80%;" />
+
+<p><u>Stall</u>: wait until decision is clear</p>
+<p><u>Impact</u>: 2 lost cycles (i.e. 3 clock cycles per branch instruction) &#x3D;&gt; slow</p>
+<p><u>Move decision to the end of decode</u>. (earlier to the decoder stage) —— save 1 cycle per branch.</p>
+</li>
+<li><p>Control Hazard Solution #2: Predict</p>
+<img src="https://pic.imgdb.cn/item/626e95fa239250f7c5128041.jpg" style="zoom:80%;" />
+
+<p><u>Predict</u>: guess one direction then back up if wrong</p>
+<p><u>Impact</u>: 0 lost cycles per branch instruction if right, 1 if wrong (right - 50% of time)</p>
+<ul>
+<li>Need to “Squash” and restart following instruction if wrong</li>
+<li>Produce CPI on branch of (1 * 0.5 + 2 * 0.5 &#x3D; 1.5)</li>
+<li>Total CPI might then be: 1.5 * 0.2 + 1 * 0.8 &#x3D; 1.1 (20% branch)</li>
+</ul>
+<p><u>More dynamic scheme</u>: history of 1 branch ( - 90%) , e.g. if there is 30% branch, then the total CPI &#x3D; 1.5 * 0.3 + 1 * 0.7</p>
+</li>
+<li><p>Control Hazard Solution #3: Delayed Branch</p>
+<img src="https://pic.imgdb.cn/item/626e9b00239250f7c52578d9.jpg" style="zoom:80%;" />
+
+<p>Delayed Branch: Redefine branch behavior (takes place after next instruction)</p>
+<p>Impact: 0 clock cycles per branch instruction if can find instruction to put in “slot” ( - 50% of time)</p>
+<p>As launch more instruction per clock syscle, less useful</p>
+</li>
+</ul>
+<h5 id="Data-Hazards"><a href="#Data-Hazards" class="headerlink" title="Data Hazards:"></a><strong>Data Hazards</strong>:</h5><p>attempt to use item before it is ready ( an instruction depends on the result of a previous instruction still in the pipeline.)</p>
+<p>- e.g., one sock of pair in dryer and one in washer; can’t fold until get sock from washer through dryer</p>
+<p>- <u>instruction depends on result of prior instruction still in the pipeline</u></p>
+<p><strong>Data Hazard on r1: Read After Write (RAW)</strong></p>
+<img src="https://pic.imgdb.cn/item/626e9c70239250f7c52ae07d.jpg" style="zoom:80%;" />
+
+<img src="https://pic.imgdb.cn/item/626ea026239250f7c539334f.jpg" style="zoom:80%;" />
+
+<p><strong>Data Hazard Solution: Forwarding</strong></p>
+<img src="https://pic.imgdb.cn/item/626e9d7c239250f7c52ea8e7.jpg" style="zoom:80%;" />
+
+<p><strong>Forwarding (or Bypassing): What About Loads?</strong></p>
+<img src="https://pic.imgdb.cn/item/626f6cdc239250f7c5971695.jpg" style="zoom:80%;" />
+
+<img src="C:\Users\win10\AppData\Roaming\Typora\typora-user-images\image-20220502133433952.png" alt="image-20220502133433952" style="zoom:80%;" />
+
+<p><strong>Can always resolve these hazards by waiting(pipeline stall)</strong></p>
+<p>- pipeline control must detect the hazard</p>
+<p>- take action (or delay action) to resolve hazards</p>
+<h4 id="Summary-of-Concepts"><a href="#Summary-of-Concepts" class="headerlink" title="Summary of Concepts"></a>Summary of Concepts</h4><ul>
+<li>Reduce CPI by overlapping many instructions<ul>
+<li>average throughput of approximately 1 CPI with fast clock</li>
+</ul>
+</li>
+<li>Utilize capabilities of the datapath<ul>
+<li>start next instruction while working on the current one</li>
+<li>limited by length of longest stage (plus fill&#x2F;flush)</li>
+<li>detect and resolve hazards</li>
+</ul>
+</li>
+<li>What makes it easy</li>
+<li><u>all instructions are of the same length</u> (very import for the pipeline design)</li>
+<li>just a few instruction formats</li>
+<li>memory operands appear only in loads(LW) and store(SW)</li>
+<li>What makes it hard?<ul>
+<li>structural hazards: suppose we had only one memory</li>
+<li>control hazards: need to worry about branch instructions</li>
+<li>data hazards: an instruction depends on a previous instruction (whenever two instructions have data dependence, there will be data hazards)</li>
+</ul>
+</li>
+</ul>
+<h4 id="Issues-in-Pipelined-Design"><a href="#Issues-in-Pipelined-Design" class="headerlink" title="Issues in Pipelined Design"></a>Issues in Pipelined Design</h4><img src="https://pic.imgdb.cn/item/626f7439239250f7c5a839d6.jpg" style="zoom:80%;" />
+
+<h3 id="High-Performance-Techniques-——-Scoreboard"><a href="#High-Performance-Techniques-——-Scoreboard" class="headerlink" title="High Performance Techniques —— Scoreboard"></a>High Performance Techniques —— Scoreboard</h3><ul>
+<li>How to Optimize the Pipeline? Extract More Parallelism! (multiple execution-stage PL computers e.g. ADD - EX1 and EX2, etc)</li>
+<li>Compiler-Directed (Static) Approaches<ul>
+<li>VLIW (Very Long Instruction Word)</li>
+<li>EPIC (Explicit Parallel Instruction Computer)</li>
+<li>Superscalar</li>
+<li>Software Pipelining</li>
+</ul>
+</li>
+<li>A Dynamic Approach—Scoreboard</li>
+</ul>
+<p><strong>Pipelining: Can we somehow make CPI closer to 1?</strong></p>
+<ul>
+<li><p>Let’s assume FP ( full pipelining):</p>
+</li>
+<li><p>If we have a 4-cycle instruction (an instruction requiring 4 execution cycles), then we need 3 instructions between a producing instruction and its use:</p>
+<img src="https://pic.imgdb.cn/item/626fb289239250f7c53ab10f.jpg" style="zoom:80%;" />
+</li>
+<li><p>Getting CPI &lt;1 : Processing Multiple Instructions&#x2F;Cycles</p>
+<ul>
+<li>Use parallel processing!!</li>
+<li>Two main variations: superscalar and VLIW</li>
+<li>Superscalar: varying number of instructions&#x2F;cycle (1 to 6)<ul>
+<li>parallelism and dependencies determined&#x2F;resolved by HW(hardware)</li>
+<li>IBM PowerPC 604, Sun UltraSPARC, DEC Alpha 21164, HP 7100</li>
+</ul>
+</li>
+<li>Very Long Instruction Words (VLIW): fixed number of instructions (16) determined by compiler<ul>
+<li>pipeline is exposed; compiler must schedule delays to get right results</li>
+</ul>
+</li>
+<li>Explicit Parallel Instruction Computer (EPIC)&#x2F;Intel<ul>
+<li>128 bit packets containing 3 instructions (can execute sequentially)</li>
+<li>can link 128 bit packets together to allow more parallelism</li>
+<li><strong>compiler determines parallelism</strong>, HW checks dependencies and <strong>forwards&#x2F;stalls</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Parallelism: Overt vs. Covert</p>
+<img src="https://pic.imgdb.cn/item/626fc41e239250f7c56323bd.jpg" style="zoom:80%;" />
+
+<img src="https://pic.imgdb.cn/item/626fc453239250f7c563973e.jpg" style="zoom:80%;" /></li>
+</ul>
+<h4 id="Compliation-and-ISA-Instruction-Set-Architecture"><a href="#Compliation-and-ISA-Instruction-Set-Architecture" class="headerlink" title="Compliation and ISA (Instruction Set Architecture)"></a>Compliation and ISA (Instruction Set Architecture)</h4><ul>
+<li><p>Efficient compilation requires knowledge of the pipeline structure</p>
+<ul>
+<li><strong>latency</strong> and <strong>bandwidth</strong> of each operation type</li>
+</ul>
+</li>
+<li><p>But a good ISA transcends several implementations with different pipelines</p>
+<ul>
+<li>should things like a delayed branch be in an ISA?</li>
+<li>should a compiler use the properties of one implementation when compiling for an ISA?</li>
+<li>do we need a new interface?</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/626fca4d239250f7c571fcca.jpg" style="zoom:80%;" /></li>
+</ul>
+<h4 id="Very-Long-Instruction-Word-VLIW-Computers"><a href="#Very-Long-Instruction-Word-VLIW-Computers" class="headerlink" title="Very Long Instruction Word (VLIW) Computers"></a>Very Long Instruction Word (VLIW) Computers</h4><img src="https://pic.imgdb.cn/item/626fcd40239250f7c5794c31.jpg" style="zoom:80%;" />
+
+<p><strong>Pros</strong>(Strength)</p>
+<ul>
+<li>Very simple hardware<ul>
+<li>no dependency detection</li>
+<li>simple issue logic</li>
+<li>just ALUs and register files</li>
+</ul>
+</li>
+<li>Potentially exploits large amounts of ILP</li>
+</ul>
+<p><strong>Cons</strong>(Weakness)</p>
+<ul>
+<li>Lockstep execution (static schedule)<ul>
+<li>very sensitive to long latency operations(cache misses)</li>
+</ul>
+</li>
+<li>Global register file hard to build</li>
+<li>Lots of NO-OPs<ul>
+<li>poor “code density”</li>
+<li>I-cache capacity and bandwidth compromised</li>
+</ul>
+</li>
+<li>Must recompile sources to deliver potential</li>
+<li>Implementation visible through ISA</li>
+</ul>
+<h4 id="EPIC-Explicit-Parallel-Instruction-Computer"><a href="#EPIC-Explicit-Parallel-Instruction-Computer" class="headerlink" title="EPIC: Explicit Parallel Instruction Computer"></a>EPIC: Explicit Parallel Instruction Computer</h4><p><strong>128-bit instructions</strong>:</p>
+<ul>
+<li><p>three 3-address operations</p>
+</li>
+<li><p>a template that encodes dependencies</p>
+</li>
+<li><p>128 general registers</p>
+</li>
+<li><p>predication (branch prediction)</p>
+</li>
+<li><p>speculative load (load prediction)</p>
+</li>
+<li><p>Example: IA-64 of Intel&#x2F;HP</p>
+<img src="C:\Users\win10\AppData\Roaming\Typora\typora-user-images\image-20220502204711061.png" alt="image-20220502204711061" style="zoom:80%;" /></li>
+</ul>
+<h4 id="Superscalar"><a href="#Superscalar" class="headerlink" title="Superscalar"></a>Superscalar</h4><p>Superscalar DLX: 2 instructions, 1 FP &amp; 1 anything else (int &#x2F; LW &#x2F; SW)</p>
+<ul>
+<li><p>fetch 64 bits&#x2F;clock cycle; integer on left, FP on right</p>
+</li>
+<li><p>can only issue 2nd instruction if 1st instruction issues</p>
+</li>
+<li><p>more ports for FP registers to do FP load &amp; FP op in a pair</p>
+<img src="https://pic.imgdb.cn/item/626fd33f239250f7c588b92f.jpg" style="zoom: 67%;" />
+</li>
+<li><p>1 cycle load delay expands to 3 instructions in SS (super-scalar)</p>
+<ul>
+<li>instruction in right half can’t use it, nor instructions in next slot</li>
+</ul>
+</li>
+</ul>
+<p>Limits of Superscalar:</p>
+<ul>
+<li><p>While integer&#x2F;FP split is simple for the HW, get CPI of 0.5 only for programs with:</p>
+<ul>
+<li>exactly 50% FP operations</li>
+<li>no hazards</li>
+</ul>
+</li>
+<li><p>If more instructions issue at same time, greater difficulty of decode and issue</p>
+<ul>
+<li><p>even 2-scalar &#x3D;&gt; examine 2 opcodes, 6 register specifiers, &amp; decide if 1 or 2 instructions</p>
+<p>can issue</p>
+</li>
+</ul>
+</li>
+<li><p>VLIW: tradeoff instruction space for simple decoding</p>
+<ul>
+<li>the long instruction word has room for many operations</li>
+<li>by definition, all the operations the compiler puts in the long instruction word can execut in parallel</li>
+<li>e.g., 2 integer operations, 2 FP ops, 2 memory references, 1 branch; 16 to 24 bits for each of these fields &#x3D;&#x3D;&gt; 7 x 16 or 112 bits to 7 x 24 or 168 bits wide</li>
+<li>need compiling technique that schedules across several branches</li>
+</ul>
+</li>
+</ul>
+<h4 id="Software-Pipelining"><a href="#Software-Pipelining" class="headerlink" title="Software Pipelining"></a>Software Pipelining</h4><ul>
+<li><p>Observation: if iterations from loops are independent, then can get more ILP (instruction level parallelism) by taking instructions from different iterations</p>
+</li>
+<li><p>Software pipelining: reorganizes loops so that each iteration is made from instructions chosen from different iterations of the original loop (i.e., Tomasulo algorithms in SW)</p>
+<img src="https://pic.imgdb.cn/item/626fd999239250f7c599aa88.jpg" style="zoom: 67%;" /></li>
+</ul>
+<p><strong>Example:</strong></p>
+<img src="https://pic.imgdb.cn/item/626fd9f5239250f7c59aa218.jpg" style="zoom:80%;" />
+
+<h4 id="Multiple-Issue-as-compared-with-VLIW"><a href="#Multiple-Issue-as-compared-with-VLIW" class="headerlink" title="Multiple Issue as compared with VLIW"></a>Multiple Issue as compared with VLIW</h4><p><strong>Multiple Issue:</strong></p>
+<ul>
+<li>more complex issue logic<ul>
+<li>check dependencies</li>
+<li>check structural hazards</li>
+<li>issue variable number of instructions (0-N)</li>
+<li>shift unissued instructions over</li>
+</ul>
+</li>
+<li>Able to run existing binaries<ul>
+<li>recompile for performance, not correctness</li>
+</ul>
+</li>
+<li>Datapaths identical<ul>
+<li>but bypass requires detection</li>
+</ul>
+</li>
+<li>Neither VLIW or multiple-issue can schedule around run-time variation in instruction latency<ul>
+<li>cache misses</li>
+</ul>
+</li>
+<li>Dealing with run-time variation requires run-time or dynamic scheduling</li>
+</ul>
+<h4 id="The-problem-with-Static-Scheduling-Compile-Time"><a href="#The-problem-with-Static-Scheduling-Compile-Time" class="headerlink" title="The problem with Static Scheduling (Compile-Time)"></a>The problem with Static Scheduling (Compile-Time)</h4><p><strong>In-Order Execution</strong>:</p>
+<ul>
+<li>an unexpected long latency blocks <u>ready instructions</u> from executing (scheduled code cannot be changed at run-time)</li>
+<li>binaries need to be <u>rescheduled (recompiled)</u> for each new processor implementation</li>
+<li>small number of named registers becomes a bottleneck.</li>
+</ul>
+<h3 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h3><h4 id="MIPS-instructions"><a href="#MIPS-instructions" class="headerlink" title="MIPS instructions"></a>MIPS instructions</h4><p><strong>Arithmetic Instructions</strong></p>
+<img src="https://pic.imgdb.cn/item/626fb4a1239250f7c53f9ffc.jpg" style="zoom:80%;" />
+
+<p><strong>Logical</strong></p>
+<img src="https://pic.imgdb.cn/item/626fb4d6239250f7c5400ed9.jpg" style="zoom:80%;" />
+
+<p><strong>Data Transfer</strong></p>
+<img src="https://pic.imgdb.cn/item/626fb4fa239250f7c5405a43.jpg" style="zoom:80%;" />
+
+<img src="https://pic.imgdb.cn/item/626fb51a239250f7c5409d42.jpg" style="zoom:80%;" />
+
+<p><strong>Conditional Branch</strong></p>
+<img src="https://pic.imgdb.cn/item/626fb542239250f7c540f7f1.jpg" style="zoom:80%;" />
+
+<p><strong>Comparison</strong></p>
+<img src="https://pic.imgdb.cn/item/626fb566239250f7c54148d6.jpg" style="zoom:80%;" />
+
+<p><strong>Unconditional Jump</strong></p>
+<img src="https://pic.imgdb.cn/item/626fb586239250f7c54184f4.jpg" style="zoom:80%;" />
+
+<p><strong>Registers</strong></p>
+<img src="https://pic.imgdb.cn/item/626fb5c7239250f7c5420cd1.jpg" style="zoom:80%;" />
+]]></content>
+      <categories>
+        <category>HKU</category>
+      </categories>
+      <tags>
+        <tag>HKU</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Review</title>
+    <url>/2022/05/01/Review/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>applicationLayers</title>
+    <url>/2022/04/29/applicationLayers/</url>
+    <content><![CDATA[<h3 id="应用分层"><a href="#应用分层" class="headerlink" title="应用分层"></a>应用分层</h3><img src="https://pic.imgdb.cn/item/626b6309239250f7c5458cdb.jpg" style="zoom:67%;" />
+
+<ul>
+<li>开放接口层：可直接封装 Service 方法暴露成 RPC 接口;通过 Web 封装成 http 接口;进行网关安全控制、流量控制等。</li>
+<li>终端显示层：各个端的模板渲染并执行显示的层。当前主要是 velocity 渲染，JS 渲染，JSP 渲染，移动端展示等。</li>
+<li>Web 层：主要是对访问控制进行转发，各类基本参数校验，或者不复用的业务简单处理等。</li>
+<li>Service 层：相对具体的业务逻辑服务层。</li>
+<li>Manager 层：通用业务处理层。它有如下特征:<ul>
+<li>对第三方平台封装的层，预处理返回结果及转化异常信息。</li>
+<li>对 Service 层通用能力的下沉，如缓存方案、中间件通用处理。</li>
+<li>与 DAO 层交互，对多个 DAO 的组合复用。</li>
+</ul>
+</li>
+<li>DAO 层：数据访问层，与底层 MySQL、Oracle、Hbase 进行数据交互。</li>
+</ul>
+<h3 id="分层领域模型"><a href="#分层领域模型" class="headerlink" title="分层领域模型"></a>分层领域模型</h3><p>在阿里巴巴编码规约中列举了下面几个领域模型规约：</p>
+<ul>
+<li>DO(Data Object)：与数据库表结构一一对应，通过 DAO 层向上传输数据源对象。</li>
+<li>DTO(Data Transfer Object)：数据传输对象，Service 或 Manager 向外传输的对象。</li>
+<li>BO(Business Object)：业务对象。由 Service 层输出的封装业务逻辑的对象。</li>
+<li>AO(Application Object)：应用对象。在 Web 层与 Service 层之间抽象的复用对象模型，极为贴近展示层，复用度不高。</li>
+<li>VO(View Object)：显示层对象，通常是 Web 向模板渲染引擎层传输的对象。</li>
+<li>Query：数据查询对象，各层接收上层的查询请求。注意超过2个参数的查询封装，禁止使用 Map 类来传输。</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
     <title>Sort Algorithms</title>
     <url>/2022/04/27/SortAlgorithms/</url>
     <content><![CDATA[<p>概述：本文主要记录了八大排序算法的Java实现</p>
@@ -46,7 +454,7 @@
       </tags>
   </entry>
   <entry>
-    <title>buildup</title>
+    <title>Buildup the Java environment on MacOS</title>
     <url>/2022/04/26/buildup/</url>
     <content><![CDATA[<p>本文主要介绍了在Mac上进行开发环境搭建的主要步骤</p>
 <span id="more"></span>
@@ -4333,6 +4741,7 @@
 <p>补充：</p>
 <p><img src="https://pic.imgdb.cn/item/6262e777239250f7c5cb5445.jpg"></p>
 <h4 id="使用SpringBoot时出现Failed-to-read-candidate-component-class"><a href="#使用SpringBoot时出现Failed-to-read-candidate-component-class" class="headerlink" title="使用SpringBoot时出现Failed to read candidate component class"></a>使用SpringBoot时出现<code>Failed to read candidate component class</code></h4><p>原因：SpringBoot版本比较低，但是编译器设置版本过高，降低编译环境版本（如降到8）</p>
+<h4 id="本机ip记录"><a href="#本机ip记录" class="headerlink" title="本机ip记录"></a>本机ip记录</h4><p>192.168.1.210</p>
 ]]></content>
       <categories>
         <category>tools</category>

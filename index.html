@@ -144,6 +144,181 @@
     
     
     <article
+  id="post-HighPerformance"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/05/01/HighPerformance/"
+    >High Performance Computer Architecture</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/05/01/HighPerformance/" class="article-date">
+  <time datetime="2022-05-01T10:27:32.000Z" itemprop="datePublished">2022-05-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/HKU/">HKU</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>Hong Kong University 2022 summer semester class review —— ELEC6036 High Performance Computer Architecture.</p> 
+      <a class="article-more-link" href="/2022/05/01/HighPerformance/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HKU/" rel="tag">HKU</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="high-Review"
+  class="article article-type-high"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/05/01/Review/"
+    >Review</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/05/01/Review/" class="article-date">
+  <time datetime="2022-05-01T10:26:09.000Z" itemprop="datePublished">2022-05-01</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+   
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-applicationLayers"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/04/29/applicationLayers/"
+    >applicationLayers</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/04/29/applicationLayers/" class="article-date">
+  <time datetime="2022-04-29T03:54:12.000Z" itemprop="datePublished">2022-04-29</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 id="应用分层"><a href="#应用分层" class="headerlink" title="应用分层"></a>应用分层</h3><img src="https://pic.imgdb.cn/item/626b6309239250f7c5458cdb.jpg" style="zoom:67%;" />
+
+<ul>
+<li>开放接口层：可直接封装 Service 方法暴露成 RPC 接口;通过 Web 封装成 http 接口;进行网关安全控制、流量控制等。</li>
+<li>终端显示层：各个端的模板渲染并执行显示的层。当前主要是 velocity 渲染，JS 渲染，JSP 渲染，移动端展示等。</li>
+<li>Web 层：主要是对访问控制进行转发，各类基本参数校验，或者不复用的业务简单处理等。</li>
+<li>Service 层：相对具体的业务逻辑服务层。</li>
+<li>Manager 层：通用业务处理层。它有如下特征:<ul>
+<li>对第三方平台封装的层，预处理返回结果及转化异常信息。</li>
+<li>对 Service 层通用能力的下沉，如缓存方案、中间件通用处理。</li>
+<li>与 DAO 层交互，对多个 DAO 的组合复用。</li>
+</ul>
+</li>
+<li>DAO 层：数据访问层，与底层 MySQL、Oracle、Hbase 进行数据交互。</li>
+</ul>
+<h3 id="分层领域模型"><a href="#分层领域模型" class="headerlink" title="分层领域模型"></a>分层领域模型</h3><p>在阿里巴巴编码规约中列举了下面几个领域模型规约：</p>
+<ul>
+<li>DO(Data Object)：与数据库表结构一一对应，通过 DAO 层向上传输数据源对象。</li>
+<li>DTO(Data Transfer Object)：数据传输对象，Service 或 Manager 向外传输的对象。</li>
+<li>BO(Business Object)：业务对象。由 Service 层输出的封装业务逻辑的对象。</li>
+<li>AO(Application Object)：应用对象。在 Web 层与 Service 层之间抽象的复用对象模型，极为贴近展示层，复用度不高。</li>
+<li>VO(View Object)：显示层对象，通常是 Web 向模板渲染引擎层传输的对象。</li>
+<li>Query：数据查询对象，各层接收上层的查询请求。注意超过2个参数的查询封装，禁止使用 Map 类来传输。</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
   id="post-SortAlgorithms"
   class="article article-type-post"
   itemscope
@@ -213,7 +388,7 @@
        
 <h2 itemprop="name">
   <a class="article-title" href="/2022/04/26/buildup/"
-    >buildup</a> 
+    >Buildup the Java environment on MacOS</a> 
 </h2>
  
 
@@ -543,184 +718,13 @@
 </article>
 
     
-    <article
-  id="post-SSM08"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2022/04/19/SSM08/"
-    >SSM08 —— SSM整合</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2022/04/19/SSM08/" class="article-date">
-  <time datetime="2022-04-19T14:56:15.000Z" itemprop="datePublished">2022-04-19</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/SSM/">SSM</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>本文记录了SSM框架的原始整合方式，mybatis整合spring，声明式事务控制实现</p> 
-      <a class="article-more-link" href="/2022/04/19/SSM08/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSM/" rel="tag">SSM</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-SSM07"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2022/04/19/SSM07/"
-    >SSM07 —— MyBatis的Dao层实现</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2022/04/19/SSM07/" class="article-date">
-  <time datetime="2022-04-18T17:57:19.000Z" itemprop="datePublished">2022-04-19</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/SSM/">SSM</a> / <a class="article-category-link" href="/categories/SSM/MyBatis/">MyBatis</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>本文记录了MyBatis的进阶知识，包括：Dao层（持久层）实现，映射文件的深入知识，核心配置文件的深入知识，多表操作，注解开发</p> 
-      <a class="article-more-link" href="/2022/04/19/SSM07/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MyBatis/" rel="tag">MyBatis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSM/" rel="tag">SSM</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-SSM06"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2022/04/17/SSM06/"
-    >SSM06 —— MyBatis基础</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2022/04/17/SSM06/" class="article-date">
-  <time datetime="2022-04-16T19:49:31.000Z" itemprop="datePublished">2022-04-17</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/SSM/">SSM</a> / <a class="article-category-link" href="/categories/SSM/MyBatis/">MyBatis</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>本文记录了MyBatis的基础知识，包括映射文件，增删改查操作，核心配置文件概述和基本的API介绍</p> 
-      <a class="article-more-link" href="/2022/04/17/SSM06/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MyBatis/" rel="tag">MyBatis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSM/" rel="tag">SSM</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
   </nav>
   
 </section>

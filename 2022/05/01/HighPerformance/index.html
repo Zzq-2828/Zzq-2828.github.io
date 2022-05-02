@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="朱章齐的个人技术网站" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>High Performance Computer Architecture |  Keep Making Progress</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Keep Making Progress" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-HighPerformance"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  High Performance Computer Architecture
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/05/01/HighPerformance/" class="article-date">
+  <time datetime="2022-05-01T10:27:32.000Z" itemprop="datePublished">2022-05-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/HKU/">HKU</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">12 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>Hong Kong University 2022 summer semester class review —— ELEC6036 High Performance Computer Architecture.</p>
+<span id="more"></span>
+
+<h3 id="Pipelining"><a href="#Pipelining" class="headerlink" title="Pipelining"></a>Pipelining</h3><h4 id="Pipelining-Lessons"><a href="#Pipelining-Lessons" class="headerlink" title="Pipelining Lessons"></a>Pipelining Lessons</h4><ul>
+<li><p>Pipelining is an implementation technique whereby <strong>multiple instructions are</strong> <strong>overlapped in execution</strong>.</p>
+</li>
+<li><p>Pipelining is the key implementation technique that is currently used to make high</p>
+<p>performance CPUs.</p>
+</li>
+<li><p>Pipelining doesn’t help to lower the <strong>latency</strong> of single task, it helps to increase the <strong>throughput</strong>(overall system performance) of entire workload.</p>
+</li>
+<li><p>Pipeline rate limited by <strong>slowest</strong> (longest) pipeline stage.</p>
+</li>
+<li><p>The principle: <strong>Multiple</strong> tasks operating simultaneously using different resources.</p>
+</li>
+<li><p>Potential speedup &#x3D; <strong>Number pipe stages</strong></p>
+</li>
+<li><p><strong>Unbalanced</strong> lengths of pipe stages reduces speedup: that is, the key is every stage should have <strong>the same duration</strong>.</p>
+</li>
+<li><p>Time to “<strong>fill</strong>“ pipeline and time to “<strong>drain</strong>“ it reduces speedup.</p>
+</li>
+<li><p>Stall for Dependences. (stall &#x3D; delay, i.e we will have delay in the pipelined computer whenever there is contro&#x2F;data dependences between the instructions)</p>
+</li>
+</ul>
+<h4 id="The-Five-Stages-of-Load"><a href="#The-Five-Stages-of-Load" class="headerlink" title="The Five Stages of Load"></a>The Five Stages of Load</h4><img src="https://pic.imgdb.cn/item/626e714f239250f7c5ad139b.jpg" style="zoom:80%;" />
+
+<ul>
+<li><strong>Ifetch</strong>: Instruction Fetch, fetch the instruction <u>from the instruction memory</u>.</li>
+<li><strong>Reg&#x2F;Dec</strong>: Registers Fetch and Instruction Decode <u>from register file’s Read ports</u></li>
+<li><strong>Exec</strong>: Calculate the memory address <u>from ALU</u></li>
+<li><strong>Mem</strong>: Read the data <u>from the Data Memory</u></li>
+<li><strong>Wr</strong>: Write the data back to the register file <u>from register file’s Write port</u></li>
+</ul>
+<img src="https://pic.imgdb.cn/item/626e756b239250f7c5b713f8.jpg" style="zoom:80%;" />
+
+<p>As the instruction execution cycle uses different hardware components for different steps, it is possible to set up a <strong>pipeline</strong>.</p>
+<p><img src="https://pic.imgdb.cn/item/626e77d2239250f7c5bce44c.jpg"></p>
+<p>Suppose each stage takes 1 nsec(nano-second). Then each instruction still takes 5 nsec. But once the pipeline has been filled, a complete instruction rolls out every 1 nsec. Thus, the <strong>speedup</strong> is 5.</p>
+<h4 id="Pipelining-in-the-CPU"><a href="#Pipelining-in-the-CPU" class="headerlink" title="Pipelining in the CPU"></a>Pipelining in the CPU</h4><p>(instruction-level parallelism)</p>
+<ul>
+<li>Pipelining is an implementation technique that exploits <strong>parallelism</strong> among instructions in a sequential instruction stream.</li>
+<li>A major advantage of pipelining over “<strong>parallel processing</strong>” is that <strong>it is not visible to the programmer</strong> (whereas in parallel processing, the program usually needs to specify what kinds of tasks to be executed in parallel).</li>
+<li>In a computer system, each pipeline stage completes a part of the instruction being executed. </li>
+<li>The time required between <u>moving an instruction one step down the pipeline is a machine cycle</u> (<strong>the clock cycle</strong>). The length of a machine cycle is determined by the time required for <u>the slowest stage to proceed</u>.</li>
+<li>The computer engineer should try to balance the length of each pipeline stage so as to achieve the ideal speedup. In practice, however, the pipeline stages will not be perfectly the same, and there are additional <strong>overheads</strong>. But we can get close to the <strong>ideal case</strong> (i.e. CPI &#x3D; 1, Cycle Per Instruction).</li>
+</ul>
+<p><strong>Design Issues</strong></p>
+<ul>
+<li>We have to make sure that <u>the same resource (e.g., ALU) is not used in more than one pipeline stage</u>.</li>
+<li>If the resources used in the same pipelining stage are different, then <strong>overlapping</strong> is possible.</li>
+<li>However, we must note that to retain the <strong>intermediate values</strong> produced by an individual instruction for all its pipeline stages, we must include <strong>temporary registers</strong> between the pipeline stages.</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/626e8d05239250f7c5f37bbf.jpg" style="zoom: 67%;" />
+
+<p>($1, $2 or $3 - represent Register #1, #2 and #3)</p>
+<ul>
+<li>Pipelining increases the processor <strong>instruction throughput</strong> — the <u>number of instructions completed per unit time</u>.</li>
+<li>Remember: pipelining does not reduce the execution time of a single instruction.</li>
+<li>The increase in instruction throughput means that <u>the program runs faster</u>, even though no single instruction runs faster.</li>
+<li>Imbalance among the pipeline stages reduces performance since the <strong>clock</strong> cannot run faster than the time needed for the slowest pipeline stage.</li>
+<li>Pipelining overhead can arise from the combination of <strong>pipeline register delay</strong> (propagation delay of the register to transfer the values between the pipeline stages) and other factors.</li>
+</ul>
+<h4 id="Graphically-Representing-Pipelines"><a href="#Graphically-Representing-Pipelines" class="headerlink" title="Graphically Representing Pipelines"></a>Graphically Representing Pipelines</h4><p><strong>Conventional Pipelined Execution Representation</strong></p>
+<img src="https://pic.imgdb.cn/item/626e8f04239250f7c5fa5f47.jpg" style="zoom:80%;" />
+
+<p><strong>Single Cycle, Multiple Cycle, vs. Pipeline</strong></p>
+<img src="https://pic.imgdb.cn/item/626e8f3a239250f7c5fb2a2c.jpg" style="zoom:80%;" />
+
+<p>Suppose we execute 100 instructions:</p>
+<ul>
+<li><p><strong>Single Cycle Machine</strong></p>
+<p>- 45 ns&#x2F;cycle x 1 CPI x 100 instructions &#x3D; 4500ns</p>
+</li>
+<li><p><strong>Multi-Cycle Machine</strong></p>
+<p>- 10 ns&#x2F;cycle x 4.6 CPI (due to instruction mix) x 100 instructions &#x3D; 4600ns</p>
+</li>
+<li><p><strong>Ideal pipelined machine</strong></p>
+</li>
+</ul>
+<p>  - 10 ns&#x2F;cycle x (1 CPI x 100 instructions + 4 cycles drain) &#x3D; 1040ns!!</p>
+<p>Ans: pipelining is much faster, i.e. in the above example, the total duration is around 1&#x2F;4 of the total time required for single-sysle machine!</p>
+<p><strong>Why Pipeline? Because We Can!</strong></p>
+<img src="https://pic.imgdb.cn/item/626e9041239250f7c5fecac6.jpg" style="zoom:80%;" />
+
+<h4 id="Pipeline-Hazards"><a href="#Pipeline-Hazards" class="headerlink" title="Pipeline Hazards"></a>Pipeline Hazards</h4><h5 id="Structural-Hazards"><a href="#Structural-Hazards" class="headerlink" title="Structural Hazards:"></a><strong>Structural Hazards</strong>:</h5><p>attempt to use the same resource in two different ways (e.g., by two different instructions) at the same time.</p>
+<p>- e.g., combined washer&#x2F;dryer would be a structural hazard or “folder” busy doing something else (e.g., watching TV ;-)</p>
+<img src="https://pic.imgdb.cn/item/626e9224239250f7c5055a4b.jpg" style="zoom:80%;" />
+
+
+
+<h5 id="Control-Hazards"><a href="#Control-Hazards" class="headerlink" title="Control Hazards:"></a><strong>Control Hazards</strong>:</h5><p>attempt to make a decision before condition is evaluated</p>
+<p>- e.g., washing football uniforms and need to get proper detergent level; need to see after dryer before next load in</p>
+<p>- <u>branch instructions</u></p>
+<ul>
+<li><p>Control Hazard Solution #1: Stall</p>
+<img src="https://pic.imgdb.cn/item/626e952d239250f7c50f6c42.jpg" style="zoom:80%;" />
+
+<p><u>Stall</u>: wait until decision is clear</p>
+<p><u>Impact</u>: 2 lost cycles (i.e. 3 clock cycles per branch instruction) &#x3D;&gt; slow</p>
+<p><u>Move decision to the end of decode</u>. (earlier to the decoder stage) —— save 1 cycle per branch.</p>
+</li>
+<li><p>Control Hazard Solution #2: Predict</p>
+<img src="https://pic.imgdb.cn/item/626e95fa239250f7c5128041.jpg" style="zoom:80%;" />
+
+<p><u>Predict</u>: guess one direction then back up if wrong</p>
+<p><u>Impact</u>: 0 lost cycles per branch instruction if right, 1 if wrong (right - 50% of time)</p>
+<ul>
+<li>Need to “Squash” and restart following instruction if wrong</li>
+<li>Produce CPI on branch of (1 * 0.5 + 2 * 0.5 &#x3D; 1.5)</li>
+<li>Total CPI might then be: 1.5 * 0.2 + 1 * 0.8 &#x3D; 1.1 (20% branch)</li>
+</ul>
+<p><u>More dynamic scheme</u>: history of 1 branch ( - 90%) , e.g. if there is 30% branch, then the total CPI &#x3D; 1.5 * 0.3 + 1 * 0.7</p>
+</li>
+<li><p>Control Hazard Solution #3: Delayed Branch</p>
+<img src="https://pic.imgdb.cn/item/626e9b00239250f7c52578d9.jpg" style="zoom:80%;" />
+
+<p>Delayed Branch: Redefine branch behavior (takes place after next instruction)</p>
+<p>Impact: 0 clock cycles per branch instruction if can find instruction to put in “slot” ( - 50% of time)</p>
+<p>As launch more instruction per clock syscle, less useful</p>
+</li>
+</ul>
+<h5 id="Data-Hazards"><a href="#Data-Hazards" class="headerlink" title="Data Hazards:"></a><strong>Data Hazards</strong>:</h5><p>attempt to use item before it is ready ( an instruction depends on the result of a previous instruction still in the pipeline.)</p>
+<p>- e.g., one sock of pair in dryer and one in washer; can’t fold until get sock from washer through dryer</p>
+<p>- <u>instruction depends on result of prior instruction still in the pipeline</u></p>
+<p><strong>Data Hazard on r1: Read After Write (RAW)</strong></p>
+<img src="https://pic.imgdb.cn/item/626e9c70239250f7c52ae07d.jpg" style="zoom:80%;" />
+
+<img src="https://pic.imgdb.cn/item/626ea026239250f7c539334f.jpg" style="zoom:80%;" />
+
+<p><strong>Data Hazard Solution: Forwarding</strong></p>
+<img src="https://pic.imgdb.cn/item/626e9d7c239250f7c52ea8e7.jpg" style="zoom:80%;" />
+
+<p><strong>Forwarding (or Bypassing): What About Loads?</strong></p>
+<img src="https://pic.imgdb.cn/item/626f6cdc239250f7c5971695.jpg" style="zoom:80%;" />
+
+<img src="C:\Users\win10\AppData\Roaming\Typora\typora-user-images\image-20220502133433952.png" alt="image-20220502133433952" style="zoom:80%;" />
+
+<p><strong>Can always resolve these hazards by waiting(pipeline stall)</strong></p>
+<p>- pipeline control must detect the hazard</p>
+<p>- take action (or delay action) to resolve hazards</p>
+<h4 id="Summary-of-Concepts"><a href="#Summary-of-Concepts" class="headerlink" title="Summary of Concepts"></a>Summary of Concepts</h4><ul>
+<li>Reduce CPI by overlapping many instructions<ul>
+<li>average throughput of approximately 1 CPI with fast clock</li>
+</ul>
+</li>
+<li>Utilize capabilities of the datapath<ul>
+<li>start next instruction while working on the current one</li>
+<li>limited by length of longest stage (plus fill&#x2F;flush)</li>
+<li>detect and resolve hazards</li>
+</ul>
+</li>
+<li>What makes it easy</li>
+<li><u>all instructions are of the same length</u> (very import for the pipeline design)</li>
+<li>just a few instruction formats</li>
+<li>memory operands appear only in loads(LW) and store(SW)</li>
+<li>What makes it hard?<ul>
+<li>structural hazards: suppose we had only one memory</li>
+<li>control hazards: need to worry about branch instructions</li>
+<li>data hazards: an instruction depends on a previous instruction (whenever two instructions have data dependence, there will be data hazards)</li>
+</ul>
+</li>
+</ul>
+<h4 id="Issues-in-Pipelined-Design"><a href="#Issues-in-Pipelined-Design" class="headerlink" title="Issues in Pipelined Design"></a>Issues in Pipelined Design</h4><img src="https://pic.imgdb.cn/item/626f7439239250f7c5a839d6.jpg" style="zoom:80%;" />
+
+<h3 id="High-Performance-Techniques-——-Scoreboard"><a href="#High-Performance-Techniques-——-Scoreboard" class="headerlink" title="High Performance Techniques —— Scoreboard"></a>High Performance Techniques —— Scoreboard</h3><ul>
+<li>How to Optimize the Pipeline? Extract More Parallelism! (multiple execution-stage PL computers e.g. ADD - EX1 and EX2, etc)</li>
+<li>Compiler-Directed (Static) Approaches<ul>
+<li>VLIW (Very Long Instruction Word)</li>
+<li>EPIC (Explicit Parallel Instruction Computer)</li>
+<li>Superscalar</li>
+<li>Software Pipelining</li>
+</ul>
+</li>
+<li>A Dynamic Approach—Scoreboard</li>
+</ul>
+<p><strong>Pipelining: Can we somehow make CPI closer to 1?</strong></p>
+<ul>
+<li><p>Let’s assume FP ( full pipelining):</p>
+</li>
+<li><p>If we have a 4-cycle instruction (an instruction requiring 4 execution cycles), then we need 3 instructions between a producing instruction and its use:</p>
+<img src="https://pic.imgdb.cn/item/626fb289239250f7c53ab10f.jpg" style="zoom:80%;" />
+</li>
+<li><p>Getting CPI &lt;1 : Processing Multiple Instructions&#x2F;Cycles</p>
+<ul>
+<li>Use parallel processing!!</li>
+<li>Two main variations: superscalar and VLIW</li>
+<li>Superscalar: varying number of instructions&#x2F;cycle (1 to 6)<ul>
+<li>parallelism and dependencies determined&#x2F;resolved by HW(hardware)</li>
+<li>IBM PowerPC 604, Sun UltraSPARC, DEC Alpha 21164, HP 7100</li>
+</ul>
+</li>
+<li>Very Long Instruction Words (VLIW): fixed number of instructions (16) determined by compiler<ul>
+<li>pipeline is exposed; compiler must schedule delays to get right results</li>
+</ul>
+</li>
+<li>Explicit Parallel Instruction Computer (EPIC)&#x2F;Intel<ul>
+<li>128 bit packets containing 3 instructions (can execute sequentially)</li>
+<li>can link 128 bit packets together to allow more parallelism</li>
+<li><strong>compiler determines parallelism</strong>, HW checks dependencies and <strong>forwards&#x2F;stalls</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Parallelism: Overt vs. Covert</p>
+<img src="https://pic.imgdb.cn/item/626fc41e239250f7c56323bd.jpg" style="zoom:80%;" />
+
+<img src="https://pic.imgdb.cn/item/626fc453239250f7c563973e.jpg" style="zoom:80%;" /></li>
+</ul>
+<h4 id="Compliation-and-ISA-Instruction-Set-Architecture"><a href="#Compliation-and-ISA-Instruction-Set-Architecture" class="headerlink" title="Compliation and ISA (Instruction Set Architecture)"></a>Compliation and ISA (Instruction Set Architecture)</h4><ul>
+<li><p>Efficient compilation requires knowledge of the pipeline structure</p>
+<ul>
+<li><strong>latency</strong> and <strong>bandwidth</strong> of each operation type</li>
+</ul>
+</li>
+<li><p>But a good ISA transcends several implementations with different pipelines</p>
+<ul>
+<li>should things like a delayed branch be in an ISA?</li>
+<li>should a compiler use the properties of one implementation when compiling for an ISA?</li>
+<li>do we need a new interface?</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/626fca4d239250f7c571fcca.jpg" style="zoom:80%;" /></li>
+</ul>
+<h4 id="Very-Long-Instruction-Word-VLIW-Computers"><a href="#Very-Long-Instruction-Word-VLIW-Computers" class="headerlink" title="Very Long Instruction Word (VLIW) Computers"></a>Very Long Instruction Word (VLIW) Computers</h4><img src="https://pic.imgdb.cn/item/626fcd40239250f7c5794c31.jpg" style="zoom:80%;" />
+
+<p><strong>Pros</strong>(Strength)</p>
+<ul>
+<li>Very simple hardware<ul>
+<li>no dependency detection</li>
+<li>simple issue logic</li>
+<li>just ALUs and register files</li>
+</ul>
+</li>
+<li>Potentially exploits large amounts of ILP</li>
+</ul>
+<p><strong>Cons</strong>(Weakness)</p>
+<ul>
+<li>Lockstep execution (static schedule)<ul>
+<li>very sensitive to long latency operations(cache misses)</li>
+</ul>
+</li>
+<li>Global register file hard to build</li>
+<li>Lots of NO-OPs<ul>
+<li>poor “code density”</li>
+<li>I-cache capacity and bandwidth compromised</li>
+</ul>
+</li>
+<li>Must recompile sources to deliver potential</li>
+<li>Implementation visible through ISA</li>
+</ul>
+<h4 id="EPIC-Explicit-Parallel-Instruction-Computer"><a href="#EPIC-Explicit-Parallel-Instruction-Computer" class="headerlink" title="EPIC: Explicit Parallel Instruction Computer"></a>EPIC: Explicit Parallel Instruction Computer</h4><p><strong>128-bit instructions</strong>:</p>
+<ul>
+<li><p>three 3-address operations</p>
+</li>
+<li><p>a template that encodes dependencies</p>
+</li>
+<li><p>128 general registers</p>
+</li>
+<li><p>predication (branch prediction)</p>
+</li>
+<li><p>speculative load (load prediction)</p>
+</li>
+<li><p>Example: IA-64 of Intel&#x2F;HP</p>
+<img src="C:\Users\win10\AppData\Roaming\Typora\typora-user-images\image-20220502204711061.png" alt="image-20220502204711061" style="zoom:80%;" /></li>
+</ul>
+<h4 id="Superscalar"><a href="#Superscalar" class="headerlink" title="Superscalar"></a>Superscalar</h4><p>Superscalar DLX: 2 instructions, 1 FP &amp; 1 anything else (int &#x2F; LW &#x2F; SW)</p>
+<ul>
+<li><p>fetch 64 bits&#x2F;clock cycle; integer on left, FP on right</p>
+</li>
+<li><p>can only issue 2nd instruction if 1st instruction issues</p>
+</li>
+<li><p>more ports for FP registers to do FP load &amp; FP op in a pair</p>
+<img src="https://pic.imgdb.cn/item/626fd33f239250f7c588b92f.jpg" style="zoom: 67%;" />
+</li>
+<li><p>1 cycle load delay expands to 3 instructions in SS (super-scalar)</p>
+<ul>
+<li>instruction in right half can’t use it, nor instructions in next slot</li>
+</ul>
+</li>
+</ul>
+<p>Limits of Superscalar:</p>
+<ul>
+<li><p>While integer&#x2F;FP split is simple for the HW, get CPI of 0.5 only for programs with:</p>
+<ul>
+<li>exactly 50% FP operations</li>
+<li>no hazards</li>
+</ul>
+</li>
+<li><p>If more instructions issue at same time, greater difficulty of decode and issue</p>
+<ul>
+<li><p>even 2-scalar &#x3D;&gt; examine 2 opcodes, 6 register specifiers, &amp; decide if 1 or 2 instructions</p>
+<p>can issue</p>
+</li>
+</ul>
+</li>
+<li><p>VLIW: tradeoff instruction space for simple decoding</p>
+<ul>
+<li>the long instruction word has room for many operations</li>
+<li>by definition, all the operations the compiler puts in the long instruction word can execut in parallel</li>
+<li>e.g., 2 integer operations, 2 FP ops, 2 memory references, 1 branch; 16 to 24 bits for each of these fields &#x3D;&#x3D;&gt; 7 x 16 or 112 bits to 7 x 24 or 168 bits wide</li>
+<li>need compiling technique that schedules across several branches</li>
+</ul>
+</li>
+</ul>
+<h4 id="Software-Pipelining"><a href="#Software-Pipelining" class="headerlink" title="Software Pipelining"></a>Software Pipelining</h4><ul>
+<li><p>Observation: if iterations from loops are independent, then can get more ILP (instruction level parallelism) by taking instructions from different iterations</p>
+</li>
+<li><p>Software pipelining: reorganizes loops so that each iteration is made from instructions chosen from different iterations of the original loop (i.e., Tomasulo algorithms in SW)</p>
+<img src="https://pic.imgdb.cn/item/626fd999239250f7c599aa88.jpg" style="zoom: 67%;" /></li>
+</ul>
+<p><strong>Example:</strong></p>
+<img src="https://pic.imgdb.cn/item/626fd9f5239250f7c59aa218.jpg" style="zoom:80%;" />
+
+<h4 id="Multiple-Issue-as-compared-with-VLIW"><a href="#Multiple-Issue-as-compared-with-VLIW" class="headerlink" title="Multiple Issue as compared with VLIW"></a>Multiple Issue as compared with VLIW</h4><p><strong>Multiple Issue:</strong></p>
+<ul>
+<li>more complex issue logic<ul>
+<li>check dependencies</li>
+<li>check structural hazards</li>
+<li>issue variable number of instructions (0-N)</li>
+<li>shift unissued instructions over</li>
+</ul>
+</li>
+<li>Able to run existing binaries<ul>
+<li>recompile for performance, not correctness</li>
+</ul>
+</li>
+<li>Datapaths identical<ul>
+<li>but bypass requires detection</li>
+</ul>
+</li>
+<li>Neither VLIW or multiple-issue can schedule around run-time variation in instruction latency<ul>
+<li>cache misses</li>
+</ul>
+</li>
+<li>Dealing with run-time variation requires run-time or dynamic scheduling</li>
+</ul>
+<h4 id="The-problem-with-Static-Scheduling-Compile-Time"><a href="#The-problem-with-Static-Scheduling-Compile-Time" class="headerlink" title="The problem with Static Scheduling (Compile-Time)"></a>The problem with Static Scheduling (Compile-Time)</h4><p><strong>In-Order Execution</strong>:</p>
+<ul>
+<li>an unexpected long latency blocks <u>ready instructions</u> from executing (scheduled code cannot be changed at run-time)</li>
+<li>binaries need to be <u>rescheduled (recompiled)</u> for each new processor implementation</li>
+<li>small number of named registers becomes a bottleneck.</li>
+</ul>
+<h3 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h3><h4 id="MIPS-instructions"><a href="#MIPS-instructions" class="headerlink" title="MIPS instructions"></a>MIPS instructions</h4><p><strong>Arithmetic Instructions</strong></p>
+<img src="https://pic.imgdb.cn/item/626fb4a1239250f7c53f9ffc.jpg" style="zoom:80%;" />
+
+<p><strong>Logical</strong></p>
+<img src="https://pic.imgdb.cn/item/626fb4d6239250f7c5400ed9.jpg" style="zoom:80%;" />
+
+<p><strong>Data Transfer</strong></p>
+<img src="https://pic.imgdb.cn/item/626fb4fa239250f7c5405a43.jpg" style="zoom:80%;" />
+
+<img src="https://pic.imgdb.cn/item/626fb51a239250f7c5409d42.jpg" style="zoom:80%;" />
+
+<p><strong>Conditional Branch</strong></p>
+<img src="https://pic.imgdb.cn/item/626fb542239250f7c540f7f1.jpg" style="zoom:80%;" />
+
+<p><strong>Comparison</strong></p>
+<img src="https://pic.imgdb.cn/item/626fb566239250f7c54148d6.jpg" style="zoom:80%;" />
+
+<p><strong>Unconditional Jump</strong></p>
+<img src="https://pic.imgdb.cn/item/626fb586239250f7c54184f4.jpg" style="zoom:80%;" />
+
+<p><strong>Registers</strong></p>
+<img src="https://pic.imgdb.cn/item/626fb5c7239250f7c5420cd1.jpg" style="zoom:80%;" />
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/05/01/HighPerformance/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HKU/" rel="tag">HKU</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2022/05/01/Review/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Review</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "5J2nSr5DoqBGRRnpdFfTvawi-gzGzoHsz",
+    app_key: "24GWRfKBASGr6cA5FSBF4NY4",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2022
+        <i class="ri-heart-fill heart_icon"></i> ZHU
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Keep Making Progress"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

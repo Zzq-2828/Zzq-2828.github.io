@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-04-27T09:10:16.649Z</updated>
+  <updated>2022-05-02T14:02:21.175Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>High Performance Computer Architecture</title>
+    <link href="https://www.zzzzzq.com/2022/05/01/HighPerformance/"/>
+    <id>https://www.zzzzzq.com/2022/05/01/HighPerformance/</id>
+    <published>2022-05-01T10:27:32.000Z</published>
+    <updated>2022-05-02T14:02:21.175Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Hong Kong University 2022 summer semester class review —— ELEC6036 High Performance Computer Architecture.&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="HKU" scheme="https://www.zzzzzq.com/categories/HKU/"/>
+    
+    
+    <category term="HKU" scheme="https://www.zzzzzq.com/tags/HKU/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Review</title>
+    <link href="https://www.zzzzzq.com/2022/05/01/Review/"/>
+    <id>https://www.zzzzzq.com/2022/05/01/Review/</id>
+    <published>2022-05-01T10:26:09.000Z</published>
+    <updated>2022-05-01T10:26:10.020Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>applicationLayers</title>
+    <link href="https://www.zzzzzq.com/2022/04/29/applicationLayers/"/>
+    <id>https://www.zzzzzq.com/2022/04/29/applicationLayers/</id>
+    <published>2022-04-29T03:54:12.000Z</published>
+    <updated>2022-04-29T06:26:29.165Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;应用分层&quot;&gt;&lt;a href=&quot;#应用分层&quot; class=&quot;headerlink&quot; title=&quot;应用分层&quot;&gt;&lt;/a&gt;应用分层&lt;/h3&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Sort Algorithms</title>
@@ -38,11 +91,11 @@
   </entry>
   
   <entry>
-    <title>buildup</title>
+    <title>Buildup the Java environment on MacOS</title>
     <link href="https://www.zzzzzq.com/2022/04/26/buildup/"/>
     <id>https://www.zzzzzq.com/2022/04/26/buildup/</id>
     <published>2022-04-26T06:16:18.000Z</published>
-    <updated>2022-04-26T13:08:13.429Z</updated>
+    <updated>2022-05-01T10:32:52.548Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文主要介绍了在Mac上进行开发环境搭建的主要步骤&lt;/p&gt;</summary>
@@ -364,7 +417,7 @@
     <link href="https://www.zzzzzq.com/2022/04/13/Linux/"/>
     <id>https://www.zzzzzq.com/2022/04/13/Linux/</id>
     <published>2022-04-12T18:20:06.000Z</published>
-    <updated>2022-04-13T20:01:40.115Z</updated>
+    <updated>2022-04-27T09:35:15.671Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了Linux的基础知识和常用命令，并且记录了常用软件（JDK，MySQL，Tomcat）的安装步骤和出问题的解决方案。&lt;/p&gt;</summary>
@@ -375,71 +428,6 @@
     
     
     <category term="Linux" scheme="https://www.zzzzzq.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Redis</title>
-    <link href="https://www.zzzzzq.com/2022/04/12/Redis/"/>
-    <id>https://www.zzzzzq.com/2022/04/12/Redis/</id>
-    <published>2022-04-12T13:58:33.000Z</published>
-    <updated>2022-04-12T18:14:47.523Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文简单介绍了Redis这一种非关系型数据库&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Redis" scheme="https://www.zzzzzq.com/categories/Redis/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
-    
-    <category term="Redis" scheme="https://www.zzzzzq.com/tags/Redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Servlet</title>
-    <link href="https://www.zzzzzq.com/2022/04/12/servlet/"/>
-    <id>https://www.zzzzzq.com/2022/04/12/servlet/</id>
-    <published>2022-04-12T13:41:26.000Z</published>
-    <updated>2022-04-12T13:58:50.034Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文简单介绍了Servlet的相关概念&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Tomcat</title>
-    <link href="https://www.zzzzzq.com/2022/04/12/Tomcat/"/>
-    <id>https://www.zzzzzq.com/2022/04/12/Tomcat/</id>
-    <published>2022-04-12T08:24:41.000Z</published>
-    <updated>2022-04-15T06:27:04.566Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文中简单介绍了web的相关概念，另外着重介绍了web服务器软件：Tomcat的基础知识&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
     
   </entry>
   
