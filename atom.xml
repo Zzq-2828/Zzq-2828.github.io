@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-05-02T14:02:21.175Z</updated>
+  <updated>2022-05-03T11:27:23.107Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.zzzzzq.com/2022/05/01/HighPerformance/"/>
     <id>https://www.zzzzzq.com/2022/05/01/HighPerformance/</id>
     <published>2022-05-01T10:27:32.000Z</published>
-    <updated>2022-05-02T14:02:21.175Z</updated>
+    <updated>2022-05-03T11:27:23.107Z</updated>
     
     
     <summary type="html">&lt;p&gt;Hong Kong University 2022 summer semester class review —— ELEC6036 High Performance Computer Architecture.&lt;/p&gt;</summary>
@@ -36,36 +36,23 @@
   </entry>
   
   <entry>
-    <title>Review</title>
-    <link href="https://www.zzzzzq.com/2022/05/01/Review/"/>
-    <id>https://www.zzzzzq.com/2022/05/01/Review/</id>
-    <published>2022-05-01T10:26:09.000Z</published>
-    <updated>2022-05-01T10:26:10.020Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>applicationLayers</title>
     <link href="https://www.zzzzzq.com/2022/04/29/applicationLayers/"/>
     <id>https://www.zzzzzq.com/2022/04/29/applicationLayers/</id>
     <published>2022-04-29T03:54:12.000Z</published>
-    <updated>2022-04-29T06:26:29.165Z</updated>
+    <updated>2022-05-02T16:48:45.263Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;应用分层&quot;&gt;&lt;a href=&quot;#应用分层&quot; class=&quot;headerlink&quot; title=&quot;应用分层&quot;&gt;&lt;/a&gt;应用分层&lt;/h3&gt;&lt;img</summary>
-        
-      
+    <summary type="html">&lt;p&gt;—— ELEC6036 High Performance Computer Architecture.&lt;/p&gt;</summary>
     
     
     
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
     
   </entry>
   
@@ -428,6 +415,29 @@
     
     
     <category term="Linux" scheme="https://www.zzzzzq.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis</title>
+    <link href="https://www.zzzzzq.com/2022/04/12/Redis/"/>
+    <id>https://www.zzzzzq.com/2022/04/12/Redis/</id>
+    <published>2022-04-12T13:58:33.000Z</published>
+    <updated>2022-04-12T18:14:47.523Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文简单介绍了Redis这一种非关系型数据库&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Redis" scheme="https://www.zzzzzq.com/categories/Redis/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
+    
+    <category term="Redis" scheme="https://www.zzzzzq.com/tags/Redis/"/>
     
   </entry>
   

@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.9k</span>
+            <span class="post-count">2.9k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">12 分钟</span>
+            <span class="post-count">18 分钟</span>
         </span>
     </span>
 </div>
@@ -275,7 +275,7 @@
 </ul>
 <h4 id="Issues-in-Pipelined-Design"><a href="#Issues-in-Pipelined-Design" class="headerlink" title="Issues in Pipelined Design"></a>Issues in Pipelined Design</h4><img src="https://pic.imgdb.cn/item/626f7439239250f7c5a839d6.jpg" style="zoom:80%;" />
 
-<h3 id="High-Performance-Techniques-——-Scoreboard"><a href="#High-Performance-Techniques-——-Scoreboard" class="headerlink" title="High Performance Techniques —— Scoreboard"></a>High Performance Techniques —— Scoreboard</h3><ul>
+<h3 id="High-Performance-Techniques"><a href="#High-Performance-Techniques" class="headerlink" title="High Performance Techniques"></a>High Performance Techniques</h3><ul>
 <li>How to Optimize the Pipeline? Extract More Parallelism! (multiple execution-stage PL computers e.g. ADD - EX1 and EX2, etc)</li>
 <li>Compiler-Directed (Static) Approaches<ul>
 <li>VLIW (Very Long Instruction Word)</li>
@@ -452,27 +452,228 @@
 <li>binaries need to be <u>rescheduled (recompiled)</u> for each new processor implementation</li>
 <li>small number of named registers becomes a bottleneck.</li>
 </ul>
-<h3 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h3><h4 id="MIPS-instructions"><a href="#MIPS-instructions" class="headerlink" title="MIPS instructions"></a>MIPS instructions</h4><p><strong>Arithmetic Instructions</strong></p>
+<h3 id="Scoreboard-a-bookkeeping-technique"><a href="#Scoreboard-a-bookkeeping-technique" class="headerlink" title="Scoreboard: a bookkeeping technique"></a>Scoreboard: a bookkeeping technique</h3><ul>
+<li>Out-of-order execution divides <strong>ID stage</strong>:<ul>
+<li><strong>Issue</strong>——decode instructions, check for <strong>structural hazards</strong></li>
+<li><strong>Read operands</strong>——<strong>wait until no data hazards</strong>, then read operands</li>
+</ul>
+</li>
+<li>Scoreboards date to CDC6600 designed in 1963</li>
+<li>Instructions execute whenever not dependent on previous instructions and no hazards</li>
+<li>CDC6600: <strong>in-order issue, out-of-order execution, out-of-order commit</strong> (or completion) (out-of-order or dynamic order&#x2F;scheduling, means that it DOES NOT have to follow the original order of the program code)<ul>
+<li>no forwarding</li>
+<li>imprecise interrupt&#x2F;exception model for now</li>
+</ul>
+</li>
+</ul>
+<h4 id="Scoreboard-Implications"><a href="#Scoreboard-Implications" class="headerlink" title="Scoreboard Implications"></a>Scoreboard Implications</h4><p>Out-of-order completion &#x3D;&#x3D;&gt; WAR, WAW hazards?</p>
+<ul>
+<li>Solutions for WAR:<ul>
+<li><u>stall writeback until registers have been read</u></li>
+<li>read registers only during Read Operands stage</li>
+</ul>
+</li>
+<li>No register renaming!  (This is different from the Tomasulo’s computers to be discussed)</li>
+<li>Need to have multiple instructions in execution phase &#x3D;&#x3D;&gt;multiple execution units or pipelined execution units</li>
+<li>Scoreboard keeps track of dependencies between instructions that have already issued</li>
+<li>Scoreboard replaces ID, EX, WB with 4 stages (ID1(Issue), ID2(Read Operand), EX, WB(or completion))</li>
+</ul>
+<h4 id="Four-Stages-of-Scoreboard-Control"><a href="#Four-Stages-of-Scoreboard-Control" class="headerlink" title="Four Stages of Scoreboard Control"></a>Four Stages of Scoreboard Control</h4><ul>
+<li><p>Issue—decode instructions &amp; check for structural hazards (ID1)</p>
+<ul>
+<li>instructions issued in program order (for hazard checking)</li>
+<li>don’t issue if structural hazard</li>
+<li>don’t issue if instruction is output dependent on any previously issued but uncompleted instruction (no WAW hazards)</li>
+</ul>
+</li>
+<li><p>Read operands—wait until no data hazards, then read operands (ID2)</p>
+<ul>
+<li>all real dependencies (RAW hazards) resolved in this stage, since we wait for instructions to write back data</li>
+<li>no forwarding of data in this model</li>
+</ul>
+</li>
+<li><p>Execution—operate on operands (EX)</p>
+<ul>
+<li>the functional unit begins execution upon receiving operands; when the result is ready, it notifies the scoreboard that it has completed execution</li>
+<li>note that different instructions will require different number of clock cycles for the execution stage!</li>
+</ul>
+</li>
+<li><p>Write result—finish execution (WB)</p>
+<ul>
+<li><strong>stall until no WAR hazards</strong> with previous instructions:</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/626fe9da239250f7c5db2acb.jpg" style="zoom:80%;" /></li>
+</ul>
+<h4 id="Three-Parts-of-the-Scoreboard"><a href="#Three-Parts-of-the-Scoreboard" class="headerlink" title="Three Parts of the Scoreboard"></a>Three Parts of the Scoreboard</h4><ul>
+<li><p><strong>Instruction status</strong>:</p>
+<p>Which of 4 steps the instruction is in</p>
+</li>
+<li><p><strong>Functional unit status</strong>:</p>
+<p>Indicates the state of the functional unit (FU). 9 fields <u>for each functional unit</u>:</p>
+<img src="https://pic.imgdb.cn/item/626fea7f239250f7c5dcf4fc.jpg" style="zoom:80%;" />
+</li>
+<li><p><strong>Register result status</strong>:</p>
+<p>Indicates which <u>functional unit will write each register</u>, if one exists; <u>blank</u> when no pending instructions will write that register</p>
+</li>
+</ul>
+<p><strong>Scoreboard Example:</strong></p>
+<img src="https://pic.imgdb.cn/item/626feb92239250f7c5e041c4.jpg" style="zoom:80%;" />
+
+<h4 id="Summary-of-Concepts-1"><a href="#Summary-of-Concepts-1" class="headerlink" title="Summary of Concepts"></a>Summary of Concepts</h4><ul>
+<li>Compiler scheduling</li>
+<li>HW exploiting ILP<ul>
+<li>works when we can’t possibly know dependencies at compile time</li>
+<li>code for one machine runs well on another</li>
+</ul>
+</li>
+<li>Key idea of scoreboard: allow instructions behind stall to proceed (decode &#x3D;&gt; issue instructions and read operands)<ul>
+<li>enables out-of-order execution &#x3D;&#x3D;&gt; out-of-order completion</li>
+<li>ID stage checked both for structural and data dependencies</li>
+<li>original version didn’t handle forwarding</li>
+<li>no automatic register renaming (Tomasulo’s computer)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Tomasulo-Algorithm"><a href="#Tomasulo-Algorithm" class="headerlink" title="Tomasulo Algorithm"></a>Tomasulo Algorithm</h3><p>Improved Dynamic Instruction Scheduling: Tomasulo Algorithm</p>
+<h4 id="Recall-Compiler-Techniques-for-Parallelism"><a href="#Recall-Compiler-Techniques-for-Parallelism" class="headerlink" title="Recall: Compiler Techniques for Parallelism"></a>Recall: Compiler Techniques for Parallelism</h4><ul>
+<li><strong>Loop unrolling</strong> &#x3D;&gt; multiple iterations of loop in software:<ul>
+<li>amortizes loop overhead over several iterations</li>
+<li>gives more opportunity for scheduling around stalls</li>
+</ul>
+</li>
+<li><strong>Software Pipelining</strong> &#x3D;&gt; take one instruction from each of several iterations of the loop<ul>
+<li>software overlapping of loop iterations</li>
+</ul>
+</li>
+<li><strong>Very Long Instruction Word machines</strong> (VLIW) &#x3D;&gt;multiple operations coded in single, long instruction<ul>
+<li>requires sophisticated compiler to decide which operations can be done in parallel</li>
+<li>trace scheduling &#x3D;&gt; find common path and schedule code as if branches didn’t exist (add “fixup code”)</li>
+</ul>
+</li>
+<li><u>ALL OF THE ABOVE require additional registers</u>!</li>
+</ul>
+<h4 id="Recall-How-are-WAR-and-WAW-hazard-handled-in-scoreboard"><a href="#Recall-How-are-WAR-and-WAW-hazard-handled-in-scoreboard" class="headerlink" title="Recall: How are WAR and WAW hazard handled in scoreboard?"></a>Recall: How are WAR and WAW hazard handled in scoreboard?</h4><ul>
+<li><p><strong>WAR</strong> hazards handled by <u>stalling in WriteBack stage</u></p>
+</li>
+<li><p><strong>WAW</strong> hazards handled by <u>stalling in Issue stage</u></p>
+</li>
+<li><p>Are either of these <em>real</em> hazards???</p>
+<img src="https://pic.imgdb.cn/item/627011fc239250f7c546a61c.jpg" style="zoom:80%;" /></li>
+</ul>
+<h4 id="Tomasulo-Algorithm-vs-Scoreboard"><a href="#Tomasulo-Algorithm-vs-Scoreboard" class="headerlink" title="Tomasulo Algorithm vs. Scoreboard"></a>Tomasulo Algorithm vs. Scoreboard</h4><ul>
+<li>Control and buffers <u>distributed</u> with Function Units (FU) vs. <u>centralized</u> in scoreboard:<ul>
+<li>FU buffers called “<u>reservation stations</u>“(A Buffer to a specific FU), have pending operands</li>
+</ul>
+</li>
+<li>Registers in instructions replaced by values or pointers to reservation stations(RS); called <strong>Register Renaming</strong>. (i.e. pointing to a specific RS to wait for its register result)<ul>
+<li><u>avoids WAR, WAW hazards</u></li>
+<li><u>more reservation stations than registers</u>, so can do optimizations that compilers can’t do</li>
+</ul>
+</li>
+<li>Results to FU <u>from RS</u>, not through registers, over <strong>Common Data Bus</strong> that broadcasts results to all FUs.</li>
+<li>Load and Store treated as FUs with RSs as well</li>
+<li>Integer instructions can go past branches, allowing FP ops beyond basic block in FP queue.</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6270bfa2239250f7c55636f2.jpg" style="zoom:80%;" />
+
+<h4 id="Organization"><a href="#Organization" class="headerlink" title="Organization"></a>Organization</h4><img src="https://pic.imgdb.cn/item/6270b8af239250f7c5461af3.jpg" style="zoom:80%;" />
+
+<h4 id="RS-Components"><a href="#RS-Components" class="headerlink" title="RS Components"></a>RS Components</h4><ul>
+<li>Op: operation to perform in the unit(e.g., add or sub)</li>
+<li>Vj, Vk, Value of source operands<ul>
+<li>store buffers has V field, result to be stored</li>
+</ul>
+</li>
+<li>Qj, Qk: reservation stations producing source registers (value to be written)<ul>
+<li>note: no ready flags as in scoreboard; Qj, Qk &#x3D; 0 &#x3D;&#x3D;&gt; ready</li>
+<li>store buffers only have Qi for RS producing result</li>
+</ul>
+</li>
+<li>Busy: indicates reservation station or FU is busy</li>
+<li>Register result status — indicates which functional unit will write each register, if one exists; blank when no pending instructions that will write that register.</li>
+</ul>
+<h4 id="Three-Stages"><a href="#Three-Stages" class="headerlink" title="Three Stages"></a>Three Stages</h4><p><strong>1. Issue</strong>:</p>
+<ul>
+<li>Get instruction from FP Op Queue<ul>
+<li>if reservation station free (no structural hazard), control issues instructions and sends operands (renames registers);</li>
+</ul>
+</li>
+</ul>
+<p><strong>2. Execution</strong>:</p>
+<ul>
+<li>Operate on operands (EX)<ul>
+<li>when both operands ready then execute; if not ready, watch Common Data Bus for result</li>
+</ul>
+</li>
+</ul>
+<p><strong>3. Write Result</strong>:</p>
+<ul>
+<li>Finish execution (WB)<ul>
+<li>write on Common Data Bus to all awaiting units(all the FU that are waiting for its broadcasted result); mark reservation station available</li>
+</ul>
+</li>
+</ul>
+<p><strong>Remarks</strong>:</p>
+<ul>
+<li>Normal data bus: data + destination (“go to” bus) (i.e. destination-oriented data bus in the conventional computers)</li>
+<li>Common Data Bus: data + source (“come from” bus) (i.e. a NEW source-oriented data bus trying to broadcast result FROM a specific FU as the data source)<ul>
+<li>64 bits of data + 4 bits of Functional Unit source address</li>
+<li>write if matches expected Functional Unit (produces result); does the broadcast</li>
+</ul>
+</li>
+</ul>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><p><strong>Tomasulo Example Cycle 57</strong></p>
+<img src="https://pic.imgdb.cn/item/6270bf24239250f7c5551ddc.jpg" style="zoom:80%;" />
+
+<p><strong>Compare to Scoreboard Cycle 62</strong></p>
+<img src="https://pic.imgdb.cn/item/6270bffa239250f7c55700ed.jpg" style="zoom:80%;" />
+
+<h4 id="Drawbacks"><a href="#Drawbacks" class="headerlink" title="Drawbacks"></a>Drawbacks</h4><ul>
+<li>Complexity<ul>
+<li>delays of 360&#x2F;91, MIPS 10000, IBM 620?</li>
+</ul>
+</li>
+<li>Many associative stores(CDB) at high speed</li>
+<li>Performance limited by Common Data Bus<ul>
+<li>multiple CDBs &#x3D;&#x3D;&gt; more FU logic for parallel associative stores</li>
+</ul>
+</li>
+</ul>
+<h3 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h3><h4 id="MIPS-instructions"><a href="#MIPS-instructions" class="headerlink" title="MIPS instructions"></a>MIPS instructions</h4><ul>
+<li><strong>Arithmetic Instructions</strong></li>
+</ul>
 <img src="https://pic.imgdb.cn/item/626fb4a1239250f7c53f9ffc.jpg" style="zoom:80%;" />
 
-<p><strong>Logical</strong></p>
+<ul>
+<li><strong>Logical</strong></li>
+</ul>
 <img src="https://pic.imgdb.cn/item/626fb4d6239250f7c5400ed9.jpg" style="zoom:80%;" />
 
-<p><strong>Data Transfer</strong></p>
+<ul>
+<li><strong>Data Transfer</strong></li>
+</ul>
 <img src="https://pic.imgdb.cn/item/626fb4fa239250f7c5405a43.jpg" style="zoom:80%;" />
 
 <img src="https://pic.imgdb.cn/item/626fb51a239250f7c5409d42.jpg" style="zoom:80%;" />
 
-<p><strong>Conditional Branch</strong></p>
+<ul>
+<li><strong>Conditional Branch</strong></li>
+</ul>
 <img src="https://pic.imgdb.cn/item/626fb542239250f7c540f7f1.jpg" style="zoom:80%;" />
 
-<p><strong>Comparison</strong></p>
+<ul>
+<li><strong>Comparison</strong></li>
+</ul>
 <img src="https://pic.imgdb.cn/item/626fb566239250f7c54148d6.jpg" style="zoom:80%;" />
 
-<p><strong>Unconditional Jump</strong></p>
+<ul>
+<li><strong>Unconditional Jump</strong></li>
+</ul>
 <img src="https://pic.imgdb.cn/item/626fb586239250f7c54184f4.jpg" style="zoom:80%;" />
 
-<p><strong>Registers</strong></p>
+<ul>
+<li><strong>Registers</strong></li>
+</ul>
 <img src="https://pic.imgdb.cn/item/626fb5c7239250f7c5420cd1.jpg" style="zoom:80%;" />
  
       <!-- reward -->
@@ -552,9 +753,9 @@
   <nav class="article-nav">
     
     
-      <a href="/2022/05/01/Review/" class="article-nav-link">
+      <a href="/2022/04/29/applicationLayers/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Review</div>
+        <div class="article-nav-title">applicationLayers</div>
       </a>
     
   </nav>
