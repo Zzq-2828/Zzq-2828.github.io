@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-05-03T11:27:23.107Z</updated>
+  <updated>2022-05-05T15:24:44.058Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,49 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Startup in MeiTuan</title>
+    <link href="https://www.zzzzzq.com/2022/05/05/startup/"/>
+    <id>https://www.zzzzzq.com/2022/05/05/startup/</id>
+    <published>2022-05-05T06:45:21.000Z</published>
+    <updated>2022-05-05T15:24:44.058Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文记录了一个简易Java开发流程的学习过程&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Projects" scheme="https://www.zzzzzq.com/categories/Projects/"/>
+    
+    
+    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ObjectName</title>
+    <link href="https://www.zzzzzq.com/2022/05/03/objectName/"/>
+    <id>https://www.zzzzzq.com/2022/05/03/objectName/</id>
+    <published>2022-05-03T12:06:12.000Z</published>
+    <updated>2022-05-03T13:48:45.246Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;解释了Java中的各种O(Object)&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>High Performance Computer Architecture</title>
     <link href="https://www.zzzzzq.com/2022/05/01/HighPerformance/"/>
     <id>https://www.zzzzzq.com/2022/05/01/HighPerformance/</id>
     <published>2022-05-01T10:27:32.000Z</published>
-    <updated>2022-05-03T11:27:23.107Z</updated>
+    <updated>2022-05-05T06:35:00.749Z</updated>
     
     
     <summary type="html">&lt;p&gt;Hong Kong University 2022 summer semester class review —— ELEC6036 High Performance Computer Architecture.&lt;/p&gt;</summary>
@@ -145,7 +183,7 @@
     <link href="https://www.zzzzzq.com/2022/04/21/SpringBoot03/"/>
     <id>https://www.zzzzzq.com/2022/04/21/SpringBoot03/</id>
     <published>2022-04-20T17:26:01.000Z</published>
-    <updated>2022-04-21T12:35:35.875Z</updated>
+    <updated>2022-05-03T15:32:36.047Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：SpringBoot整合JUnit，MyBatis，MyBatis-Plus，Druid&lt;/p&gt;
@@ -396,48 +434,6 @@
     <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
     
     <category term="Spring" scheme="https://www.zzzzzq.com/tags/Spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux</title>
-    <link href="https://www.zzzzzq.com/2022/04/13/Linux/"/>
-    <id>https://www.zzzzzq.com/2022/04/13/Linux/</id>
-    <published>2022-04-12T18:20:06.000Z</published>
-    <updated>2022-04-27T09:35:15.671Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了Linux的基础知识和常用命令，并且记录了常用软件（JDK，MySQL，Tomcat）的安装步骤和出问题的解决方案。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Linux" scheme="https://www.zzzzzq.com/categories/Linux/"/>
-    
-    
-    <category term="Linux" scheme="https://www.zzzzzq.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Redis</title>
-    <link href="https://www.zzzzzq.com/2022/04/12/Redis/"/>
-    <id>https://www.zzzzzq.com/2022/04/12/Redis/</id>
-    <published>2022-04-12T13:58:33.000Z</published>
-    <updated>2022-04-12T18:14:47.523Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文简单介绍了Redis这一种非关系型数据库&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Redis" scheme="https://www.zzzzzq.com/categories/Redis/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
-    
-    <category term="Redis" scheme="https://www.zzzzzq.com/tags/Redis/"/>
     
   </entry>
   

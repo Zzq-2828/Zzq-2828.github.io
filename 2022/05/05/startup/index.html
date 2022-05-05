@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>Good questions —— 链表篇 |  Keep Making Progress</title>
+      <title>Startup in MeiTuan |  Keep Making Progress</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-questions03"
+  id="post-startup"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Good questions —— 链表篇
+  Startup in MeiTuan
 </h1>
  
 
@@ -75,11 +75,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2022/03/31/questions03/" class="article-date">
-  <time datetime="2022-03-30T16:00:00.000Z" itemprop="datePublished">2022-03-31</time>
+      <a href="/2022/05/05/startup/" class="article-date">
+  <time datetime="2022-05-05T06:45:21.000Z" itemprop="datePublished">2022-05-05</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+    <a class="article-category-link" href="/categories/Projects/">Projects</a>
   </div>
   
 <div class="word_count">
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">399</span>
+            <span class="post-count">700</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">3 分钟</span>
         </span>
     </span>
 </div>
@@ -111,28 +111,48 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
+  <p>本文记录了一个简易Java开发流程的学习过程</p>
 <span id="more"></span>
 
-<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
-<p>（1）迭代</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><strong>流程</strong>：</p>
+<ul>
+<li>在A服务写一套CRUD，对外提供RPC接口</li>
+<li>在B服务中调用A服务提供的接口，完成数据CRUD</li>
+<li>利用这个项目对接http网关</li>
+</ul>
+<p><strong>设计的技术</strong>：</p>
+<ul>
+<li>MDP（spring boot）</li>
+<li>RPC接口用到thrift，公司内部为MTthrift</li>
+<li>服务注册</li>
+<li>kafka</li>
+<li>redis</li>
+</ul>
+<h3 id="CRUD实现"><a href="#CRUD实现" class="headerlink" title="CRUD实现"></a>CRUD实现</h3><h4 id="DO-Example-mapper生成"><a href="#DO-Example-mapper生成" class="headerlink" title="DO, Example, mapper生成"></a>DO, Example, mapper生成</h4><p>使用MyBatis-generator自动生成，注意在generatorConfig.xml中配置文件路径，表名和实体类名。</p>
+<p>另外注意插件的使用必须在对应的模块（dao模块）下（我一开始直接使用主目录下的generator导致出现了找不到路径的错误）</p>
+<p>一共会生成四个文件：XX.java（实体DO），XXExample.java， XXMapper.java， XXMapper.xml</p>
+<h3 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h3><h4 id="Mybatis中的example类简介"><a href="#Mybatis中的example类简介" class="headerlink" title="Mybatis中的example类简介"></a>Mybatis中的example类简介</h4><p><strong>什么是example类</strong></p>
+<p>mybatis-generator会为每个字段产生Criterion，为底层的mapper.xml创建动态sql。如果表的字段比较多,产生的example类会十分庞大。理论上通过example类可以构造你想到的任何筛选条件。在mybatis-generator中加以配置，配置数据表的生成操作就可以自动生成example了。</p>
+<p><strong>了解example成员变量</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//作用：升序还是降序</span></span><br><span class="line"><span class="comment">//参数格式：字段+空格+asc(desc)</span></span><br><span class="line"><span class="keyword">protected</span> String orderByClause;  </span><br><span class="line"><span class="comment">//作用：去除重复</span></span><br><span class="line"><span class="comment">//true是选择不重复记录，false，反之</span></span><br><span class="line"><span class="keyword">protected</span> <span class="type">boolean</span> distinct;</span><br><span class="line"><span class="comment">//自定义查询条件</span></span><br><span class="line"><span class="comment">//Criteria的集合，集合中对象是由or连接</span></span><br><span class="line"><span class="keyword">protected</span> List&lt;Criteria&gt; oredCriteria;</span><br><span class="line"><span class="comment">//内部类Criteria包含一个Cretiron的集合，</span></span><br><span class="line"><span class="comment">//每一个Criteria对象内包含的Cretiron之间是由  AND连接的</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Criteria</span> <span class="keyword">extends</span> <span class="title class_">GeneratedCriteria</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="title function_">Criteria</span><span class="params">()</span> &#123;<span class="built_in">super</span>();&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//是mybatis中逆向工程中的代码模型</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">GeneratedCriteria</span> &#123;......&#125;</span><br><span class="line"><span class="comment">//是最基本,最底层的Where条件，用于字段级的筛选</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Criterion</span> &#123;......&#125;</span><br></pre></td></tr></table></figure>
 
+<p><strong>example使用前的准备</strong></p>
+<p>比如我的TempDataDOExample是根据TempData表生成的，TempDataDOMapper属于dao层，TempDataDOMapper.xml是对应的映射文件。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TempDataDOMapper</span> <span class="variable">tempDataDOMapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TempDataDOMapper</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//UserMapper接口：</span></span><br><span class="line"><span class="type">long</span> <span class="title function_">countByExample</span><span class="params">(CompetingStoreExample example)</span>;</span><br><span class="line">List&lt;CompetingStore&gt; <span class="title function_">selectByExample</span><span class="params">(CompetingStoreExample example)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在我们的测试类里：</span></span><br><span class="line"><span class="type">TempDataDOExample</span> <span class="variable">example</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TempDataDOExample</span>();</span><br><span class="line">TempDataDOExample.<span class="type">Criteria</span> <span class="variable">criteria</span> <span class="operator">=</span> example.createCriteria();</span><br></pre></td></tr></table></figure>
 
+<p><strong>查询用户数量</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// select count(*) from temp_data</span></span><br><span class="line"><span class="type">long</span> <span class="variable">count</span> <span class="operator">=</span> tempDataDOMapper.countByExample(example);</span><br></pre></td></tr></table></figure>
 
-<p>（2）递归</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>where条件查询或多条件查询</strong></p>
+<p>(注意以下不是对应TempData的代码)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// select * from user where name=&#123;#user.name&#125; and sex=&#123;#user.sex&#125; order by age asc;</span></span><br><span class="line">example.setOrderByClause(“age asc<span class="string">&quot;); //升序</span></span><br><span class="line"><span class="string">example.setDistinct(false); //不去重</span></span><br><span class="line"><span class="string">if(!StringUtils.isNotBlank(user.getName()))&#123;</span></span><br><span class="line"><span class="string">    Criteria.andNameEqualTo(user.getName());</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">if(!StringUtils.isNotBlank(user.getSex()))&#123;</span></span><br><span class="line"><span class="string">    Criteria.andSexEqualTo(user.getSex());</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">List&lt;User&gt; userList=userMapper.selectByExample(example);</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
-<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
-<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
-<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
-<p>（1）找到链表中间节点，并断开</p>
-<p>（2）反转后半部分的链表</p>
-<p>（3）合并两个链表</p>
-<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
-<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
-<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
+<p><strong>模糊查询</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// select * from user where name like %&#123;#user.name&#125;%</span></span><br><span class="line"><span class="keyword">if</span>(!StringUtils.isNotBlank(user.getName()))&#123;</span><br><span class="line">    criteria.andNameLIke(‘%’+name+’%’);</span><br><span class="line">&#125;</span><br><span class="line">List&lt;User&gt; userList=userMapper.selectByExample(example);</span><br></pre></td></tr></table></figure>
+
+<p><strong>分页查询</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// select * from user limit start to rows</span></span><br><span class="line"><span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> (currentPage - <span class="number">1</span>) * rows;</span><br><span class="line"><span class="comment">//分页查询中的一页数量</span></span><br><span class="line">example.setPageSize(rows); </span><br><span class="line"><span class="comment">//开始查询的位置</span></span><br><span class="line">example.setStartRow(start);  </span><br><span class="line">List&lt;User&gt; userList=userMapper.selectByExample(example);</span><br></pre></td></tr></table></figure>
+
  
       <!-- reward -->
       
@@ -197,12 +217,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/03/31/questions03/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/05/05/startup/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Projects/" rel="tag">Projects</a></li></ul>
 
     </footer>
   </div>
@@ -210,19 +230,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2022/03/31/questions02/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            Good questions —— 二叉树篇
-          
-        </div>
-      </a>
     
-    
-      <a href="/2022/03/31/questions/" class="article-nav-link">
+      <a href="/2022/05/03/objectName/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Good questions —— 数组篇</div>
+        <div class="article-nav-title">ObjectName</div>
       </a>
     
   </nav>
