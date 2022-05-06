@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">700</span>
+            <span class="post-count">1k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">3 分钟</span>
+            <span class="post-count">4 分钟</span>
         </span>
     </span>
 </div>
@@ -131,6 +131,34 @@
 <h3 id="CRUD实现"><a href="#CRUD实现" class="headerlink" title="CRUD实现"></a>CRUD实现</h3><h4 id="DO-Example-mapper生成"><a href="#DO-Example-mapper生成" class="headerlink" title="DO, Example, mapper生成"></a>DO, Example, mapper生成</h4><p>使用MyBatis-generator自动生成，注意在generatorConfig.xml中配置文件路径，表名和实体类名。</p>
 <p>另外注意插件的使用必须在对应的模块（dao模块）下（我一开始直接使用主目录下的generator导致出现了找不到路径的错误）</p>
 <p>一共会生成四个文件：XX.java（实体DO），XXExample.java， XXMapper.java， XXMapper.xml</p>
+<h4 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h4><p>测试CRUD的API和example相关API</p>
+<h3 id="提供RPC接口"><a href="#提供RPC接口" class="headerlink" title="提供RPC接口"></a>提供RPC接口</h3><p>(注意这里的代码都不符合工程的规范，仅仅只是简单的尝试使用)</p>
+<p><strong>在client模块下：</strong></p>
+<ul>
+<li><p>写一个CRUDService接口，提供所需要的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ThriftService</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">CRUDService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ThriftMethod</span></span><br><span class="line">    <span class="keyword">public</span> CRUDResponse <span class="title function_">method1</span><span class="params">(CRUDRequest testRequest)</span> <span class="keyword">throws</span> TException;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ThriftMethod</span></span><br><span class="line">    <span class="keyword">public</span> Long <span class="title function_">method2</span><span class="params">(<span class="type">int</span> i)</span> <span class="keyword">throws</span> TException;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>写一个CRUDResponse和CRUDRequest</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ThriftStruct</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CRUDRequest</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ThriftField(value = 1, requiredness = ThriftField.Requiredness.REQUIRED)</span></span><br><span class="line">    <span class="keyword">public</span> Integer <span class="title function_">getId</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ThriftField</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setId</span><span class="params">(Integer id)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ThriftField(2)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ThriftField</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;CRUDRequest&#123;&quot;</span> +</span><br><span class="line">            <span class="string">&quot;id=&quot;</span> + id +</span><br><span class="line">            <span class="string">&quot;, name=&quot;</span> + name +</span><br><span class="line">            <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>在service模块下：</strong></p>
+<ul>
+<li><p>对CRUDService进行实现，写一个CRUDServiceImpl类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@MdpThriftServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CRUDServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">CRUDService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    TempDataDOMapper tempDataDOMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    FunctionConfigDOMapper functionConfigDOMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> CRUDResponse <span class="title function_">method1</span><span class="params">(CRUDRequest testRequest)</span> <span class="keyword">throws</span> TException &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Long <span class="title function_">method2</span><span class="params">(<span class="type">int</span> i)</span> <span class="keyword">throws</span> TException &#123;</span><br><span class="line">        System.out.println(tempDataDOMapper.selectByPrimaryKey(i));</span><br><span class="line">        <span class="keyword">return</span> (<span class="type">long</span>)i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>测试</strong></p>
+<p>在测试类中可以直接调用CRUDService接口进行方法的调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource</span></span><br><span class="line">CRUDService crudService;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testImpl</span><span class="params">()</span> <span class="keyword">throws</span> TException &#123;</span><br><span class="line">    <span class="type">Long</span> <span class="variable">id</span> <span class="operator">=</span> crudService.method2(<span class="number">1</span>);</span><br><span class="line">    System.out.println(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="服务的部署"><a href="#服务的部署" class="headerlink" title="服务的部署"></a>服务的部署</h4><p><strong>注意点</strong>：</p>
+<ul>
+<li><p>注意修改版本号，如从0.0.5到0.0.6-SNAPSHOT</p>
+</li>
+<li><p>注意一定不要合并到master分支上去</p>
+</li>
+</ul>
 <h3 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h3><h4 id="Mybatis中的example类简介"><a href="#Mybatis中的example类简介" class="headerlink" title="Mybatis中的example类简介"></a>Mybatis中的example类简介</h4><p><strong>什么是example类</strong></p>
 <p>mybatis-generator会为每个字段产生Criterion，为底层的mapper.xml创建动态sql。如果表的字段比较多,产生的example类会十分庞大。理论上通过example类可以构造你想到的任何筛选条件。在mybatis-generator中加以配置，配置数据表的生成操作就可以自动生成example了。</p>
 <p><strong>了解example成员变量</strong></p>
@@ -153,7 +181,9 @@
 <p><strong>分页查询</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// select * from user limit start to rows</span></span><br><span class="line"><span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> (currentPage - <span class="number">1</span>) * rows;</span><br><span class="line"><span class="comment">//分页查询中的一页数量</span></span><br><span class="line">example.setPageSize(rows); </span><br><span class="line"><span class="comment">//开始查询的位置</span></span><br><span class="line">example.setStartRow(start);  </span><br><span class="line">List&lt;User&gt; userList=userMapper.selectByExample(example);</span><br></pre></td></tr></table></figure>
 
- 
+
+
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4> 
       <!-- reward -->
       
     </div>
@@ -229,6 +259,15 @@
 
    
   <nav class="article-nav">
+    
+      <a href="/2022/05/05/RPC/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            RPC
+          
+        </div>
+      </a>
     
     
       <a href="/2022/05/03/objectName/" class="article-nav-link">

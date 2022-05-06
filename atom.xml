@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-05-05T15:24:44.058Z</updated>
+  <updated>2022-05-06T13:56:49.639Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,49 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>IDEA常用快捷键总结</title>
+    <link href="https://www.zzzzzq.com/2022/05/06/IDEAtechniques/"/>
+    <id>https://www.zzzzzq.com/2022/05/06/IDEAtechniques/</id>
+    <published>2022-05-06T13:45:49.000Z</published>
+    <updated>2022-05-06T13:56:49.639Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了IDEA常用的一些快捷键，提高开发效率！&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="tools" scheme="https://www.zzzzzq.com/categories/tools/"/>
+    
+    
+    <category term="tools" scheme="https://www.zzzzzq.com/tags/tools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RPC</title>
+    <link href="https://www.zzzzzq.com/2022/05/05/RPC/"/>
+    <id>https://www.zzzzzq.com/2022/05/05/RPC/</id>
+    <published>2022-05-05T15:26:42.000Z</published>
+    <updated>2022-05-06T02:39:09.612Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文简单介绍了RPC框架&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="RPC" scheme="https://www.zzzzzq.com/categories/RPC/"/>
+    
+    
+    <category term="RPC" scheme="https://www.zzzzzq.com/tags/RPC/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Startup in MeiTuan</title>
     <link href="https://www.zzzzzq.com/2022/05/05/startup/"/>
     <id>https://www.zzzzzq.com/2022/05/05/startup/</id>
     <published>2022-05-05T06:45:21.000Z</published>
-    <updated>2022-05-05T15:24:44.058Z</updated>
+    <updated>2022-05-06T13:45:53.251Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文记录了一个简易Java开发流程的学习过程&lt;/p&gt;</summary>
@@ -388,52 +426,6 @@
     <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
     
     <category term="SpringMVC" scheme="https://www.zzzzzq.com/tags/SpringMVC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SSM02 —— 数据源、注解、整合Junit</title>
-    <link href="https://www.zzzzzq.com/2022/04/14/SSM02/"/>
-    <id>https://www.zzzzzq.com/2022/04/14/SSM02/</id>
-    <published>2022-04-14T13:21:27.000Z</published>
-    <updated>2022-04-15T18:10:08.006Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了Spring配置数据源、注解开发、整合Junit部分的基础知识&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/categories/SSM/"/>
-    
-    <category term="Spring" scheme="https://www.zzzzzq.com/categories/SSM/Spring/"/>
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
-    
-    <category term="Spring" scheme="https://www.zzzzzq.com/tags/Spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SSM01 —— IoC,DI</title>
-    <link href="https://www.zzzzzq.com/2022/04/14/SSM01/"/>
-    <id>https://www.zzzzzq.com/2022/04/14/SSM01/</id>
-    <published>2022-04-14T05:07:27.000Z</published>
-    <updated>2022-04-16T18:50:26.543Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了Spring的基础概念和基本配置方法&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/categories/SSM/"/>
-    
-    <category term="Spring" scheme="https://www.zzzzzq.com/categories/SSM/Spring/"/>
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
-    
-    <category term="Spring" scheme="https://www.zzzzzq.com/tags/Spring/"/>
     
   </entry>
   
