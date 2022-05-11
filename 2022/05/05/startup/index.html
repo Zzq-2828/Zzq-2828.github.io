@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1k</span>
+            <span class="post-count">2k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">4 分钟</span>
+            <span class="post-count">8 分钟</span>
         </span>
     </span>
 </div>
@@ -111,7 +111,7 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>本文记录了一个简易Java开发流程的学习过程</p>
+  <p>本文记录了一个简易Java开发流程和服务部署和调用的学习过程</p>
 <span id="more"></span>
 
 <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><strong>流程</strong>：</p>
@@ -120,7 +120,7 @@
 <li>在B服务中调用A服务提供的接口，完成数据CRUD</li>
 <li>利用这个项目对接http网关</li>
 </ul>
-<p><strong>设计的技术</strong>：</p>
+<p><strong>涉及的技术</strong>：</p>
 <ul>
 <li>MDP（spring boot）</li>
 <li>RPC接口用到thrift，公司内部为MTthrift</li>
@@ -131,7 +131,7 @@
 <h3 id="CRUD实现"><a href="#CRUD实现" class="headerlink" title="CRUD实现"></a>CRUD实现</h3><h4 id="DO-Example-mapper生成"><a href="#DO-Example-mapper生成" class="headerlink" title="DO, Example, mapper生成"></a>DO, Example, mapper生成</h4><p>使用MyBatis-generator自动生成，注意在generatorConfig.xml中配置文件路径，表名和实体类名。</p>
 <p>另外注意插件的使用必须在对应的模块（dao模块）下（我一开始直接使用主目录下的generator导致出现了找不到路径的错误）</p>
 <p>一共会生成四个文件：XX.java（实体DO），XXExample.java， XXMapper.java， XXMapper.xml</p>
-<h4 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h4><p>测试CRUD的API和example相关API</p>
+<h4 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h4><p>测试CRUD的API和example相关API，注意测试类要继承BaseTest类</p>
 <h3 id="提供RPC接口"><a href="#提供RPC接口" class="headerlink" title="提供RPC接口"></a>提供RPC接口</h3><p>(注意这里的代码都不符合工程的规范，仅仅只是简单的尝试使用)</p>
 <p><strong>在client模块下：</strong></p>
 <ul>
@@ -156,7 +156,63 @@
 <ul>
 <li><p>注意修改版本号，如从0.0.5到0.0.6-SNAPSHOT</p>
 </li>
-<li><p>注意一定不要合并到master分支上去</p>
+<li><p>注意一定不要合并到master分支上去，要使用自己的分支</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看分支</span></span><br><span class="line">git branch</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">切换到自己的分支</span></span><br><span class="line">git checkout -b zhangqi-local</span><br><span class="line"></span><br><span class="line">git push --set-upstream origin zhangqi-local</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用git进行提交和push</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -a -m &quot;描述文字&quot;</span><br></pre></td></tr></table></figure>
+
+<p>注意也可以通过非命令的方式提交和push，可以查看修改的地方 【根目录】&#x3D;&#x3D;》【Git】 &#x3D;&#x3D;》【提交目录】</p>
+</li>
+</ul>
+<p><strong>服务的发布流程</strong></p>
+<ul>
+<li><p>Devtools中的Services中找到对应的服务</p>
+<p>【To Maven】&#x3D;&#x3D;》【To Maven】&#x3D;&#x3D;》【代码配置】（填写自己的分支）&#x3D;&#x3D;》【To Maven】</p>
+</li>
+<li><p>Devtools中的Cargo中，进入自己的机器。构建服务，选择自己的分支，进行构建，直到状态为success，在【机器列表】中可以看到主机名</p>
+</li>
+<li><p>进入OCTO，调整为线下模式。【用户自检】&#x3D;&#x3D;》【MTthrift自检】&#x3D;&#x3D;》【切换到test】&#x3D;&#x3D;》【接口调用】&#x3D;&#x3D;》选择对应泳道和主机&#x3D;&#x3D;》选择要进行测试的服务接口和调用方法&#x3D;&#x3D;》选择【不配置】压测标识&#x3D;&#x3D;》设置方法的参数，点击【执行】即可查看调用结果</p>
+</li>
+</ul>
+<h3 id="服务的调用"><a href="#服务的调用" class="headerlink" title="服务的调用"></a>服务的调用</h3><ul>
+<li><p>在新的服务下，首先在service模块下的pom.xml和主目录下的pom.xml中要引入相应的dependency</p>
+</li>
+<li><p>写一个service，注意@Service注解需要使用spring包下的，否则会扫描不到。在类内使用@MdpThriftClient调用远程的服务，注意要写上remoteAppKey，其可以在上传的服务的resource目录下找到，也可以在devtools网站下找到，注意不需要设置端口号，让服务自己去配置。另外可能会报无法自动装配的问题（红线），可以不用理会。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.meituan.mdp.boot.starter.thrift.annotation.MdpThriftClient;</span><br><span class="line"><span class="keyword">import</span> com.sankuai.grocerymkthd.interact.tools.client.request.test.CRUDRequest;</span><br><span class="line"><span class="keyword">import</span> com.sankuai.grocerymkthd.interact.tools.client.response.test.CRUDResponse;</span><br><span class="line"><span class="keyword">import</span> com.sankuai.grocerymkthd.interact.tools.client.service.CRUDService;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.TException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhu</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CRUDMTService</span> &#123;</span><br><span class="line">    <span class="meta">@MdpThriftClient(</span></span><br><span class="line"><span class="meta">        remoteAppKey = &quot;com.sankuai.grocerymkthd.interact.tools&quot;,</span></span><br><span class="line"><span class="meta">        timeout = 10000</span></span><br><span class="line"><span class="meta">    )</span></span><br><span class="line">    <span class="keyword">private</span> CRUDService crudService;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> CRUDResponse <span class="title function_">getResponse</span><span class="params">(CRUDRequest request)</span> <span class="keyword">throws</span> TException &#123;</span><br><span class="line">        <span class="keyword">return</span> crudService.method1(request);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getSelection</span><span class="params">(<span class="type">int</span> id)</span> <span class="keyword">throws</span> TException&#123;</span><br><span class="line">        <span class="keyword">return</span> crudService.selectById(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在单元测试UT中，<strong>要指定访问的泳道，因为我们只在自己的泳道上部署了服务</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.meituan.mtrace.Tracer;</span><br><span class="line"><span class="keyword">import</span> com.sankuai.grocerymkthd.interact.mapi.BaseTest;</span><br><span class="line"><span class="keyword">import</span> com.sankuai.grocerymkthd.interact.mapi.simple.CRUDMTService;</span><br><span class="line"><span class="keyword">import</span> com.sankuai.grocerymkthd.interact.tools.client.request.test.CRUDRequest;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.TException;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CRUDServiceTest</span> <span class="keyword">extends</span> <span class="title class_">BaseTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> CRUDMTService crudmtService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test01</span><span class="params">()</span> <span class="keyword">throws</span> TException &#123;</span><br><span class="line">        <span class="comment">// 要指定访问的泳道，因为只在自己的泳道上部署了服务</span></span><br><span class="line">        Tracer.setSwimlane(<span class="string">&quot;zhuzhangqi-yzwgj&quot;</span>);</span><br><span class="line">        System.out.println(crudmtService.getResponse(<span class="keyword">new</span> <span class="title class_">CRUDRequest</span>()));</span><br><span class="line">        System.out.println(crudmtService.getSelection(<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="与HTTP网关的对接"><a href="#与HTTP网关的对接" class="headerlink" title="与HTTP网关的对接"></a>与HTTP网关的对接</h3><p>公司内部使用Shepherd</p>
+<ul>
+<li><p>创建分组</p>
+</li>
+<li><p>创建API，两种方式</p>
+<ul>
+<li>【API分组管理】&#x3D;&#x3D;》【API管理】&#x3D;&#x3D;》【新建API】（传统方式）</li>
+<li>【API分组管理】&#x3D;&#x3D;》【API管理】&#x3D;&#x3D;》【快速创建API】（推荐），输入API名称、后端服务Appkey、服务名、方法名即可完成创建</li>
+</ul>
+</li>
+<li><p>创建完API后，可根据需要将路径、服务参数、返回值进行个性化修改</p>
+<ul>
+<li><p>注意要使用自己的服务要配置泳道：</p>
+<ul>
+<li>方法1：在【http header】或【url query】信息里加swimlane字段，字段值为需要路由的泳道服务</li>
+<li>方法2：如果不希望前端传递泳道信息，可以配置Tracer组件泳道参数，Tracer-Key固定为INF_SWIMLANE，Tracer_Value为泳道名称</li>
+</ul>
+</li>
+<li><p>注意要在【后端请求定义】配置相应的入参，注意DSL表达式的写法</p>
+</li>
+</ul>
+</li>
+<li><p>发布API</p>
+</li>
+<li><p>用POSTMAN测试API，通过查看API文档，可以看到请求路径和path信息</p>
+<ul>
+<li>通过POSTMAN请求url（其中{id}为路径参数，类型为整数型，要用实际参数替换）</li>
+<li>可以在【Params】中给相应的参数赋值</li>
+</ul>
 </li>
 </ul>
 <h3 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h3><h4 id="Mybatis中的example类简介"><a href="#Mybatis中的example类简介" class="headerlink" title="Mybatis中的example类简介"></a>Mybatis中的example类简介</h4><p><strong>什么是example类</strong></p>
@@ -183,7 +239,19 @@
 
 
 
-<h4 id=""><a href="#" class="headerlink" title=""></a></h4> 
+<h4 id="POSTMAN的简单使用"><a href="#POSTMAN的简单使用" class="headerlink" title="POSTMAN的简单使用"></a>POSTMAN的简单使用</h4><p><strong>使用POSTMAN进行接口测试</strong></p>
+<ul>
+<li>新建Collections，相当于在POSTMAN中的一个文件夹</li>
+<li>添加request</li>
+<li>点击发送</li>
+</ul>
+<p><strong>显示的内容</strong></p>
+<ul>
+<li>Params：显示get请求参数</li>
+<li>Authorization：身份认证</li>
+<li>Headers：请求头信息</li>
+</ul>
+ 
       <!-- reward -->
       
     </div>

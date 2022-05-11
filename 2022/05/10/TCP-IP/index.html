@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="朱章齐的个人技术网站" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>TCP/IP知识整理 |  Keep Making Progress</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Keep Making Progress" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-TCP-IP"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  TCP/IP知识整理
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/05/10/TCP-IP/" class="article-date">
+  <time datetime="2022-05-10T08:41:14.000Z" itemprop="datePublished">2022-05-10</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Web/">Web</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">10.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">43 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>本文记录了TCP&#x2F;IP协议的一些基本知识，包括概念、功能和数据包格式</p>
+<span id="more"></span>
+
+<h3 id="1-TCP-x2F-IP-协议体系"><a href="#1-TCP-x2F-IP-协议体系" class="headerlink" title="1. TCP&#x2F;IP 协议体系"></a>1. TCP&#x2F;IP 协议体系</h3><p>为了减少网络设计的复杂性，大多数网络都采用了分层结构。不同的网络，层的数量、名字、内容和功能都不尽相同。相同网络中，一台机器上的第N层与另一台机器上的第N层利用第N层协议进行通信，协议基本上是双方关于如何进行通信所达成的一致。<br> TCP&#x2F;IP参考模型就是一个符合上面描述的网络体系结构。他是依据他的两个主要协议-TCP和IP而命名的。这一网络细分一般是七层：应用层、表示层、会话层、传输层、网络层、数据链路层、物理层。</p>
+<h3 id="2-IP协议"><a href="#2-IP协议" class="headerlink" title="2. IP协议"></a>2. IP协议</h3><h4 id="2-1-概念"><a href="#2-1-概念" class="headerlink" title="2.1  概念"></a>2.1  概念</h4><p>IP协议用于连接多个分组交换网，他提供在具有固定地址长度的主机之间传送数据报，以及根据各个数据包大小的不同，在需要时进行分段和重组大数据报的功能。IP协议仅限于将数据从源端传送到目的端，而不提供可靠的传输服务。在传送出错时，IP协议通过互联网控制消息协议（<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://baike.baidu.com/item/ICMP">ICMP, Internet Control Message Protocol</a>）报告。</p>
+<h4 id="2-2-功能"><a href="#2-2-功能" class="headerlink" title="2.2  功能"></a>2.2  功能</h4><p><strong>IP协议最基本的两个功能：寻址和分段</strong></p>
+<p><strong>寻址：</strong>IP协议根据数据报头中所包含的目的地址将数据报传输到目的端，传送过程中对道路的选择称为<strong>路由</strong><br><strong>分段：</strong>当一些网络只能传送小数据报时，IP协议将数据报分段并在报头里面注明。数据包也可以被标记为“不可分段”，如果一个数据报被如此标记，那么在任何情况下都不准对他进行分段，如果因此到不了目的地，那么数据包就会在中途被丢弃。</p>
+<h4 id="2-3-IP协议数据报的头："><a href="#2-3-IP协议数据报的头：" class="headerlink" title="2.3  IP协议数据报的头："></a>2.3  IP协议数据报的头：</h4><h5 id="2-3-1-IP协议头部格式"><a href="#2-3-1-IP协议头部格式" class="headerlink" title="2.3.1  IP协议头部格式"></a>2.3.1  IP协议头部格式</h5><img src="https://pic.imgdb.cn/item/627a268a09475431293fb0bb.jpg" style="zoom:80%;" />
+
+<ul>
+<li><strong>版本</strong>：记录数据报属于哪个版本的协议，例如可以用此区分出IPv4和IPv6，这个字段可以使得在不同版本间传递数据变得可行。</li>
+<li><strong>头部长</strong>：标明IP协议报头有多长，<strong>其单位是32bit即4个字节</strong>，其最小值为5（<code>5 x 4 = 20 byte</code>，这个长度是除去可选项的长度），从上图中看出，其规定头部长为 4 bit，所以最大值为 15， <code>15 x 4 = 60 byte</code> 可以算出可选项长度最大为40个字节(即 <code>60 byte - 20 byte = 40 byte</code>)</li>
+<li><strong>服务类型</strong>：用来指示当数据报在一个特定网络中传输时对实际服务质量的要求是什么，服务类型字段从左到右由一个3位的优先顺序字段、三个标志位(D、T、R)和两个保留位组成。优先顺序字段用于标志该数据报的优先级，D、T、R三个标志位分别代表是否对低延迟(Delay)、高吞吐量(Throughput)、高可靠性(Reliability)有要求，不过实际上，现在的路由器都忽略服务类型这个字段。</li>
+<li><strong>总长</strong>：是指整个数据报的长度，包括头部和数据部分，<strong>单位是 1 个字节</strong>，从图上可以看出，规定总长位数为16bit，能存储最大数据为65535个字节的数据报。如长的数据报对大部分主机和网络来说是不现实的。所有主机必须能够接收长达576个字节的数据报(不管他们是以整个数据报到达还是以分片到达)，源端主机在确认目的地址能够接收大数据报的情况下才发送大于576字节的数据报。</li>
+<li><strong>标识</strong>：该标识由发送者设定值，主要为了目的主机组装分段时判断新到的报文分段属于哪个分组，所有属于同一分组的报文分段都包含相同的标识。</li>
+<li><strong>标记</strong>：长度为3bit，从前到后分别是<strong>保留位</strong>、<strong>不可分段位</strong>(DF, Don’t Fragment)和<strong>分段位</strong>(MF,More Fragment)。<br> 保留为始终为 0<br> DF位为 1 时表示该分组不能被分段<br> MF位为 1 时表示后面还有该分组的分段，在有分段的情况下，除了最后一个分段该位为 0 外，其他分段该位都为 1</li>
+<li><strong>分段偏移</strong>：标记该分段在数据报的位置，<strong>单位是8个字节</strong>，第一个分段的偏移是 0</li>
+<li><strong>生命期</strong>：用来限制分组生命周期的计数器，<strong>单位是秒</strong>，该字段长度为 8bit ，说明存储的最大数值是 255 ，在实际的应用过程中是以经过的节点计数的，每经过一个节点计数减 1 ，计数减到 0 时，分组要被丢弃。</li>
+<li><strong>协议</strong>：指明IP层所封装的上层协议类型，如ICMP -&gt; 1、IGMP -&gt; 2 、TCP -&gt; 6、UDP -&gt; 17、EIGRP -&gt; 88 、OSPF -&gt; 89等</li>
+<li><strong>头部效验和</strong>：只对头部进行效验，由于头部的一些字段始终在变化(例如：生命期字段)，头部效验和在每个节点都得重新进行计算。</li>
+<li><strong>源地址</strong>：发送报文段的IP地址</li>
+<li><strong>目的地址</strong>：接收报文段的IP地址</li>
+<li><strong>可选项</strong>：可选项对于主机和网关的IP模块来说都是必须实现的，可选是指它们在特定数据报中是否出现是可选的，而不是指他们的实现，每个可选项都以 1 个字节表明它的类型。其长度从1~40个字节之间不固定，主要取决于设置的可选项数目，最终数据长度不够32位的倍数要填充 0 补齐，主要是为了让报头长度是32位的整数倍，一般正常的IP报文头部都是没有可选项的。<br> 目前已定义的可选项有 5 个，分别是安全性(指明数据报的机密程度)、严格路由选择(后面给出所规定的完全路由)、宽松路由选择(后面给出必须要经过的路由)、记录路由(记录下所经路由器附上其IP地址)、时间戳(要求所经路由器都附上其IP地址和时间标记)。</li>
+</ul>
+<h5 id="2-3-2-IP协议头部数据"><a href="#2-3-2-IP协议头部数据" class="headerlink" title="2.3.2  IP协议头部数据"></a>2.3.2  IP协议头部数据</h5><p>下面是我用抓包工具抓到的一个TCP断开的四次握手，其他的咱不管，先看第一次发送FIN类型数据包的IP报头部分</p>
+<img src="https://pic.imgdb.cn/item/627a2795094754312944b85c.jpg" style="zoom:80%;" />
+
+<p>最下面的是数据，去掉以前面<strong>太网首部</strong>的14个字节开始是IP数据报头部分，下面我们对着上面的格式来解析下</p>
+<p>先单独把IP报头数据粘贴下来</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//字节为单位 Hex+ASCII方式显示</span></span><br><span class="line"><span class="number">45</span> <span class="number">00</span> <span class="number">00</span> <span class="number">28</span> a2 ad <span class="number">40</span> <span class="number">00</span> <span class="number">39</span> <span class="number">06</span> <span class="number">0f</span> <span class="number">71</span> b7 <span class="number">83</span> <span class="number">87</span> <span class="number">91</span> <span class="number">0</span>a <span class="number">16</span> <span class="number">46</span> <span class="number">87</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//二进制 bit流显示为</span></span><br><span class="line"><span class="number">01000101</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00101000</span> </span><br><span class="line"><span class="number">10100010</span> <span class="number">10101101</span> <span class="number">01000000</span> <span class="number">00000000</span> </span><br><span class="line"><span class="number">00111001</span> <span class="number">00000110</span> <span class="number">00001111</span> <span class="number">01110001</span> </span><br><span class="line"><span class="number">10110111</span> <span class="number">10000011</span> <span class="number">10000111</span> <span class="number">10010001</span> </span><br><span class="line"><span class="number">00001010</span> <span class="number">00010110</span> <span class="number">01000110</span> <span class="number">10000111</span></span><br></pre></td></tr></table></figure>
+
+
+
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th align="center">位置</th>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>版本</td>
+<td align="center">0-3</td>
+<td>0100</td>
+<td>属于IPv4版本</td>
+</tr>
+<tr>
+<td>头部长</td>
+<td align="center">4-7</td>
+<td>0101</td>
+<td>表示头部长度为20个字节(<code>5 x 4 byte = 20 byte</code>)</td>
+</tr>
+<tr>
+<td>服务类型</td>
+<td align="center">8-31</td>
+<td>00000000</td>
+<td>….</td>
+</tr>
+<tr>
+<td>总长</td>
+<td align="center">32-47</td>
+<td>00000000 00101000</td>
+<td>IP数据报总长(不包括以太网首部) 为 40 个字节(<code>40 x 1 byte = 40 byte</code>)</td>
+</tr>
+<tr>
+<td>标识</td>
+<td align="center">48 - 50</td>
+<td>010</td>
+<td>保留位为 0 ， 不可分段数据报</td>
+</tr>
+<tr>
+<td>分段偏移</td>
+<td align="center">51 - 63</td>
+<td>00000 00000000</td>
+<td>数据偏移为0，数据报属于分组的第一个分段(其实这个数据包是不允许分段的，这里只是一个理论解释)</td>
+</tr>
+<tr>
+<td>生命期</td>
+<td align="center">64 - 71</td>
+<td>00111001</td>
+<td>生命期值是57，理论解释是还可以经过57个节点</td>
+</tr>
+<tr>
+<td>协议</td>
+<td align="center">72 - 79</td>
+<td>00000110</td>
+<td>值为6，表示上层为TCP协议</td>
+</tr>
+<tr>
+<td>头部效验和</td>
+<td align="center">80 - 95</td>
+<td>00001111 01110001</td>
+<td>….</td>
+</tr>
+<tr>
+<td>源地址</td>
+<td align="center">96 - 127</td>
+<td>10110111 10000011 10000111 10010001</td>
+<td>因为IP地址在网络中传播是用网络排序(大端)表示，所以直接按顺序解析，16进制表示：b7.83.87.91，转换成十进制表示为：183.131.135.145</td>
+</tr>
+<tr>
+<td>目的地址</td>
+<td align="center">128 - 159</td>
+<td>00001010 00010110 01000110 10000111</td>
+<td>十进制点形式表示为：10.22.70.135</td>
+</tr>
+<tr>
+<td>可选项</td>
+<td align="center">~</td>
+<td>~</td>
+<td>没有可选项</td>
+</tr>
+</tbody></table>
+<h4 id="2-4-IP地址分类"><a href="#2-4-IP地址分类" class="headerlink" title="2.4  IP地址分类"></a>2.4  IP地址分类</h4><h5 id="2-4-1-IP地址分类"><a href="#2-4-1-IP地址分类" class="headerlink" title="2.4.1  IP地址分类"></a>2.4.1  IP地址分类</h5><p>IP地址包含网络号和主机号两部分，网络号代表一个子网络，主机号则表示该子网络下某一台具体的主机标号，IP地址根据功能和用途的不同可以划分为五类。<br> <strong>A 类地址</strong>：1 . 0 . 0 . 0 ~ 126 . 255 . 255 . 255，前 8 位为网络号，后 24 位为主机号<br> <strong>B 类地址</strong>：128 . 0 . 0 .0 ~ 191 . 255 . 255 . 255，前16位为主机号，后16位为主机号<br> <strong>C 类地址</strong>：192 . 0 . 0 . 0 ~ 223 . 255 . 255 . 255，前24位为网络号，后8位为主机号<br> <strong>D 类地址</strong>：224 . 0 . 0 .0 ~ 239 . 255 . 255 . 255<br> <strong>E 类地址</strong>：240 . 0 . 0 . 0 ~ 254 . 255 . 255 . 255</p>
+<p>A、B、C三类地址是根据网络规模大小来分配给用户的，例如A类地址有24位的主机号，同一个网络下，一个 A 类地址可以容纳 2^24 - 2 &#x3D; 16777213 台主机，但是A类地址一共只能分配 126 个网络(这里只是做一个理论上的运算，并不代表实际分配情况)，所以这类地址一般分配给那些为数不多的大网络。D类地址用来多播，E类地址做保留地址。<br> <strong>另外还有一些特殊地址：</strong><br> ①. 例如主机号全为 1 是该网络的广播地址(例如在一个C类地址的网络中，192. 192 . 192 . 255 , 网络号是前面三个字节， 主机号是后面的一个字节，8位全为1，那么这个地址则是 网络号位 192.192.192.0这个网络的广播地址)。其中 255 . 255 . 255 . 255也是主机所在网络的广播地址；<br> ②. 主机号全为 0 则是该网络的网络地址；<br> ③. 127 . 0 . 0 . 0 ~ 127 . 255 . 255 . 255是主机会送地址，通常用来做网络测试，调试主机与路由是否连接畅通;<br> ④. <strong>其中 10 . 0 . 0 . 0 ~ 10 . 255 . 255 . 255、172 . 16 . 0 . 0 ~ 172 . 31 . 255 . 255、192 . 168 . 0 . 0 ~ 192 . 168 . 255 . 255保留给内部网络使用。</strong></p>
+<h5 id="2-4-2-子网掩码、超网"><a href="#2-4-2-子网掩码、超网" class="headerlink" title="2.4.2  子网掩码、超网"></a>2.4.2  子网掩码、超网</h5><p>传统的IP地址分类确定是不能在网络内部使用路由，这样对于较大的网络，例如一个A类网络，由于主机数太多而变得难以管理，为此引入了子网掩码以从一个大网络上划分成一些小网络。子网掩码由一系列 0 和 1 构成，通过与IP地址做与运算来得到一个IP地址的网络号，例如A类地址的子网掩码是  255 . 0 . 0 . 0，B类地址的子网掩码是 255 . 255 . 0 . 0，C类地址的子网掩码是 255 . 255 . 255 . 0。要是想将一个B类地址(例：129 . 145 . 0 . 0)划分为多个小的C类网络，只需要将其子网掩码设为 255 . 255 . 255 . 0就可以了，这样 129 . 145 . 1 . 0和 129 . 145 . 2 . 0就属于不同网络了，因为虽然是B类地址，但是与给定的子网掩码做与运算出来的网络号不一样了，就属于不同网络。像这样通过子网掩码将一个大网络划分成若干个小网络叫做划分子网。<br> 超网：与子网功能相反，将若干个小网络划分成一个大网络。例如一个单位分配到了8个C类(前三个字节为网络号)地址：202 . 120 . 224 . 0 ~ 202 . 120 . 231 . 0，只要将其子网掩码设置为 255 . 255 . 248 . 0 就能使这些C类网络相通。(PS：这个结果是怎么得来的我现在还不明白，等日后明白了再补上)</p>
+<h3 id="3、TCP协议"><a href="#3、TCP协议" class="headerlink" title="3、TCP协议"></a>3、TCP协议</h3><h4 id="3-1-概念"><a href="#3-1-概念" class="headerlink" title="3.1  概念"></a>3.1  概念</h4><p>TCP协议是用于主机到主机的通信协议。他是面向连接的端到端的可靠协议，提供可靠字节流传输和对上层应用提供连接服务。TCP协议建立在IP协议的基础之上，可以根据IP协议提供的服务传输大小不定的数据段。IP协议负责数据的分段、重组及在多种网络和互联的网关间传输数据报。<br> 为了在不可靠的IP数据传输服务上实现面向连接的可靠数据传输，<strong>TCP协议使用序列号和应答号来保证其传输的可靠性，TCP协议是面向字节流的，每个字节都有一个序列号，一个数据段的第一个字节的序列号将随同数据段被发送，并且作为这个数据段的序列号。数据段同时还带有一个应答序号，表明它期望对方下次发送的字节的顺序号。</strong>当TCP协议传输一个数据段的时候，会同时将其放入重传队列，并启动一个定时器。如果这个数据段的应答能在定时器超时前收到，那么就将它从重传队列中移除，否则重发此数据段。应答未能收到，既可能是接收方未收到所发数据段，也可能是应答本身丢失。<br> TCP协议提供了端口来区分他所处理的不同数据流。由于端口号是由操作系统、TCP协议进程或用户自行确定，所以有可能不唯一。为此将网络地址同端口号组合起来形成套接字保证其在整个互联网络上的唯一性。</p>
+<h4 id="3-2-TCP协议数据报的头"><a href="#3-2-TCP协议数据报的头" class="headerlink" title="3.2  TCP协议数据报的头"></a>3.2  TCP协议数据报的头</h4><h5 id="3-2-1-TCP协议头部格式"><a href="#3-2-1-TCP协议头部格式" class="headerlink" title="3.2.1  TCP协议头部格式"></a>3.2.1  TCP协议头部格式</h5><img src="https://pic.imgdb.cn/item/627a2b47094754312952acfa.jpg" style="zoom:80%;" />
+
+<ul>
+<li><strong>源端口</strong>：发送数据端套接字的端口号</li>
+<li><strong>目的端口</strong>：目的套接字端口号</li>
+<li><strong>顺序号</strong>：该数据报第一个数据字节的序列号，用作标识该报文段序列号</li>
+<li><strong>应答号</strong>：存放的是发送方期望收到的数据段序号，算作是对收到报文的一个确认。ACK标志为 0 时，应答号部分无效(例如首个连接的[SYN]数据包)，ACK标志为1时应答号才有效</li>
+<li><strong>TCP首部长度</strong>：标明TCP协议报头长度，<strong>单位是32bit即4个字节</strong>，其最小值为5（<code>5 x 4 = 20 byte</code>，这个长度是除去可选项的长度），从上图中看出，其规定头部长为 4 bit，所以最大值为 15， <code>15 x 4 = 60 byte</code>可以算出可选项长度大为40个字节(<code>60 byte - 20 byte = 40 byte</code>)</li>
+<li><strong>保留位</strong>：保留字段长度为3位，必须全置为0</li>
+<li><strong>标记</strong>：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">标志位简写</th>
+<th>全写</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">NS</td>
+<td>Nonce</td>
+<td>有效排除潜在的ECN滥用</td>
+</tr>
+<tr>
+<td align="center">CWR</td>
+<td>Congestion Window Reduced</td>
+<td>拥塞窗口减少标志</td>
+</tr>
+<tr>
+<td align="center">ECE</td>
+<td>ECN-Echo</td>
+<td>ECN标志</td>
+</tr>
+<tr>
+<td align="center">URG</td>
+<td>Urgent</td>
+<td>紧急指针有效性标志</td>
+</tr>
+<tr>
+<td align="center">ACK</td>
+<td>Acknowledgment</td>
+<td>确认序号有效性标志，一旦一个连接建立起来，该标志总被置为1</td>
+</tr>
+<tr>
+<td align="center">PSH</td>
+<td>Push</td>
+<td>Push标志（接收方应尽快将报文段提交至应用层）</td>
+</tr>
+<tr>
+<td align="center">RST</td>
+<td>Reset</td>
+<td>重置连接标志</td>
+</tr>
+<tr>
+<td align="center">SYN</td>
+<td>Synchronization</td>
+<td>同步序号标志(建立连接时候使用)</td>
+</tr>
+<tr>
+<td align="center">FIN</td>
+<td>Fin</td>
+<td>传输数据结束标志(断开连接时使用)</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>窗口</strong>：表示发送方还可以接受数据大小，防止对方发送数据大于自己的缓冲数据区，从应答字段的顺序号开始计。</li>
+<li><strong>效验和</strong>：效验和覆盖整个TCP报文段，强制字段，由发送端计算存储，接收端进行验证</li>
+<li><strong>紧急指针</strong>：当Urgent标志置1时，紧急指针才有效</li>
+<li><strong>可选项</strong>：可选项可以有 0 到多个，可选项字段以第一个字节表明其类型，第二个字节表示该可选项的总长度，后面紧跟可选项的值(长度为可选项的总长度-2)。可选项字段可以从任何字节边界开始，但若最后选项长度不足的话，要填充以补足定义的数据段长度。具体解释请看下面 <strong>3.2.2</strong></li>
+</ul>
+<h5 id="3-2-2-TCP报头可选项字段"><a href="#3-2-2-TCP报头可选项字段" class="headerlink" title="3.2.2  TCP报头可选项字段"></a>3.2.2  TCP报头可选项字段</h5><p><strong>TCP报头可选项字段的数据一般拼接格式(不是全部可选项都是这个格式)</strong><br> 类型<code>kind</code>(1byte) + 长度<code>length</code>(1byte) + 值<code>value</code>(length-2byte)</p>
+<p><strong>TCP报头可选项和含义：</strong></p>
+<table>
+<thead>
+<tr>
+<th>kind</th>
+<th>字段</th>
+<th>长度(单位byte)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>End of Option List (EOL)</td>
+<td>0 (没有长度，只有类型)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>No-Operation (NOP)</td>
+<td>0 (没有长度，只有类型)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Maximum segment size (MSS)</td>
+<td>1 (用一个字节来表示该可选项的总长)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Window scale</td>
+<td>1 (用一个字节来表示该可选项的总长)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>SACK Permitted</td>
+<td>1 (用一个字节来表示该可选项的总长)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>SACK</td>
+<td>1 (用一个字节来表示该可选项的总长)</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Timestamps</td>
+<td>1 (用一个字节来表示该可选项的总长)</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>①. End of Option List (EOL)：</strong><code>kind = 0</code>，当可选项总长度不够32位的倍数，用该可选项来填补，实际就是用 0 填补</li>
+<li><strong>②. No-Operation (NOP)：</strong><code>kind = 1</code>，<strong>no operation</strong>，设计该字段主要是用来明确不同可选项之间的分割点，假设有多个可选项的情况下，一般用该可选项来分割下，因此在一个数据包中出现多个nop 也不奇怪的。<strong>注意 No-Operation 可选项没有长度和值，只有一个类型占一个字节，也就是有涉及到该可选项解析只需解析一个字节，后面可能是另一个可选项的类型</strong></li>
+<li><strong>③. Maximum segment size (MSS)：</strong><code>kind = 2</code>，<strong>最大报文传输段</strong>，每一个TCP报文段中数据字段的最大长度，<strong>注意：只是数据部分的字段，不包括TCP的头部</strong>。TCP在三次握手中，每一方都会通告其期望收到的MSS（MSS只出现在SYN数据包中）如果一方不接受另一方的MSS值则定位默认值536byte。<br> MSS值太小或太大都是不合适，太小，例如MSS值只有1byte，那么为了传输这1byte数据，至少要消耗20字节IP头部+20字节TCP头部&#x3D;40byte，这还不包括其二层头部所需要的开销，显然这种数据传输效率是很低的。MSS过大，导致数据包可以封装很大，那么在IP传输中分片的可能性就会增大，接收方在处理分片包所消耗的资源和处理时间都会增大，如果分片在传输中还发生了重传，那么其网络开销也会增大。因此合理的MSS是至关重要的。MSS的合理值应为保证数据包不分片的最大值。对于以太网MSS可以达到1460byte (<code>MTU(1500byte) - IP首部(20byte) - TCP首部(20byte) = 1460byte</code>)。</li>
+<li><strong>④. Window scale：</strong><code>kind = 3</code>，<strong>窗口扩大选项</strong>，我们知道TCP最大的窗口大小为65535byte，在早期网络这是够用的，但随着各种复杂网络的产生，特别是类似卫星通信这种时延和带宽都比较大的通信产生，需要更大窗口来满足性能和高吞吐率，于是窗口扩大选项便产生了。<br> 我们假设 主机A — 主机B 是一条高速的WAN链路，A向B发送大量数据，由于有足够带宽，那么A在很短时间内就可以发送完 65535byte 的数据，而由于窗口过小，A只能停止发送，直到B对A发送的数据进行ACK确认。假设通信距离较远，延时也由于距离的原因变大，这么一发一确认可能需要等上很长时间，在这个等待的时间里面 A-B 是没有实际数据发送的，因此大量的时间被浪费在了等待对方回应上。<br> 这个时候我们可以通过增大窗口的大小来使一次可以传输更多的数据，从而减少等待确认的时间。<br> 窗口扩大选项占值占一个字节，表示移位值S。新的窗口值等于TCP首部的窗口位数从16增大到（16+S）。这相当于把窗口值向左移动S位后获得实际的窗口大小。移位值准许使用的最大值是14，相当于窗口最大值增大到 <code>2^(16+14) = 1073741824 byte = 1048576 kb = 1024 M = 1GB</code>，方便理解和记忆一般用<code>TCP头中的窗口值 x 2^S</code>来表示实际窗口的大小。窗口扩大选项在TCP建立之初进行协商，如果已经实现了窗口扩大，当不再需要其扩大窗口时，发送S&#x3D;0选项就可以恢复到窗口大小为16位。</li>
+<li><strong>⑤. SACK Permitted：</strong> <code>kind = 4</code>，<strong>选择确认选项可以使用</strong>，SACK Permitted 选项在TCP建立连接时由SYN数据包中加上(只有类型和长度，没有值)，表示该链接允许接下来SACK的实现。</li>
+<li><strong>⑥. SACK：</strong> <code>kind = 5</code>，**选择确认选项(Selective Acknowledgements )**，我们假设TCP传输中有这种情况出现，收到的报文无差错，只是未按序列号，中间还缺少一些序列号，那么能否只传输缺少的数据，而不重传已经正确到达的数据？这就是选择确认的技术。<br> 举例：主机A向主机B传输3个数据包，五个包的序号分别是1 2 3，主机B只收到了序号为 1 和 3 的数据包，而中间的2没有收到，那么如果设置可选项SACK的值，这样就可以让A主机知道只传输丢失的序列号为2的块号。<br> 原理：拿上面的例子来说，丢了2号块，收到1和3块号的数据包，那么回给主机A的确认包对于设置SACK值来说就要有一个上下的边界(表明从序列号为多少的字节传输到序列号为多少的字节中间这段数据)，序列号在TCP报头中占4个字节，表示上下边界就需要消耗8个字节(4byte x 2)，由上面讲的可知IP可选项的最大长度为 40 个字节，加上表示SACK字段需要占用1个字节，表示长度也需要占一个字节，因此最多可以指明4个字块的边界信息( <code>(40 - 2) / 8 ≈ 4</code>)。</li>
+<li><strong>⑦. Timestamps：</strong><code>kind = 8</code>，<strong>时间戳选项</strong>，时间戳选项占10个字节，其中最主要的字段时间戳字段（4字节）和时间戳回送回答字段（4字节）。<br> 时间戳选项主要的功能有两个：<ul>
+<li>用来计算往返时间RTT，发送方在发送报文段时把当前时钟的时间值放入时间戳字段，接收方在确认该报文段时把当前时间赋值到时间戳回送回答字段。因此，发送方在收到确认报文后，可以准确计算出RTT。</li>
+<li>PAWS:防止回绕的序号，我们知道序列号只有32位，而每增加2^32 &#x3D; 4294967295 个序列号后就会重复使用原来用过的序列号。假设我们有一条高速网络，通信的主机双方有足够大的带宽用来快速的传输数据。例如1Gb&#x2F;s的速率发送报文段，则不到35秒钟数据字节的序列号就会重复。这样对TCP传输带来混乱的情况。而采用时间戳选项，可以很容易的分辨出相同序列号的数据报，哪个是最近发送，哪个是以前发送的。</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-2-3-TCP协议头部数据"><a href="#3-2-3-TCP协议头部数据" class="headerlink" title="3.2.3  TCP协议头部数据"></a>3.2.3  TCP协议头部数据</h5><p>下面是我用抓包工具抓到的一个TCP断开的四次握手，其他的咱不管，先看第一次发送FIN类型数据包的TCP数据的头部</p>
+<img src="https://pic.imgdb.cn/item/627a2c49094754312955a407.jpg" style="zoom:80%;" />
+
+<p>最下面的是数据，去掉以前面<strong>太网首部</strong> 14 个字节和<strong>IP报头</strong> 20 个字节开始是TCP数据报头部分，下面我们对着上面的格式来解析下</p>
+<p>先单独把TCP头部数据粘贴下来</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//字节为单位 Hex+ASCII方式显示</span></span><br><span class="line"><span class="number">00</span> <span class="number">50</span> d2 <span class="number">21</span> de ce <span class="number">92</span> <span class="number">2b</span> ba da c8 db <span class="number">50</span> <span class="number">11</span> <span class="number">01</span> <span class="number">9b</span> <span class="number">57</span> <span class="number">64</span> <span class="number">00</span> <span class="number">00</span>  </span><br><span class="line"></span><br><span class="line"><span class="comment">//二进制 bit流显示</span></span><br><span class="line"><span class="number">00000000</span> <span class="number">01010000</span> <span class="number">11010010</span> <span class="number">00100001</span> </span><br><span class="line"><span class="number">11011110</span> <span class="number">11001110</span> <span class="number">10010010</span> <span class="number">00101011</span> </span><br><span class="line"><span class="number">10111010</span> <span class="number">11011010</span> <span class="number">11001000</span> <span class="number">11011011</span> </span><br><span class="line"><span class="number">01010000</span> <span class="number">00010001</span> <span class="number">00000001</span> <span class="number">10011011</span> </span><br><span class="line"><span class="number">01010111</span> <span class="number">01100100</span> <span class="number">00000000</span> <span class="number">00000000</span>   </span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th align="center">位置</th>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>源端口</td>
+<td align="center">0 - 15</td>
+<td>00000000 01010000</td>
+<td>网络字节排序解析，源端口为 80</td>
+</tr>
+<tr>
+<td>目的端口</td>
+<td align="center">16 - 31</td>
+<td>11010010 00100001</td>
+<td>目的端口 53793</td>
+</tr>
+<tr>
+<td>顺序号</td>
+<td align="center">32 - 63</td>
+<td>11011110 11001110 10010010 00101011</td>
+<td>顺序号为~</td>
+</tr>
+<tr>
+<td>应答号</td>
+<td align="center">64 - 95</td>
+<td>10111010 11011010 11001000 11011011</td>
+<td>确认号为~</td>
+</tr>
+<tr>
+<td>TCP首部长度</td>
+<td align="center">96 - 99</td>
+<td>0101</td>
+<td>长度为20字节 <code>5 x 4 byte = 29 byte</code></td>
+</tr>
+<tr>
+<td>保留位</td>
+<td align="center">100 - 102</td>
+<td>000</td>
+<td>~</td>
+</tr>
+<tr>
+<td>标记</td>
+<td align="center">103 - 111</td>
+<td>0 00010001</td>
+<td>ACK位为 1 标记应答号有效，FIN位为 1 表示该数据包为结束标识数据包</td>
+</tr>
+<tr>
+<td>窗口</td>
+<td align="center">112 - 127</td>
+<td>00000001 10011011</td>
+<td>窗口值为411，标识发送套接字缓存区最大容纳411字节数据</td>
+</tr>
+<tr>
+<td>效验和</td>
+<td align="center">128 - 143</td>
+<td>01010111 01100100</td>
+<td>~</td>
+</tr>
+<tr>
+<td>紧急指针</td>
+<td align="center">144 - 159</td>
+<td>00000000 00000000</td>
+<td>紧急指针标记位(URG)为1时这里的数据才有效</td>
+</tr>
+<tr>
+<td>可选项</td>
+<td align="center">~</td>
+<td>~</td>
+<td>~</td>
+</tr>
+</tbody></table>
+<h4 id="3-3-TCP通信数据交互细节和实践"><a href="#3-3-TCP通信数据交互细节和实践" class="headerlink" title="3.3  TCP通信数据交互细节和实践"></a>3.3  TCP通信数据交互细节和实践</h4><p>关于TCP连接的三次握手、中间数据交互以及断开连接的四次握手理论部分请参考我前面的一片文章<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1b71b6ff4334">套接字(Socket)编程(二) 内部通信原理</a>，这里就不做重复的解释了</p>
+<h5 id="3-3-1-TCP建立连接的三次握手抓包数据部分"><a href="#3-3-1-TCP建立连接的三次握手抓包数据部分" class="headerlink" title="3.3.1  TCP建立连接的三次握手抓包数据部分"></a>3.3.1  TCP建立连接的三次握手抓包数据部分</h5><p>首先来看下抓包过程截图</p>
+<img src="https://pic.imgdb.cn/item/627a2fdf0947543129600c42.jpg" style="zoom:80%;" />
+
+<p>① 客户端发送[SYN]同步消息</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以太网头部+IP报头+TCP报头+TCP数据(字节为单位位 Hex+ASCII方式显示)</span></span><br><span class="line"><span class="number">88</span> <span class="number">25</span> <span class="number">93</span> <span class="number">02</span> b7 <span class="number">8</span>c <span class="number">78</span> <span class="number">4f</span> <span class="number">43</span> <span class="number">5b</span> <span class="number">56</span> <span class="number">75</span> <span class="number">08</span> <span class="number">00</span> <span class="number">45</span> <span class="number">00</span></span><br><span class="line"><span class="number">00</span> <span class="number">40</span> <span class="number">00</span> <span class="number">00</span> <span class="number">40</span> <span class="number">00</span> <span class="number">40</span> <span class="number">06</span> f6 <span class="number">72</span> <span class="number">0</span>a <span class="number">16</span> <span class="number">46</span> <span class="number">87</span> cb d0</span><br><span class="line"><span class="number">27</span> d8 d2 <span class="number">23</span> <span class="number">01</span> bb <span class="number">2</span>e f0 <span class="number">89</span> c5 <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> b0 <span class="number">02</span></span><br><span class="line">ff ff b3 <span class="number">39</span> <span class="number">00</span> <span class="number">00</span> <span class="number">02</span> <span class="number">04</span> <span class="number">05</span> b4 <span class="number">01</span> <span class="number">03</span> <span class="number">03</span> <span class="number">05</span> <span class="number">01</span> <span class="number">01</span></span><br><span class="line"><span class="number">08</span> <span class="number">0</span>a <span class="number">32</span> a6 <span class="number">80</span> <span class="number">43</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">04</span> <span class="number">02</span> <span class="number">00</span> <span class="number">00</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//提取TCP报头+TCP数据(去掉以太网头部14byte和IP报头20byte)</span></span><br><span class="line">d2 <span class="number">23</span> <span class="number">01</span> bb </span><br><span class="line"><span class="number">2</span>e f0 <span class="number">89</span> c5 </span><br><span class="line"><span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> </span><br><span class="line">b0 <span class="number">02</span> ff ff </span><br><span class="line">b3 <span class="number">39</span> <span class="number">00</span> <span class="number">00</span> </span><br><span class="line"><span class="number">02</span> <span class="number">04</span> <span class="number">05</span> b4 <span class="number">01</span> <span class="number">03</span> <span class="number">03</span> <span class="number">05</span> <span class="number">01</span> <span class="number">01</span> <span class="number">08</span> <span class="number">0</span>a <span class="number">32</span> a6 <span class="number">80</span> <span class="number">43</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">04</span> <span class="number">02</span> <span class="number">00</span> <span class="number">00</span></span><br></pre></td></tr></table></figure>
+
+<p>解析：从上面可以解析出源端口号为：0xd23 &#x3D; 353795；目的端口号：0x01bb &#x3D; 443；序列号：SEQ &#x3D; 0x2ef089c5；ACK &#x3D; 0x00000000；TCP报头长为：<code>0xb = 11(32 bit)，11 x 4 byte = 44 byte</code>，即TCP报头长为 44 个字节；窗口大小为 0xffff &#x3D; 65535 byte；<br> 保留位和标志位：0x002 &#x3D; 0b000000000010；<strong>按位解析标志位为 0b000000010</strong>，NS: 0，CWR: 0，ECE: 0，URG: 0，ACK: 0，PSH: 0，RST: 0，SYN: 1，FIN: 0，<strong>从解析里面可以看出该报文ACK字段无效，只有SYN字段有效，是第一个请求连接[SYN]同步数据报</strong>；<br> 可选项部分：可以看出该TCP报头最后的24个字节表示可选项，解析如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">02</span> <span class="number">04</span> <span class="number">05</span> b4            kind = <span class="number">2</span>, <span class="built_in">len</span> = <span class="number">4</span>，MMS Value = <span class="number">0x05b4</span> 表示MSS = <span class="number">1460</span><span class="type">byte</span></span><br><span class="line"><span class="number">01</span>                     kind = <span class="number">1</span>  No-Operation</span><br><span class="line"><span class="number">03</span> <span class="number">03</span> <span class="number">05</span>               kind = <span class="number">3</span>，<span class="built_in">len</span> = <span class="number">3</span>，value = <span class="number">0x05</span>  窗口选项偏移<span class="number">5</span>位，即实际窗口大小为 <span class="number">0xffff</span> x <span class="number">2</span>^<span class="number">5</span></span><br><span class="line"><span class="number">01</span>                     kind = <span class="number">1</span>  No-Operation</span><br><span class="line"><span class="number">01</span>                     kind = <span class="number">1</span>  No-Operation</span><br><span class="line"><span class="number">08</span> <span class="number">0</span>a <span class="number">32</span> a6 <span class="number">80</span> <span class="number">43</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>   kind = <span class="number">8</span>，<span class="built_in">len</span> = <span class="number">10</span>  时间戳选项，Timestamp Value(TSval): <span class="number">0x32a68043</span> = <span class="number">849772611</span>，Timestamp echo reply(TSecr): <span class="number">0</span></span><br><span class="line"><span class="number">04</span> <span class="number">02</span>                  kind = <span class="number">4</span>，<span class="built_in">len</span>  =<span class="number">2</span>  SACK Permitted，选择确认选项有效</span><br><span class="line"><span class="number">00</span> <span class="number">00</span>                  kind = <span class="number">0</span>  补充够<span class="number">32</span>bit，即<span class="number">4</span><span class="type">byte</span>的倍数</span><br></pre></td></tr></table></figure>
+
+<p>② 服务器回复[SYN+ACK]消息</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以太网头部+IP报头+TCP报头+TCP数据(字节为单位位 Hex+ASCII方式显示)</span></span><br><span class="line"><span class="number">78</span> <span class="number">4f</span> <span class="number">43</span> <span class="number">5b</span> <span class="number">56</span> <span class="number">75</span> <span class="number">88</span> <span class="number">25</span> <span class="number">93</span> <span class="number">02</span> b7 <span class="number">8</span>c <span class="number">08</span> <span class="number">00</span> <span class="number">45</span> <span class="number">00</span></span><br><span class="line"><span class="number">00</span> <span class="number">3</span>c <span class="number">66</span> f2 <span class="number">00</span> <span class="number">00</span> <span class="number">38</span> <span class="number">06</span> d7 <span class="number">84</span> cb d0 <span class="number">27</span> d8 <span class="number">0</span>a <span class="number">16</span></span><br><span class="line"><span class="number">46</span> <span class="number">87</span> <span class="number">01</span> bb d2 <span class="number">23</span> f4 <span class="number">36</span> <span class="number">9f</span> <span class="number">4</span>a <span class="number">2</span>e f0 <span class="number">89</span> c6 a0 <span class="number">12</span></span><br><span class="line"><span class="number">71</span> <span class="number">20</span> a5 e3 <span class="number">00</span> <span class="number">00</span> <span class="number">02</span> <span class="number">04</span> <span class="number">05</span> a0 <span class="number">04</span> <span class="number">02</span> <span class="number">08</span> <span class="number">0</span>a d6 c8</span><br><span class="line"><span class="number">42</span> f0 <span class="number">32</span> a6 <span class="number">80</span> <span class="number">43</span> <span class="number">01</span> <span class="number">03</span> <span class="number">03</span> <span class="number">08</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//提取TCP报头+TCP数据(去掉以太网头部14byte和IP报头20byte)</span></span><br><span class="line"><span class="number">01</span> bb d2 <span class="number">23</span> </span><br><span class="line">f4 <span class="number">36</span> <span class="number">9f</span> <span class="number">4</span>a </span><br><span class="line"><span class="number">2</span>e f0 <span class="number">89</span> c6 </span><br><span class="line">a0 <span class="number">12</span> <span class="number">71</span> <span class="number">20</span> </span><br><span class="line">a5 e3 <span class="number">00</span> <span class="number">00</span> </span><br><span class="line"><span class="number">02</span> <span class="number">04</span> <span class="number">05</span> a0 <span class="number">04</span> <span class="number">02</span> <span class="number">08</span> <span class="number">0</span>a d6 c8 <span class="number">42</span> f0 <span class="number">32</span> a6 <span class="number">80</span> <span class="number">43</span> <span class="number">01</span> <span class="number">03</span> <span class="number">03</span> <span class="number">08</span></span><br></pre></td></tr></table></figure>
+
+<p>解析：从上面可以解析出源端口号为：0x01bb &#x3D; 443；目的端口号：0xd23 &#x3D; 353795；序列号：SEQ &#x3D; 0xf4369f4a；ACK &#x3D; 0x2ef089c6**(即第一个包的SEQ+1，对第一个同步包的确认)<strong>；TCP报头长为：0xa &#x3D; 10(32 bit)，10 x 4 byte &#x3D; 40 byte，即TCP报头长为 40 个字节；窗口大小为 0x7120 &#x3D;28960 byte；<br> 保留位和标志位：0x012 &#x3D; 0b000000010010；按位解析标志位为 0b000010010，NS: 0，CWR: 0，ECE: 0，URG: 0，ACK: 1，PSH: 0，RST: 0，SYN: 1，FIN: 0，</strong>从解析里面可以看出该报文ACK字段和SYN字段有效，是对第一个连接请求包的确认[SYN+ACK]数据报**；<br> 可选项部分：可以看出该TCP报头最后的20个字节表示可选项，解析如下</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">02</span> <span class="number">04</span> <span class="number">05</span> a0       kind = <span class="number">2</span>, len = <span class="number">4</span>，<span class="keyword">value</span> = <span class="number">0x05a0</span> 表示MSS = <span class="number">1440</span> <span class="built_in">byte</span></span><br><span class="line"><span class="number">04</span> <span class="number">02</span>             kind = <span class="number">4</span>  SACK Permitted，选择确认选项有效</span><br><span class="line"><span class="number">08</span> <span class="number">0</span>a d6 c8 <span class="number">42</span> f0 <span class="number">32</span> a6 <span class="number">80</span> <span class="number">43</span>  kind = <span class="number">8</span>, len = <span class="number">10</span> 时间戳选项，<span class="function">Timestamp <span class="title">Value</span>(<span class="params">TSval</span>): 0xd6c842f0</span> = <span class="number">36033448560</span>，<span class="function">Timestamp echo <span class="title">reply</span>(<span class="params">TSecr</span>): 0x32a68043</span> = <span class="number">849772611</span></span><br><span class="line"><span class="number">01</span>   kind = <span class="number">1</span>     NOP</span><br><span class="line"><span class="number">03</span> <span class="number">03</span> <span class="number">08</span>  kind = <span class="number">3</span>, len = <span class="number">3</span>，<span class="keyword">value</span> = <span class="number">8</span> 窗口选项偏移<span class="number">8</span>位，即实际窗口大小为 <span class="number">0x7120</span> x <span class="number">2</span>^<span class="number">8</span></span><br></pre></td></tr></table></figure>
+
+<p>③ 客户端回复[ACK]消息，表示连接成功</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以太网头部+IP报头+TCP报头+TCP数据(字节为单位位 Hex+ASCII方式显示)</span></span><br><span class="line"><span class="number">88</span> <span class="number">25</span> <span class="number">93</span> <span class="number">02</span> b7 <span class="number">8</span>c <span class="number">78</span> <span class="number">4f</span> <span class="number">43</span> <span class="number">5b</span> <span class="number">56</span> <span class="number">75</span> <span class="number">08</span> <span class="number">00</span> <span class="number">45</span> <span class="number">00</span></span><br><span class="line"><span class="number">00</span> <span class="number">34</span> <span class="number">00</span> <span class="number">00</span> <span class="number">40</span> <span class="number">00</span> <span class="number">40</span> <span class="number">06</span> f6 <span class="number">7</span>e <span class="number">0</span>a <span class="number">16</span> <span class="number">46</span> <span class="number">87</span> cb d0</span><br><span class="line"><span class="number">27</span> d8 d2 <span class="number">23</span> <span class="number">01</span> bb <span class="number">2</span>e f0 <span class="number">89</span> c6 f4 <span class="number">36</span> <span class="number">9f</span> <span class="number">4b</span> <span class="number">80</span> <span class="number">10</span></span><br><span class="line"><span class="number">10</span> <span class="number">09</span> <span class="number">35</span> <span class="number">75</span> <span class="number">00</span> <span class="number">00</span> <span class="number">01</span> <span class="number">01</span> <span class="number">08</span> <span class="number">0</span>a <span class="number">32</span> a6 <span class="number">80</span> <span class="number">82</span> d6 c8</span><br><span class="line"><span class="number">42</span> f0</span><br><span class="line"></span><br><span class="line"><span class="comment">//提取TCP报头+TCP数据(去掉以太网头部14byte和IP报头20byte)</span></span><br><span class="line">d2 <span class="number">23</span> <span class="number">01</span> bb </span><br><span class="line"><span class="number">2</span>e f0 <span class="number">89</span> c6 </span><br><span class="line">f4 <span class="number">36</span> <span class="number">9f</span> <span class="number">4b</span> </span><br><span class="line"><span class="number">80</span> <span class="number">10</span> <span class="number">10</span> <span class="number">09</span> </span><br><span class="line"><span class="number">35</span> <span class="number">75</span> <span class="number">00</span> <span class="number">00</span> </span><br><span class="line"><span class="number">01</span> <span class="number">01</span> <span class="number">08</span> <span class="number">0</span>a <span class="number">32</span> a6 <span class="number">80</span> <span class="number">82</span> d6 c8 <span class="number">42</span> f0</span><br></pre></td></tr></table></figure>
+
+<p>解析：从上面可以解析出源端口号为：0xd23 &#x3D; 353795；目的端口号：0x01bb &#x3D; 443；序列号：SEQ &#x3D; 0x2ef089c6；ACK &#x3D; 0xf4369f4b (即上一个包的SEQ +1，对上一个同步包的确认)；TCP报头长为：0x8 &#x3D; 8(32 bit)，8 x 4 byte &#x3D; 32 byte，即TCP报头长为 32 个字节；窗口大小为 0x1009  &#x3D;4105 byte；<br> 保留位和标志位：0x010 &#x3D; 0b000000010000；按位解析标志位为 0b000010000，NS: 0，CWR: 0，ECE: 0，URG: 0，ACK: 1，PSH: 0，RST: 0，SYN: 0，FIN: 0，<strong>从解析里面可以看出该报文ACK字段有效，是对上一个服务器确认请求连接包的确认[ACK]数据报</strong>；<br> 可选项部分：可以看出该TCP报头最后的12个字节表示可选项，解析如下</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">01</span>     kind = <span class="number">1</span>     NOP</span><br><span class="line"><span class="number">01</span>     kind = <span class="number">1</span>     NOP</span><br><span class="line"><span class="number">08</span> <span class="number">0</span>a <span class="number">32</span> a6 <span class="number">80</span> <span class="number">82</span> d6 c8 <span class="number">42</span> f0  时间戳选项，<span class="function">Timestamp <span class="title">Value</span>(<span class="params">TSval</span>): 0x32a68082</span> = <span class="number">849772674</span>，<span class="function">Timestamp echo <span class="title">reply</span>(<span class="params">TSecr</span>): 0xd6c842f0</span> = <span class="number">36033448560</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="3-3-2-TCP数据交互抓包数据部分"><a href="#3-3-2-TCP数据交互抓包数据部分" class="headerlink" title="3.3.2  TCP数据交互抓包数据部分"></a>3.3.2  TCP数据交互抓包数据部分</h5><p>下面来一组TCP连接中间交换数据部分</p>
+<p>① 客户端发送数据</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以太网头部+IP报头+TCP报头+TCP数据(字节为单位位 Hex+ASCII方式显示)</span></span><br><span class="line"><span class="number">88</span> <span class="number">25</span> <span class="number">93</span> <span class="number">02</span> b7 <span class="number">8</span>c <span class="number">78</span> <span class="number">4</span>f <span class="number">43</span> <span class="number">5</span>b <span class="number">56</span> <span class="number">75</span> <span class="number">08</span> <span class="number">00</span> <span class="number">45</span> <span class="number">00</span></span><br><span class="line"><span class="number">00</span> f5 <span class="number">00</span> <span class="number">00</span> <span class="number">40</span> <span class="number">00</span> <span class="number">40</span> <span class="number">06</span> f5 bd <span class="number">0</span>a <span class="number">16</span> <span class="number">46</span> <span class="number">87</span> cb d0</span><br><span class="line"><span class="number">27</span> d8 d2 <span class="number">23</span> <span class="number">01</span> bb <span class="number">2</span>e f0 <span class="number">89</span> c6 f4 <span class="number">36</span> <span class="number">9</span>f <span class="number">4</span>b <span class="number">80</span> <span class="number">18</span></span><br><span class="line"><span class="number">10</span> <span class="number">09</span> <span class="number">43</span> d2 <span class="number">00</span> <span class="number">00</span> <span class="number">01</span> <span class="number">01</span> <span class="number">08</span> <span class="number">0</span>a <span class="number">32</span> a6 <span class="number">80</span> <span class="number">82</span> d6 c8</span><br><span class="line"><span class="number">42</span> f0  + <span class="number">193</span><span class="type">byte</span> TCP数据</span><br><span class="line"></span><br><span class="line"><span class="comment">//提取TCP报头+TCP数据(去掉以太网头部14byte和IP报头20byte)</span></span><br><span class="line">d2 <span class="number">23</span> <span class="number">01</span> bb </span><br><span class="line"><span class="number">2</span>e f0 <span class="number">89</span> c6 </span><br><span class="line">f4 <span class="number">36</span> <span class="number">9</span>f <span class="number">4</span>b </span><br><span class="line"><span class="number">80</span> <span class="number">18</span> <span class="number">10</span> <span class="number">09</span> </span><br><span class="line"><span class="number">43</span> d2 <span class="number">00</span> <span class="number">00</span> </span><br><span class="line"><span class="number">01</span> <span class="number">01</span> <span class="number">08</span> <span class="number">0</span>a <span class="number">32</span> a6 <span class="number">80</span> <span class="number">82</span> d6 c8 <span class="number">42</span> f0  </span><br><span class="line">+ <span class="number">193</span><span class="type">byte</span> TCP数据</span><br></pre></td></tr></table></figure>
+
+<p>解析：从上面可以解析出源端口号为：0xd23 &#x3D; 353795；目的端口号：0x01bb &#x3D; 443；序列号：SEQ &#x3D; 0x2ef089c6；ACK &#x3D; 0xf4369f4b；TCP报头长为：0x8 &#x3D; 8(32 bit)，8 x 4 byte &#x3D; 32 byte，即TCP报头长为 32 个字节；窗口大小为 0x1009 &#x3D;4105 byte；<br> 保留位和标志位：0x018 &#x3D; 0b000000011000；按位解析标志位为 0b000011000，NS: 0，CWR: 0，ECE: 0，URG: 0，ACK: 1，PSH: 1，RST: 0，SYN: 0，FIN: 0，<strong>从解析里面可以看出该报文ACK字段和PUSH有效，希望传输层尽快将数据交到应用层</strong>；<br> 可选项部分：可以看出该TCP报头最后的12个字节表示可选项</p>
+<p>②  服务器端回复ACK确认</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以太网头部+IP报头+TCP报头+TCP数据(字节为单位位 Hex+ASCII方式显示)</span></span><br><span class="line"><span class="number">78</span> <span class="number">4f</span> <span class="number">43</span> <span class="number">5b</span> <span class="number">56</span> <span class="number">75</span> <span class="number">88</span> <span class="number">25</span> <span class="number">93</span> <span class="number">02</span> b7 <span class="number">8</span>c <span class="number">08</span> <span class="number">00</span> <span class="number">45</span> <span class="number">00</span></span><br><span class="line"><span class="number">00</span> <span class="number">34</span> <span class="number">66</span> fa <span class="number">00</span> <span class="number">00</span> <span class="number">38</span> <span class="number">06</span> d7 <span class="number">84</span> cb d0 <span class="number">27</span> d8 <span class="number">0</span>a <span class="number">16</span></span><br><span class="line"><span class="number">46</span> <span class="number">87</span> <span class="number">01</span> bb d2 <span class="number">23</span> f4 <span class="number">36</span> <span class="number">9f</span> <span class="number">4b</span> <span class="number">2</span>e f0 <span class="number">8</span>a <span class="number">87</span> <span class="number">80</span> <span class="number">10</span></span><br><span class="line"><span class="number">00</span> <span class="number">76</span> <span class="number">44</span> <span class="number">09</span> <span class="number">00</span> <span class="number">00</span> <span class="number">01</span> <span class="number">01</span> <span class="number">08</span> <span class="number">0</span>a d6 c8 <span class="number">43</span> <span class="number">2</span>e <span class="number">32</span> a6</span><br><span class="line"><span class="number">80</span> <span class="number">82</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//提取TCP报头+TCP数据(去掉以太网头部14byte和IP报头20byte)</span></span><br><span class="line"><span class="number">01</span> bb d2 <span class="number">23</span> </span><br><span class="line">f4 <span class="number">36</span> <span class="number">9f</span> <span class="number">4b</span> </span><br><span class="line"><span class="number">2</span>e f0 <span class="number">8</span>a <span class="number">87</span> </span><br><span class="line"><span class="number">80</span> <span class="number">10</span> <span class="number">00</span> <span class="number">76</span> </span><br><span class="line"><span class="number">44</span> <span class="number">09</span> <span class="number">00</span> <span class="number">00</span> </span><br><span class="line"><span class="number">01</span> <span class="number">01</span> <span class="number">08</span> <span class="number">0</span>a d6 c8 <span class="number">43</span> <span class="number">2</span>e <span class="number">32</span> a6 <span class="number">80</span> <span class="number">82</span></span><br></pre></td></tr></table></figure>
+
+<p>解析：从上面可以解析出源端口号为：0x01bb &#x3D; 443；目的端口号：0xd23 &#x3D; 353795；序列号：SEQ &#x3D; 0xf4369f4b；<br> ACK &#x3D; 0x2ef08a87**(前面数据包的SEQ(0x2ef089c6) + 193 &#x3D; 0x2ef08a87  PS:这里需要注意下，很多网络和书上都说这个ACK的值应该是上个包的SEQ + TCP数据大小 + 1，这种说法是不准确的，拿上个数据来讲，数据的第一个字节序号也就是上个数据包的序号是0x2ef089c6，那么第二个字节序号就是0x2ef089c7，现在TCP数据一共是193个字节，那么接下来的第194个字节序号应该是0x2ef089c6 + 193 &#x3D; 0x2ef08a87，所以服务器期望收到下个包的序号应该是0x2ef08a87)<strong>；<br> TCP报头长为：0x8 &#x3D; 8(32 bit)，8 x 4 byte &#x3D; 32 byte，即TCP报头长为 32 个字节；窗口大小为 0x0076 &#x3D; 118 byte；<br> 保留位和标志位：0x010 &#x3D; 0b000000010000；按位解析标志位为 0b000010000，NS: 0，CWR: 0，ECE: 0，URG: 0，ACK: 1，PSH: 0，RST: 0，SYN: 0，FIN: 0，</strong>从解析里面可以看出该报文ACK字段有效，对上个数据包的一个确认，表示可以接着传送后面的数据了(从字节编号为0x2ef08a87开始)，是一个[ACK]确认数据报**；<br> 可选项部分：可以看出该TCP报头最后的12个字节表示可选项</p>
+<h5 id="3-3-3-TCP断开连接的四次握手抓包数据部分"><a href="#3-3-3-TCP断开连接的四次握手抓包数据部分" class="headerlink" title="3.3.3  TCP断开连接的四次握手抓包数据部分"></a>3.3.3  TCP断开连接的四次握手抓包数据部分</h5><p>首先来看下抓包过程截图</p>
+<img src="https://pic.imgdb.cn/item/627a333f09475431296b1c7c.jpg" style="zoom:80%;" />
+
+<p>① 主动断开方发送[FIN]数据报</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以太网头部+IP报头+TCP报头+TCP数据(字节为单位位 Hex+ASCII方式显示)</span></span><br><span class="line"><span class="number">78</span> <span class="number">4f</span> <span class="number">43</span> <span class="number">5b</span> <span class="number">56</span> <span class="number">75</span> <span class="number">88</span> <span class="number">25</span> <span class="number">93</span> <span class="number">02</span> b7 <span class="number">8</span>c <span class="number">08</span> <span class="number">00</span> <span class="number">45</span> <span class="number">00</span></span><br><span class="line"><span class="number">00</span> <span class="number">34</span> <span class="number">89</span> <span class="number">5</span>e <span class="number">40</span> <span class="number">00</span> <span class="number">39</span> <span class="number">06</span> a4 <span class="number">3f</span> <span class="number">7</span>a e4 <span class="number">48</span> a5 <span class="number">0</span>a <span class="number">16</span></span><br><span class="line"><span class="number">46</span> <span class="number">87</span> <span class="number">00</span> <span class="number">50</span> d2 <span class="number">1</span>e a9 ba <span class="number">9</span>e eb <span class="number">65</span> ee <span class="number">19</span> b0 <span class="number">80</span> <span class="number">11</span></span><br><span class="line"><span class="number">03</span> cc <span class="number">9</span>e <span class="number">50</span> <span class="number">00</span> <span class="number">00</span> <span class="number">01</span> <span class="number">01</span> <span class="number">08</span> <span class="number">0</span>a <span class="number">41</span> fa <span class="number">79</span> <span class="number">05</span> <span class="number">32</span> a6</span><br><span class="line"><span class="number">38</span> <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//提取TCP报头+TCP数据(去掉以太网头部14byte和IP报头20byte)</span></span><br><span class="line"><span class="number">00</span> <span class="number">50</span> d2 <span class="number">1</span>e </span><br><span class="line">a9 ba <span class="number">9</span>e eb </span><br><span class="line"><span class="number">65</span> ee <span class="number">19</span> b0 </span><br><span class="line"><span class="number">80</span> <span class="number">11</span> <span class="number">03</span> cc </span><br><span class="line"><span class="number">9</span>e <span class="number">50</span> <span class="number">00</span> <span class="number">00</span> </span><br><span class="line"><span class="number">01</span> <span class="number">01</span> <span class="number">08</span> <span class="number">0</span>a <span class="number">41</span> fa <span class="number">79</span> <span class="number">05</span> <span class="number">32</span> a6 <span class="number">38</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<p>解析：从上面可以解析出源端口号为：0x0050 &#x3D;80；目的端口号：0xd21e &#x3D;53790；序列号：SEQ &#x3D; 0xa9ba9eeb；ACK &#x3D; 0x65ee19b0；TCP报头长为：0x8 &#x3D; 8(32 bit)，8 x 4 byte &#x3D; 32 byte，即TCP报头长为 32 个字节；窗口大小为 0x03cc &#x3D;972 byte；<br> 保留位和标志位：0x011 &#x3D; 0b000000010001；按位解析标志位为 0b000010001，NS: 0，CWR: 0，ECE: 0，URG: 0，ACK: 1，PSH: 0，RST: 0，SYN: 0，FIN: 1，<strong>从解析里面可以看出该报文ACK字段和FIN字段有效，是请求断开连接的[FIN+ACK]数据报</strong>；<br> 可选项部分：可以看出该TCP报头最后的12个字节表示可选项，解析如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">01     kind = 1     NOP</span><br><span class="line">01     kind = 1     NOP</span><br><span class="line">08 0a 41 fa 79 05 32 a6 38 20 时间戳选项，Timestamp Value(TSval): 1106934021，Timestamp <span class="built_in">echo</span> reply(TSecr): 849754144</span><br></pre></td></tr></table></figure>
+
+<p>② 被断开方发送[ACK]数据包，对主动对方数据报进行确认</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以太网头部+IP报头+TCP报头+TCP数据(字节为单位位 Hex+ASCII方式显示)</span></span><br><span class="line"><span class="number">88</span> <span class="number">25</span> <span class="number">93</span> <span class="number">02</span> b7 <span class="number">8</span>c <span class="number">78</span> <span class="number">4f</span> <span class="number">43</span> <span class="number">5b</span> <span class="number">56</span> <span class="number">75</span> <span class="number">08</span> <span class="number">00</span> <span class="number">45</span> <span class="number">00</span></span><br><span class="line"><span class="number">00</span> <span class="number">34</span> <span class="number">00</span> <span class="number">00</span> <span class="number">40</span> <span class="number">00</span> <span class="number">40</span> <span class="number">06</span> <span class="number">26</span> <span class="number">9</span>e <span class="number">0</span>a <span class="number">16</span> <span class="number">46</span> <span class="number">87</span> <span class="number">7</span>a e4</span><br><span class="line"><span class="number">48</span> a5 d2 <span class="number">1</span>e <span class="number">00</span> <span class="number">50</span> <span class="number">65</span> ee <span class="number">19</span> b0 a9 ba <span class="number">9</span>e ec <span class="number">80</span> <span class="number">10</span></span><br><span class="line"><span class="number">10</span> <span class="number">00</span> <span class="number">1</span>d d9 <span class="number">00</span> <span class="number">00</span> <span class="number">01</span> <span class="number">01</span> <span class="number">08</span> <span class="number">0</span>a <span class="number">32</span> a6 ac <span class="number">63</span> <span class="number">41</span> fa</span><br><span class="line"><span class="number">79</span> <span class="number">05</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//提取TCP报头+TCP数据(去掉以太网头部14byte和IP报头20byte)</span></span><br><span class="line">d2 <span class="number">1</span>e <span class="number">00</span> <span class="number">50</span> </span><br><span class="line"><span class="number">65</span> ee <span class="number">19</span> b0 </span><br><span class="line">a9 ba <span class="number">9</span>e ec </span><br><span class="line"><span class="number">80</span> <span class="number">10</span> <span class="number">10</span> <span class="number">00</span> </span><br><span class="line"><span class="number">1</span>d d9 <span class="number">00</span> <span class="number">00</span> </span><br><span class="line"><span class="number">01</span> <span class="number">01</span> <span class="number">08</span> <span class="number">0</span>a <span class="number">32</span> a6 ac <span class="number">63</span> <span class="number">41</span> fa <span class="number">79</span> <span class="number">05</span></span><br></pre></td></tr></table></figure>
+
+<p>解析：从上面可以解析出源端口号为：0xd21e &#x3D;53790；目的端口号：0x0050 &#x3D;80；序列号：SEQ &#x3D; 0x65ee19b0；ACK &#x3D; 0xa9ba9eec ；TCP报头长为：0x8 &#x3D; 8(32 bit)，8 x 4 byte &#x3D; 32 byte，即TCP报头长为 32 个字节；窗口大小为 0x1000 &#x3D; 4096 byte；<br> 保留位和标志位：0x010 &#x3D; 0b000000010000；按位解析标志位为 0b000010000，NS: 0，CWR: 0，ECE: 0，URG: 0，ACK: 1，PSH: 0，RST: 0，SYN: 0，FIN: 0，<strong>从解析里面可以看出该报文ACK字段有效，是对断开连接请求的确认[ACK]数据报</strong>；<br> 可选项部分：可以看出该TCP报头最后的12个字节表示可选项，解析如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">01     kind = 1     NOP</span><br><span class="line">01     kind = 1     NOP</span><br><span class="line">08 0a 32 a6 ac 63 41 fa 79 05 时间戳选项，Timestamp Value(TSval): 849783907 ，Timestamp <span class="built_in">echo</span> reply(TSecr): 1106934021</span><br></pre></td></tr></table></figure>
+
+<p>③ 被断开方处理完自己的逻辑，发送[FIN]数据报到断开方</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以太网头部+IP报头+TCP报头+TCP数据(字节为单位位 Hex+ASCII方式显示)</span></span><br><span class="line"><span class="number">88</span> <span class="number">25</span> <span class="number">93</span> <span class="number">02</span> b7 <span class="number">8</span>c <span class="number">78</span> <span class="number">4f</span> <span class="number">43</span> <span class="number">5b</span> <span class="number">56</span> <span class="number">75</span> <span class="number">08</span> <span class="number">00</span> <span class="number">45</span> <span class="number">00</span></span><br><span class="line"><span class="number">00</span> <span class="number">34</span> <span class="number">00</span> <span class="number">00</span> <span class="number">40</span> <span class="number">00</span> <span class="number">40</span> <span class="number">06</span> <span class="number">26</span> <span class="number">9</span>e <span class="number">0</span>a <span class="number">16</span> <span class="number">46</span> <span class="number">87</span> <span class="number">7</span>a e4</span><br><span class="line"><span class="number">48</span> a5 d2 <span class="number">1</span>e <span class="number">00</span> <span class="number">50</span> <span class="number">65</span> ee <span class="number">19</span> b0 a9 ba <span class="number">9</span>e ec <span class="number">80</span> <span class="number">11</span></span><br><span class="line"><span class="number">10</span> <span class="number">00</span> <span class="number">1</span>d d8 <span class="number">00</span> <span class="number">00</span> <span class="number">01</span> <span class="number">01</span> <span class="number">08</span> <span class="number">0</span>a <span class="number">32</span> a6 ac <span class="number">63</span> <span class="number">41</span> fa</span><br><span class="line"><span class="number">79</span> <span class="number">05</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//提取TCP报头+TCP数据(去掉以太网头部14byte和IP报头20byte)</span></span><br><span class="line">d2 <span class="number">1</span>e <span class="number">00</span> <span class="number">50</span></span><br><span class="line"><span class="number">65</span> ee <span class="number">19</span> b0 </span><br><span class="line">a9 ba <span class="number">9</span>e ec </span><br><span class="line"><span class="number">80</span> <span class="number">11</span> <span class="number">10</span> <span class="number">00</span> </span><br><span class="line"><span class="number">1</span>d d8 <span class="number">00</span> <span class="number">00</span> </span><br><span class="line"><span class="number">01</span> <span class="number">01</span> <span class="number">08</span> <span class="number">0</span>a <span class="number">32</span> a6 ac <span class="number">63</span> <span class="number">41</span> fa <span class="number">79</span> <span class="number">05</span></span><br></pre></td></tr></table></figure>
+
+<p>解析：从上面可以解析出源端口号为：0xd21e &#x3D;53790；目的端口号：0x0050 &#x3D;80；序列号：SEQ &#x3D; 0x65ee19b0 ；ACK &#x3D; 0xa9ba9eec ；TCP报头长为：0x8 &#x3D; 8(32 bit)，8 x 4 byte &#x3D; 32 byte，即TCP报头长为 32 个字节；窗口大小为 0x1000 &#x3D; 4096 byte；<br> 保留位和标志位：0x011 &#x3D; 0b000000010001；按位解析标志位为 0b000010000，NS: 0，CWR: 0，ECE: 0，URG: 0，ACK: 1，PSH: 0，RST: 0，SYN: 0，FIN: 1，<strong>从解析里面可以看出该报文ACK字段和FIN字段有效，是被断开方发送的断开连接[FIN+ACK]数据报</strong>；<br> 可选项部分：可以看出该TCP报头最后的12个字节表示可选项，解析如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">01     kind = 1     NOP</span><br><span class="line">01     kind = 1     NOP</span><br><span class="line">08 0a 32 a6 ac 63 41 fa 79 05 时间戳选项，Timestamp Value(TSval): 849783907 ，Timestamp <span class="built_in">echo</span> reply(TSecr): 1106934021</span><br></pre></td></tr></table></figure>
+
+<p>④ 断开方对被对开放发送的断开数据报发送[ACK]数据报进行确认</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以太网头部+IP报头+TCP报头+TCP数据(字节为单位位 Hex+ASCII方式显示)</span></span><br><span class="line"><span class="number">78</span> <span class="number">4f</span> <span class="number">43</span> <span class="number">5b</span> <span class="number">56</span> <span class="number">75</span> <span class="number">88</span> <span class="number">25</span> <span class="number">93</span> <span class="number">02</span> b7 <span class="number">8</span>c <span class="number">08</span> <span class="number">00</span> <span class="number">45</span> <span class="number">00</span></span><br><span class="line"><span class="number">00</span> <span class="number">34</span> <span class="number">42</span> <span class="number">6b</span> <span class="number">40</span> <span class="number">00</span> <span class="number">39</span> <span class="number">06</span> eb <span class="number">32</span> <span class="number">7</span>a e4 <span class="number">48</span> a5 <span class="number">0</span>a <span class="number">16</span></span><br><span class="line"><span class="number">46</span> <span class="number">87</span> <span class="number">00</span> <span class="number">50</span> d2 <span class="number">1</span>e a9 ba <span class="number">9</span>e ec <span class="number">65</span> ee <span class="number">19</span> b1 <span class="number">80</span> <span class="number">10</span></span><br><span class="line"><span class="number">03</span> cc <span class="number">29</span> f7 <span class="number">00</span> <span class="number">00</span> <span class="number">01</span> <span class="number">01</span> <span class="number">08</span> <span class="number">0</span>a <span class="number">41</span> fa <span class="number">79</span> <span class="number">1</span>a <span class="number">32</span> a6</span><br><span class="line">ac <span class="number">63</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//提取TCP报头+TCP数据(去掉以太网头部14byte和IP报头20byte)</span></span><br><span class="line"><span class="number">00</span> <span class="number">50</span> d2 <span class="number">1</span>e </span><br><span class="line">a9 ba <span class="number">9</span>e ec </span><br><span class="line"><span class="number">65</span> ee <span class="number">19</span> b1 </span><br><span class="line"><span class="number">80</span> <span class="number">10</span> <span class="number">03</span> cc </span><br><span class="line"><span class="number">29</span> f7 <span class="number">00</span> <span class="number">00</span> </span><br><span class="line"><span class="number">01</span> <span class="number">01</span> <span class="number">08</span> <span class="number">0</span>a <span class="number">41</span> fa <span class="number">79</span> <span class="number">1</span>a <span class="number">32</span> a6 ac <span class="number">63</span></span><br></pre></td></tr></table></figure>
+
+<p>解析：从上面可以解析出源端口号为：0x0050 &#x3D;80；目的端口号：0xd21e &#x3D;53790；序列号：SEQ &#x3D; 0xa9ba9eec；ACK &#x3D; 0x65ee19b1；TCP报头长为：0x8 &#x3D; 8(32 bit)，8 x 4 byte &#x3D; 32 byte，即TCP报头长为 32 个字节；窗口大小为 0x03cc &#x3D;972 byte；<br> 保留位和标志位：0x010 &#x3D; 0b000000010000；按位解析标志位为 0b000010000，NS: 0，CWR: 0，ECE: 0，URG: 0，ACK: 1，PSH: 0，RST: 0，SYN: 0，FIN: 0，<strong>从解析里面可以看出该报文ACK字段有效，是对断开连接请求的确认[ACK]数据报</strong>；<br> 可选项部分：可以看出该TCP报头最后的12个字节表示可选项，解析如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">01     kind = 1     NOP</span><br><span class="line">01     kind = 1     NOP</span><br><span class="line">08 0a 41 fa 79 1a 32 a6 ac 63 时间戳选项，Timestamp Value(TSval): 1106934042，Timestamp <span class="built_in">echo</span> repl</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-UDP协议"><a href="#4-UDP协议" class="headerlink" title="4. UDP协议"></a>4. UDP协议</h3><p>UDP协议是IP协议上层的另一个重要协议，他是面向无连接的、不可靠的数据报传输协议，他仅仅将要发送的数据报传送至网络，并接受从网络上传来的数据报，而不与远端的UDP协议模块建立连接。UDP协议为用户的网络应用程序提供服务。</p>
+<h4 id="4-1-UDP协议数据报头"><a href="#4-1-UDP协议数据报头" class="headerlink" title="4.1 UDP协议数据报头"></a>4.1 UDP协议数据报头</h4><h5 id="4-1-1-UDP协议头部格式"><a href="#4-1-1-UDP协议头部格式" class="headerlink" title="4.1.1 UDP协议头部格式"></a>4.1.1 UDP协议头部格式</h5><img src="https://pic.imgdb.cn/item/627a33cc09475431296d4a17.jpg" style="zoom:80%;" />
+
+<ul>
+<li><strong>源端口</strong>：套接字发送端端口号</li>
+<li><strong>目的端口</strong>：目的套接字端口号</li>
+<li><strong>数据包长</strong>：UDP报头+UDP数据报的长度，单位1byte</li>
+</ul>
+<h5 id="4-1-2-UDP协议头部数据"><a href="#4-1-2-UDP协议头部数据" class="headerlink" title="4.1.2 UDP协议头部数据"></a>4.1.2 UDP协议头部数据</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以太网头部+IP报头+UDP报头+UDP数据(字节为单位位 Hex+ASCII方式显示)</span></span><br><span class="line"><span class="number">01</span> <span class="number">00</span> <span class="number">5</span>e <span class="number">4b</span> <span class="number">00</span> fe f8 <span class="number">32</span> e4 <span class="number">8</span>a ef e5 <span class="number">08</span> <span class="number">00</span> <span class="number">45</span> <span class="number">00</span></span><br><span class="line"><span class="number">00</span> <span class="number">74</span> <span class="number">49</span> b6 <span class="number">00</span> <span class="number">00</span> <span class="number">01</span> <span class="number">11</span> <span class="number">2f</span> <span class="number">50</span> <span class="number">0</span>a <span class="number">16</span> <span class="number">46</span> <span class="number">14</span> ef <span class="number">4b</span></span><br><span class="line"><span class="number">00</span> fe c1 <span class="number">5f</span> <span class="number">26</span> e5 <span class="number">00</span> <span class="number">60</span> <span class="number">19</span> b1 <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">58</span> <span class="number">4f</span> <span class="number">47</span></span><br><span class="line"><span class="number">45</span> <span class="number">4</span>d <span class="number">52</span> <span class="number">41</span> <span class="number">59</span> <span class="number">2</span>d <span class="number">4</span>e <span class="number">42</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span></span><br><span class="line"><span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">41</span> <span class="number">4</span>a</span><br><span class="line"><span class="number">52</span> <span class="number">40</span> <span class="number">31</span> <span class="number">32</span> <span class="number">33</span> <span class="number">34</span> <span class="number">35</span> <span class="number">36</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span></span><br><span class="line"><span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">01</span> <span class="number">00</span></span><br><span class="line"><span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span></span><br><span class="line"><span class="number">00</span> <span class="number">00</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//UDP报头+UDP数据(去掉以太网头部14byte和IP报头20byte)</span></span><br><span class="line">c1 <span class="number">5f</span> <span class="number">26</span> e5 <span class="number">00</span> <span class="number">60</span> <span class="number">19</span> b1 </span><br><span class="line"><span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">58</span> <span class="number">4f</span> <span class="number">47</span> <span class="number">45</span> <span class="number">4</span>d <span class="number">52</span> <span class="number">41</span> <span class="number">59</span> <span class="number">2</span>d <span class="number">4</span>e <span class="number">42</span> <span class="number">00</span> <span class="number">00</span> </span><br><span class="line"><span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> </span><br><span class="line"><span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">41</span> <span class="number">4</span>a <span class="number">52</span> <span class="number">40</span> <span class="number">31</span> <span class="number">32</span> <span class="number">33</span> <span class="number">34</span> <span class="number">35</span> <span class="number">36</span> <span class="number">00</span> <span class="number">00</span> </span><br><span class="line"><span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> </span><br><span class="line"><span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">01</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> </span><br><span class="line"><span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span></span><br></pre></td></tr></table></figure>
+
+<p>从上面数据抓包可以看出：<br> 源端口：0xc15f &#x3D; 49503<br> 目的端口：0x26e5 &#x3D; 9957<br> 数据包长(UDP报头加+UDP数据)：0x0060 &#x3D; 96 byte<br> 效验值：0x18b1</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/05/10/TCP-IP/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2022/05/10/GET-POST/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            GET/POST
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2022/05/06/IDEAtechniques/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">IDEA常用快捷键总结</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "5J2nSr5DoqBGRRnpdFfTvawi-gzGzoHsz",
+    app_key: "24GWRfKBASGr6cA5FSBF4NY4",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2022
+        <i class="ri-heart-fill heart_icon"></i> ZHU
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Keep Making Progress"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

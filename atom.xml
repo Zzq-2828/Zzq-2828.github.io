@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-05-06T13:56:49.639Z</updated>
+  <updated>2022-05-11T09:03:15.018Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,49 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>GET/POST</title>
+    <link href="https://www.zzzzzq.com/2022/05/10/GET-POST/"/>
+    <id>https://www.zzzzzq.com/2022/05/10/GET-POST/</id>
+    <published>2022-05-10T09:45:23.000Z</published>
+    <updated>2022-05-11T09:03:15.018Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;简介HTTP，并总结GET和POST的区别&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Web" scheme="https://www.zzzzzq.com/categories/Web/"/>
+    
+    
+    <category term="Web" scheme="https://www.zzzzzq.com/tags/Web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TCP/IP知识整理</title>
+    <link href="https://www.zzzzzq.com/2022/05/10/TCP-IP/"/>
+    <id>https://www.zzzzzq.com/2022/05/10/TCP-IP/</id>
+    <published>2022-05-10T08:41:14.000Z</published>
+    <updated>2022-05-11T03:21:21.055Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文记录了TCP&amp;#x2F;IP协议的一些基本知识，包括概念、功能和数据包格式&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Web" scheme="https://www.zzzzzq.com/categories/Web/"/>
+    
+    
+    <category term="Web" scheme="https://www.zzzzzq.com/tags/Web/"/>
+    
+  </entry>
+  
+  <entry>
     <title>IDEA常用快捷键总结</title>
     <link href="https://www.zzzzzq.com/2022/05/06/IDEAtechniques/"/>
     <id>https://www.zzzzzq.com/2022/05/06/IDEAtechniques/</id>
     <published>2022-05-06T13:45:49.000Z</published>
-    <updated>2022-05-06T13:56:49.639Z</updated>
+    <updated>2022-05-07T06:05:45.581Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了IDEA常用的一些快捷键，提高开发效率！&lt;/p&gt;</summary>
@@ -59,10 +97,10 @@
     <link href="https://www.zzzzzq.com/2022/05/05/startup/"/>
     <id>https://www.zzzzzq.com/2022/05/05/startup/</id>
     <published>2022-05-05T06:45:21.000Z</published>
-    <updated>2022-05-06T13:45:53.251Z</updated>
+    <updated>2022-05-11T07:44:34.326Z</updated>
     
     
-    <summary type="html">&lt;p&gt;本文记录了一个简易Java开发流程的学习过程&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;本文记录了一个简易Java开发流程和服务部署和调用的学习过程&lt;/p&gt;</summary>
     
     
     
@@ -97,7 +135,7 @@
     <link href="https://www.zzzzzq.com/2022/05/01/HighPerformance/"/>
     <id>https://www.zzzzzq.com/2022/05/01/HighPerformance/</id>
     <published>2022-05-01T10:27:32.000Z</published>
-    <updated>2022-05-05T06:35:00.749Z</updated>
+    <updated>2022-05-10T06:59:34.075Z</updated>
     
     
     <summary type="html">&lt;p&gt;Hong Kong University 2022 summer semester class review —— ELEC6036 High Performance Computer Architecture.&lt;/p&gt;</summary>
@@ -380,52 +418,6 @@
     
     
     <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SSM04 —— Interceptor</title>
-    <link href="https://www.zzzzzq.com/2022/04/16/Interceptor/"/>
-    <id>https://www.zzzzzq.com/2022/04/16/Interceptor/</id>
-    <published>2022-04-16T08:04:08.000Z</published>
-    <updated>2022-04-16T08:42:49.424Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文记录了SpringMVC拦截器的相关概念和简单使用方法&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/categories/SSM/"/>
-    
-    <category term="SpringMVC" scheme="https://www.zzzzzq.com/categories/SSM/SpringMVC/"/>
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
-    
-    <category term="SpringMVC" scheme="https://www.zzzzzq.com/tags/SpringMVC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SSM03 —— 集成Web,SpringMVC</title>
-    <link href="https://www.zzzzzq.com/2022/04/15/SSM03/"/>
-    <id>https://www.zzzzzq.com/2022/04/15/SSM03/</id>
-    <published>2022-04-14T19:22:05.000Z</published>
-    <updated>2022-04-19T19:50:38.287Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了Spring与Web环境的集成与SpringMVC的简介和组件解析&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/categories/SSM/"/>
-    
-    <category term="SpringMVC" scheme="https://www.zzzzzq.com/categories/SSM/SpringMVC/"/>
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
-    
-    <category term="SpringMVC" scheme="https://www.zzzzzq.com/tags/SpringMVC/"/>
     
   </entry>
   

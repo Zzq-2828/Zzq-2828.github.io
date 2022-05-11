@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.zzzzzq.com/2022/05/06/IDEAtechniques/</loc>
-    <lastmod>2022-05-06</lastmod>
+    <loc>https://www.zzzzzq.com/2022/05/10/GET-POST/</loc>
+    <lastmod>2022-05-11</lastmod>
   </url>
   <url>
     <loc>https://www.zzzzzq.com/2022/05/05/startup/</loc>
-    <lastmod>2022-05-06</lastmod>
+    <lastmod>2022-05-11</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zzzzzq.com/2022/05/10/TCP-IP/</loc>
+    <lastmod>2022-05-11</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zzzzzq.com/2022/05/01/HighPerformance/</loc>
+    <lastmod>2022-05-10</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zzzzzq.com/2022/05/06/IDEAtechniques/</loc>
+    <lastmod>2022-05-07</lastmod>
   </url>
   <url>
     <loc>https://www.zzzzzq.com/2022/05/05/RPC/</loc>
     <lastmod>2022-05-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.zzzzzq.com/2022/05/01/HighPerformance/</loc>
-    <lastmod>2022-05-05</lastmod>
   </url>
   <url>
     <loc>https://www.zzzzzq.com/2022/04/21/SpringBoot03/</loc>

@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>IDEA常用快捷键总结 |  Keep Making Progress</title>
+      <title>GET/POST |  Keep Making Progress</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-IDEAtechniques"
+  id="post-GET-POST"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  IDEA常用快捷键总结
+  GET/POST
 </h1>
  
 
@@ -75,11 +75,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2022/05/06/IDEAtechniques/" class="article-date">
-  <time datetime="2022-05-06T13:45:49.000Z" itemprop="datePublished">2022-05-06</time>
+      <a href="/2022/05/10/GET-POST/" class="article-date">
+  <time datetime="2022-05-10T09:45:23.000Z" itemprop="datePublished">2022-05-10</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/tools/">tools</a>
+    <a class="article-category-link" href="/categories/Web/">Web</a>
   </div>
   
 <div class="word_count">
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.7k</span>
+            <span class="post-count">1.8k</span>
         </span>
     </span>
 
@@ -111,401 +111,180 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>概述：本文记录了IDEA常用的一些快捷键，提高开发效率！</p>
+  <p>简介HTTP，并总结GET和POST的区别</p>
 <span id="more"></span>
 
+<h4 id="什么是-HTTP-？"><a href="#什么是-HTTP-？" class="headerlink" title="什么是 HTTP ？"></a>什么是 HTTP ？</h4><p>超文本传输协议（HTTP）的设计目的是保证客户端与服务器之间的通信。</p>
+<p>HTTP 的工作方式是客户端与服务器之间的请求-应答协议。</p>
+<p>web 浏览器可能是客户端，而计算机上的网络应用程序也可能作为服务器端。</p>
+<p>举例：客户端（浏览器）向服务器提交 HTTP 请求；服务器向客户端返回响应。响应包含关于请求的状态信息以及可能被请求的内容。</p>
+<p><strong>特点总结</strong>：</p>
+<ul>
+<li>基于tcp&#x2F;ip、一种网络应用层协议、超文本传输协议HyperText Transfer Protocol</li>
+<li>工作方式：客户端请求服务端应答的模式</li>
+<li>快速：无状态连接</li>
+<li>灵活：可以传输任意对象，对象类型由Content-Type标记</li>
+</ul>
+<p>客户端请求request消息包括以下格式：请求行（request line）、请求头部（header）、空行、请求数据</p>
+<img src="https://pic.imgdb.cn/item/627b775809475431298c5e7d.jpg" style="zoom:80%;" />
 
-
-<h4 id="Ctrl类"><a href="#Ctrl类" class="headerlink" title="Ctrl类"></a>Ctrl类</h4><table>
+<p>服务端响应response也由四个部分组成，分别是：状态行、消息报头、空行、响应正文</p>
+<p>or</p>
+<p>＜request-line＞</p>
+<p>＜headers＞</p>
+<p>＜blank line＞</p>
+<p>[＜request-body＞]</p>
+<h5 id="request"><a href="#request" class="headerlink" title="request"></a>request</h5><p><strong>1.请求头</strong></p>
+<p>请求行由请求方法字段、URL字段和HTTP协议版本字段3个字段组成，它们用空格分隔。例如，GET &#x2F;index.html HTTP&#x2F;1.1。</p>
+<p>HTTP协议的请求方法有GET、POST、HEAD、PUT、DELETE、OPTIONS、TRACE、CONNECT。</p>
+<p> <strong>2.请求头部</strong></p>
+<p>请求头部由关键字&#x2F;值对组成，每行一对，关键字和值用英文冒号“:”分隔。请求头部通知服务器有关于客户端请求的信息，典型的请求头有：</p>
+<p>User-Agent：产生请求的浏览器类型。</p>
+<p>Accept：客户端可识别的内容类型列表。</p>
+<p>Host：请求的主机名，允许多个域名同处一个IP地址，即虚拟主机。</p>
+<p><strong>3.空行</strong></p>
+<p>最后一个请求头之后是一个空行，发送回车符和换行符，通知服务器以下不再有请求头。</p>
+<p><strong>4.请求数据</strong></p>
+<p>请求数据不在GET方法中使用，而是在POST方法中使用。POST方法适用于需要客户填写表单的场合。与请求数据相关的最常使用的请求头是Content-Type和Content-Length。</p>
+<h5 id="response"><a href="#response" class="headerlink" title="response"></a>response</h5><p><strong>HTTP报文</strong></p>
+<p>HTTP响应也由三个部分组成，分别是：状态行、消息报头、响应正文。</p>
+<p>如下所示，HTTP响应的格式与请求的格式十分类似：</p>
+<p>＜status-line＞</p>
+<p>＜headers＞</p>
+<p>＜blank line＞</p>
+<p>[＜response-body＞]</p>
+<p> 正如你所见，<strong>在响应中唯一真正的区别在于第一行中用状态信息代替了请求信息</strong>。状态行（status line）通过提供一个状态码来说明所请求的资源情况。</p>
+<p>状态行格式如下：</p>
+<p>HTTP-Version Status-Code Reason-Phrase CRLF</p>
+<p>其中，HTTP-Version表示服务器HTTP协议的版本；Status-Code表示服务器发回的响应状态代码；Reason-Phrase表示状态代码的文本描述。状态代码由三位数字组成，第一个数字定义了响应的类别，且有五种可能取值。</p>
+<ul>
+<li>1xx：指示信息–表示请求已接收，继续处理。</li>
+<li>2xx：成功–表示请求已被成功接收、理解、接受。</li>
+<li>3xx：重定向–要完成请求必须进行更进一步的操作。</li>
+<li>4xx：客户端错误–请求有语法错误或请求无法实现。</li>
+<li>5xx：服务器端错误–服务器未能实现合法的请求。</li>
+</ul>
+<p>常见状态代码、状态描述的说明如下。</p>
+<ul>
+<li>200 OK：客户端请求成功。</li>
+<li>400 Bad Request：客户端请求有语法错误，不能被服务器所理解。</li>
+<li>401 Unauthorized：请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用。</li>
+<li>403 Forbidden：服务器收到请求，但是拒绝提供服务。</li>
+<li>404 Not Found：请求资源不存在，举个例子：输入了错误的URL。</li>
+<li>500 Internal Server Error：服务器发生不可预期的错误。</li>
+<li>503 Server Unavailable：服务器当前不能处理客户端的请求，一段时间后可能恢复正常，举个例子：HTTP&#x2F;1.1 200 OK（CRLF）。</li>
+</ul>
+<h4 id="两种-HTTP-请求方法：GET-和-POST"><a href="#两种-HTTP-请求方法：GET-和-POST" class="headerlink" title="两种 HTTP 请求方法：GET 和 POST"></a>两种 HTTP 请求方法：GET 和 POST</h4><p>在客户机和服务器之间进行请求-响应时，两种最常被用到的方法是：GET 和 POST。</p>
+<ul>
+<li><strong>GET</strong> - 从指定的资源请求数据。</li>
+<li><strong>POST</strong> - 向指定的资源提交要被处理的数据。</li>
+</ul>
+<h5 id="GET-方法"><a href="#GET-方法" class="headerlink" title="GET 方法"></a>GET 方法</h5><p><strong>请注意，查询字符串（名称&#x2F;值对）是在 GET 请求的 URL 中发送的：</strong></p>
+<p>&#x2F;test&#x2F;demo_form.php**?name1&#x3D;value1&amp;name2&#x3D;value2**</p>
+<p><strong>有关 GET 请求的其他一些注释：</strong></p>
+<ul>
+<li>GET 请求可被缓存</li>
+<li>GET 请求保留在浏览器历史记录中</li>
+<li>GET 请求可被收藏为书签</li>
+<li>GET 请求不应在处理敏感数据时使用</li>
+<li>GET 请求有长度限制</li>
+<li>GET 请求只应当用于取回数据</li>
+</ul>
+<h5 id="POST-方法"><a href="#POST-方法" class="headerlink" title="POST 方法"></a>POST 方法</h5><p><strong>请注意，查询字符串（名称&#x2F;值对）是在 POST 请求的 HTTP 消息主体中发送的：</strong></p>
+<p>POST &#x2F;test&#x2F;demo_form.php HTTP&#x2F;1.1<br>Host: runoob.com<br><strong>name1&#x3D;value1&amp;name2&#x3D;value2</strong></p>
+<p><strong>有关 POST 请求的其他一些注释：</strong></p>
+<ul>
+<li>POST 请求不会被缓存</li>
+<li>POST 请求不会保留在浏览器历史记录中</li>
+<li>POST 不能被收藏为书签</li>
+<li>POST 请求对数据长度没有要求</li>
+</ul>
+<h5 id="比较-GET-与-POST"><a href="#比较-GET-与-POST" class="headerlink" title="比较 GET 与 POST"></a>比较 GET 与 POST</h5><p>下面的表格比较了两种 HTTP 方法：GET 和 POST。</p>
+<table>
 <thead>
 <tr>
-<th><strong>快捷键</strong></th>
-<th><strong>介绍</strong></th>
+<th align="left"></th>
+<th align="left">GET</th>
+<th align="left">POST</th>
 </tr>
 </thead>
 <tbody><tr>
-<td><strong>Ctrl + F</strong></td>
-<td><strong>在当前文件进行文本查找 <code>（必备）</code></strong></td>
+<td align="left">后退按钮&#x2F;刷新</td>
+<td align="left">无害</td>
+<td align="left">数据会被重新提交（浏览器应该告知用户数据会被重新提交）。</td>
 </tr>
 <tr>
-<td><strong>Ctrl + R</strong></td>
-<td><strong>在当前文件进行文本替换 <code>（必备）</code></strong></td>
+<td align="left">书签</td>
+<td align="left">可收藏为书签</td>
+<td align="left">不可收藏为书签</td>
 </tr>
 <tr>
-<td><strong>Ctrl + Z</strong></td>
-<td><strong>撤销 （必备）</strong></td>
+<td align="left">缓存</td>
+<td align="left">能被缓存</td>
+<td align="left">不能缓存</td>
 </tr>
 <tr>
-<td><strong>Ctrl + Y</strong></td>
-<td><strong>删除光标所在行 或 删除选中的行 （必备）</strong></td>
+<td align="left">编码类型</td>
+<td align="left">application&#x2F;x-www-form-urlencoded</td>
+<td align="left">application&#x2F;x-www-form-urlencoded or multipart&#x2F;form-data。为二进制数据使用多重编码。</td>
 </tr>
 <tr>
-<td><strong>Ctrl + X</strong></td>
-<td><strong>剪切光标所在行 或 剪切选择内容</strong></td>
+<td align="left">历史</td>
+<td align="left">参数保留在浏览器历史中。</td>
+<td align="left">参数不会保存在浏览器历史中。</td>
 </tr>
 <tr>
-<td><strong>Ctrl + C</strong></td>
-<td><strong>复制光标所在行 或 复制选择内容</strong></td>
+<td align="left">对数据长度的限制</td>
+<td align="left">是的。当发送数据时，GET 方法向 URL 添加数据；URL 的长度是受限制的（URL 的最大长度是 2048 个字符）。（只能发送2M大小的数据）</td>
+<td align="left">无限制。</td>
 </tr>
 <tr>
-<td><strong>Ctrl + D</strong></td>
-<td><strong>复制光标所在行 或 复制选择内容，并把复制内容插入光标位置下面 <code>（必备）</code></strong></td>
+<td align="left">对数据类型的限制</td>
+<td align="left">只允许 ASCII 字符。</td>
+<td align="left">没有限制。也允许二进制数据。</td>
 </tr>
 <tr>
-<td><strong>Ctrl + E</strong></td>
-<td><strong>显示最近打开的文件记录列表</strong></td>
+<td align="left">安全性</td>
+<td align="left">与 POST 相比，GET 的安全性较差，因为所发送的数据是 URL 的一部分。  在发送密码或其他敏感信息时绝不要使用 GET ！</td>
+<td align="left">POST 比 GET 更安全，因为参数不会被保存在浏览器历史或 web 服务器日志中。</td>
 </tr>
 <tr>
-<td><strong>Ctrl + N</strong></td>
-<td><strong>根据输入的 类名 查找类文件</strong></td>
-</tr>
-<tr>
-<td><strong>Ctrl + F12</strong></td>
-<td><strong>弹出当前文件结构层，可以在弹出的层上直接输入，进行筛选</strong></td>
-</tr>
-<tr>
-<td><strong>Ctrl + Enter</strong></td>
-<td><strong>智能分隔行</strong></td>
-</tr>
-<tr>
-<td><strong>Ctrl + End</strong></td>
-<td><strong>跳到文件尾</strong></td>
-</tr>
-<tr>
-<td><strong>Ctrl + Home</strong></td>
-<td><strong>跳到文件头</strong></td>
-</tr>
-<tr>
-<td><strong>Ctrl + 左键单击</strong></td>
-<td><strong>在打开的文件标题上，弹出该文件路径</strong></td>
-</tr>
-<tr>
-<td><strong>Ctrl + 光标定位</strong></td>
-<td><strong>按 Ctrl 不要松开，会显示光标所在的类信息摘要</strong></td>
+<td align="left">可见性</td>
+<td align="left">数据在 URL 中对所有人都是可见的。</td>
+<td align="left">数据不会显示在 URL 中。</td>
 </tr>
 </tbody></table>
-<h4 id="Alt类"><a href="#Alt类" class="headerlink" title="Alt类"></a>Alt类</h4><table>
+<ul>
+<li>GET用于获取信息，是无副作用的，是幂等的，且可缓存</li>
+<li>POST用于修改服务器上的数据，有副作用，非幂等（不能随意多次执行），不可缓存</li>
+</ul>
+<h4 id="其他-HTTP-请求方法"><a href="#其他-HTTP-请求方法" class="headerlink" title="其他 HTTP 请求方法"></a>其他 HTTP 请求方法</h4><p>下面的表格列出了其他一些 HTTP 请求方法：</p>
+<table>
 <thead>
 <tr>
-<th>快捷键</th>
-<th>介绍</th>
+<th align="left">方法</th>
+<th align="left">描述</th>
 </tr>
 </thead>
 <tbody><tr>
-<td><strong>Alt + Enter</strong></td>
-<td><strong>IntelliJ IDEA 根据光标所在问题，提供快速修复选择，光标放在的位置不同提示的结果也不同 <code>（必备）</code></strong></td>
+<td align="left">HEAD</td>
+<td align="left">与 GET 相同，但只返回 HTTP 报头，不返回文档主体。</td>
 </tr>
 <tr>
-<td><strong>Alt + Insert</strong></td>
-<td><strong>代码自动生成，如生成对象的 set &#x2F; get 方法，构造函数，toString() 等</strong></td>
+<td align="left">PUT</td>
+<td align="left">上传指定的 URI 表示。</td>
 </tr>
 <tr>
-<td><strong>Alt + 左方向键</strong></td>
-<td><strong>按左方向切换当前已打开的文件视图</strong></td>
+<td align="left">DELETE</td>
+<td align="left">删除指定资源。</td>
 </tr>
 <tr>
-<td><strong>Alt + 右方向键</strong></td>
-<td><strong>按右方向切换当前已打开的文件视图</strong></td>
+<td align="left">OPTIONS</td>
+<td align="left">返回服务器支持的 HTTP 方法。</td>
 </tr>
-</tbody></table>
-<h4 id="Shift类"><a href="#Shift类" class="headerlink" title="Shift类"></a>Shift类</h4><table>
-<thead>
 <tr>
-<th>快捷键</th>
-<th>介绍</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Shift + F1</td>
-<td>如果有外部文档可以连接外部文档</td>
-</tr>
-<tr>
-<td>Shift + F2</td>
-<td>跳转到上一个高亮错误 或 警告位置</td>
-</tr>
-<tr>
-<td>Shift + F3</td>
-<td>在查找模式下，查找匹配上一个</td>
-</tr>
-<tr>
-<td>Shift + F7</td>
-<td>在 Debug 模式下，智能步入。断点所在行上有多个方法调用，会弹出进入哪个方法</td>
-</tr>
-<tr>
-<td>Shift + F8</td>
-<td>在 Debug 模式下，跳出，表现出来的效果跟 <code>F9</code> 一样</td>
-</tr>
-<tr>
-<td>Shift + F9</td>
-<td>等效于点击工具栏的 <code>Debug</code> 按钮</td>
-</tr>
-<tr>
-<td>Shift + F10</td>
-<td>等效于点击工具栏的 <code>Run</code> 按钮</td>
-</tr>
-<tr>
-<td>Shift + Tab</td>
-<td>取消缩进</td>
-</tr>
-<tr>
-<td>Shift + ESC</td>
-<td>隐藏当前 或 最后一个激活的工具窗口</td>
-</tr>
-<tr>
-<td><strong>Shift + End</strong></td>
-<td><strong>选中光标到当前行尾位置</strong></td>
-</tr>
-<tr>
-<td><strong>Shift + Home</strong></td>
-<td><strong>选中光标到当前行头位置</strong></td>
-</tr>
-<tr>
-<td><strong>Shift + Enter</strong></td>
-<td><strong>开始新一行。光标所在行下空出一行，光标定位到新行位置</strong></td>
-</tr>
-<tr>
-<td><strong>Shift + 左键单击</strong></td>
-<td><strong>在打开的文件名上按此快捷键，可以关闭当前打开文件</strong></td>
-</tr>
-<tr>
-<td><strong>Shift + 滚轮前后滚动</strong></td>
-<td><strong>当前文件的横向滚动轴滚动</strong></td>
-</tr>
-</tbody></table>
-<h4 id="Ctrl-Alt"><a href="#Ctrl-Alt" class="headerlink" title="Ctrl + Alt"></a>Ctrl + Alt</h4><table>
-<thead>
-<tr>
-<th>快捷键</th>
-<th>介绍</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>Ctrl + Alt + L</strong></td>
-<td><strong>格式化代码，可以对当前文件和整个包目录使用 <code>（必备）</code></strong></td>
-</tr>
-<tr>
-<td><strong>Ctrl + Alt + O</strong></td>
-<td><strong>优化导入的类，可以对当前文件和整个包目录使用 <code>（必备）</code></strong></td>
-</tr>
-</tbody></table>
-<h4 id="Ctrl-Shift"><a href="#Ctrl-Shift" class="headerlink" title="Ctrl + Shift"></a>Ctrl + Shift</h4><table>
-<thead>
-<tr>
-<th>快捷键</th>
-<th>介绍</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>Ctrl + Shift + F</strong></td>
-<td><strong>根据输入内容查找整个项目 或 指定目录内文件 <code>（必备）</code></strong></td>
-</tr>
-<tr>
-<td><strong>Ctrl + Shift + R</strong></td>
-<td><strong>根据输入内容替换对应内容，范围为整个项目 或 指定目录内文件 <code>（必备）</code></strong></td>
-</tr>
-<tr>
-<td><strong>Ctrl + Shift + J</strong></td>
-<td><strong>自动将下一行合并到当前行末尾 <code>（必备）</code></strong></td>
-</tr>
-<tr>
-<td><strong>Ctrl + Shift + Z</strong></td>
-<td><strong>取消撤销 <code>（必备）</code></strong></td>
-</tr>
-<tr>
-<td>Ctrl + Shift + W</td>
-<td>递进式取消选择代码块。可选中光标所在的单词或段落，连续按会在原有选中的基础上再扩展取消选中范围 <code>（必备）</code></td>
-</tr>
-<tr>
-<td><strong>Ctrl + Shift + N</strong></td>
-<td><strong>通过文件名定位 &#x2F; 打开文件 &#x2F; 目录，打开目录需要在输入的内容后面多加一个正斜杠 <code>（必备）</code></strong></td>
-</tr>
-<tr>
-<td><strong>Ctrl + Shift + U</strong></td>
-<td><strong>对选中的代码进行大 &#x2F; 小写轮流转换 <code>（必备）</code></strong></td>
-</tr>
-<tr>
-<td>Ctrl + Shift + T</td>
-<td>对当前类生成单元测试类，如果已经存在的单元测试类则可以进行选择</td>
-</tr>
-<tr>
-<td><strong>Ctrl + Shift + C</strong></td>
-<td><strong>复制当前文件磁盘路径到剪贴板</strong></td>
-</tr>
-<tr>
-<td><strong>Ctrl + Shift + V</strong></td>
-<td><strong>弹出缓存的最近拷贝的内容管理器弹出层</strong></td>
-</tr>
-<tr>
-<td>Ctrl + Shift + E</td>
-<td>显示最近修改的文件列表的弹出层</td>
-</tr>
-<tr>
-<td>Ctrl + Shift + H</td>
-<td>显示方法层次结构</td>
-</tr>
-<tr>
-<td><strong>Ctrl + Shift + B</strong></td>
-<td><strong>跳转到类型声明处</strong></td>
-</tr>
-<tr>
-<td>Ctrl + Shift + I</td>
-<td>快速查看光标所在的方法 或 类的定义</td>
-</tr>
-<tr>
-<td>Ctrl + Shift + A</td>
-<td>查找动作 &#x2F; 设置</td>
-</tr>
-<tr>
-<td><strong>Ctrl + Shift + &#x2F;</strong></td>
-<td><strong>代码块注释 <code>（必备）</code></strong></td>
-</tr>
-<tr>
-<td>Ctrl + Shift + [</td>
-<td>选中从光标所在位置到它的顶部中括号位置</td>
-</tr>
-<tr>
-<td>Ctrl + Shift + ]</td>
-<td>选中从光标所在位置到它的底部中括号位置</td>
-</tr>
-<tr>
-<td>Ctrl + Shift + +</td>
-<td>展开所有代码</td>
-</tr>
-<tr>
-<td>Ctrl + Shift + -</td>
-<td>折叠所有代码</td>
-</tr>
-<tr>
-<td>Ctrl + Shift + F7</td>
-<td>高亮显示所有该选中文本，按Esc高亮消失</td>
-</tr>
-<tr>
-<td>Ctrl + Shift + F8</td>
-<td>在 Debug 模式下，指定断点进入条件</td>
-</tr>
-<tr>
-<td>Ctrl + Shift + F9</td>
-<td>编译选中的文件 &#x2F; 包 &#x2F; Module</td>
-</tr>
-<tr>
-<td>Ctrl + Shift + F12</td>
-<td>编辑器最大化</td>
-</tr>
-<tr>
-<td><strong>Ctrl + Shift + Space</strong></td>
-<td><strong>智能代码提示</strong></td>
-</tr>
-<tr>
-<td>Ctrl + Shift + Enter</td>
-<td>自动结束代码，行末自动添加分号 <code>（必备）</code></td>
-</tr>
-<tr>
-<td>Ctrl + Shift + Backspace</td>
-<td>退回到上次修改的地方</td>
-</tr>
-<tr>
-<td>Ctrl + Shift + 1,2,3…9</td>
-<td>快速添加指定数值的书签</td>
-</tr>
-<tr>
-<td><strong>Ctrl + Shift + 左方向键</strong></td>
-<td><strong>在代码文件上，光标跳转到当前单词 &#x2F; 中文句的左侧开头位置，同时选中该单词 &#x2F; 中文句</strong></td>
-</tr>
-<tr>
-<td><strong>Ctrl + Shift + 右方向键</strong></td>
-<td><strong>在代码文件上，光标跳转到当前单词 &#x2F; 中文句的右侧开头位置，同时选中该单词 &#x2F; 中文句</strong></td>
-</tr>
-<tr>
-<td>Ctrl + Shift + 左方向键</td>
-<td>在光标焦点是在工具选项卡上，缩小选项卡区域</td>
-</tr>
-<tr>
-<td>Ctrl + Shift + 右方向键</td>
-<td>在光标焦点是在工具选项卡上，扩大选项卡区域</td>
-</tr>
-<tr>
-<td>Ctrl + Shift + 前方向键</td>
-<td>光标放在方法名上，将方法移动到上一个方法前面，调整方法排序</td>
-</tr>
-<tr>
-<td>Ctrl + Shift + 后方向键</td>
-<td>光标放在方法名上，将方法移动到下一个方法前面，调整方法排序</td>
-</tr>
-</tbody></table>
-<h4 id="Alt-Shift"><a href="#Alt-Shift" class="headerlink" title="Alt + Shift"></a>Alt + Shift</h4><table>
-<thead>
-<tr>
-<th>快捷键</th>
-<th>介绍</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Alt + Shift + I</td>
-<td>查看项目当前文件</td>
-</tr>
-<tr>
-<td>Alt + Shift + F7</td>
-<td>在 Debug 模式下，下一步，进入当前方法体内，如果方法体还有方法，则会进入该内嵌的方法中，依此循环进入</td>
-</tr>
-<tr>
-<td>Alt + Shift + F9</td>
-<td>弹出 <code>Debug</code> 的可选择菜单</td>
-</tr>
-<tr>
-<td>Alt + Shift + F10</td>
-<td>弹出 <code>Run</code> 的可选择菜单</td>
-</tr>
-</tbody></table>
-<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><table>
-<thead>
-<tr>
-<th>快捷键</th>
-<th>介绍</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>F2</td>
-<td>跳转到下一个高亮错误 或 警告位置 <code>（必备）</code></td>
-</tr>
-<tr>
-<td>F3</td>
-<td>在查找模式下，定位到下一个匹配处</td>
-</tr>
-<tr>
-<td>F4</td>
-<td>编辑源</td>
-</tr>
-<tr>
-<td>F7</td>
-<td>在 Debug 模式下，进入下一步，如果当前行断点是一个方法，则进入当前方法体内，如果该方法体还有方法，则不会进入该内嵌的方法中</td>
-</tr>
-<tr>
-<td>F8</td>
-<td>在 Debug 模式下，进入下一步，如果当前行断点是一个方法，则不进入当前方法体内</td>
-</tr>
-<tr>
-<td>F9</td>
-<td>在 Debug 模式下，恢复程序运行，但是如果该断点下面代码还有断点则停在下一个断点上</td>
-</tr>
-<tr>
-<td>F11</td>
-<td>添加书签</td>
-</tr>
-<tr>
-<td>F12</td>
-<td>回到前一个工具窗口</td>
-</tr>
-<tr>
-<td>Tab</td>
-<td>缩进</td>
-</tr>
-<tr>
-<td>ESC</td>
-<td>从工具窗口进入代码文件窗口</td>
-</tr>
-<tr>
-<td><strong>连按两次Shift</strong></td>
-<td><strong>弹出 <code>Search Everywhere</code> 弹出层</strong></td>
+<td align="left">CONNECT</td>
+<td align="left">把请求连接转换到透明的 TCP&#x2F;IP 通道。</td>
 </tr>
 </tbody></table>
  
@@ -572,12 +351,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/05/06/IDEAtechniques/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/05/10/GET-POST/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/" rel="tag">tools</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
 
     </footer>
   </div>
@@ -585,19 +364,10 @@
    
   <nav class="article-nav">
     
+    
       <a href="/2022/05/10/TCP-IP/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            TCP/IP知识整理
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2022/05/05/RPC/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">RPC</div>
+        <div class="article-nav-title">TCP/IP知识整理</div>
       </a>
     
   </nav>

@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">2.9k</span>
+            <span class="post-count">7k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">18 分钟</span>
+            <span class="post-count">33 分钟</span>
         </span>
     </span>
 </div>
@@ -205,26 +205,24 @@
 <p>- e.g., washing football uniforms and need to get proper detergent level; need to see after dryer before next load in</p>
 <p>- <u>branch instructions</u></p>
 <ul>
-<li><p>Control Hazard Solution #1: Stall</p>
+<li><p><strong>Control Hazard Solution #1: Stall</strong></p>
 <img src="https://pic.imgdb.cn/item/626e952d239250f7c50f6c42.jpg" style="zoom:80%;" />
 
 <p><u>Stall</u>: wait until decision is clear</p>
 <p><u>Impact</u>: 2 lost cycles (i.e. 3 clock cycles per branch instruction) &#x3D;&gt; slow</p>
 <p><u>Move decision to the end of decode</u>. (earlier to the decoder stage) —— save 1 cycle per branch.</p>
 </li>
-<li><p>Control Hazard Solution #2: Predict</p>
+<li><p><strong>Control Hazard Solution #2: Predict</strong></p>
 <img src="https://pic.imgdb.cn/item/626e95fa239250f7c5128041.jpg" style="zoom:80%;" />
 
 <p><u>Predict</u>: guess one direction then back up if wrong</p>
 <p><u>Impact</u>: 0 lost cycles per branch instruction if right, 1 if wrong (right - 50% of time)</p>
 <ul>
 <li>Need to “Squash” and restart following instruction if wrong</li>
-<li>Produce CPI on branch of (1 * 0.5 + 2 * 0.5 &#x3D; 1.5)</li>
+<li>Produce CPI on branch of (1 * 0.5 + 2 * 0.5 &#x3D; 1.5) （the CPI of the branch instructions）</li>
 <li>Total CPI might then be: 1.5 * 0.2 + 1 * 0.8 &#x3D; 1.1 (20% branch)</li>
 </ul>
 <p><u>More dynamic scheme</u>: history of 1 branch ( - 90%) , e.g. if there is 30% branch, then the total CPI &#x3D; 1.5 * 0.3 + 1 * 0.7</p>
-</li>
-<li><p>Control Hazard Solution #3: Delayed Branch</p>
 <img src="https://pic.imgdb.cn/item/626e9b00239250f7c52578d9.jpg" style="zoom:80%;" />
 
 <p>Delayed Branch: Redefine branch behavior (takes place after next instruction)</p>
@@ -251,6 +249,10 @@
 <p><strong>Can always resolve these hazards by waiting(pipeline stall)</strong></p>
 <p>- pipeline control must detect the hazard</p>
 <p>- take action (or delay action) to resolve hazards</p>
+<img src="https://pic.imgdb.cn/item/62790e490947543129ab86b8.jpg" style="zoom:80%;" />
+
+
+
 <h4 id="Summary-of-Concepts"><a href="#Summary-of-Concepts" class="headerlink" title="Summary of Concepts"></a>Summary of Concepts</h4><ul>
 <li>Reduce CPI by overlapping many instructions<ul>
 <li>average throughput of approximately 1 CPI with fast clock</li>
@@ -276,8 +278,8 @@
 <h4 id="Issues-in-Pipelined-Design"><a href="#Issues-in-Pipelined-Design" class="headerlink" title="Issues in Pipelined Design"></a>Issues in Pipelined Design</h4><img src="https://pic.imgdb.cn/item/626f7439239250f7c5a839d6.jpg" style="zoom:80%;" />
 
 <h3 id="High-Performance-Techniques"><a href="#High-Performance-Techniques" class="headerlink" title="High Performance Techniques"></a>High Performance Techniques</h3><ul>
-<li>How to Optimize the Pipeline? Extract More Parallelism! (multiple execution-stage PL computers e.g. ADD - EX1 and EX2, etc)</li>
-<li>Compiler-Directed (Static) Approaches<ul>
+<li>How to Optimize the Pipeline? Extract More Parallelism! (<strong>multiple execution-stage PL</strong> computers e.g. ADD - EX1 and EX2, etc)</li>
+<li><strong>Compiler-Directed (Static)</strong> Approaches<ul>
 <li>VLIW (Very Long Instruction Word)</li>
 <li>EPIC (Explicit Parallel Instruction Computer)</li>
 <li>Superscalar</li>
@@ -436,7 +438,7 @@
 <li>recompile for performance, not correctness</li>
 </ul>
 </li>
-<li>Datapaths identical<ul>
+<li>Data paths identical<ul>
 <li>but bypass requires detection</li>
 </ul>
 </li>
@@ -452,6 +454,21 @@
 <li>binaries need to be <u>rescheduled (recompiled)</u> for each new processor implementation</li>
 <li>small number of named registers becomes a bottleneck.</li>
 </ul>
+<p><strong>动态调度：</strong></p>
+<ul>
+<li><p>通过硬件在程序执行时重新安排代码的执行序列来减少竞争引起的流水线停顿时间</p>
+</li>
+<li><p>动态调度流水线具备以下功能：</p>
+<ul>
+<li>允许按序取多条指令和发射多条指令—-取指(IF)流水级允许按顺序取多条指令进入单口暂存器(single-entry latch)或队列(queue), 指令然后从latch或queue取出，进入ID节拍。</li>
+<li>能检查并消除hazards—-将ID流水级分为独立的两级：Issue（ID1）级和Read operand（ID2）级：<ul>
+<li>Issue级功能 —-指令译码，检查是否存在结构竞争(即在这一流水级解决结构竞争问题）；</li>
+<li>Read operands级功能 —-等到无数据竞争(RAW)后，读出操作数，即在这一流水级解决数据竞争问题</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="Scoreboard-a-bookkeeping-technique"><a href="#Scoreboard-a-bookkeeping-technique" class="headerlink" title="Scoreboard: a bookkeeping technique"></a>Scoreboard: a bookkeeping technique</h3><ul>
 <li>Out-of-order execution divides <strong>ID stage</strong>:<ul>
 <li><strong>Issue</strong>——decode instructions, check for <strong>structural hazards</strong></li>
@@ -466,7 +483,22 @@
 </ul>
 </li>
 </ul>
-<h4 id="Scoreboard-Implications"><a href="#Scoreboard-Implications" class="headerlink" title="Scoreboard Implications"></a>Scoreboard Implications</h4><p>Out-of-order completion &#x3D;&#x3D;&gt; WAR, WAW hazards?</p>
+<h4 id="Scoreboard-Implications"><a href="#Scoreboard-Implications" class="headerlink" title="Scoreboard Implications"></a>Scoreboard Implications</h4><p><strong>算法设计</strong></p>
+<ul>
+<li>动态调度技术需要将ID译码段分成两个阶段：1是发射，2是读取操作数。<ul>
+<li>发射阶段对指令进行译码，检查<strong>结构冒险</strong>（例如有四个运算器：整数运算、加法器、乘法器、除法器，检查该指令需要使用的运算器是否正在被占用）读取操作数阶段检查数据冒险（读之前检查寄存器的值是否已经写回，或者是否会覆盖了之前的值）。</li>
+<li><strong>数据冒险</strong>的解决方法：<ul>
+<li>读写冒险(RAW)：将指令和操作数保存起来，然后只能在读操作数阶段进行读取；</li>
+<li>写写冒险(WAW)：检测是否有其它指令会写回到相同的寄存器（检测到冒险），有则等待，直到其它的完成</li>
+</ul>
+</li>
+<li>发射阶段：假如检测到没有结构冒险和数据冒险，那么记分板将会将指令发射到相关的运算器，假如结构冒险或者写写冒险发生了，那么该指令将会等待，直到冒险消失为止。</li>
+<li>读取操作数：没有数据相关了以后（之前的指令不会写回源寄存器或者正在写寄存器的情况时，读写冒险），读取操作数。读取操作数后将交给运算器，之后开始运算。发送到运算器的顺序可能是乱序的。</li>
+</ul>
+</li>
+<li>之后就是执行段以及写回段了。执行段在完成计算以后会通知记分板。记分板直到计算已经完成了，那么它进行读写冒险检验（即写之前是否已经读取了寄存器的值，例如 ADD F10,F0,F8 SUB F8,F8,F14，这里SUB指令写回时要检查ADD指令的F8是否已经读取了，仅此而已）假如检测到冒险，则等待，不然就可以写寄存器了。</li>
+</ul>
+<p>Out-of-order completion &#x3D;&#x3D;&gt; WAR, WAW hazards?</p>
 <ul>
 <li>Solutions for WAR:<ul>
 <li><u>stall writeback until registers have been read</u></li>
@@ -534,7 +566,25 @@
 </ul>
 </li>
 </ul>
+<h4 id="要点总结和补充（重点）"><a href="#要点总结和补充（重点）" class="headerlink" title="要点总结和补充（重点）"></a>要点总结和补充（重点）</h4><p>总结和补充一下记分牌工作流程中的要点：</p>
+<ul>
+<li>一条指令能否发射，一看是否有功能部件空闲可用，这个信息包含在功能状态中；二看指令要写的寄存器是否正要被别的指令写，这个信息包含在寄存器状态中，观察这个信息是为了解决WAW冒险。</li>
+<li>一条指令能否读数，要看记分牌是否提示源寄存器不可读，如果不可读，就说明该寄存器将要被别的前序指令改写，现在的指令要等待前序指令写回，观察这个信息是为了解决RAW冒险。</li>
+<li>一条指令一旦读数完成，就必然可以进行运算，运算可以是多周期的，在第一个周期结束时应该改写功能状态，表明自己不再需要读寄存器。</li>
+<li>一条指令能否写回，要看是否有指令需要读即将被改写的这个寄存器，具体一点来说，就是要观察标记Yes的Rj、Rk对应的寄存器里是否有当前指令的目的寄存器，如果有，就说明有指令需要读取寄存器的旧值，这样一来我们就要等指令读完旧值之后再写回，观察这个信息是为了解决WAR冒险。</li>
+</ul>
 <h3 id="Tomasulo-Algorithm"><a href="#Tomasulo-Algorithm" class="headerlink" title="Tomasulo Algorithm"></a>Tomasulo Algorithm</h3><p>Improved Dynamic Instruction Scheduling: Tomasulo Algorithm</p>
+<p>由于<strong>记分牌算法只能检测竞争(WAR,WAW)并不能消除这两种竞争</strong>，所以将记分牌算法改进为Tomasulo算法。</p>
+<p>Tomasulo算法的基本思想：</p>
+<ul>
+<li>Tomasulo算法采用寄存器重命名（Renaming）方法，将记分牌中的寄存器用一大组虚拟寄存器名来代替，即用虚拟寄存器集来代替真实的FP寄存器组，由于虚拟寄存器集合所含有的寄存器数目远大于真是的寄存器组，所以可以用虚拟寄存器集来实现寄存器重命名。</li>
+<li>虚拟寄存器组由三部分组成：<ul>
+<li>每个功能单元（FU）都带有的保留站（Reservation station）</li>
+<li>取数缓冲区（Load buffers）—-保存被访问的存储单元的数据和地址</li>
+<li>存数缓冲区（Store buffers）</li>
+</ul>
+</li>
+</ul>
 <h4 id="Recall-Compiler-Techniques-for-Parallelism"><a href="#Recall-Compiler-Techniques-for-Parallelism" class="headerlink" title="Recall: Compiler Techniques for Parallelism"></a>Recall: Compiler Techniques for Parallelism</h4><ul>
 <li><strong>Loop unrolling</strong> &#x3D;&gt; multiple iterations of loop in software:<ul>
 <li>amortizes loop overhead over several iterations</li>
@@ -578,6 +628,12 @@
 
 <h4 id="Organization"><a href="#Organization" class="headerlink" title="Organization"></a>Organization</h4><img src="https://pic.imgdb.cn/item/6270b8af239250f7c5461af3.jpg" style="zoom:80%;" />
 
+<ul>
+<li>浮点寄存器（FP）通过一对总线与每一个功能单元（FU）相连接，这一对总线分别对应两个操作数，并通过一条总线与存数缓冲区（Load buffer）相连接。这里是浮点指令队列，指令在这里等待发射；</li>
+<li>功能单元（FU）的输出和存数缓冲区（Load Buffer）的输出汇总在CDB与浮点寄存器（FP）的输入相连接。在这个算法中存储指令在执行前会先计算好存储地址；</li>
+<li>公共数据总线（Common data bus）CDB：CDB与FP，Reservation station，store buffer等输入相连接，唯一无连接关系的是Load Buffer的输入。它可以直达寄存器堆（用来更新通用寄存器）、加法乘法存储单元的保留站（输送保留站中指令需要的数据）</li>
+<li>由于保留站和Buffer都有对应的标识符，所以这里实现了重命名。保留站保留已经发射的指令的信息和缓冲下来的数据，指令一旦离开保留站就意味着指令开始执行</li>
+</ul>
 <h4 id="RS-Components"><a href="#RS-Components" class="headerlink" title="RS Components"></a>RS Components</h4><ul>
 <li>Op: operation to perform in the unit(e.g., add or sub)</li>
 <li>Vj, Vk, Value of source operands<ul>
@@ -592,7 +648,51 @@
 <li>Busy: indicates reservation station or FU is busy</li>
 <li>Register result status — indicates which functional unit will write each register, if one exists; blank when no pending instructions that will write that register.</li>
 </ul>
-<h4 id="Three-Stages"><a href="#Three-Stages" class="headerlink" title="Three Stages"></a>Three Stages</h4><p><strong>1. Issue</strong>:</p>
+<img src="https://pic.imgdb.cn/item/6277e6510947543129bf7d99.jpg" style="zoom:80%;" />
+
+<ul>
+<li><p>保留站的结构有点像cache，可能有多行数据，每一行都对应一条被发射到保留站的指令。</p>
+<ul>
+<li>保留站每一行都有Busy位，指示这一行是否现存有指令；</li>
+<li>Vj和Vk与记分牌不同，记分牌的Vj和Vk会记录源寄存器的编号，<strong>而保留站则直接把能读取的数据直接拷贝到保留站中</strong>，可想而知，一旦数据进入保留站，那对应的寄存器就和这条指令没瓜葛了；</li>
+<li>Qj和Qk的信息和记分牌一样，记录尚不能读取的数据将由哪条指令算出；</li>
+<li>A是存储指令的地址，用于存放立即数和计算得到的地址数据。</li>
+</ul>
+</li>
+<li><p>看上去保留站和记分牌非常相似，但是两者其实有很大的不同。</p>
+<ul>
+<li>以Add为例，保留站中有三行Add信息，这三行数据对应的是同一个加法单元，而在记分牌中这代表着三个加法单元。</li>
+<li>记分牌那样的一条通路只对应一条信息的做法容易造成指令堵塞、无法发射，<strong>而保留站则为每条通路预留了缓冲区，指令可以在加法单元忙碌的时候发射到保留站的缓冲区待命</strong>。</li>
+</ul>
+</li>
+<li><p>其次，保留站会直接把读取的数据缓冲下来，而不像记分牌一样只记录一个寄存器编号，只记录编号的话会造成读后写阻塞，因为一条指令在正式执行前一直在监控着它的源寄存器，源寄存器的值是不能改变的，因此后续指令无法写回，只能阻塞流水，<strong>而保留站则贯彻了“数据一旦准备完毕，就立马执行指令”的思想</strong>，指令一旦发现有数据可读，就立马读下来，读下来之后，那个源寄存器的写与不写就不关己事了。</p>
+</li>
+<li><p>记分牌和保留站相同的地方是都记录了Qj和Qk，即一旦需要的数据被算出来，就通过Qj和Qk捕捉广播数据，<strong>这样的做法其实就是重命名，即用保留站的编号而不是寄存器编号来标记数据源</strong>。</p>
+</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6277e7030947543129c268cd.jpg" style="zoom:80%;" />
+
+<ul>
+<li>除了保留站数据结构之外，Tomasulo同样要记录寄存器结果状态，记录信息和记分牌一样，Tomasulo也会记录寄存器将被哪条指令更新，这个信息在指令寻找源数据时被使用。</li>
+</ul>
+<h4 id="Three-Stages"><a href="#Three-Stages" class="headerlink" title="Three Stages"></a>Three Stages</h4><ul>
+<li>发射级（Issue）<ul>
+<li>若是一条FP操作指令，如果<strong>保留站有空</strong>（判断能否发射的唯一标准），则将其送至保留站，如果该指令的操作数已在FP寄存器，将操作数的值送往保留站。</li>
+<li>若是一条Load或者Store指令，如果Buffer有空，将其送往相应的Buffer</li>
+<li>如果保留站或者Buffer没有空，则存在结构竞争，停顿该指令，直到对应的保留站或者Buffer有空为止。</li>
+<li>这一级完成了重命名，因为在保留站中的操作数不再使用寄存器号。</li>
+</ul>
+</li>
+<li>执行级（Execute）<ul>
+<li>若有一个或几个操作数未就绪，等待该操作数，并同时监控CDB。一旦操作数就绪，立即存入相应的保留站，若两个操作数均已就绪，则执行该操作，此级检查了是否存在RAW竞争。</li>
+</ul>
+</li>
+<li>写回级（Write Back）<ul>
+<li>当结果计算出来之后，将其写入CDB，并从CDB写入目的寄存器以及等待此结果的保留站，当连续写同一寄存器时，只有最后一次才能写入，消除了WAW竞争。</li>
+</ul>
+</li>
+</ul>
+<p><strong>1. Issue</strong>:</p>
 <ul>
 <li>Get instruction from FP Op Queue<ul>
 <li>if reservation station free (no structural hazard), control issues instructions and sends operands (renames registers);</li>
@@ -628,6 +728,26 @@
 <p><strong>Compare to Scoreboard Cycle 62</strong></p>
 <img src="https://pic.imgdb.cn/item/6270bffa239250f7c55700ed.jpg" style="zoom:80%;" />
 
+
+
+<p><strong>Tomuasulo调度流程中的要点</strong>：</p>
+<ul>
+<li>一条指令能否发射，要看对应配置通路的保留站是否有空余，<strong>只要有空余，就可以发射到保留站中等待执行；发射的同时会被能读取的数据直接拷贝到保留站</strong>，这样做就不用考虑读后写冒险，后续的指令只要完成就可以写回，不用顾虑是否会有前序指令需要读取寄存器，换句话说，每一条被发射到保留站中的指令都不再需要读取寄存器堆。</li>
+<li>指令在发射的时候会更新寄存器状态表，如果后序指令和前序指令的目的寄存器重合了，就用后序指令的写信息标志寄存器，<strong>表示只会把后序指令的计算结果写进寄存器</strong>，这样可以解决写后写冒险；</li>
+<li>如果执行单元中有指令正在执行，其他指令就在保留站中等待；<strong>如果指令缺少源数据，就留在保留站中，时刻监听CDB总线</strong>，如果CDB总线广播了需要的数据，就立马拷贝下来，然后准备执行。</li>
+<li>一条指令在源数据全部准备好之后就可以执行，执行可能是多周期的。</li>
+<li>一条指令只要完成计算，就可以写回，<strong>写回的数据通过CDB总线直通寄存器堆和各个保留站</strong>。<strong>但是要注意的一点是指令的结果未必会写进寄存器堆</strong>，因为寄存器结果状态表中总是存有最新的状态，即如果发生写后写冒险，Tomasulo算法会记录下最新的写指令，而抛弃前序的写指令结果，前序写指令的结果不会写回到寄存器堆，这样的做法很符合数据流思维。</li>
+</ul>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>Tomasulo成功地解决了三种冒险，实现了指令的乱序执行，<strong>且性能比记分牌更好，具体优化的地方有三</strong>：</p>
+<ul>
+<li>记分牌每条通路只能存一条指令，导致经常有指令因为结构冒险而不能发射，<strong>而Tomasulo引入保留站之后每条通路可以缓冲下多条指令，这样的做法平缓了指令发射的速度</strong>；</li>
+<li>写后写冒险时，记分牌过度纠结寄存器名字，会把所有指令的结果都写进寄存器堆，会因为写后写冒险阻塞指令发射，而Tomasulo只保存最新的写入值，这样即保证了正确的结果，又减少了无谓的工作；</li>
+<li>读后写冒险时，记分牌过度纠结寄存器名字，指令在执行之前一直检测的是寄存器堆，一旦数据准备好，就会从寄存器堆中取数，这样的后果就是后序指令即使计算完结果也可能不能立刻写回寄存器堆，而Tomasulo则在发射时就拷贝数据，贯彻数据流的思想——“<strong>寄存器名字不重要，寄存器里的数据才重要</strong>”。</li>
+</ul>
+<p>在写后读冒险中两者都用CDB总线实现了逻辑上的正确，都解决了写后读冒险。</p>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>但是Tomasulo也不是完美的，它也存在一些问题，图7的PPT显示了Tomasulo算法的一系列问题。</p>
+<p>Tomasulo算法中每一个执行单元对应一个保留站，保留站中缓冲多条指令，所以有可能在同一周期有多条指令准备好数据，但是执行单元同时只能执行一条指令，所以就需要从中选择一条指令，简单的解决办法是为保留站的每一行增加一个年龄位，每次出现冲突，就选择最老的指令送到执行单元。</p>
+<p>在前文的举例中，电路里的CDB总线只有一组，<strong>这意味着每一个周期只能写回一条指令</strong>，如果同时有多条指令完成，那就只能选择一条指令进行广播，别的指令等待；第二种办法是增加CDB总线，支持多指令广播，但是这会让电路面积大增，包括增加寄存器堆写口、增加保留站tag和CDB总线的比较电路、增加保留站写口。</p>
 <h4 id="Drawbacks"><a href="#Drawbacks" class="headerlink" title="Drawbacks"></a>Drawbacks</h4><ul>
 <li>Complexity<ul>
 <li>delays of 360&#x2F;91, MIPS 10000, IBM 620?</li>
@@ -638,6 +758,40 @@
 <li>multiple CDBs &#x3D;&#x3D;&gt; more FU logic for parallel associative stores</li>
 </ul>
 </li>
+</ul>
+<h4 id="Why-issue-in-order"><a href="#Why-issue-in-order" class="headerlink" title="Why issue in-order?"></a>Why issue in-order?</h4><ul>
+<li>In-order issue permits us to analyze dataflow of program</li>
+<li>This way , we know exactly which results should flow to which subsequent instructions<ul>
+<li>if we issued out-of-order, we <strong>would confuse RAW and WAR hazards</strong></li>
+<li>the most advanced machines ALL issue in-order ;-)</li>
+</ul>
+</li>
+<li>This idea works perfectly well “in principle” with multiple instructions issued per clock:<ul>
+<li>need to multi-port “rename table” and be able to re name a sequence of instructions together</li>
+<li>need to be able to issue to multiple reservation stations in a single cycle</li>
+<li>need to have 2x number of read ports and 1x number of write ports in register file</li>
+</ul>
+</li>
+<li>In-order issue can be serious bottleneck when issuing multiple instructions per clock-cycle</li>
+</ul>
+<h3 id="The-5-tips-to-develop-an-effective-cloud-architecture-application"><a href="#The-5-tips-to-develop-an-effective-cloud-architecture-application" class="headerlink" title="The 5 tips to develop an effective cloud architecture application"></a>The 5 tips to develop an effective cloud architecture application</h3><ul>
+<li>Ensure that your application is scalable by designing each component to be scalable on its own. If every component implements a service interface, responsible for its own scalability in all appropriate dimensions, the overall system will have a scalable base. </li>
+<li>For better manageability and high-availability, make sure that your components are loosely coupled. The key is to build components without having tight dependencies between each other, so that if one component were to die (fail), sleep (not respond) or remain busy (slow to respond) for some reason, the other components in the system are built so as to continue to work as if no failure is happening.</li>
+<li>Implement parallelization for better use of the infrastructure and for performance. Distributing the tasks on multiple machines, multithreading your requests and effective aggregation of results obtained in parallel are some of the techniques that help exploit the infrastructure. </li>
+<li>After designing the basic functionality, use techniques and approaches that will ensure resilience. If any component fails (and failures happen all the time), the system should automatically alert, failover, and re-sync back to the ―last known state as if nothing had failed. </li>
+<li>Don’t forget the cost factor. The key to building a cost-effective application is using on demand resources in your design. It’s wasteful to pay for infrastructure that is sitting idle.</li>
+</ul>
+<p><strong>There are numerous examples of cloud architectures including:</strong> </p>
+<ul>
+<li><strong>Processing pipelines</strong><ul>
+<li>Document processing pipelines to convert hundreds of thousands of documents from one format to another, e.g. from MS Word to PDF; </li>
+<li>Image processing piplelines – say resizing millions of images; </li>
+<li>Video transcoding piplelines – transcoding AVI to MPEG movies; </li>
+<li>Indexing – creating an index of web crawled documents; </li>
+<li>Data mining – performing search over millions of records.</li>
+</ul>
+</li>
+<li><strong>Batch processing systems</strong>: back-office applications in finance, insurance or retail sectors, log analysis, nightly builds or automated unit testing and deployment, etc</li>
 </ul>
 <h3 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h3><h4 id="MIPS-instructions"><a href="#MIPS-instructions" class="headerlink" title="MIPS instructions"></a>MIPS instructions</h4><ul>
 <li><strong>Arithmetic Instructions</strong></li>
