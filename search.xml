@@ -1,6 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>简单的需求开发记录</title>
+    <url>/2022/05/12/MAPI/</url>
+    <content><![CDATA[<p>概述：本文记录了我开发第一个需求的过程</p>
+<span id="more"></span>
+
+<h3 id="明确需求"><a href="#明确需求" class="headerlink" title="明确需求"></a>明确需求</h3><img src="https://pic.imgdb.cn/item/627cacf10947543129944b06.jpg" alt="配置界面" style="zoom:80%;" />
+
+<p>为游戏中心2.0的活动配置界面【新人引导奖励】下方增加一个挽留弹窗的part，拥有两个字段：</p>
+<ul>
+<li>【开关】，开关开启时展示面向用户选项，关闭时不展示</li>
+<li>【面向用户】只提供【全部】和【CRMID】选项</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/627cac690947543129922080.jpg" style="zoom:80%;" />
+
+
+
+<p>打开网页开发者工具，点开编辑，在【Network】中可以找到【detail】开头的name，在【Response】中可以复制Json代码到<code>json.cn</code>中进行解析，其中【bizConfig】字段中包含的也是一个Json实体，去掉转义字符可以同样进行解析发现对应的就是【订单返回奖励】到【新人引导奖励】这部分的内容。</p>
+<img src="https://pic.imgdb.cn/item/627cac99094754312992e02b.jpg" style="zoom:80%;" />
+
+
+
+
+
+<p>在network中【detail】的【Headers】中可以找到【Request URL】从而定位API的名称，方便于在API分组中搜索【path】进行寻找 。</p>
+<p>另外点击【保存】后会调用一个save方法，同样也可以在相应的Headers中定位API的位置和名称</p>
+<p>在【Shepherd】找到API接口后可以在【后端请求定义】中找到接口对应的名称，从而定位到了具体的代码（服务和方法）</p>
+<p>例如如这里通过 <code>/activity/generic/detail</code>找到了MAPI下的 <code>queryActivityDetail</code>方法（<code>.client.service.activity.ActivityManagerMTService</code>）</p>
+<p>通过 <code>/activity/generic/save</code>找到了MAPI下的 <code>saveActivity</code>方法（<code>.client.service.activity.ActivityManagerMTService</code>）</p>
+<h3 id="开发步骤"><a href="#开发步骤" class="headerlink" title="开发步骤"></a>开发步骤</h3><h4 id="DTO到VO"><a href="#DTO到VO" class="headerlink" title="DTO到VO"></a>DTO到VO</h4><p>找到要修改的位置：</p>
+<ul>
+<li><p>从 <code>ActivityManagerMTService</code>类中的 <code>queryActivityDetail</code>方法出发，从接口找到实现类，</p>
+<ul>
+<li>进入 <code>ActivityDetailResponse</code>查看返回类型的具体信息，</li>
+<li>进入 <code>ActivityDetailConfigVO</code>，可以看到这里的对象与网络上detail的response中收到的Json格式的对象是对应起来的，包含baseInfo 基本信息， dispatchStrategy 分流信息， <strong>bizConfig 业务模型</strong>， ext 扩展信息，其中bizConfig是我们需要关注的东西，可以看到他是一个String。</li>
+</ul>
+</li>
+<li><p>重新回到实现类 <code>ActivityManagerMTServiceImpl</code>，进入 <code>ActivityManagerLocalService</code>接口，可以看到 <code>supportActivityType()</code> <code>save()</code> <code>detail()</code>三个方法，进入<code>detail()</code>的实现，进入<code>convertDTO2VO</code>方法的实现，注意其中<code>setBizConfig</code>方法是我们需要设置bizConfig的关键代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">ActivityDetailConfigVO</span> <span class="variable">vo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ActivityDetailConfigVO</span>();</span><br><span class="line">vo.setBizConfig(resolveExtraConfigWhenQuery(vo.getBaseInfo(),activityDTO.getExtraConfig()));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入 <code>resolveExtraConfigWhenQuery</code>接口再进入实现（GameCenter前缀的那一个）</p>
+</li>
+<li><p>这里可以进入 <code>GameCenterExtraConfigDTO</code>加入DTO字段和对应方法（注意DTO的修改需要在另一个包下）和 <code>GameCenterInfoConfigVO</code>（需要在里面加入VO字段和对应方法）</p>
+</li>
+<li><p>在同样的位置进入 <code>buildExtraConfigVO</code>方法，在其中new一个retainWindowVO对象，并将从DTO的对应数据set进去，<strong>完成DTO到VO对象的转换</strong></p>
+</li>
+</ul>
+<h4 id="VO到DTO"><a href="#VO到DTO" class="headerlink" title="VO到DTO"></a>VO到DTO</h4><ul>
+<li><p>从 <code>ActivityManagerMTService</code>类中的 <code>saveActivity</code>方法出发，从接口找到实现类，</p>
+<ul>
+<li>入参是<code>ActivityDetailConfigVO</code></li>
+<li>进入 <code>PrimaryIdResponse</code>查看返回类型的具体信息，可以看见其中是一个Long类型的data</li>
+<li>找到 <code>saveActivity</code>的实现，同样可以通过<code>ActivityManagerLocalService</code>找到其中的 <code>save()</code>方法，进入 <code>AbstractActivityManagerService</code>的实现</li>
+</ul>
+</li>
+<li><p>可以看到save中需要更改的几处地方</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> PrimaryIdResponse <span class="title function_">save</span><span class="params">(ActivityDetailConfigVO vo)</span>&#123;</span><br><span class="line">	<span class="comment">//......</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//校验配置</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">bizCheckMsg</span> <span class="operator">=</span> checkBizConfig(vo.getBaseInfo(), vo.getBizConfig());</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//0.init activity base info</span></span><br><span class="line">    <span class="type">ActivityDTO</span> <span class="variable">activityDTO</span> <span class="operator">=</span> init(vo);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//......</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//convert and check</span></span><br><span class="line">    activityDTO.setExtraConfig(resolveExtraConfigWhenSave(vo.getBaseInfo(), vo.getBizConfig()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在【校验配置】部分，进入 <code>checkBizConfig</code>方法位于 <code>GameCenterActivityManagerLocalServiceImpl</code>实现中使用的 <code>checkBaseAndBizParam</code>方法（返回String），注意需要在这里<strong>设置校验</strong></p>
+</li>
+<li><p>【convert and check】部分，进入<code>resolveExtraConfigWhenSave</code>方法位于 <code>GameCenterActivityManagerLocalServiceImpl</code>实现中使用的 <code>resolveExtraConfigWhenSave</code>（返回String），可以进入 <code>GameCenterConvert</code>类中的 <code>buildExtraDTO</code>方法，在这里进行对应的<strong>VO对象到DTO对象的转换</strong></p>
+</li>
+</ul>
+<h4 id="设计RetainWindowDTO类"><a href="#设计RetainWindowDTO类" class="headerlink" title="设计RetainWindowDTO类"></a>设计RetainWindowDTO类</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RetainWindowDTO</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span>      ;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//弹窗开关</span></span><br><span class="line">    privateBoolean popSwitch;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//任务人群配置</span></span><br><span class="line">    <span class="keyword">private</span> CrowdConfigDTO crowd</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意还需要在GameCenterExtraConfigDTO中加入一条对应的配置</p>
+<h4 id="设计RetainWindowVO类"><a href="#设计RetainWindowVO类" class="headerlink" title="设计RetainWindowVO类"></a>设计RetainWindowVO类</h4><p>注意VO（ View Object）：显示层对象，通常是 Web 向模板渲染引擎层传输的对象。</p>
+<p>注解使用：</p>
+<p><code>@ToString</code>：Lombok下自动生成toString()方法的注解</p>
+<p><code>@ThriftStruct</code>：Thrift组件用于定义结构体</p>
+<p>生成serialVersionUID：注意要安装<code>GenerateSerialVersionUID</code>插件 </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="meta">@ThriftStruct</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RetainWindowVO</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span>       ;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//弹窗开关</span></span><br><span class="line">    <span class="keyword">private</span> Boolean popSwitch;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//人群类型</span></span><br><span class="line">    <span class="keyword">private</span> CrowdConfigVO crowdConfig;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@ThriftField(1)</span></span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">getPopSwitch</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> popSwitch;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@ThriftField</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPopSwitch</span><span class="params">(Boolean popSwitch)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.popSwitch = popSwitch;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@ThriftField(2)</span></span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">getCrowdConfig</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> crowdConfig;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@ThriftField</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setCrowdConfig</span><span class="params">(CrowdConfigVO crowdConfigVO)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.crowdConfig = crowdConfig;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="注意本地代码和远程代码的合并"><a href="#注意本地代码和远程代码的合并" class="headerlink" title="注意本地代码和远程代码的合并"></a>注意本地代码和远程代码的合并</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//切换分支命令</span><br><span class="line">git checkout 分支名</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="调试和测试"><a href="#调试和测试" class="headerlink" title="调试和测试"></a>调试和测试</h4>]]></content>
+      <categories>
+        <category>Projects</category>
+      </categories>
+      <tags>
+        <tag>Projects</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>GET/POST</title>
     <url>/2022/05/10/GET-POST/</url>
     <content><![CDATA[<p>简介HTTP，并总结GET和POST的区别</p>
@@ -1151,6 +1238,7 @@
 <ul>
 <li>通过POSTMAN请求url（其中{id}为路径参数，类型为整数型，要用实际参数替换）</li>
 <li>可以在【Params】中给相应的参数赋值</li>
+<li>DSL指南见appendix</li>
 </ul>
 </li>
 </ul>
@@ -1190,6 +1278,28 @@
 <li>Authorization：身份认证</li>
 <li>Headers：请求头信息</li>
 </ul>
+<h4 id="DSL的使用"><a href="#DSL的使用" class="headerlink" title="DSL的使用"></a>DSL的使用</h4><p><strong>参数类型</strong> </p>
+<p>参数类型主要分为三种类型：请求参数、上下⽂参数、服务返回结果参数</p>
+<p>\1. 请求参数：请求参数⽀持path路径取值、query取值、header取值、cookie取值、body取值（⽀持 json、表单等）。 </p>
+<p>\2. 上下⽂参数：上下⽂参数主要⽀持⽤户⾃定义插件中可编程的取值⽅式。Shepherd Context取值汇总 </p>
+<p>\3. 服务返回结果参数：请求后端服务后返回的结果可作为参数以待取值。</p>
+<p><strong>表达式类型</strong> </p>
+<p>\1. JsonPath（默认）：</p>
+<p>表达式类型⽀持JsonPath标准：JSONPath-简单⼊⻔ </p>
+<p>Jayway JsonPath - A Java DSL for reading JSON documents. </p>
+<p>\2. Freemarker： </p>
+<p>对于表达式有特殊要求，⽐如说在返回的Bean列表中，希望屏蔽Bean的某⼀个field时，可以使⽤ </p>
+<p>Freemarker模板语⾔实现。 </p>
+<p>具体请参⻅：Freemarker 表达式使⽤指南</p>
+<p><strong>JsonPath表达式取值示例</strong> </p>
+<img src="https://pic.imgdb.cn/item/627b89d70947543129b99894.jpg" style="zoom:80%;" />
+
+<img src="https://pic.imgdb.cn/item/627b89e90947543129b9ccec.jpg" style="zoom:80%;" />
+
+<p>服务调⽤参数和返回值Schema填写举例： </p>
+<p>后端服务输⼊参数部分采⽤RPC框架泛化json-simple调⽤格式。 </p>
+<p>先⽤com.dianping.pigeon.remoting.common.codec.json.SimpleJacksonUtils#serialize⽣成Json格式。 </p>
+<p>然后对需要从请求参数或上下⽂取值的部分⽤DSL表达式替换。</p>
 ]]></content>
       <categories>
         <category>Projects</category>
@@ -5114,8 +5224,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Redis</tag>
         <tag>JavaWeb</tag>
+        <tag>Redis</tag>
       </tags>
   </entry>
   <entry>
@@ -5963,9 +6073,9 @@
         <category>JavaWeb</category>
       </categories>
       <tags>
+        <tag>MySQL</tag>
         <tag>Java</tag>
         <tag>JavaWeb</tag>
-        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>

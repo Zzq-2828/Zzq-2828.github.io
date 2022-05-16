@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-05-11T09:03:15.018Z</updated>
+  <updated>2022-05-16T16:15:57.690Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>简单的需求开发记录</title>
+    <link href="https://www.zzzzzq.com/2022/05/12/MAPI/"/>
+    <id>https://www.zzzzzq.com/2022/05/12/MAPI/</id>
+    <published>2022-05-12T03:31:06.000Z</published>
+    <updated>2022-05-16T16:15:57.690Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了我开发第一个需求的过程&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Projects" scheme="https://www.zzzzzq.com/categories/Projects/"/>
+    
+    
+    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
+    
+  </entry>
   
   <entry>
     <title>GET/POST</title>
@@ -97,7 +116,7 @@
     <link href="https://www.zzzzzq.com/2022/05/05/startup/"/>
     <id>https://www.zzzzzq.com/2022/05/05/startup/</id>
     <published>2022-05-05T06:45:21.000Z</published>
-    <updated>2022-05-11T07:44:34.326Z</updated>
+    <updated>2022-05-11T10:04:19.847Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文记录了一个简易Java开发流程和服务部署和调用的学习过程&lt;/p&gt;</summary>
@@ -392,25 +411,6 @@
     
     
     <summary type="html">&lt;p&gt;本文记录了Spring的事务控制，包含编程式事务控制相关对象、基于XML的声明式事务控制和基于注解的声明式事务控制&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/categories/SSM/"/>
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SSM04 —— AOP</title>
-    <link href="https://www.zzzzzq.com/2022/04/16/SSM04/"/>
-    <id>https://www.zzzzzq.com/2022/04/16/SSM04/</id>
-    <published>2022-04-16T08:42:45.000Z</published>
-    <updated>2022-04-16T18:51:19.731Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文记录了AOP编程的基本概念和在java开发中的底层实现，对动态代理技术作了介绍和演示&lt;/p&gt;</summary>
     
     
     

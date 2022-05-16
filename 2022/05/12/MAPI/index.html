@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>GET/POST |  Keep Making Progress</title>
+      <title>简单的需求开发记录 |  Keep Making Progress</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-GET-POST"
+  id="post-MAPI"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  GET/POST
+  简单的需求开发记录
 </h1>
  
 
@@ -75,11 +75,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2022/05/10/GET-POST/" class="article-date">
-  <time datetime="2022-05-10T09:45:23.000Z" itemprop="datePublished">2022-05-10</time>
+      <a href="/2022/05/12/MAPI/" class="article-date">
+  <time datetime="2022-05-12T03:31:06.000Z" itemprop="datePublished">2022-05-12</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Web/">Web</a>
+    <a class="article-category-link" href="/categories/Projects/">Projects</a>
   </div>
   
 <div class="word_count">
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.8k</span>
+            <span class="post-count">1.1k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">6 分钟</span>
+            <span class="post-count">4 分钟</span>
         </span>
     </span>
 </div>
@@ -111,183 +111,83 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>简介HTTP，并总结GET和POST的区别</p>
+  <p>概述：本文记录了我开发第一个需求的过程</p>
 <span id="more"></span>
 
-<h4 id="什么是-HTTP-？"><a href="#什么是-HTTP-？" class="headerlink" title="什么是 HTTP ？"></a>什么是 HTTP ？</h4><p>超文本传输协议（HTTP）的设计目的是保证客户端与服务器之间的通信。</p>
-<p>HTTP 的工作方式是客户端与服务器之间的请求-应答协议。</p>
-<p>web 浏览器可能是客户端，而计算机上的网络应用程序也可能作为服务器端。</p>
-<p>举例：客户端（浏览器）向服务器提交 HTTP 请求；服务器向客户端返回响应。响应包含关于请求的状态信息以及可能被请求的内容。</p>
-<p><strong>特点总结</strong>：</p>
-<ul>
-<li>基于tcp&#x2F;ip、一种网络应用层协议、超文本传输协议HyperText Transfer Protocol</li>
-<li>工作方式：客户端请求服务端应答的模式</li>
-<li>快速：无状态连接</li>
-<li>灵活：可以传输任意对象，对象类型由Content-Type标记</li>
-</ul>
-<p>客户端请求request消息包括以下格式：请求行（request line）、请求头部（header）、空行、请求数据</p>
-<img src="https://pic.imgdb.cn/item/627b775809475431298c5e7d.jpg" style="zoom:80%;" />
+<h3 id="明确需求"><a href="#明确需求" class="headerlink" title="明确需求"></a>明确需求</h3><img src="https://pic.imgdb.cn/item/627cacf10947543129944b06.jpg" alt="配置界面" style="zoom:80%;" />
 
-<p>服务端响应response也由四个部分组成，分别是：状态行、消息报头、空行、响应正文</p>
-<p>or</p>
-<p>＜request-line＞</p>
-<p>＜headers＞</p>
-<p>＜blank line＞</p>
-<p>[＜request-body＞]</p>
-<h5 id="request"><a href="#request" class="headerlink" title="request"></a>request</h5><p><strong>1.请求头</strong></p>
-<p>请求行由请求方法字段、URL字段和HTTP协议版本字段3个字段组成，它们用空格分隔。例如，GET &#x2F;index.html HTTP&#x2F;1.1。</p>
-<p>HTTP协议的请求方法有GET、POST、HEAD、PUT、DELETE、OPTIONS、TRACE、CONNECT。</p>
-<p> <strong>2.请求头部</strong></p>
-<p>请求头部由关键字&#x2F;值对组成，每行一对，关键字和值用英文冒号“:”分隔。请求头部通知服务器有关于客户端请求的信息，典型的请求头有：</p>
-<p>User-Agent：产生请求的浏览器类型。</p>
-<p>Accept：客户端可识别的内容类型列表。</p>
-<p>Host：请求的主机名，允许多个域名同处一个IP地址，即虚拟主机。</p>
-<p><strong>3.空行</strong></p>
-<p>最后一个请求头之后是一个空行，发送回车符和换行符，通知服务器以下不再有请求头。</p>
-<p><strong>4.请求数据</strong></p>
-<p>请求数据不在GET方法中使用，而是在POST方法中使用。POST方法适用于需要客户填写表单的场合。与请求数据相关的最常使用的请求头是Content-Type和Content-Length。</p>
-<h5 id="response"><a href="#response" class="headerlink" title="response"></a>response</h5><p><strong>HTTP报文</strong></p>
-<p>HTTP响应也由三个部分组成，分别是：状态行、消息报头、响应正文。</p>
-<p>如下所示，HTTP响应的格式与请求的格式十分类似：</p>
-<p>＜status-line＞</p>
-<p>＜headers＞</p>
-<p>＜blank line＞</p>
-<p>[＜response-body＞]</p>
-<p> 正如你所见，<strong>在响应中唯一真正的区别在于第一行中用状态信息代替了请求信息</strong>。状态行（status line）通过提供一个状态码来说明所请求的资源情况。</p>
-<p>状态行格式如下：</p>
-<p>HTTP-Version Status-Code Reason-Phrase CRLF</p>
-<p>其中，HTTP-Version表示服务器HTTP协议的版本；Status-Code表示服务器发回的响应状态代码；Reason-Phrase表示状态代码的文本描述。状态代码由三位数字组成，第一个数字定义了响应的类别，且有五种可能取值。</p>
+<p>为游戏中心2.0的活动配置界面【新人引导奖励】下方增加一个挽留弹窗的part，拥有两个字段：</p>
 <ul>
-<li>1xx：指示信息–表示请求已接收，继续处理。</li>
-<li>2xx：成功–表示请求已被成功接收、理解、接受。</li>
-<li>3xx：重定向–要完成请求必须进行更进一步的操作。</li>
-<li>4xx：客户端错误–请求有语法错误或请求无法实现。</li>
-<li>5xx：服务器端错误–服务器未能实现合法的请求。</li>
+<li>【开关】，开关开启时展示面向用户选项，关闭时不展示</li>
+<li>【面向用户】只提供【全部】和【CRMID】选项</li>
 </ul>
-<p>常见状态代码、状态描述的说明如下。</p>
+<img src="https://pic.imgdb.cn/item/627cac690947543129922080.jpg" style="zoom:80%;" />
+
+
+
+<p>打开网页开发者工具，点开编辑，在【Network】中可以找到【detail】开头的name，在【Response】中可以复制Json代码到<code>json.cn</code>中进行解析，其中【bizConfig】字段中包含的也是一个Json实体，去掉转义字符可以同样进行解析发现对应的就是【订单返回奖励】到【新人引导奖励】这部分的内容。</p>
+<img src="https://pic.imgdb.cn/item/627cac99094754312992e02b.jpg" style="zoom:80%;" />
+
+
+
+
+
+<p>在network中【detail】的【Headers】中可以找到【Request URL】从而定位API的名称，方便于在API分组中搜索【path】进行寻找 。</p>
+<p>另外点击【保存】后会调用一个save方法，同样也可以在相应的Headers中定位API的位置和名称</p>
+<p>在【Shepherd】找到API接口后可以在【后端请求定义】中找到接口对应的名称，从而定位到了具体的代码（服务和方法）</p>
+<p>例如如这里通过 <code>/activity/generic/detail</code>找到了MAPI下的 <code>queryActivityDetail</code>方法（<code>.client.service.activity.ActivityManagerMTService</code>）</p>
+<p>通过 <code>/activity/generic/save</code>找到了MAPI下的 <code>saveActivity</code>方法（<code>.client.service.activity.ActivityManagerMTService</code>）</p>
+<h3 id="开发步骤"><a href="#开发步骤" class="headerlink" title="开发步骤"></a>开发步骤</h3><h4 id="DTO到VO"><a href="#DTO到VO" class="headerlink" title="DTO到VO"></a>DTO到VO</h4><p>找到要修改的位置：</p>
 <ul>
-<li>200 OK：客户端请求成功。</li>
-<li>400 Bad Request：客户端请求有语法错误，不能被服务器所理解。</li>
-<li>401 Unauthorized：请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用。</li>
-<li>403 Forbidden：服务器收到请求，但是拒绝提供服务。</li>
-<li>404 Not Found：请求资源不存在，举个例子：输入了错误的URL。</li>
-<li>500 Internal Server Error：服务器发生不可预期的错误。</li>
-<li>503 Server Unavailable：服务器当前不能处理客户端的请求，一段时间后可能恢复正常，举个例子：HTTP&#x2F;1.1 200 OK（CRLF）。</li>
-</ul>
-<h4 id="两种-HTTP-请求方法：GET-和-POST"><a href="#两种-HTTP-请求方法：GET-和-POST" class="headerlink" title="两种 HTTP 请求方法：GET 和 POST"></a>两种 HTTP 请求方法：GET 和 POST</h4><p>在客户机和服务器之间进行请求-响应时，两种最常被用到的方法是：GET 和 POST。</p>
+<li><p>从 <code>ActivityManagerMTService</code>类中的 <code>queryActivityDetail</code>方法出发，从接口找到实现类，</p>
 <ul>
-<li><strong>GET</strong> - 从指定的资源请求数据。</li>
-<li><strong>POST</strong> - 向指定的资源提交要被处理的数据。</li>
+<li>进入 <code>ActivityDetailResponse</code>查看返回类型的具体信息，</li>
+<li>进入 <code>ActivityDetailConfigVO</code>，可以看到这里的对象与网络上detail的response中收到的Json格式的对象是对应起来的，包含baseInfo 基本信息， dispatchStrategy 分流信息， <strong>bizConfig 业务模型</strong>， ext 扩展信息，其中bizConfig是我们需要关注的东西，可以看到他是一个String。</li>
 </ul>
-<h5 id="GET-方法"><a href="#GET-方法" class="headerlink" title="GET 方法"></a>GET 方法</h5><p><strong>请注意，查询字符串（名称&#x2F;值对）是在 GET 请求的 URL 中发送的：</strong></p>
-<p>&#x2F;test&#x2F;demo_form.php**?name1&#x3D;value1&amp;name2&#x3D;value2**</p>
-<p><strong>有关 GET 请求的其他一些注释：</strong></p>
+</li>
+<li><p>重新回到实现类 <code>ActivityManagerMTServiceImpl</code>，进入 <code>ActivityManagerLocalService</code>接口，可以看到 <code>supportActivityType()</code> <code>save()</code> <code>detail()</code>三个方法，进入<code>detail()</code>的实现，进入<code>convertDTO2VO</code>方法的实现，注意其中<code>setBizConfig</code>方法是我们需要设置bizConfig的关键代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ActivityDetailConfigVO</span> <span class="variable">vo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ActivityDetailConfigVO</span>();</span><br><span class="line">vo.setBizConfig(resolveExtraConfigWhenQuery(vo.getBaseInfo(),activityDTO.getExtraConfig()));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入 <code>resolveExtraConfigWhenQuery</code>接口再进入实现（GameCenter前缀的那一个）</p>
+</li>
+<li><p>这里可以进入 <code>GameCenterExtraConfigDTO</code>加入DTO字段和对应方法（注意DTO的修改需要在另一个包下）和 <code>GameCenterInfoConfigVO</code>（需要在里面加入VO字段和对应方法）</p>
+</li>
+<li><p>在同样的位置进入 <code>buildExtraConfigVO</code>方法，在其中new一个retainWindowVO对象，并将从DTO的对应数据set进去，<strong>完成DTO到VO对象的转换</strong></p>
+</li>
+</ul>
+<h4 id="VO到DTO"><a href="#VO到DTO" class="headerlink" title="VO到DTO"></a>VO到DTO</h4><ul>
+<li><p>从 <code>ActivityManagerMTService</code>类中的 <code>saveActivity</code>方法出发，从接口找到实现类，</p>
 <ul>
-<li>GET 请求可被缓存</li>
-<li>GET 请求保留在浏览器历史记录中</li>
-<li>GET 请求可被收藏为书签</li>
-<li>GET 请求不应在处理敏感数据时使用</li>
-<li>GET 请求有长度限制</li>
-<li>GET 请求只应当用于取回数据</li>
+<li>入参是<code>ActivityDetailConfigVO</code></li>
+<li>进入 <code>PrimaryIdResponse</code>查看返回类型的具体信息，可以看见其中是一个Long类型的data</li>
+<li>找到 <code>saveActivity</code>的实现，同样可以通过<code>ActivityManagerLocalService</code>找到其中的 <code>save()</code>方法，进入 <code>AbstractActivityManagerService</code>的实现</li>
 </ul>
-<h5 id="POST-方法"><a href="#POST-方法" class="headerlink" title="POST 方法"></a>POST 方法</h5><p><strong>请注意，查询字符串（名称&#x2F;值对）是在 POST 请求的 HTTP 消息主体中发送的：</strong></p>
-<p>POST &#x2F;test&#x2F;demo_form.php HTTP&#x2F;1.1<br>Host: runoob.com<br><strong>name1&#x3D;value1&amp;name2&#x3D;value2</strong></p>
-<p><strong>有关 POST 请求的其他一些注释：</strong></p>
-<ul>
-<li>POST 请求不会被缓存</li>
-<li>POST 请求不会保留在浏览器历史记录中</li>
-<li>POST 不能被收藏为书签</li>
-<li>POST 请求对数据长度没有要求</li>
+</li>
+<li><p>可以看到save中需要更改的几处地方</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> PrimaryIdResponse <span class="title function_">save</span><span class="params">(ActivityDetailConfigVO vo)</span>&#123;</span><br><span class="line">	<span class="comment">//......</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//校验配置</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">bizCheckMsg</span> <span class="operator">=</span> checkBizConfig(vo.getBaseInfo(), vo.getBizConfig());</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//0.init activity base info</span></span><br><span class="line">    <span class="type">ActivityDTO</span> <span class="variable">activityDTO</span> <span class="operator">=</span> init(vo);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//......</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//convert and check</span></span><br><span class="line">    activityDTO.setExtraConfig(resolveExtraConfigWhenSave(vo.getBaseInfo(), vo.getBizConfig()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在【校验配置】部分，进入 <code>checkBizConfig</code>方法位于 <code>GameCenterActivityManagerLocalServiceImpl</code>实现中使用的 <code>checkBaseAndBizParam</code>方法（返回String），注意需要在这里<strong>设置校验</strong></p>
+</li>
+<li><p>【convert and check】部分，进入<code>resolveExtraConfigWhenSave</code>方法位于 <code>GameCenterActivityManagerLocalServiceImpl</code>实现中使用的 <code>resolveExtraConfigWhenSave</code>（返回String），可以进入 <code>GameCenterConvert</code>类中的 <code>buildExtraDTO</code>方法，在这里进行对应的<strong>VO对象到DTO对象的转换</strong></p>
+</li>
 </ul>
-<h5 id="比较-GET-与-POST"><a href="#比较-GET-与-POST" class="headerlink" title="比较 GET 与 POST"></a>比较 GET 与 POST</h5><p>下面的表格比较了两种 HTTP 方法：GET 和 POST。</p>
-<table>
-<thead>
-<tr>
-<th align="left"></th>
-<th align="left">GET</th>
-<th align="left">POST</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">后退按钮&#x2F;刷新</td>
-<td align="left">无害</td>
-<td align="left">数据会被重新提交（浏览器应该告知用户数据会被重新提交）。</td>
-</tr>
-<tr>
-<td align="left">书签</td>
-<td align="left">可收藏为书签</td>
-<td align="left">不可收藏为书签</td>
-</tr>
-<tr>
-<td align="left">缓存</td>
-<td align="left">能被缓存</td>
-<td align="left">不能缓存</td>
-</tr>
-<tr>
-<td align="left">编码类型</td>
-<td align="left">application&#x2F;x-www-form-urlencoded</td>
-<td align="left">application&#x2F;x-www-form-urlencoded or multipart&#x2F;form-data。为二进制数据使用多重编码。</td>
-</tr>
-<tr>
-<td align="left">历史</td>
-<td align="left">参数保留在浏览器历史中。</td>
-<td align="left">参数不会保存在浏览器历史中。</td>
-</tr>
-<tr>
-<td align="left">对数据长度的限制</td>
-<td align="left">是的。当发送数据时，GET 方法向 URL 添加数据；URL 的长度是受限制的（URL 的最大长度是 2048 个字符）。（只能发送2M大小的数据）</td>
-<td align="left">无限制。</td>
-</tr>
-<tr>
-<td align="left">对数据类型的限制</td>
-<td align="left">只允许 ASCII 字符。</td>
-<td align="left">没有限制。也允许二进制数据。</td>
-</tr>
-<tr>
-<td align="left">安全性</td>
-<td align="left">与 POST 相比，GET 的安全性较差，因为所发送的数据是 URL 的一部分。  在发送密码或其他敏感信息时绝不要使用 GET ！</td>
-<td align="left">POST 比 GET 更安全，因为参数不会被保存在浏览器历史或 web 服务器日志中。</td>
-</tr>
-<tr>
-<td align="left">可见性</td>
-<td align="left">数据在 URL 中对所有人都是可见的。</td>
-<td align="left">数据不会显示在 URL 中。</td>
-</tr>
-</tbody></table>
-<ul>
-<li>GET用于获取信息，是无副作用的，是幂等的，且可缓存</li>
-<li>POST用于修改服务器上的数据，有副作用，非幂等（不能随意多次执行），不可缓存</li>
-</ul>
-<h4 id="其他-HTTP-请求方法"><a href="#其他-HTTP-请求方法" class="headerlink" title="其他 HTTP 请求方法"></a>其他 HTTP 请求方法</h4><p>下面的表格列出了其他一些 HTTP 请求方法：</p>
-<table>
-<thead>
-<tr>
-<th align="left">方法</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">HEAD</td>
-<td align="left">与 GET 相同，但只返回 HTTP 报头，不返回文档主体。</td>
-</tr>
-<tr>
-<td align="left">PUT</td>
-<td align="left">上传指定的 URI 表示。</td>
-</tr>
-<tr>
-<td align="left">DELETE</td>
-<td align="left">删除指定资源。</td>
-</tr>
-<tr>
-<td align="left">OPTIONS</td>
-<td align="left">返回服务器支持的 HTTP 方法。</td>
-</tr>
-<tr>
-<td align="left">CONNECT</td>
-<td align="left">把请求连接转换到透明的 TCP&#x2F;IP 通道。</td>
-</tr>
-</tbody></table>
- 
+<h4 id="设计RetainWindowDTO类"><a href="#设计RetainWindowDTO类" class="headerlink" title="设计RetainWindowDTO类"></a>设计RetainWindowDTO类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RetainWindowDTO</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span>      ;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//弹窗开关</span></span><br><span class="line">    privateBoolean popSwitch;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//任务人群配置</span></span><br><span class="line">    <span class="keyword">private</span> CrowdConfigDTO crowd</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意还需要在GameCenterExtraConfigDTO中加入一条对应的配置</p>
+<h4 id="设计RetainWindowVO类"><a href="#设计RetainWindowVO类" class="headerlink" title="设计RetainWindowVO类"></a>设计RetainWindowVO类</h4><p>注意VO（ View Object）：显示层对象，通常是 Web 向模板渲染引擎层传输的对象。</p>
+<p>注解使用：</p>
+<p><code>@ToString</code>：Lombok下自动生成toString()方法的注解</p>
+<p><code>@ThriftStruct</code>：Thrift组件用于定义结构体</p>
+<p>生成serialVersionUID：注意要安装<code>GenerateSerialVersionUID</code>插件 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="meta">@ThriftStruct</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RetainWindowVO</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span>       ;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//弹窗开关</span></span><br><span class="line">    <span class="keyword">private</span> Boolean popSwitch;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//人群类型</span></span><br><span class="line">    <span class="keyword">private</span> CrowdConfigVO crowdConfig;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@ThriftField(1)</span></span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">getPopSwitch</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> popSwitch;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@ThriftField</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPopSwitch</span><span class="params">(Boolean popSwitch)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.popSwitch = popSwitch;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@ThriftField(2)</span></span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">getCrowdConfig</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> crowdConfig;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@ThriftField</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setCrowdConfig</span><span class="params">(CrowdConfigVO crowdConfigVO)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.crowdConfig = crowdConfig;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="注意本地代码和远程代码的合并"><a href="#注意本地代码和远程代码的合并" class="headerlink" title="注意本地代码和远程代码的合并"></a>注意本地代码和远程代码的合并</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//切换分支命令</span><br><span class="line">git checkout 分支名</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="调试和测试"><a href="#调试和测试" class="headerlink" title="调试和测试"></a>调试和测试</h4> 
       <!-- reward -->
       
     </div>
@@ -351,12 +251,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/05/10/GET-POST/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/05/12/MAPI/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Projects/" rel="tag">Projects</a></li></ul>
 
     </footer>
   </div>
@@ -364,19 +264,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2022/05/12/MAPI/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            简单的需求开发记录
-          
-        </div>
-      </a>
     
-    
-      <a href="/2022/05/10/TCP-IP/" class="article-nav-link">
+      <a href="/2022/05/10/GET-POST/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">TCP/IP知识整理</div>
+        <div class="article-nav-title">GET/POST</div>
       </a>
     
   </nav>

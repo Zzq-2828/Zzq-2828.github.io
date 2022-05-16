@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">2k</span>
+            <span class="post-count">2.3k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">8 分钟</span>
+            <span class="post-count">9 分钟</span>
         </span>
     </span>
 </div>
@@ -212,6 +212,7 @@
 <ul>
 <li>通过POSTMAN请求url（其中{id}为路径参数，类型为整数型，要用实际参数替换）</li>
 <li>可以在【Params】中给相应的参数赋值</li>
+<li>DSL指南见appendix</li>
 </ul>
 </li>
 </ul>
@@ -251,6 +252,28 @@
 <li>Authorization：身份认证</li>
 <li>Headers：请求头信息</li>
 </ul>
+<h4 id="DSL的使用"><a href="#DSL的使用" class="headerlink" title="DSL的使用"></a>DSL的使用</h4><p><strong>参数类型</strong> </p>
+<p>参数类型主要分为三种类型：请求参数、上下⽂参数、服务返回结果参数</p>
+<p>\1. 请求参数：请求参数⽀持path路径取值、query取值、header取值、cookie取值、body取值（⽀持 json、表单等）。 </p>
+<p>\2. 上下⽂参数：上下⽂参数主要⽀持⽤户⾃定义插件中可编程的取值⽅式。Shepherd Context取值汇总 </p>
+<p>\3. 服务返回结果参数：请求后端服务后返回的结果可作为参数以待取值。</p>
+<p><strong>表达式类型</strong> </p>
+<p>\1. JsonPath（默认）：</p>
+<p>表达式类型⽀持JsonPath标准：JSONPath-简单⼊⻔ </p>
+<p>Jayway JsonPath - A Java DSL for reading JSON documents. </p>
+<p>\2. Freemarker： </p>
+<p>对于表达式有特殊要求，⽐如说在返回的Bean列表中，希望屏蔽Bean的某⼀个field时，可以使⽤ </p>
+<p>Freemarker模板语⾔实现。 </p>
+<p>具体请参⻅：Freemarker 表达式使⽤指南</p>
+<p><strong>JsonPath表达式取值示例</strong> </p>
+<img src="https://pic.imgdb.cn/item/627b89d70947543129b99894.jpg" style="zoom:80%;" />
+
+<img src="https://pic.imgdb.cn/item/627b89e90947543129b9ccec.jpg" style="zoom:80%;" />
+
+<p>服务调⽤参数和返回值Schema填写举例： </p>
+<p>后端服务输⼊参数部分采⽤RPC框架泛化json-simple调⽤格式。 </p>
+<p>先⽤com.dianping.pigeon.remoting.common.codec.json.SimpleJacksonUtils#serialize⽣成Json格式。 </p>
+<p>然后对需要从请求参数或上下⽂取值的部分⽤DSL表达式替换。</p>
  
       <!-- reward -->
       
