@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.1k</span>
+            <span class="post-count">1.7k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">4 分钟</span>
+            <span class="post-count">6 分钟</span>
         </span>
     </span>
 </div>
@@ -111,10 +111,10 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>概述：本文记录了我开发第一个需求的过程</p>
+  <p>概述：本文记录了我开发第一个需求【挽留弹窗】的过程</p>
 <span id="more"></span>
 
-<h3 id="明确需求"><a href="#明确需求" class="headerlink" title="明确需求"></a>明确需求</h3><img src="https://pic.imgdb.cn/item/627cacf10947543129944b06.jpg" alt="配置界面" style="zoom:80%;" />
+<h3 id="明确需求"><a href="#明确需求" class="headerlink" title="明确需求"></a>明确需求</h3><h4 id="芥末端"><a href="#芥末端" class="headerlink" title="芥末端"></a>芥末端</h4><img src="https://pic.imgdb.cn/item/627cacf10947543129944b06.jpg" alt="配置界面" style="zoom: 67%;" />
 
 <p>为游戏中心2.0的活动配置界面【新人引导奖励】下方增加一个挽留弹窗的part，拥有两个字段：</p>
 <ul>
@@ -137,7 +137,19 @@
 <p>在【Shepherd】找到API接口后可以在【后端请求定义】中找到接口对应的名称，从而定位到了具体的代码（服务和方法）</p>
 <p>例如如这里通过 <code>/activity/generic/detail</code>找到了MAPI下的 <code>queryActivityDetail</code>方法（<code>.client.service.activity.ActivityManagerMTService</code>）</p>
 <p>通过 <code>/activity/generic/save</code>找到了MAPI下的 <code>saveActivity</code>方法（<code>.client.service.activity.ActivityManagerMTService</code>）</p>
-<h3 id="开发步骤"><a href="#开发步骤" class="headerlink" title="开发步骤"></a>开发步骤</h3><h4 id="DTO到VO"><a href="#DTO到VO" class="headerlink" title="DTO到VO"></a>DTO到VO</h4><p>找到要修改的位置：</p>
+<h4 id="C端"><a href="#C端" class="headerlink" title="C端"></a>C端</h4><p>需要调整主页加载接口</p>
+<p>增加用户类型字段：retainPopDisplay, true表示满足挽留弹窗条件，false表示不满足</p>
+<p>responseBody：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;code&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;data&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;code&quot;</span><span class="punctuation">:</span><span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span><span class="string">&quot;成功&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;retainPopDisplay&quot;</span><span class="punctuation">:</span><span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">        ......</span><br><span class="line">        ......</span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>如何定位对应的接口：</p>
+<ul>
+<li>APPMOCK中绑定自己的设备，选择测试环境，扫码美团优选APP测试版，然后在手机中的mis号和泳道中进行相应的设置，完成后点开游戏中心。</li>
+<li>在APPMOCK中搜索【game】即可找到一些请求，其中后缀为loadMainView的为我们需要的这条请求，点入之后选择【Response】即可查看response的具体信息</li>
+</ul>
+<p><strong>写UT</strong></p>
+<p>要尽量覆盖到各种可能性，覆盖每一行代码</p>
+<h3 id="芥末端开发步骤"><a href="#芥末端开发步骤" class="headerlink" title="芥末端开发步骤"></a>芥末端开发步骤</h3><h4 id="DTO到VO"><a href="#DTO到VO" class="headerlink" title="DTO到VO"></a>DTO到VO</h4><p>找到要修改的位置：</p>
 <ul>
 <li><p>从 <code>ActivityManagerMTService</code>类中的 <code>queryActivityDetail</code>方法出发，从接口找到实现类，</p>
 <ul>
@@ -187,7 +199,28 @@
 
 
 
-<h4 id="调试和测试"><a href="#调试和测试" class="headerlink" title="调试和测试"></a>调试和测试</h4> 
+<h4 id="调试和测试"><a href="#调试和测试" class="headerlink" title="调试和测试"></a>调试和测试</h4><p>千万注意要在测试时要设置泳道 <code>Tracer.setSwimlane(&quot;泳道名称&quot;)</code>，否则默认是在默认渠道上进行的。并且要保证服务已经在泳道进行了部署，否则是在做无用功</p>
+<h3 id="C端开发"><a href="#C端开发" class="headerlink" title="C端开发"></a>C端开发</h3><p>在core模块下的local包下找到 <code>GameCenterLocalService</code>类中的 <code>loadMainSceneInfo</code>方法：</p>
+<ul>
+<li><p>首先看返回类型 <code>MainSceneResp</code>，这里的字段其实是和网页上的Response中的内容对应的，我们要做的就是增加一个挽留窗口<code>retainPopDisplay</code>的字段，类型为Boolean</p>
+</li>
+<li><p>查看 <code>ActivityDTO</code>可以发现其中有<code>bizConfig</code>字段</p>
+</li>
+<li><p>在合并奖励结果部分写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resp.setRetainPopDisplay(mainSceneService.getRetainPopDisplay(req, activityDto));</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>在 <code>MainSceneService</code>类下新增一个 <code>getRetainPopDisplay(activityDto)</code>的方法，用于通过DTO的状态获取得到RetainPopDisplay的结果。这里要<strong>写清楚业务需求的逻辑关系（最关键的部分！）</strong>，目前的需求就是按照传入的dto和req中的id进行分析，看是否符合弹出挽留窗口的需求。</p>
+<p>注意完成这部分的开发后要修改版本号，如从1.0.29到1.0.30-SNAPSHOT，然后在devtools网站上进行jar包的更新。</p>
+<h3 id="修改http服务"><a href="#修改http服务" class="headerlink" title="修改http服务"></a>修改http服务</h3><p>首先需要全局搜索<code>grocerymkthd-game-center-client</code>jar包所在的pom.xml的位置并进行相应版本号的修改，才能导入我们开发完成后的字段和功能。</p>
+<p>在web模块下，在controller包下找到 <code>GameCenterController</code>类中的 <code>loadMainView</code>方法，找到loadMainView的实现，在其中进入 <code>convertToResp</code>方法：</p>
+<ul>
+<li><p>查看返回类型 <code>GameCenterMainSceneResp</code>，在其中加入一个挽留弹窗状态 <code>retailPopDisplay</code> 的字段，返回类型为Boolean</p>
+</li>
+<li><p>加入以下一行：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resp.setRetainPopDisplay(mainSceneResp.getRetainPopDisplay());</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="整体测试"><a href="#整体测试" class="headerlink" title="整体测试"></a>整体测试</h3><p>在ones中完成一些case的测试</p>
+ 
       <!-- reward -->
       
     </div>
@@ -263,6 +296,15 @@
 
    
   <nav class="article-nav">
+    
+      <a href="/2022/05/17/java-core/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            java核心技术记录
+          
+        </div>
+      </a>
     
     
       <a href="/2022/05/10/GET-POST/" class="article-nav-link">

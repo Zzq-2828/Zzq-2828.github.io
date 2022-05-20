@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-05-16T16:15:57.690Z</updated>
+  <updated>2022-05-20T13:36:38.344Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,14 +17,67 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>project_in_meituan_02</title>
+    <link href="https://www.zzzzzq.com/2022/05/20/project-in-meituan-02/"/>
+    <id>https://www.zzzzzq.com/2022/05/20/project-in-meituan-02/</id>
+    <published>2022-05-20T03:51:27.000Z</published>
+    <updated>2022-05-20T13:36:38.344Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;一个较为复杂的需求&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Advanced topics in electrical and electronic engineering</title>
+    <link href="https://www.zzzzzq.com/2022/05/19/ELEC7078/"/>
+    <id>https://www.zzzzzq.com/2022/05/19/ELEC7078/</id>
+    <published>2022-05-18T17:31:41.000Z</published>
+    <updated>2022-05-20T18:42:08.482Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Hong Kong University 2022 summer semester class review —— ELEC7078 Advanced topics in electrical and electronic engineering&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="HKU" scheme="https://www.zzzzzq.com/categories/HKU/"/>
+    
+    
+    <category term="HKU" scheme="https://www.zzzzzq.com/tags/HKU/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>java核心技术记录</title>
+    <link href="https://www.zzzzzq.com/2022/05/17/java-core/"/>
+    <id>https://www.zzzzzq.com/2022/05/17/java-core/</id>
+    <published>2022-05-16T16:17:13.000Z</published>
+    <updated>2022-05-17T02:52:15.321Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文记录了Java的一些核心技术和易混淆的概念&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>简单的需求开发记录</title>
     <link href="https://www.zzzzzq.com/2022/05/12/MAPI/"/>
     <id>https://www.zzzzzq.com/2022/05/12/MAPI/</id>
     <published>2022-05-12T03:31:06.000Z</published>
-    <updated>2022-05-16T16:15:57.690Z</updated>
+    <updated>2022-05-20T03:50:41.962Z</updated>
     
     
-    <summary type="html">&lt;p&gt;概述：本文记录了我开发第一个需求的过程&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;概述：本文记录了我开发第一个需求【挽留弹窗】的过程&lt;/p&gt;</summary>
     
     
     
@@ -346,71 +399,6 @@
     
     
     <summary type="html">&lt;p&gt;本文记录了SSM框架的原始整合方式，mybatis整合spring，声明式事务控制实现&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/categories/SSM/"/>
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SSM07 —— MyBatis的Dao层实现</title>
-    <link href="https://www.zzzzzq.com/2022/04/19/SSM07/"/>
-    <id>https://www.zzzzzq.com/2022/04/19/SSM07/</id>
-    <published>2022-04-18T17:57:19.000Z</published>
-    <updated>2022-04-19T14:56:58.356Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文记录了MyBatis的进阶知识，包括：Dao层（持久层）实现，映射文件的深入知识，核心配置文件的深入知识，多表操作，注解开发&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/categories/SSM/"/>
-    
-    <category term="MyBatis" scheme="https://www.zzzzzq.com/categories/SSM/MyBatis/"/>
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
-    
-    <category term="MyBatis" scheme="https://www.zzzzzq.com/tags/MyBatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SSM06 —— MyBatis基础</title>
-    <link href="https://www.zzzzzq.com/2022/04/17/SSM06/"/>
-    <id>https://www.zzzzzq.com/2022/04/17/SSM06/</id>
-    <published>2022-04-16T19:49:31.000Z</published>
-    <updated>2022-04-18T17:57:34.004Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文记录了MyBatis的基础知识，包括映射文件，增删改查操作，核心配置文件概述和基本的API介绍&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/categories/SSM/"/>
-    
-    <category term="MyBatis" scheme="https://www.zzzzzq.com/categories/SSM/MyBatis/"/>
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
-    
-    <category term="MyBatis" scheme="https://www.zzzzzq.com/tags/MyBatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SSM05 —— 事务控制</title>
-    <link href="https://www.zzzzzq.com/2022/04/17/SSM05/"/>
-    <id>https://www.zzzzzq.com/2022/04/17/SSM05/</id>
-    <published>2022-04-16T18:49:20.000Z</published>
-    <updated>2022-04-16T19:50:54.900Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文记录了Spring的事务控制，包含编程式事务控制相关对象、基于XML的声明式事务控制和基于注解的声明式事务控制&lt;/p&gt;</summary>
     
     
     

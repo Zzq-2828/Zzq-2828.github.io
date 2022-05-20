@@ -1,12 +1,1673 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>简单的需求开发记录</title>
-    <url>/2022/05/12/MAPI/</url>
-    <content><![CDATA[<p>概述：本文记录了我开发第一个需求的过程</p>
+    <title>project_in_meituan_02</title>
+    <url>/2022/05/20/project-in-meituan-02/</url>
+    <content><![CDATA[<p>一个较为复杂的需求</p>
 <span id="more"></span>
 
-<h3 id="明确需求"><a href="#明确需求" class="headerlink" title="明确需求"></a>明确需求</h3><img src="https://pic.imgdb.cn/item/627cacf10947543129944b06.jpg" alt="配置界面" style="zoom:80%;" />
+
+
+
+
+<h3 id="明确需求"><a href="#明确需求" class="headerlink" title="明确需求"></a>明确需求</h3><h4 id="M端"><a href="#M端" class="headerlink" title="M端"></a>M端</h4><p>新增【渠道来源奖励】：</p>
+<ul>
+<li>点击【新建来源奖励】和删除：增删交互同banner区，新增条目为【来源N】和【来源配置】</li>
+<li>每一条配置右侧展示所配置的来源参数，多条目下便于识别</li>
+<li>点击【来源配置】，拉起二级配置窗口</li>
+<li>当前最多支持配置10条</li>
+<li>删除：需要重置该来源的总领取上限和每日上限</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;retainWindow&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;popSwitch&quot;</span><span class="punctuation">:</span><span class="keyword">true</span><span class="punctuation">,</span>  </span><br><span class="line">        <span class="attr">&quot;crowdConfig&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;crowdType&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span>  </span><br><span class="line">          <span class="attr">&quot;crowdIds&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">111</span><span class="punctuation">,</span><span class="number">222</span><span class="punctuation">,</span><span class="number">333</span><span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span>   </span><br><span class="line">    <span class="attr">&quot;sourceAward&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span>  <span class="comment">//新增字段</span></span><br><span class="line">        <span class="attr">&quot;newSourceConfigList&quot;</span> <span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">              <span class="punctuation">&#123;</span> <span class="comment">//来源配置</span></span><br><span class="line">                <span class="attr">&quot;crowdConfig&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;crowdType&quot;</span> <span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span>   <span class="comment">//人群类型 0:&quot;不限制&quot;， 3:&quot;按人群限制&quot;</span></span><br><span class="line">                    <span class="attr">&quot;crowdIds&quot;</span> <span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">111</span><span class="punctuation">,</span><span class="number">222</span><span class="punctuation">,</span><span class="number">333</span><span class="punctuation">]</span> <span class="comment">//crmid list</span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;totalLimit&quot;</span> <span class="punctuation">:</span> <span class="number">10</span><span class="punctuation">,</span>   <span class="comment">//每人总领取上限，-1代表不限制次数</span></span><br><span class="line">                <span class="attr">&quot;eachDayLimit&quot;</span> <span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span>  <span class="comment">//每日次数限制，不可填-1</span></span><br><span class="line">                <span class="attr">&quot;userSource&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;aaa&quot;</span><span class="punctuation">,</span> <span class="comment">//链接来源参数，最长30字符</span></span><br><span class="line">                <span class="attr">&quot;orderAwardConfig&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;rewardNumType&quot;</span> <span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span><span class="comment">//奖励数值模型</span></span><br><span class="line">                    <span class="attr">&quot;lotteryId&quot;</span> <span class="punctuation">:</span> <span class="number">111</span><span class="punctuation">,</span> <span class="comment">//发放奖励</span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;popUpFigure&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;1.gif&quot;</span> <span class="comment">//上传图片支持gif，尺寸[w590,h790]</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
+    <title>Advanced topics in electrical and electronic engineering</title>
+    <url>/2022/05/19/ELEC7078/</url>
+    <content><![CDATA[<p>Hong Kong University 2022 summer semester class review —— ELEC7078 Advanced topics in electrical and electronic engineering</p>
+<span id="more"></span>
+
+
+
+<h3 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h3><h4 id="1-1-Distributed-System"><a href="#1-1-Distributed-System" class="headerlink" title="1.1 Distributed System"></a>1.1 Distributed System</h4><ul>
+<li>A distributed system is defined as a collection of autonomous computers linked by a network with software designed to produce an integrated computing facility.</li>
+<li>A distributed system is a collection of independent computers that appear to the system as a single computer.</li>
+<li>Distributed System &#x3D; Collection of computers + Communication Network + Transparency</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/628532c40947543129f036da.jpg" style="zoom: 50%;" />
+
+<h4 id="1-2-Advantages-of-Distributed-Systems"><a href="#1-2-Advantages-of-Distributed-Systems" class="headerlink" title="1.2 Advantages of Distributed Systems"></a>1.2 Advantages of Distributed Systems</h4><ul>
+<li>Price&#x2F;performance<ul>
+<li>A cost-effective way to build larger system is to use a larger number of cheap CPUs.</li>
+</ul>
+</li>
+<li>Nature of some applications<ul>
+<li>Some applications are inherently distributed (e.g. banking and supermarket chain).</li>
+</ul>
+</li>
+<li>Reliability<ul>
+<li>If one machine crashes, the system as a whole can still survive.</li>
+</ul>
+</li>
+<li>Incremental growth    <ul>
+<li>Computing power can be added in small increments.</li>
+</ul>
+</li>
+<li>Data sharing<ul>
+<li>It allows many users access to a common database;</li>
+</ul>
+</li>
+<li>Device sharing<ul>
+<li>It allows many users to share expensive peripherals;</li>
+</ul>
+</li>
+<li>Communication<ul>
+<li>It provides communication facilities;</li>
+</ul>
+</li>
+<li>Flexibility    <ul>
+<li>It spreads the workload over the available machines in the most cost-effective way.</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-3-Characteristics"><a href="#1-3-Characteristics" class="headerlink" title="1.3 Characteristics"></a>1.3 Characteristics</h4><h5 id="Resource-Sharing"><a href="#Resource-Sharing" class="headerlink" title="Resource Sharing"></a>Resource Sharing</h5><ul>
+<li>What to share?<ul>
+<li>Hardware devicesData</li>
+</ul>
+</li>
+<li>How to share?<ul>
+<li>Resources are stored in workstations and can be accessed via communications by a resource manager</li>
+</ul>
+</li>
+<li>Resource Manager<ul>
+<li>A program that offers a communication interface enabling the resource to be accessed, manipulated and updated reliably and consistently.</li>
+</ul>
+</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/628533b60947543129f0a7a2.jpg" style="zoom:80%;" />
+
+<h5 id="Openness"><a href="#Openness" class="headerlink" title="Openness"></a>Openness</h5><ul>
+<li>Characteristic that determines whether the system can be extended in various ways</li>
+<li>Hardware: Additional peripherals, memory or communication interfaces;</li>
+<li>Software: Additional operating system features, communication protocols and resource-sharing services.</li>
+</ul>
+<h5 id="Concurrency"><a href="#Concurrency" class="headerlink" title="Concurrency"></a>Concurrency</h5><ul>
+<li>In a distributed system with M computers (cores) , up to M processes can be executed in parallel.</li>
+<li>Parallel executions occur for two reasons:<ul>
+<li>More than one users simultaneously invoke commands or interact with application programs</li>
+<li>Many server processes run concurrently, each responding to different requests from client processes.</li>
+</ul>
+</li>
+</ul>
+<h5 id="Scalability"><a href="#Scalability" class="headerlink" title="Scalability"></a>Scalability</h5><ul>
+<li>DS can be existed in different scale:</li>
+<li>The smallest: 2 workstations + 1 file server</li>
+<li>Local area network (LAN): <ul>
+<li>hundreds workstations </li>
+<li>Several file servers</li>
+<li>Print servers</li>
+</ul>
+</li>
+<li>Internetwork:<ul>
+<li>Several LANS interconnected</li>
+</ul>
+</li>
+</ul>
+<h5 id="Fault-Tolerance"><a href="#Fault-Tolerance" class="headerlink" title="Fault Tolerance"></a>Fault Tolerance</h5><ul>
+<li>The design of fault-tolerant computer systems is based on:<ul>
+<li>Hardware redundancy: the use of redundant components</li>
+<li>Software recovery: the design of programs to tolerate (process group) or recover from faults</li>
+</ul>
+</li>
+</ul>
+<h5 id="Transparency"><a href="#Transparency" class="headerlink" title="Transparency"></a>Transparency</h5><ul>
+<li>Hidden from the user (application) programmer of separation of components;</li>
+<li>Achieve a single system image to make everyone into thinking that the collection of machines is simply an old-fashioned time-sharing system.</li>
+<li>Access transparency <ul>
+<li>Enable local and remote information to be accessed using identical operations.</li>
+</ul>
+</li>
+<li>Location transparency <ul>
+<li>Enable the information objects to be accessed without knowledge of their location (users need not tell where resources are located).</li>
+</ul>
+</li>
+<li>Concurrency transparency <ul>
+<li>Enable several processes to operate concurrently using shared information objects without interference (multiple users can share resources automatically).</li>
+</ul>
+</li>
+<li>Replication transparency <ul>
+<li>Enable multiple replicas to be used to increase reliability and performance without user knowledge of how many replicas exist.</li>
+</ul>
+</li>
+<li>Failure transparency <ul>
+<li>Enable concealment of faults, allowing users to complete their tasks despite the failure of hardware or software components.</li>
+</ul>
+</li>
+<li>Migration transparency <ul>
+<li>Allow information objects move within a system without changing their name or affecting users.</li>
+</ul>
+</li>
+<li>Performance transparency <ul>
+<li>Allow the system to be configured to improve performance as loads vary.</li>
+</ul>
+</li>
+<li>Scaling transparency <ul>
+<li>Allow the system and applications to expand in scale without change to the system structure or the application algorithms.</li>
+</ul>
+</li>
+<li>Parallelism transparency <ul>
+<li>Allow the program to be executed in parallel without users knowledge.</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-4-User-Requirements"><a href="#1-4-User-Requirements" class="headerlink" title="1.4 User Requirements"></a>1.4 User Requirements</h4><h5 id="Functionality"><a href="#Functionality" class="headerlink" title="Functionality"></a>Functionality</h5><p>A distributed system should bring an improvement over the services provided by any single computer through enhancements of:</p>
+<ul>
+<li>Sharing across a network can bring access to a richer variety of resources.</li>
+<li>Parallel and Fault-tolerant applications.</li>
+</ul>
+<p>How to migrate a multi-user centralized computing to distributed computing? </p>
+<ul>
+<li>Adapt existing operating systems<ul>
+<li>Continue to use existing operating system software that has been adapted for networking.</li>
+<li>e.g. add servers to UNIX or Sun Network File System.</li>
+</ul>
+</li>
+<li>Move to an entirely new operating system designed specifically for distributed system.<ul>
+<li>Existing software becomes unusable.</li>
+</ul>
+</li>
+<li>Emulation<ul>
+<li>Move to a new OS designed for DS which can emulate one or more existing OS.</li>
+<li>Existing and new distribution software can run side-by-side.</li>
+</ul>
+</li>
+</ul>
+<h5 id="Re-configurability"><a href="#Re-configurability" class="headerlink" title="Re-configurability"></a>Re-configurability</h5><ul>
+<li>Short-term<ul>
+<li>A failed process, computer or network component is replaced by another, working counterpart.</li>
+<li>Overload is shifted from over-loaded to less-loaded machines to increase the total throughput of the DS.</li>
+<li>To reduce network communications, data are moved from a machines to the others to make the data accessible.</li>
+</ul>
+</li>
+<li>Medium&#x2F;long term evolution<ul>
+<li>To accommodate heterogeneous components and assign new task or to upgrade the existing machines.</li>
+</ul>
+</li>
+</ul>
+<h5 id="Quality-of-Service"><a href="#Quality-of-Service" class="headerlink" title="Quality of Service"></a>Quality of Service</h5><ul>
+<li>Performance<ul>
+<li>Speed up the response of software components in a distributed system;</li>
+</ul>
+</li>
+<li>Reliability and availability<ul>
+<li>Fault-tolerance;</li>
+</ul>
+</li>
+<li>Security<ul>
+<li>Apply a reasonable degree of security applied to the data stored and transmitted with a distributed system.</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-5-Basic-Design-Issues"><a href="#1-5-Basic-Design-Issues" class="headerlink" title="1.5 Basic Design Issues"></a>1.5 Basic Design Issues</h4><ul>
+<li>Naming<ul>
+<li>Name resources or objects in order to access them.</li>
+</ul>
+</li>
+<li>Communication<ul>
+<li>Optimize the communication implementations in distributed systems while retaining a high level programming model for its use.</li>
+</ul>
+</li>
+<li>Software structure<ul>
+<li>Define interface and good abstraction of data and services.</li>
+</ul>
+</li>
+<li>Workload allocation<ul>
+<li>Deploy computers and communications to achieve optimum performance and use of resources.</li>
+</ul>
+</li>
+<li>Consistency maintenance<ul>
+<li>How to balance consistency &amp; performance?</li>
+</ul>
+</li>
+<li>Security<ul>
+<li>How to secure message transfer in a distributed system?</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-Inter-process-Communication"><a href="#2-Inter-process-Communication" class="headerlink" title="2. Inter-process  Communication"></a>2. Inter-process  Communication</h3><p>Why we need Inter-process Communication (IPC)?</p>
+<ul>
+<li>The components of a distributed system are both logically and physically separated</li>
+<li>They must communicate in order to interact.</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/628537cb0947543129f29b82.jpg" style="zoom:67%;" />
+
+<h4 id="2-1-Communication-Patterns"><a href="#2-1-Communication-Patterns" class="headerlink" title="2.1 Communication Patterns"></a>2.1 Communication Patterns</h4><ul>
+<li><p>Client-server communication </p>
+<ul>
+<li>request and reply messages provide the basis for communication between clients and servers.</li>
+<li>The idea of the model is to structure the distributed systems as a group of cooperating processes, i.e. the servers, that offer services to the users, namely, the clients.</li>
+</ul>
+<img src="C:\Users\win10\AppData\Roaming\Typora\typora-user-images\image-20220519024605386.png" alt="image-20220519024605386" style="zoom:67%;" />
+</li>
+<li><p>Group communication</p>
+<ul>
+<li><p>some messages are sent to several processes in a group.</p>
+</li>
+<li><p>Applications are composed of large numbers of peer processes running on separate computers and the pattern of communication between them depends entirely on application requirements.</p>
+<img src="https://pic.imgdb.cn/item/62853f710947543129f5f028.jpg" style="zoom: 50%;" /></li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-Data-Passing"><a href="#2-2-Data-Passing" class="headerlink" title="2.2 Data Passing"></a>2.2 Data Passing</h4><ul>
+<li>For any two computers to exchange data value, we need to map data structures and data items to messages.</li>
+<li>Data structure must be flattened before transmission and rebuilt on arrival.  (I.e., flattening of structured data into a sequence of basic data)</li>
+<li>On receiving data stream, the data structure must be rebuilt.</li>
+<li>Marshalling<ul>
+<li>the process of taking a collection of data items and assembling them into a form suitable for transmission in a message;</li>
+</ul>
+</li>
+<li>Unmarshalling<ul>
+<li>the process of disassembling them on arrival to produce an equivalent collection of data items at the destination;</li>
+</ul>
+</li>
+<li>Usually a language preprocessor (interface compiler) can be used to generate marshalling &#x2F; unmarshalling operations automatically.</li>
+<li>When an IPC primitive is encountered involving data item of the above type, the preprocessor generates code to do the marshalling (for a send) or unmarshalling (for a receive) based on the type description.</li>
+</ul>
+<p><strong>JSON (JavaScript Object Notation)</strong></p>
+<img src="https://pic.imgdb.cn/item/628540bd0947543129f678bf.jpg" style="zoom:67%;" />
+
+<h4 id="2-3-Synchronization"><a href="#2-3-Synchronization" class="headerlink" title="2.3 Synchronization"></a>2.3 Synchronization</h4><ul>
+<li>A central issue in the communication structure;</li>
+<li>2 types of operations<ul>
+<li>Blocking: the invocation blocks the execution of its invoker.</li>
+<li>Non-blocking: the invocation does not block the execution of its invoker.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Blocking</strong></p>
+<ul>
+<li><p>Blocking Send</p>
+<ul>
+<li>Issuing process blocks (i.e., control is not passed back) until the message has been sent and received.</li>
+</ul>
+</li>
+<li><p>Blocking Receive</p>
+<ul>
+<li>Issuing process blocks until a message has arrived and passed to the process.</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6285420d0947543129f6f1cc.jpg" style="zoom: 67%;" /></li>
+</ul>
+<h5 id="Blocking-vs-Non-blocking"><a href="#Blocking-vs-Non-blocking" class="headerlink" title="Blocking vs. Non-blocking"></a>Blocking vs. Non-blocking</h5><p><strong>Non-blocking</strong></p>
+<ul>
+<li><p>Non-blocking send</p>
+<ul>
+<li>Issuing process continues (i.e. control is passed back) execution after the message has been copied out of the process’s environment.</li>
+</ul>
+</li>
+<li><p>Non-blocking receive</p>
+<ul>
+<li>Issuing process continues if there is no message waiting to be received. Receiver process will have to be notified later on message arrival, either by polling or interrupt mechanism.</li>
+</ul>
+<img src="C:\Users\win10\AppData\Roaming\Typora\typora-user-images\image-20220519030126394.png" alt="image-20220519030126394" style="zoom: 67%;" /></li>
+</ul>
+<h5 id="Synchronous-vs-Asynchronous-Communication"><a href="#Synchronous-vs-Asynchronous-Communication" class="headerlink" title="Synchronous vs. Asynchronous Communication"></a>Synchronous vs. Asynchronous Communication</h5><ul>
+<li>Drawback: Can lead to inefficiency due to waiting<ul>
+<li>high overhead and less efficiency.</li>
+</ul>
+</li>
+<li>Solution: time-out<ul>
+<li>Receive (A, msg, TO);<ul>
+<li>If a message is not arrived in TO seconds, the process will be unblocked (and the receive operation aborted).</li>
+</ul>
+</li>
+<li>Send (B, msg, TO)<ul>
+<li>Sender blocks and if the message is not received in TO seconds, the process will be unblocked.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Synchronous communication<ul>
+<li>Blocking send and blocking receive;</li>
+<li>Sender and receiver synchronize at point of message transfer.</li>
+<li>Advantage: <ul>
+<li>Can make definite assumptions on message send and receipt </li>
+<li>Easy design and control of the distributed processes</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Asynchronous communication<ul>
+<li>Sender and receiver do not synchronize at message transfer.</li>
+<li>Non-blocking send + non-blocking receive;</li>
+<li>Non-blocking send + blocking receive (usual combination);</li>
+</ul>
+</li>
+<li>More flexible and potentially more parallelism;</li>
+<li>Less assumption can be said about sending and receiving - more difficult to verify program properties.</li>
+<li>Non-blocking send requires buffering of messages.</li>
+</ul>
+<h4 id="2-4-Implementation"><a href="#2-4-Implementation" class="headerlink" title="2.4 Implementation"></a>2.4 Implementation</h4><p><strong>Process Location</strong></p>
+<ul>
+<li><p>A port is a location independent identifier which can be mapped into low-level address in order to deliver message.</p>
+</li>
+<li><p>In TCP&#x2F;IP, message destination addresses are Port number (used by the process) and Internet address of the computer (the process resides on), </p>
+<ul>
+<li>Send (portB, msg); </li>
+<li>Receive(portB, msg);</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6285473f0947543129f8ece7.jpg" style="zoom:50%;" /></li>
+</ul>
+<p><strong>Unreliable vs. Reliable Messages</strong></p>
+<ul>
+<li>Unreliable message is used to refer to a single message transmitted from sender to receiver, without acknowledgement or retries. <ul>
+<li>e.g. UDP only makes its “best effort” to deliver a message.</li>
+</ul>
+</li>
+<li>Reliable message delivery may be constructed from an unreliable one by using acknowledgement.<ul>
+<li>Positive ack: receivers send ack message whenever a message is received.</li>
+<li>Negative ack: Receivers do not send ack message until something wrong (timeout or receiving any incorrect message).</li>
+</ul>
+</li>
+</ul>
+<p><strong>Client-Server Communication Protocol</strong></p>
+<ul>
+<li><p>Client-server model uses request-reply communication.</p>
+<ul>
+<li>Request-reply is normally synchronous because a client will wait for the reply.</li>
+<li>Request-reply can be asynchronous in case that the client can afford to retrieve replies later.</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/628549210947543129f97a72.jpg" style="zoom:67%;" />
+</li>
+<li><p>Communication failures</p>
+<ul>
+<li>Loss of request message: communication link fails &#x2F; network switch fails &#x2F; receiver’s node is down.</li>
+<li>Loss of reply message: communication link fails &#x2F; network switch fails &#x2F; sender’s node is down.</li>
+<li>Unsuccessful execution of the request: server crashes while executing the request.</li>
+</ul>
+</li>
+<li><p>In the presence of communication failures three protocols are used for implementing various type of client-server communication.</p>
+</li>
+<li><p>The request (R) protocol</p>
+<ul>
+<li>Client issues a Send (server-id, request) and continues. It is suitable for cases in which there is no reply required from the server and that the client requires no confirmation that the request has been carried out.</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/628549930947543129f9a33f.jpg" style="zoom:50%;" />
+</li>
+<li><p>The request-reply (RR) protocol</p>
+<ul>
+<li>Most commonly used; </li>
+<li>The reply message from the server also acts as acknowledgment to the original request message.</li>
+<li>A subsequent request from the client may be regarded as an acknowledgment of the server’s message.</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/628549e40947543129f9b76d.jpg" style="zoom: 50%;" />
+</li>
+<li><p>The request-reply-acknowledge reply (RRA) protocol</p>
+<ul>
+<li>An acknowledgement will be sent back to the server after received the reply</li>
+<li>The ack includes the request-Id and acknowledges all request messages up to that request-Id.</li>
+<li>Although the exchange involves an additional message, it need not block the client as the acknowledgement may be transmitted after the reply has been given to the client, but it does use processing and network resources.</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/62854a230947543129f9c86c.jpg" style="zoom:50%;" /></li>
+</ul>
+<h4 id="2-5-Other-Issues"><a href="#2-5-Other-Issues" class="headerlink" title="2.5 Other Issues"></a>2.5 Other Issues</h4><ul>
+<li><p>Time-out </p>
+<ul>
+<li><p>occur when a request message is lost or the network becomes partitioned, or the server is overloaded (and hence slow); or the reply message is lost.</p>
+</li>
+<li><p>DoOperation repeats sending the request message N times (time-outs) before reporting failure.</p>
+</li>
+<li><p>It is impossible to distinguish between a process failure and a communication failure. When process does not reply after some agreed number, N of attempts to communicate with it, it is assumed to be unavailable. </p>
+</li>
+<li><p>The choice of N is difficult (?).</p>
+</li>
+</ul>
+</li>
+<li><p>Duplicated request messages</p>
+<ul>
+<li>Occur when request message is retransmitted (on time-outs).</li>
+<li>Duplicates can be detected using Request-Id (like a sequence number) and discarded.</li>
+</ul>
+</li>
+<li><p>Lost reply messages</p>
+<ul>
+<li>If the server has already sent the reply message, it may need to execute the request again to obtain the result. Re-executing is only possible for idempotent operation.</li>
+</ul>
+</li>
+<li><p>An idempotent operation is an operation that can be performed repeatedly with the same effect as if it had been performed exactly once.</p>
+</li>
+<li><p>If server operation is not idempotent a record of past results (called history) can be kept. History can be kept from growing too large by using the RAA protocol, or discarding results which have passed a certain time limit.</p>
+</li>
+<li><p>Multipacket  messages</p>
+<ul>
+<li>Datagram with limited length (often as 8 kbytes).</li>
+<li>Not enough if a request or reply is too large.</li>
+<li>Solution with multipacket: a message made up of a sequence of datagrams.</li>
+<li>Drawbacks: complicated in design and control (receive in sequence), low efficiency in retransmission.</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-Time-in-Distributed-Systems"><a href="#3-Time-in-Distributed-Systems" class="headerlink" title="3. Time in Distributed Systems"></a>3. Time in Distributed Systems</h3><p>Time is an important and interesting issue in distributed systems because</p>
+<ul>
+<li>Internal (computer-to-computer) and external (computer-to-external)  synchronization;</li>
+<li>Many algorithms depend upon clock synchronization, e.g. transaction.</li>
+</ul>
+<h4 id="3-1-Synchronizing-Physical-Clocks"><a href="#3-1-Synchronizing-Physical-Clocks" class="headerlink" title="3.1 Synchronizing Physical Clocks"></a>3.1 Synchronizing Physical Clocks</h4><ul>
+<li>Physical clocks</li>
+<li>Electronic devices that count oscillations occurring in a crystal at a definite frequency. </li>
+<li>It is useful for keeping accurate time and time-stamping events, e.g., time in accounting records of connection. </li>
+<li>Event is an action that appears to occur indivisibly.</li>
+<li><strong>Sources of accurate timing signals:</strong> <ul>
+<li>coordinated universal time (UTC)</li>
+<li>Radio broadcast accuracy: 0.1 - 10 ms Satellite (Geostationary Operational Environment Satellite GOES) accuracy: 1 ms</li>
+<li>Satellite (Global Positional System GPS) accuracy: 0.1 ms</li>
+</ul>
+</li>
+<li><strong>Difficulties in distributed systems</strong><ul>
+<li>Not all sites have direct access to accurate time sources such as GPS receivers.</li>
+<li>Sites have to synchronize their local clocks with those have more accurate time. </li>
+<li>Synchronization needs to be done periodically due to clock drift: they count time at different rates, and so diverge.</li>
+</ul>
+</li>
+</ul>
+<h5 id="Cristian’s-method"><a href="#Cristian’s-method" class="headerlink" title="Cristian’s method"></a>Cristian’s method</h5><p>A central time server process S supplies the time according to its clock upon request.</p>
+<img src="https://pic.imgdb.cn/item/62854d0d0947543129fa8e50.jpg" style="zoom:67%;" />
+
+<img src="https://pic.imgdb.cn/item/62854d320947543129fa976c.jpg" style="zoom:67%;" />
+
+<ul>
+<li>If a process P requests the time in a message mr, and receives the time value t  in a message mt, then it could set its clock to the time t + Ttrans, where Ttrans is the time taken to transmit mt from the server S to P.</li>
+<li>Ttrans can be variant. We may say, Ttrans &#x3D; min + x, where x &#x3D; 0 and min is the time of message transmission if no other processes and no other messages. </li>
+<li>min can be measured or conservatively estimated but x is still unknown!</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/62865cdb0947543129c30757.jpg" style="zoom:67%;" />
+
+<img src="https://pic.imgdb.cn/item/62865cf60947543129c3131e.jpg" style="zoom:67%;" />
+
+<ul>
+<li>Let Tround be the total round trip time to send the request mr and receive the reply mt, then P should estimate its clock as t + Tround &#x2F; 2 (Tround can be measured or conservatively estimated ).</li>
+<li>The accuracy is ±(Tround &#x2F; 2 - min).</li>
+<li>Problem: single-server failure.</li>
+<li>Solution: group synchronization time server.</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/628660320947543129c4717a.jpg" style="zoom:67%;" />
+
+<p><strong>Exercise</strong></p>
+<p>Consider a host using Cristian’s method to synchronize its clock with a time server T and got the following records. Assume the total delay of transmitting a message from the host to the time server or vice versa is 10ms.</p>
+<img src="https://pic.imgdb.cn/item/6286622c0947543129c52ac0.jpg" style="zoom:80%;" />
+
+<ul>
+<li><p>Which of these times should be used to set its clock?  To what time should it set? Estimate the accuracy of the setting.</p>
+<p><strong>24 (14:22:10.564)</strong></p>
+<p><strong>Time&#x3D;14:22:10.564+12ms&#x3D;14:22:10.576</strong></p>
+<p><strong>Accuracy: 12-min&#x3D;+&#x2F;- 2ms</strong></p>
+</li>
+<li><p>What will the answer of part (a) change if the total delay is 9ms?</p>
+<p><strong>Time&#x3D;No change</strong></p>
+<p><strong>Accuracy: +&#x2F;-3ms</strong></p>
+</li>
+<li><p>If it is required to synchronize the host’s to within +&#x2F;- 1 ms. Discuss how to achieve it. Assume 9ms total delay is used</p>
+<p><strong>Keep synchronize until the round-trip is 20ms</strong></p>
+</li>
+</ul>
+<h5 id="The-Berkeley-algorithm"><a href="#The-Berkeley-algorithm" class="headerlink" title="The Berkeley algorithm"></a>The Berkeley algorithm</h5><ul>
+<li><p>An algorithm for internal synchronization in BSD UNIX.</p>
+</li>
+<li><p>(Unlike Cristian’s) In a group sites, one is chosen as coordinator (master). It periodically polls the other sites (slaves) to synchronize their clocks.</p>
+</li>
+<li><p>Master estimates the slaves’ clock times by observing round trip time (like Cristian’s). It averages the time obtained (including its own).</p>
+</li>
+<li><p>The average (with probabilities) can cancel out individual clock’s run fast or slow.</p>
+</li>
+<li><p>Accuracy depends on round-trip time between master and slaves.</p>
+</li>
+<li><p>Master sends time rate adjust value (+ or -) to slaves, requesting them to adjust their time rates.</p>
+</li>
+<li><p>Master takes fault-tolerant average.</p>
+</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/628665af0947543129c6a016.jpg" style="zoom:67%;" />
+
+<p><strong>Exercise</strong></p>
+<p>A group of servers using Berkeley algorithm to synchronize their physical clocks.  The coordinator received the following replies:</p>
+<img src="https://pic.imgdb.cn/item/628668a60947543129c7f470.jpg" style="zoom: 80%;" />
+
+<ul>
+<li><p>What is the clock difference between the coordinator and members?  Give the answer with respect to the coordinator.</p>
+<img src="https://pic.imgdb.cn/item/628669090947543129c81cdc.jpg" style="zoom:80%;" />
+</li>
+<li><p>Draft the messages to be sent to each member and what should the member do after receiving the message?</p>
+<img src="https://pic.imgdb.cn/item/62866b140947543129c8e8d4.jpg" style="zoom:80%;" />
+</li>
+<li><p>What if the clock of member C is running faster than the coordinator by 100ms? What is the potential problem of setting the clock value immediately based on the new adjustment?</p>
+</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/62866d7b0947543129c9d862.jpg" style="zoom:80%;" />
+
+<h5 id="Network-Time-Protocol-NTP"><a href="#Network-Time-Protocol-NTP" class="headerlink" title="Network Time Protocol (NTP)"></a>Network Time Protocol (NTP)</h5><ul>
+<li>A standard for clock synchronization throughout the Internet</li>
+<li>Design aims and features<ul>
+<li>To provide a service enabling clients across the Internet to be synchronized accurately to UTC;<ul>
+<li>Employs statistical techniques for the filtering of timing data and it discriminates between the quality of timing data from different servers</li>
+</ul>
+</li>
+<li>To provide a reliable service to losses of connectivity;<ul>
+<li>Redundant servers and paths</li>
+</ul>
+</li>
+<li>To enable clients to resynchronize sufficiently frequently;<ul>
+<li>Scale to large numbers of client and servers</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/628671f10947543129cc387c.jpg" style="zoom: 67%;" />
+
+<ul>
+<li>NTP server synchronize - UDP<ul>
+<li>Multicast mode <ul>
+<li>high speed LAN</li>
+<li>Multicast periodically</li>
+</ul>
+</li>
+<li>Procedure call mode<ul>
+<li>Similar to the operation of Cristian’s algorithm</li>
+<li>More accurate than multicast mode</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-2-Casual-Ordering-Happens-before"><a href="#3-2-Casual-Ordering-Happens-before" class="headerlink" title="3.2 Casual Ordering (Happens-before)"></a>3.2 Casual Ordering (Happens-before)</h4><p>Causal ordering</p>
+<ul>
+<li>x &lt;  y <ul>
+<li>x and y are different events of the same process and x occurs before y</li>
+</ul>
+</li>
+<li>s  &lt;  r<ul>
+<li>s is a send event and r is the corresponding receive event</li>
+</ul>
+</li>
+<li>y &lt; r <ul>
+<li>y&lt;s and s&lt;r</li>
+</ul>
+</li>
+</ul>
+<p>Happen before: if  a &lt; b</p>
+<img src="https://pic.imgdb.cn/item/6286761f0947543129cd9c26.jpg" style="zoom: 67%;" />
+
+<img src="https://pic.imgdb.cn/item/6286763d0947543129cda652.jpg" style="zoom: 50%;" />
+
+<ul>
+<li><p>a &#x3D;&gt; b, b &#x3D;&gt; c, c &#x3D;&gt; d, d &#x3D;&gt; f &#x3D;&gt; a &#x3D;&gt; f.</p>
+<ul>
+<li>a and e that are not ordered by &#x3D;&gt; are concurrent, and write this a||e.</li>
+<li>Logical clock can capture happened-before relation.</li>
+<li>It is a monotonically increasing software counter, whose value need bear no particular relationship to any physical clock.</li>
+</ul>
+</li>
+<li><p>Causal Order : If a &#x3D;&gt; b then a &lt; b</p>
+<ul>
+<li>a and b are causally related if  a &#x3D;&gt; b  or b &#x3D;&gt; a</li>
+<li>a and b are independent if not a &#x3D;&gt; b  and not b &#x3D;&gt; a</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-3-Logical-Time-x2F-Virtual-Time-x2F-Logical-Clock"><a href="#3-3-Logical-Time-x2F-Virtual-Time-x2F-Logical-Clock" class="headerlink" title="3.3 Logical Time &#x2F; Virtual Time &#x2F; Logical Clock"></a>3.3 Logical Time &#x2F; Virtual Time &#x2F; Logical Clock</h4><ul>
+<li>Objective:<ul>
+<li>Create virtual time without generating additional message</li>
+</ul>
+</li>
+<li>Each entity x creates and maintains a logical clock Cx</li>
+<li>For each event a occurring at x, C(a)&#x3D;Cx(a)</li>
+<li>Denote the timestamp of event a at p by Cp(a) and the timestamp of event b at whatever process it occurred by C(b).</li>
+</ul>
+<p>To capture the happened-before relation &#x3D;&gt;, we have the following rules:</p>
+<ul>
+<li>LC1: Cp is incremented before each event is issued at process p: Cp :&#x3D; Cp + 1.</li>
+<li>LC2:  When a process p sends a message m, it piggybacks on m the value t &#x3D; Cp.  On receiving (m,t), a process q computes Cq :&#x3D; max(Cq, t) and then applies LC1 before timestamping the event rcv(m).</li>
+</ul>
+<p>It guarantees a &#x3D;&gt; b     C(a) &lt; C(b).</p>
+<img src="https://pic.imgdb.cn/item/628677750947543129ce0aa4.jpg" style="zoom:67%;" />
+
+<img src="https://pic.imgdb.cn/item/628677950947543129ce179e.jpg" style="zoom:67%;" />
+
+<p><strong>Logical Clock</strong></p>
+<img src="https://pic.imgdb.cn/item/628678020947543129ce37c8.jpg" style="zoom: 67%;" />
+
+<h4 id="3-4-Vector-Clock"><a href="#3-4-Vector-Clock" class="headerlink" title="3.4 Vector Clock"></a>3.4 Vector Clock</h4><img src="https://pic.imgdb.cn/item/628678730947543129ce5851.jpg" style="zoom:67%;" />
+
+<ul>
+<li><p>Each entity xi is equipped with a local integer counter Ci and increment its value by 1 at the beginning of every event like logical clock</p>
+</li>
+<li><p>Each entity Xi is equipped with a n-dimensional vector Vi of values, one for each entity in the network. The value of Vi[i] is equal to Ci</p>
+</li>
+<li><p>The value of Vi[j], i≠j is initially 0 and change only when a message arrives of Xi</p>
+</li>
+<li><p>Whenever an entity Xi sends a message to a neighbor Xj, it encloses the message the vector of values Vi</p>
+</li>
+<li><p>Whenever an entity Xj processes the arrival of a message with a vector vect of values, it updates its local vector Vj as follows: for all i≠j, it sets Vj[i]:&#x3D;max{vect[i],Vj[i]}</p>
+</li>
+<li><p>Partial Order</p>
+<ul>
+<li>A ≤ B if A[i] ≤ B[i] for all indices i</li>
+</ul>
+</li>
+<li><p>Complete Causal Order</p>
+<ul>
+<li>A &lt; B if and only if A ≤ B and A[i] &lt; B[i] for at least an index i e.g. [2,4,3] &lt;[3,4,3]</li>
+</ul>
+</li>
+<li><p>Property </p>
+<ul>
+<li>For any two events a and b at Xi, Vi(a)&lt;Vi(b) if and only if t(a)&lt;t(b)</li>
+<li>If a is a sending event and b is a receiving event, then Vi(a)&lt;Vi(b)</li>
+<li>a → b , then V(a)&lt;V(b)</li>
+<li>V(a)&lt;V(b), then a → b??</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-5-Exercise"><a href="#3-5-Exercise" class="headerlink" title="3.5 Exercise"></a>3.5 Exercise</h4><p>Consider the following events :</p>
+<img src="https://pic.imgdb.cn/item/628679e30947543129ced4a5.jpg" style="zoom:67%;" />
+
+<ul>
+<li><p><strong>Assume the initial logical clocks of all process is zero, what are the logical clock values of E1, E4, E5, E8, E9 and E11?</strong></p>
+<img src="https://pic.imgdb.cn/item/62867a230947543129cee7cf.jpg" style="zoom:80%;" />
+</li>
+<li><p><strong>What are the causal orders of E5 and E8, E6 and E9, and E2 and E11?</strong></p>
+<p>E5 || E8, E6 -&gt; E9, E2-&gt;E11</p>
+</li>
+<li><p><strong>Can we work out the causal order of E2 and E11 by their logical clocks?</strong></p>
+<p>No, although the clock value of E11 (11) is greater than E2 (1), there is no guarantee that E2 is happen before E11 (even E2 is actually happened before E11).  Consider E2 and E4, the clock value of E4 is greater than E2 but E2 and E4 are not causally related.  </p>
+</li>
+<li><p><strong>What are the vector clocks of E2 and E11? Can we work out the causal order of E2 and E11 by based on the vector clocks?</strong></p>
+</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/62867a7d0947543129cf01bb.jpg" style="zoom: 80%;" />
+
+<h3 id="4-Distributed-Coordination"><a href="#4-Distributed-Coordination" class="headerlink" title="4. Distributed Coordination"></a>4. Distributed Coordination</h3><p>Wave and Traversal Algorithms</p>
+<ul>
+<li>Wave algorithms: Message passing schemes<ul>
+<li>Broadcasting, synchronization and computing global functions</li>
+</ul>
+</li>
+<li>Traversal algorithms: wave algorithms that the events of     <ul>
+<li>computation are totally ordered by casuality</li>
+</ul>
+</li>
+<li>Elementary tasks of most distributed algorithms<ul>
+<li>Election, termination detection, mutual  exclusion</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-1-Wave-Algorithms"><a href="#4-1-Wave-Algorithms" class="headerlink" title="4.1 Wave Algorithms"></a>4.1 Wave Algorithms</h4><ul>
+<li><p>Distributed algorithms → collection of possible computations→ collection of events</p>
+</li>
+<li><p>Events are ordered partially (casual precedence relation)</p>
+</li>
+<li><p>A computation is a collection of events, partially ordered by the causal precedence relation</p>
+</li>
+<li><p>|C| &#x3D; number of events of computation C</p>
+</li>
+<li><p>Cp &#x3D; event occur in process p</p>
+</li>
+<li><p>decide (event) &#x3D; internal event</p>
+</li>
+</ul>
+<p>A wave algorithm exchanges a finite number of messages and then makes a decision</p>
+<p><strong>Wave Algorithm Requirements</strong></p>
+<img src="C:\Users\win10\AppData\Roaming\Typora\typora-user-images\image-20220520011829964.png" alt="image-20220520011829964" style="zoom: 50%;" />
+
+<ul>
+<li><p>Initiators &#x2F; Starters</p>
+<ul>
+<li>Starts the execution of its local algorithm spontaneously i.e. triggered by some condition internal to the process</li>
+<li>First event: internal&#x2F; send</li>
+</ul>
+</li>
+<li><p>Non-initiators &#x2F; followers</p>
+<ul>
+<li>Become involved in the algorithm only when a message of the algorithm arrives and triggers the execution of the process algorithm</li>
+<li>First event: receive</li>
+</ul>
+</li>
+<li><p>Centralization vs Decentralized</p>
+<ul>
+<li>Centralized &#x2F; single source: Exactly one </li>
+<li>Decentralized &#x2F; multi-source: initiator are subset of the process</li>
+</ul>
+</li>
+<li><p>Topology : ring, tree, clique</p>
+<img src="https://pic.imgdb.cn/item/62867c520947543129cfa2f6.jpg" style="zoom: 50%;" />
+</li>
+<li><p>Initial Knowledge </p>
+<ul>
+<li>Process identities : each process initially knows its own unique name</li>
+<li>Neighbors’ identities: each process initially knows the name of its neighbors</li>
+<li>Sense of direction</li>
+<li>Number of decisions: number of process execute a decide event</li>
+<li>Complexity: number of exchanged messages</li>
+</ul>
+</li>
+</ul>
+<p><strong>Application of Wave</strong></p>
+<ul>
+<li>Propagation of Information with feedback (PIF)<ul>
+<li>Some information must be broadcast to all processes and certain processes must receive a notification of when the broadcast is complete</li>
+</ul>
+</li>
+<li>Synchronization<ul>
+<li>In each process q an event aq must be executed and in some processes an event bp must be executed, such that the execution of all aq events must have taken place temporally before any of the bp events is executed. In SYN algorithm the bp events will be considered as decide events.</li>
+</ul>
+</li>
+<li>Computation of Infimum Function<ul>
+<li>Function must be computed whose value depends essentially on the input of every process.</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-2-Ring-Algorithm"><a href="#4-2-Ring-Algorithm" class="headerlink" title="4.2 Ring Algorithm"></a>4.2 Ring Algorithm</h4><img src="https://pic.imgdb.cn/item/6286817d0947543129d1df00.jpg" style="zoom: 50%;" />
+
+<img src="https://pic.imgdb.cn/item/628681a10947543129d1e7f8.jpg" style="zoom: 50%;" />
+
+<h4 id="4-3-Tree-Algorithm"><a href="#4-3-Tree-Algorithm" class="headerlink" title="4.3 Tree Algorithm"></a>4.3 Tree Algorithm</h4><ul>
+<li>All leaves of the tree initiate the algorithm</li>
+<li>If a process has received a message via each of its incident channels except one, the process sends a message via the remaining channel</li>
+<li>Each process sends exactly one message in the algorithm</li>
+<li>If a process has received a message via all of its incident channels it decides</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/628682350947543129d2107f.jpg" style="zoom:67%;" />
+
+<h4 id="4-4-Echo-Algorithm"><a href="#4-4-Echo-Algorithm" class="headerlink" title="4.4 Echo Algorithm"></a>4.4 Echo Algorithm</h4><ul>
+<li>Initiator sends messages to all its neighbors</li>
+<li>Upon receipt of the first message a non-initiator forwards messages to all its neighbors except the one from which the message was received</li>
+<li>When a non-initiator has received messages from all its neighbors an echo is sent to the father</li>
+<li>When the initiator has received a message from all its neighbors it decides.</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/628682c30947543129d23785.jpg" style="zoom: 50%;" />
+
+<img src="https://pic.imgdb.cn/item/628682df0947543129d23e0e.jpg" style="zoom:50%;" />
+
+<h4 id="4-5-Polling-Algorithm"><a href="#4-5-Polling-Algorithm" class="headerlink" title="4.5 Polling Algorithm"></a>4.5 Polling Algorithm</h4><p>A process can decide if it has received a message from each neighbor</p>
+<img src="https://pic.imgdb.cn/item/628683030947543129d2470b.jpg" style="zoom: 67%;" />
+
+<h4 id="4-6-Phase-Algorithm"><a href="#4-6-Phase-Algorithm" class="headerlink" title="4.6 Phase Algorithm"></a>4.6 Phase Algorithm</h4><ul>
+<li><p>The phase algorithm can be used in arbitrary directed networks, where channels can carry messages in one direction only</p>
+</li>
+<li><p>In-neighbors: processes that can send message to the node</p>
+</li>
+<li><p>Out-neighbors: processes to which the node can send message</p>
+</li>
+<li><p>Diameter of the network must be known</p>
+</li>
+<li><p>In the phase algorithm, each process sends exactly D messages to each out-neighbors</p>
+<img src="https://pic.imgdb.cn/item/6286836e0947543129d265dd.jpg" style="zoom:80%;" /></li>
+</ul>
+<h4 id="4-7-Traversal-Algorithms"><a href="#4-7-Traversal-Algorithms" class="headerlink" title="4.7 Traversal Algorithms"></a>4.7 Traversal Algorithms</h4><p>The traversal algorithms has the following properties:</p>
+<ul>
+<li>In each computation there is one initiator which starts the algorithm by sending out exactly one message</li>
+<li>A process, upon receipt of a message, either sends out one message or decides</li>
+<li>The algorithm terminates in the initiator and when this happens, each process has sent a message at least once</li>
+</ul>
+<p>The first two properties imply that in each finite computation exactly one process decides. The algorithm is said to terminate in the single process that decides</p>
+<p><strong>Traversing Cliques: Sequential Polling Algorithm</strong></p>
+<img src="https://pic.imgdb.cn/item/6286848f0947543129d2b2d7.jpg" style="zoom:67%;" />
+
+<img src="https://pic.imgdb.cn/item/628685a20947543129d2f2eb.jpg" style="zoom:67%;" />
+
+<p><strong>Traversing Connected Network: Tarry’s Algorithm</strong></p>
+<ul>
+<li>R1. A process never forwards the token twice through the same channel</li>
+<li>R2. A non-initiator forwards the token to its father (the neighbor from which it first received the token) only if there is no other channel possible according to rule R1</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6286877e0947543129d36b31.jpg" style="zoom:50%;" />
+
+<img src="https://pic.imgdb.cn/item/628687930947543129d37101.jpg" style="zoom:50%;" />
+
+<img src="https://pic.imgdb.cn/item/628687ad0947543129d37796.jpg" style="zoom:50%;" />
+
+<h3 id="5-Distributed-Mutual-Exclusion-and-Election"><a href="#5-Distributed-Mutual-Exclusion-and-Election" class="headerlink" title="5. Distributed Mutual Exclusion and Election"></a>5. Distributed Mutual Exclusion and Election</h3><h4 id="5-1-Distributed-Coordination"><a href="#5-1-Distributed-Coordination" class="headerlink" title="5.1 Distributed Coordination"></a>5.1 Distributed Coordination</h4><ul>
+<li>Why do we need distributed coordination?<ul>
+<li>To prevent interference and ensure consistency before accessing resources, e.g. NFS file system to share a common text file.</li>
+</ul>
+</li>
+<li>Distributed Mutual Exclusion (DME)<ul>
+<li>A single process being given a privilege - the right to access shared resources - temporarily before another process is granted it.</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-2-Distributed-Mutual-Exclusion"><a href="#5-2-Distributed-Mutual-Exclusion" class="headerlink" title="5.2 Distributed Mutual Exclusion"></a>5.2 Distributed Mutual Exclusion</h4><p>Basic requirements for DME concerning some resources:</p>
+<ul>
+<li>ME1: (safety) At most one process may execute in the critical section (CS) at a time.</li>
+<li>ME2: (liveness and deadlock-free) A process requesting entry to the CS is eventually granted it (so long as any process executing in the CS eventually leaves it.)</li>
+<li>ME3: (ordering) Entry to the CS should be granted in happened-before order.</li>
+</ul>
+<p>The central server algorithm: server manages a mutual exclusion token for a set of processes</p>
+<img src="https://pic.imgdb.cn/item/62868b390947543129d456f8.jpg" style="zoom: 80%;" />
+
+<ul>
+<li><p>To employ a server that grants permission to enter a CS.</p>
+</li>
+<li><p>Assume only one CS is managed. The protocol is as follows:</p>
+<img src="https://pic.imgdb.cn/item/62868b640947543129d479c1.jpg" style="zoom:67%;" />
+</li>
+<li><p>Satisfy ME1, ME2 and ME3.</p>
+</li>
+<li><p>Problem 1: the server could be performance bottleneck.</p>
+</li>
+<li><p>Problem 2: single point of failure.</p>
+</li>
+</ul>
+<h5 id="5-2-1-DME-Ricart-and-Agrawala’s-algorithm"><a href="#5-2-1-DME-Ricart-and-Agrawala’s-algorithm" class="headerlink" title="5.2.1 DME: Ricart and Agrawala’s algorithm"></a>5.2.1 DME: Ricart and Agrawala’s algorithm</h5><ul>
+<li><p>Based on distributed agreement;</p>
+</li>
+<li><p>No center server is required.</p>
+</li>
+<li><p>The basic idea is that processes that require entry to a critical section multicast a request message, and can enter it only when all the other processes have replied to this message.</p>
+</li>
+<li><p>Assumption: </p>
+<ul>
+<li>p1, …, pn know one another addresses. </li>
+<li>All messages sent are eventually received and delivered</li>
+<li>each pi keeps a logical clock, updated according to rules LC1 and LC2.</li>
+</ul>
+</li>
+<li><p>Messages requesting the token are in the form &lt;T,pi&gt; where T is the sender timestamp and pi is the sender id.</p>
+</li>
+<li><p>Only one CS is concerned.</p>
+</li>
+<li><p>3 states: RELEASED, WANTED, HELD.</p>
+</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/62879abe09475431297389bb.jpg" style="zoom:67%;" />
+
+<p>**Protocol: **</p>
+<img src="https://pic.imgdb.cn/item/62879aea0947543129739c3d.jpg" style="zoom:67%;" />
+
+<img src="https://pic.imgdb.cn/item/62879b0b094754312973acd7.jpg" style="zoom:67%;" />
+
+<ul>
+<li>Satisfy ME1, ME2 and ME3.</li>
+<li>Protocol: to enter CS is associated with possession of a token.</li>
+<li>Example: consider three processes p1, p2 and p3.<ul>
+<li>p3 is not interested in the token.</li>
+<li>p1 and p2 request it concurrently.</li>
+<li>Timestamps of p1’ and p2’s requests are 41 and 34 respectively.</li>
+<li>p3 replies all requests. p2 does not reply p1’s request since its timestamp is lower while p1 does.</li>
+</ul>
+</li>
+</ul>
+<h5 id="5-2-2-DME-Ring-based-Algorithm"><a href="#5-2-2-DME-Ring-based-Algorithm" class="headerlink" title="5.2.2 DME: Ring-based Algorithm"></a>5.2.2 DME: Ring-based Algorithm</h5><ul>
+<li>One of the simple algorithm is to arrange the n processes into a logical ring.</li>
+<li>There is a logical token circulate on the ring (say in clockwise direction).</li>
+<li>If a process does not need to enter CS, it immediately forwards the token to its neighbor.</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/62879bea0947543129741a70.jpg" style="zoom:67%;" />
+
+<ul>
+<li>A process wishes to enter the CS waits until it holds the token and retains it. </li>
+<li>To leave the CS, the process releases the token to its neighbour. </li>
+<li>If a process holding the token fails, an election is required to pick a unique process from the surviving members which regenerate the token and transmit it as before.</li>
+<li>Care must be taken if the process is really failed. Two tokens may circulate on the ring!</li>
+</ul>
+<h5 id="5-2-3-Exercise"><a href="#5-2-3-Exercise" class="headerlink" title="5.2.3 Exercise"></a>5.2.3 Exercise</h5><p><strong>Discuss and compare the performance characteristics of two distributed mutual exclusion algorithms,</strong> </p>
+<p><strong>(i) the central server algorithm</strong> </p>
+<p><strong>(ii) the Ricard and Agrawala’s algorithm,</strong> </p>
+<p><strong>in terms of message overheads, response time of requests, and reliability.</strong></p>
+<img src="https://pic.imgdb.cn/item/62879ca40947543129747a28.jpg" style="zoom: 80%;" />
+
+
+
+<p><strong>Message overheads</strong></p>
+<p>For each token request:</p>
+<ul>
+<li>The central server algorithm: 3 messages (request, token, release)</li>
+<li>The distributed algorithm: 2(N-1) messages.</li>
+</ul>
+<p>For N clients and all will access the CS</p>
+<ul>
+<li>The central server algorithm: 3N messages</li>
+<li>The distributed algorithm: 2N(N-1) messages -&gt; 2N^2-2</li>
+</ul>
+<p><strong>Response Time:</strong></p>
+<ul>
+<li>In the central server algorithm, every token request from client requires two messages (request and grant). It waits for a round-trip message time to receive a reply from the server. </li>
+<li>In the distributed algorithm using logical clocks, every token sends out (N-1) messages and waits for (N-1) replies. It waits for (N-1) servers.</li>
+</ul>
+<p>So, the response time of the central server algorithm is faster.</p>
+<p><strong>Reliability:</strong></p>
+<ul>
+<li>The central server algorithm is more reliable since only the failure of the central server will make the system stop working.</li>
+<li>For the distributed algorithm, any node failure will stop others from entering the critical section.</li>
+</ul>
+<h4 id="5-3-Distributed-Coordination-Election"><a href="#5-3-Distributed-Coordination-Election" class="headerlink" title="5.3 Distributed Coordination: Election"></a>5.3 Distributed Coordination: Election</h4><ul>
+<li>A method to choose a unique process to play a particular role is called an election algorithm.</li>
+<li>Main requirement is for the choice of elected process to be unique, even several processes call elections concurrently</li>
+</ul>
+<h5 id="Election-Bully-Algorithm"><a href="#Election-Bully-Algorithm" class="headerlink" title="Election: Bully Algorithm"></a>Election: Bully Algorithm</h5><ul>
+<li><p>It can be used when the members of a group know the identities and addresses of the other members. </p>
+</li>
+<li><p>The algorithm selects the surviving member with the largest identity to be coordinator.</p>
+</li>
+<li><p>Assumption: communication is reliable but processes can fail during an election. </p>
+</li>
+<li><p>Three types of message:    </p>
+<ul>
+<li>election message - sent to announce an election, await for answer.</li>
+<li>answer message - sent in response to an election message.</li>
+<li>coordinator message - sent to announce the identity of the new coordinator.</li>
+</ul>
+</li>
+<li><p>A process begins an election if it notices coordinator has failed.</p>
+</li>
+<li><p>The process that knows it has the highest identifier can elect itself as the coordinator simply by sending a coordinator message to all processes with lower identifiers. </p>
+</li>
+<li><p>Otherwise, a process can begin an election by sending an election message to those processes that have a higher identifier. </p>
+</li>
+<li><p>It then awaits an answer message in response. </p>
+</li>
+<li><p>If none arrives within a certain time, the process considers itself the coordinator, and sends a coordinator message to all processes with lower identifiers announcing this fact. </p>
+</li>
+<li><p>Otherwise (the process receives answer message(s)), the process waits a further limited period for a coordinator message to arrive from the new coordinator.</p>
+</li>
+<li><p>If none arrives, it begins another election.</p>
+</li>
+<li><p>If a process receives a coordinator message, it sets the identifier in the message as the new coordinator. </p>
+</li>
+<li><p>When an election message arrives to a node (with higher identifier), the node sends an answer and starts its own election (i.e. send election message to nodes with higher identifiers). </p>
+</li>
+<li><p>When the failed process is restarted, it begins election, if it has the highest identity, then it will decide it is coordinator, and announce this to other processes.</p>
+</li>
+<li><p>It becomes the coordinator even the current coordinator is functioning (so called bully).</p>
+</li>
+</ul>
+<p>Stage 1: p1 detects the failure of the coordinator p4, so p1 and announces an election. (priority: p1&lt;p2&lt;p3)</p>
+<img src="https://pic.imgdb.cn/item/6287a87609475431297a4cdc.jpg" style="zoom:80%;" />
+
+<p>Stage 2: p2 and p3 send answer message to p1 and then begin their own elections.</p>
+<img src="https://pic.imgdb.cn/item/6287a8a009475431297a6479.jpg" style="zoom:80%;" />
+
+<p>Stage 3: Since p3 will receive no answer messages from p4 , it therefore decides it is the coordinator. But it fails before it sends out the coordinator message. Thus p1 timeouts. </p>
+<img src="https://pic.imgdb.cn/item/6287a8c109475431297a75f4.jpg" style="zoom:80%;" />
+
+<p>Stage 4: Since p1 notices the absence of a coordinator message and begins another election. This time p2 is elected coordinator.</p>
+<img src="https://pic.imgdb.cn/item/6287a8dc09475431297a8720.jpg" style="zoom:80%;" />
+
+<h5 id="Election-Ring-based-Election"><a href="#Election-Ring-based-Election" class="headerlink" title="Election: Ring-based Election"></a>Election: Ring-based Election</h5><ul>
+<li>Assumption:<ul>
+<li>processes are arranged in a logical ring</li>
+<li>each process knows only how to communicate with its neighbor in, say, the clockwise direction. The process does not know the other processes.</li>
+<li>All the processes remain functional and reachable</li>
+</ul>
+</li>
+</ul>
+<img src="C:\Users\win10\AppData\Roaming\Typora\typora-user-images\image-20220520224346234.png" alt="image-20220520224346234" style="zoom: 67%;" />
+
+<img src="https://pic.imgdb.cn/item/6287a93c09475431297ab893.jpg" style="zoom: 67%;" />
+
+<ul>
+<li><p>Initially, every process is marked as a non-participant</p>
+</li>
+<li><p>Any process can begin an election by marking itself as a participant, placing its ID in an election msg and sending it to its neighbor.</p>
+</li>
+<li><p>When a process receives an election msg:</p>
+<ul>
+<li>if the arrived ID is greater, it forwards the msg to its neighbor</li>
+<li>If the arrived ID is smaller and the process is not a participant then it substitutes its own ID in the msg and forwards it; but it does not forward the msg  if it is already a participant.</li>
+</ul>
+</li>
+<li><p>On forwarding an election msg, the process marks itself as a participant</p>
+</li>
+<li><p><strong>If the received ID is that of the receiver itself, this process’s ID must be the greatest and it becomes the coordinator.</strong></p>
+</li>
+<li><p>The coordinator marks itself as a non-participant once more and sends an elected msg with its ID to its neighbour.</p>
+</li>
+<li><p>When a process other than the coordinator receives an elected msg, it marks itself as a non-participant and forwards the msg to its neighbor</p>
+</li>
+<li><p>Marking processes as participant or non-participant is to extinguish the concurrent election messages as soon as possible.</p>
+</li>
+<li><p>In the worst case, 3n-1 msg are needed to complete an election.</p>
+</li>
+</ul>
+<p>**An Example with two concurrent tokens **</p>
+<img src="https://pic.imgdb.cn/item/6287aaa609475431297b7b9a.jpg" style="zoom: 67%;" />
+
+<h5 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h5><p><strong>In the ring-based election algorithm, the processes need to mark participant or non-participant in an election process.  Explain why.</strong></p>
+<p>Ans: Two processes may start the election process at the same time leading to more than one election message.  The purpose of marking participant or non-participant is to extinguish the concurrent election message as soon as possible and always before the “winning” result has been announced.</p>
+<h3 id="6-Replication"><a href="#6-Replication" class="headerlink" title="6. Replication"></a>6. Replication</h3><p>Replication is the maintenance of on-line copies of data and other resources.</p>
+<img src="https://pic.imgdb.cn/item/6287abe809475431297c2cc7.jpg" style="zoom: 80%;" />
+
+<p><strong>Motivation</strong></p>
+<ul>
+<li>Performance enhancement<ul>
+<li>fast response time and increased throughput</li>
+</ul>
+</li>
+<li>High availability <ul>
+<li>clients can access an alternative server if the default server fails or becomes unreachable</li>
+</ul>
+</li>
+<li>Fault tolerance<ul>
+<li>provide guarantees of correct request processing even though one of the servers in a group fails</li>
+</ul>
+</li>
+</ul>
+<p><strong>Replication: Requirement</strong></p>
+<ul>
+<li>Replication transparency<ul>
+<li>clients should not be aware that multiple physical copies of data exist.</li>
+</ul>
+</li>
+<li>Consistency transparency<ul>
+<li>unacceptable for different clients to obtain differing results</li>
+<li>dealt with how to apply updates to different replica</li>
+</ul>
+</li>
+</ul>
+<p><strong>Ordering Models: Asynchronous</strong></p>
+<ul>
+<li>All client requests are processed by the local replica server</li>
+<li>The local replica servers communicate updates to all other replica servers. Servers process updates as they arrive</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6287ac9109475431297c8b7f.jpg" style="zoom:67%;" />
+
+<p><strong>Ordering Models: Totally Synchronous</strong></p>
+<ul>
+<li>All update requests are totally ordered. That is, requests are processed at all replicas in the same order.</li>
+<li>A next request can be processed only after the previous update has been processed at all servers</li>
+<li>Poor performance in response time and throughput</li>
+<li>Scheme in between: Quorum-based Schemes (Min. vote for a decision&#x2F;event) and causality</li>
+</ul>
+<p><strong>Ordering Models</strong></p>
+<img src="https://pic.imgdb.cn/item/6287ad9709475431297d1391.jpg" style="zoom:67%;" />
+
+<h4 id="6-1-Basic-Architectural-Model"><a href="#6-1-Basic-Architectural-Model" class="headerlink" title="6.1 Basic Architectural Model"></a>6.1 Basic Architectural Model</h4><p>Three entities:</p>
+<ul>
+<li>Replica manager: maintains a physical copy of every logical data item</li>
+<li>Client: makes a series of requests.</li>
+<li>Front end: handles the requests of clients<ul>
+<li>to communicate with replica managers  for clients’ requests</li>
+</ul>
+</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6287adeb09475431297d380b.jpg" style="zoom:67%;" />
+
+<img src="https://pic.imgdb.cn/item/6287ae1509475431297d55eb.jpg" style="zoom:67%;" />
+
+<h4 id="6-2-Ordering"><a href="#6-2-Ordering" class="headerlink" title="6.2 Ordering"></a>6.2 Ordering</h4><p>Total ordering</p>
+<ul>
+<li>If r1 and r2 are requests, then either r1 is processed before r2 at all replica managers or r2 is processed before r1 at all replica managers.</li>
+</ul>
+<p>Causal ordering</p>
+<ul>
+<li>If r1 and r2 are requests and r1 happened-before r2, then r1 is processed before r2 at all replica managers</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6287ae8609475431297db1de.jpg" style="zoom:67%;" />
+
+<p><strong>Implementation Techniques for Ordering</strong></p>
+<ul>
+<li>Hold-Back: a received request is not processed by a replica manager until ordering constraints can be met.</li>
+<li>E.g. a bulletin board item Re:Microkernels may be held back until an item concerning Microkernels has already appeared.</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6287b1630947543129801292.jpg" style="zoom:67%;" />
+
+<p><strong>Implementing Total Ordering</strong></p>
+<ul>
+<li>Basic approach: assigns totally ordered identifiers to requests so that each RM (replica manager) site makes the same ordering decision based on these identifiers</li>
+<li>Simple technique: use a process called sequencer to assign identifiers</li>
+<li>All requests are sent to the sequencer as well as to the RM sites</li>
+<li>The sequencer assigns consecutive increasing identifiers to requests and forwards them to the RM sites</li>
+<li>Requests arriving at an RM site are held back until they are next in sequence.</li>
+</ul>
+<h4 id="6-3-Another-Algorithm-for-Total-Ordering"><a href="#6-3-Another-Algorithm-for-Total-Ordering" class="headerlink" title="6.3 Another Algorithm for Total Ordering"></a>6.3 Another Algorithm for Total Ordering</h4><ul>
+<li>RM sites propose identifiers for requests to the corresponding FE (front end) sites as they arrive</li>
+<li>The FE site use them to generate final identifiers</li>
+<li>Each RM sites have:<ul>
+<li>Fmax: the largest final identifier agreed so far</li>
+<li>Pmax: its own largest proposed identifier</li>
+</ul>
+</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6287b22709475431298090fb.jpg" style="zoom:80%;" />
+
+<ul>
+<li><p>The FE site sends the request bearing a temporary identifier (larger than previously-used ones (F)) to all RM sites</p>
+</li>
+<li><p>Each RM at site i replies the proposed identifier (P)</p>
+</li>
+<li><p>Max(Fmax,Pmax) +1 + i&#x2F;N</p>
+<ul>
+<li>where N is the number of RM sites</li>
+</ul>
+</li>
+<li><p>Each RM places the request on its hold-back queue which is ordered with the smallest request identifier</p>
+</li>
+<li><p>The FE site selects the largest proposed identifiers as the next agreed identifier.</p>
+</li>
+<li><p>The term i&#x2F;N makes the selected identifier unique</p>
+</li>
+<li><p>The FE site then notifies all the RM sites of the final identifier (Agreed ID)</p>
+</li>
+<li><p>The RM sites attach the final identifier to the request and re-order the request on the hold-back queue. Note that the final identifier may differ from the proposed identifier.</p>
+</li>
+<li><p>When the request at the front of the hold-back queue has been assigned its final identifier, it is transferred to the tail of the delivery queue.</p>
+</li>
+</ul>
+<p>Advantages:</p>
+<ul>
+<li>straightforward to implement</li>
+<li>no bottleneck or single point of failure</li>
+</ul>
+<p><strong>Implementing Causal Ordering</strong></p>
+<ul>
+<li>A bulletin board system with several replica as an example</li>
+<li>Assumptions:<ul>
+<li>bulletin board items are never removed</li>
+<li>it is updated only by the addition of new items</li>
+</ul>
+</li>
+<li>Vector Clock</li>
+</ul>
+<h4 id="6-4-Deadlocks"><a href="#6-4-Deadlocks" class="headerlink" title="6.4 Deadlocks"></a>6.4 Deadlocks</h4><ul>
+<li>The use of locks (for exclusive use) can lead to deadlock.</li>
+<li>Deadlock is a state in which each member of a group of transactions is waiting for some other member to release a lock.</li>
+<li>A wait-for graph can be used to capture this waiting relationship.</li>
+<li>A directed edge is added from node T to node U if transaction T is waiting for transaction U to release a lock.</li>
+<li>As each transaction can wait for only one data item, the wait-for graph can be simplified to contain transactions only.</li>
+</ul>
+<p><strong>Deadlock with Read and Write Locks</strong></p>
+<img src="https://pic.imgdb.cn/item/6287b400094754312981bc78.jpg" style="zoom: 67%;" />
+
+<img src="https://pic.imgdb.cn/item/6287b45b09475431298203a7.jpg" style="zoom: 67%;" />
+
+<img src="https://pic.imgdb.cn/item/6287b47609475431298216d9.jpg" style="zoom:67%;" />
+
+<h5 id="Deadlock-Resolution"><a href="#Deadlock-Resolution" class="headerlink" title="Deadlock Resolution"></a>Deadlock Resolution</h5><ul>
+<li>Deadlock prevention<ul>
+<li>a transaction needs to get all locks when it starts</li>
+<li>a transaction requests locks in a predefined order</li>
+</ul>
+</li>
+<li>Deadlock detection<ul>
+<li>find cycles in the wait-for graph and break the cycle</li>
+<li>the choice of the transaction to abort is not simple</li>
+</ul>
+</li>
+<li>Timeouts<ul>
+<li>commonly used</li>
+<li>the transaction is aborted to release the lock after timeout if there is another requesting transaction.</li>
+</ul>
+</li>
+</ul>
+<h5 id="Distributed-Deadlock"><a href="#Distributed-Deadlock" class="headerlink" title="Distributed Deadlock"></a>Distributed Deadlock</h5><ul>
+<li>Detection of a distributed deadlock requires a global wait-for cycle to be found.</li>
+<li>A simple solution: one server is dedicated to detect global deadlocks periodically<ul>
+<li>combine local wait-for graphs to check for cycles</li>
+<li>disadvantages: single point of failure, lack of fault tolerance and no ability to scale.</li>
+<li>How often to detect deadlocks?</li>
+</ul>
+</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6287b5b1094754312982f619.jpg" style="zoom: 67%;" />
+
+<img src="https://pic.imgdb.cn/item/6287b5c709475431298304a2.jpg" style="zoom:67%;" />
+
+<img src="https://pic.imgdb.cn/item/6287b6a60947543129839121.jpg" style="zoom:67%;" />
+
+<h5 id="Phantom-Deadlocks"><a href="#Phantom-Deadlocks" class="headerlink" title="Phantom Deadlocks"></a>Phantom Deadlocks</h5><ul>
+<li>A deadlock is “detected” but is not really a deadlock</li>
+<li>Phantom deadlocks occur due to the transmission delay of wait-for information</li>
+<li>In the course of detection, a transaction that holds a lock will meanwhile have released.</li>
+<li>If transactions are using two-phase locks, can phantom deadlock occur?</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6287b727094754312983e247.jpg" style="zoom:80%;" />
+
+<h5 id="Edge-Chasing"><a href="#Edge-Chasing" class="headerlink" title="Edge Chasing"></a>Edge Chasing</h5><ul>
+<li>Also called path pushing</li>
+<li>The global wait-for graph is not constructed.</li>
+<li>Instead, the servers forward messages called Probes that follow the edges of the wait-for graph.</li>
+<li>A probe message consists of transaction wait-for relationships representing a path in the global wait-for graph.</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6287ba49094754312985c645.jpg" style="zoom:80%;" />
+
+<ul>
+<li>Initiation<ul>
+<li>When a transaction T starts waiting for another transaction U which is waiting to access a data item at another server, the edge &lt;T-&gt;U&gt; is sent to the server of the data item where U is blocked.</li>
+</ul>
+</li>
+<li>Detection<ul>
+<li>On receiving probes, the server adds paths to the probes</li>
+<li>If no cycle and a transaction is waiting for a data item at another server, probes are sent to the server.</li>
+</ul>
+</li>
+<li>Resolution<ul>
+<li>When deadlock is detected, a transaction is selected to abort.</li>
+</ul>
+</li>
+</ul>
+<h5 id="More-Than-One-Transaction-Aborted"><a href="#More-Than-One-Transaction-Aborted" class="headerlink" title="More Than One Transaction Aborted"></a>More Than One Transaction Aborted</h5><ul>
+<li>Every transaction involved in a deadlock cycle can initiate the deadlock detection</li>
+<li>This concurrent detection may lead to the abortions of more than one transaction</li>
+<li>To solve it, transactions are given totally-ordered priorities.</li>
+<li>The transaction with the lowest priority is aborted to break the deadlock</li>
+</ul>
+<h4 id="6-5-Exercise"><a href="#6-5-Exercise" class="headerlink" title="6.5 Exercise"></a>6.5 Exercise</h4><p><strong>A front end has vector timestamp (3,5,7) representing the data it has received from members of a group of three replica managers. The three replica managers have vector timestamps (5,2,8), (4,5,6) and (4,5,8), respectively. Which replica manager(s) could immediately satisfy a query from the front end, and what is the resultant time stamp of the front end? Which replica manager could incorporate an update from the front end immediately?</strong></p>
+<p>Ans: The replica manager with the timestamp (4,5,8) can satisfy the query because the others have not yet processed at least one update seen by the front end.  The resulting timestamp of the front end will be (4,5,8). The replica manager with the timestamp (4,5,8) could incorporate the update.</p>
+<h3 id="7-Distributed-File-Service"><a href="#7-Distributed-File-Service" class="headerlink" title="7. Distributed File Service"></a>7. Distributed File Service</h3><h4 id="7-1-Conventional-File-System"><a href="#7-1-Conventional-File-System" class="headerlink" title="7.1 Conventional File System"></a>7.1 Conventional File System</h4><ul>
+<li>Responsible for the organization, storage, retrieval, naming, sharing and protection of files</li>
+<li>Provides a set of programming operations that characterize the file abstraction</li>
+<li>Design to store and manage large numbers of files, with facilities for creating, naming and deleting the files;</li>
+<li>Control the access to files</li>
+</ul>
+<h4 id="7-2-Distributed-File-System"><a href="#7-2-Distributed-File-System" class="headerlink" title="7.2 Distributed File System"></a>7.2 Distributed File System</h4><ul>
+<li>An essential component in distributed systems</li>
+<li>Use to support the sharing of persistent storage and its information</li>
+<li>Enable user programs to access remote files without copying them to a local disk</li>
+<li>Provide access to files from diskless nodes</li>
+<li>The most heavily-used services →its functionality and performance are critical</li>
+</ul>
+<h4 id="7-3-Design-Issues"><a href="#7-3-Design-Issues" class="headerlink" title="7.3 Design Issues"></a>7.3 Design Issues</h4><p>The features that are partially or wholly addressed by most current file services:</p>
+<ul>
+<li><p>Access transparency</p>
+<ul>
+<li>Client programs should be unaware of the distribution of files. </li>
+<li>A single set of operations is provided for access to local and remote files. </li>
+<li>Programs written to operate on local files are able to access remote files without modification.</li>
+</ul>
+</li>
+<li><p>Location transparency</p>
+<ul>
+<li>Client programs should see a uniform file name space.</li>
+<li>File or groups of files may be relocated without changing their names. </li>
+<li>User programs see the same name space wherever they are executed.</li>
+</ul>
+</li>
+<li><p>Concurrency transparency</p>
+<ul>
+<li>Changes to a file by one client should not interfere with the operation of other clients simultaneously accessing the same file.</li>
+</ul>
+</li>
+<li><p>Failure transparency</p>
+<ul>
+<li>Correct operation of servers after failure of a client;</li>
+<li>Correct operation of client programs in the face of lost message and temporary interruptions of the service.</li>
+</ul>
+</li>
+<li><p>Performance transparency</p>
+<ul>
+<li>Client programs should continue to perform satisfactorily while the load on the file service varies within a specified a range.</li>
+</ul>
+</li>
+<li><p>Scaling transparency</p>
+<ul>
+<li>The service can be extended by incremental growth to deal with a wide range of loads and system sizes.</li>
+</ul>
+</li>
+<li><p>Replication transparency (for very large DS)</p>
+<ul>
+<li>A file may be represented by several copies of its contents at different locations. </li>
+<li>It enables multiple servers to share the load of providing a service to many clients, enhancing the performance and scalability of service,</li>
+<li>It enhances fault tolerance by enabling a client to locate another server that holds a copy of the file on the server that has just failed.</li>
+</ul>
+</li>
+<li><p>Migration transparency (for very large DS)</p>
+<ul>
+<li>Neither client programs nor system administration tables in client nodes need to be changed when files are moved. </li>
+<li>This allows file mobility - files, sets or volumes of files may be moved, either by system administrators or automatically.</li>
+</ul>
+</li>
+<li><p>Hardware and operating system heterogeneity</p>
+<ul>
+<li>The service interfaces should be defined so that client and server software can be implemented for different OS and computers (for openness).</li>
+</ul>
+</li>
+<li><p>The features that are not found in current file services but important in the future:</p>
+<ul>
+<li>Support for fine-grained distributed of data<ul>
+<li>As the sophistication of distributed application grows, the sharing of data in small units will become necessary.</li>
+<li>We need to locate individual objects near the processes that are using them and to cache them individually in those locations.</li>
+</ul>
+</li>
+<li>Tolerance to network partitioning and detached operation<ul>
+<li>When a file service includes the replication or caching of files, clients may be affected when a network partition occurs.</li>
+<li>We need to handle the inconsistent database once a network partition occurs.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="7-4-File-Service-Components"><a href="#7-4-File-Service-Components" class="headerlink" title="7.4 File Service Components"></a>7.4 File Service Components</h4><img src="https://pic.imgdb.cn/item/6287c39c09475431298c0a9f.jpg" style="zoom: 67%;" />
+
+<ul>
+<li>Flat file service<ul>
+<li>This service is concerned with implementing operations on the contents of files. </li>
+<li>Unique file identifiers (UFIDs) are used to refer to files in all requests for flat file service operations.    (construction of UFID will be discussed later)</li>
+</ul>
+</li>
+<li>Directory service<ul>
+<li>provide a mapping between text names for files and their UFIDs. (UNIX uses hierarchic file name)</li>
+</ul>
+</li>
+<li>Client module<ul>
+<li>A single client module runs in each client computer</li>
+<li>It integrates and extends operations of flat file service and directory service under a single application programming interface</li>
+<li>The interface is available to user-level programs in client computers</li>
+</ul>
+</li>
+</ul>
+<h4 id="7-5-Interface-Flat-File-Service"><a href="#7-5-Interface-Flat-File-Service" class="headerlink" title="7.5 Interface (Flat File Service)"></a>7.5 Interface (Flat File Service)</h4><ul>
+<li>RPC interface used by client modules</li>
+<li>Not normally used directly by user-level programs</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6287c49d09475431298cad2f.jpg" style="zoom:67%;" />
+
+<img src="https://pic.imgdb.cn/item/6287c4b909475431298cc07b.jpg" style="zoom:67%;" />
+
+<img src="https://pic.imgdb.cn/item/6287c4d209475431298cd21b.jpg" style="zoom:67%;" />
+
+<h4 id="7-6-Interface-Directory-Service"><a href="#7-6-Interface-Directory-Service" class="headerlink" title="7.6 Interface (Directory Service)"></a>7.6 Interface (Directory Service)</h4><p>To provide a service for translating text names to UFIDs.</p>
+<img src="https://pic.imgdb.cn/item/6287c70a09475431298e335a.jpg" style="zoom:67%;" />
+
+<img src="https://pic.imgdb.cn/item/6287c72409475431298e426c.jpg" style="zoom:67%;" />
+
+
+
+<p><strong>Designed for fault tolerance</strong>:</p>
+<ul>
+<li>Repeatable operations: with the exception of create, the operations are idempotent. (repeated execution of create causes a space leak.)</li>
+<li>Stateless servers: can be restarted after a failure and resume operation without need for clients or other server to restore any state.</li>
+</ul>
+<h4 id="7-7-Case-Studies-NFS"><a href="#7-7-Case-Studies-NFS" class="headerlink" title="7.7 Case Studies: NFS"></a>7.7 Case Studies: NFS</h4><ul>
+<li><p>Network File System (NFS) is a distributed file system protocol originally developed by Sun Microsystems (Sun) in 1984, allowing a user on a client computer to access files over a computer network much like local storage is accessed. </p>
+</li>
+<li><p>Design goals:</p>
+<ul>
+<li>Emulation of the UNIX file system interface</li>
+<li>Concurrent access</li>
+<li>One-copy update semantics<ul>
+<li>The file contents seen by all of the processes accessing or updating a given file are those that they would see if only single copy of the file contents existed.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Architecture</p>
+<ul>
+<li>The basic idea of NFS is to allow an arbitrary collection of clients and servers to share a common file system.</li>
+<li>Each NFS server exports one or more of its directories for access by remote clients.</li>
+</ul>
+</li>
+<li><p>The list of directories a server exports is maintained in the &#x2F;etc&#x2F;exports file, so these directories can be exported automatically whenever the server is booted. (migration transparency) </p>
+</li>
+<li><p>Clients access exported directories by mounting them.</p>
+</li>
+<li><p>When a client mounts a (remote) directory, it becomes part of its directory hierarchy. (location transparency)</p>
+</li>
+<li><p>Local and remote file systems accessible on an NFS client.</p>
+<img src="https://pic.imgdb.cn/item/6287c83b09475431298ee785.jpg" style="zoom:67%;" />
+</li>
+<li><p>To access a file, there is (almost) no difference between a file located on a remote file server and a file located on the local disk. (performance transparency)</p>
+</li>
+<li><p>Once the mounts have been done, nothing special has to be done to achieve sharing. (access transparency)</p>
+</li>
+<li><p>If two or more clients mount the same directory at the same time, they can communicate by sharing files in their common directories.</p>
+</li>
+<li><p>The NFS service is stateless and most of the operations of the file access protocol are idempotent. (failure transparency)</p>
+</li>
+<li><p>It does not support replication transparency because it is a separate service.</p>
+</li>
+<li><p>It does not support concurrency transparency because it does not aim to improve upon the UNIX approach to the control of concurrent updates of files.</p>
+<ul>
+<li>NFS 4.0 has been extended to support.</li>
+</ul>
+</li>
+<li><p>It is not scalability: maximum 50 clients, usually 5 - 10 clients.</p>
+</li>
+</ul>
+<p>File Service Components</p>
+<img src="https://pic.imgdb.cn/item/6287c8bc09475431298f2f7d.jpg" style="zoom:67%;" />
+
+
+
+<ul>
+<li><p>Virtual File System (VFS)</p>
+<ul>
+<li>Distinguish local and remote files;</li>
+<li>Translate between UNIX-independent File Identifiers (FIDs) used by NFS and the internal file identifiers normally used in UNIX and other file systems.</li>
+<li>UFID used by NFS is called file handle.</li>
+<li>It is opaque (not observed) to users.</li>
+<li>Filesystem identifier: a unique number that is allocated to each file system when it is created.</li>
+</ul>
+</li>
+<li><p>NFS communication</p>
+<ul>
+<li>Port mapper enables Clients to bind to a service in a given host by name.</li>
+<li>Clients use RPC to access Server interfaces.</li>
+<li>NFS RPC interface is open.</li>
+<li>Any authenticated request will be executed.</li>
+<li>NFS handles the requests according to the UFIDs. (operations are similar to Read, Write, … in Flat file Service)</li>
+</ul>
+</li>
+<li><p>i-node number: a number that serves to identify and locate the file within the file system in which the file is stored.</p>
+</li>
+<li><p>i-node generation number: increment each time the i-node number is reused).</p>
+</li>
+<li><p>file handle is made unique with i-node generation number.</p>
+</li>
+</ul>
+<p>The format of UNIX-Independent File Identifiers (FIDs) used by NFS:</p>
+<img src="https://pic.imgdb.cn/item/6287d16509475431299408a1.jpg" style="zoom: 80%;" />
+
+<ul>
+<li><p>NFS Client module</p>
+<ul>
+<li>Simulate UNIX standard file service;</li>
+<li>Integrated with UNIX kernel;</li>
+<li>Users can access files via system calls;</li>
+<li>Single client module serves all user level processes (in a client machine) with shared cache.</li>
+<li>Path name translation to file handle.</li>
+</ul>
+</li>
+<li><p>NFS server module</p>
+<ul>
+<li>Integrated with UNIX kernel for performance, including access control and authentication.</li>
+<li>E.g. Sun RPC requires client to present their User_Id &amp; Group_Id (in each RPC call), NFS server checks against access permission in file attribute.</li>
+</ul>
+</li>
+<li><p>Mount service</p>
+<ul>
+<li>Mount requests are performed as a part of system initialization process. Client user process uses mount system call for further mounting when necessary.</li>
+<li>Mount server uses an RPC interface, mount requests contains the pathname of a directory (to be mounted) and returns the file handle of the directory.</li>
+</ul>
+</li>
+<li><p>Two kinds of mount services for remote file system: hard mounted or soft mounted;</p>
+</li>
+<li><p>Hard mounted (“try hard”): User process is suspended until request completed; If not completed (unavailable), client module retries until success. </p>
+</li>
+<li><p>Soft mounted (“do not try hard”): NFS client module returns a failure notification to user process after a few time-out retries. User process should handle the failure.</p>
+</li>
+<li><p>Most applications take hard mount (why?)</p>
+</li>
+<li><p>Automounter</p>
+<ul>
+<li>Dynamically mount a file system if “empty” mount point is referenced.The file system on the first server to respond is mounted at the client using the normal mount service.</li>
+</ul>
+</li>
+<li><p><strong>Client caching</strong></p>
+<ul>
+<li>NFS client module caches results of: read, write, get-attribute, lookup and read-dir.</li>
+<li>Consistency problem: Writing by a client does not result in the immediate updating of cached copies in other clients.</li>
+</ul>
+</li>
+<li><p><strong>Server Caching</strong></p>
+<ul>
+<li>Enhance the performance NFS;</li>
+<li>UNIX server cache<ul>
+<li>File pages, directories and file attributes read from disk are retained in buffer cache.</li>
+<li>Delayed-write: when a page has been altered, its page is written in disk only when the page is needed.</li>
+<li>To prevent loss data, UNIX flushes altered page every 30 sec.</li>
+</ul>
+</li>
+<li>NFS Server cache<ul>
+<li>Read cache is the same as UNIX;</li>
+<li>NFS flushes altered page immediately. Otherwise, clients (sharing a file) may lose some updates.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Solution 1: Timestamp (read)</p>
+<ul>
+<li>Each cache entry is associated with a Timestamp.     </li>
+<li>A client requests last modification time from server;</li>
+<li>Compares the time with its cache Timestamp; </li>
+<li>If (time &gt; Timestamp) (time is more recent) then the cache blocks of the file are invalidated and must be re-fetched.</li>
+</ul>
+</li>
+<li><p>Solution 2: Validation check (read)</p>
+<ul>
+<li>3 sec. for files &amp; 30 sec. for directories. </li>
+<li>Files have vulnerability window of 3 sec. </li>
+<li>Seems to be tolerable for most applications.</li>
+</ul>
+</li>
+<li><p>Solution 3: Bio-demon( Block I&#x2F;O manager process) implemented by NFS client.</p>
+<ul>
+<li>Read-Ahead: a bio-demon is notified after each read request and it requests the transfer of the following file block from the server to the client cache.</li>
+<li>Delayed-write: a block is sent to server if the block is filled.</li>
+<li>Directory blocks are sent whenever a modification has occurred.</li>
+</ul>
+</li>
+</ul>
+<h4 id="7-8-Case-study-2-Apache-Hadoop"><a href="#7-8-Case-study-2-Apache-Hadoop" class="headerlink" title="7.8 Case study 2: Apache Hadoop"></a>7.8 Case study 2: Apache Hadoop</h4><ul>
+<li>Apache Hadoop is a collection of open-source software utilities that facilitates using a network of many computers to solve problems involving massive amounts of data and computation. </li>
+<li>It provides a software framework for distributed storage and processing of big data using the MapReduce programming model.</li>
+<li>Hadoop File System was developed using distributed file system design. </li>
+<li>It is fault-tolerant and designed using low-cost hardware.</li>
+<li>To store such huge data, the files are stored across multiple machines. These files are stored in redundant fashion to rescue the system from possible data losses in case of failure.</li>
+</ul>
+<p><strong>Features of HDFS</strong></p>
+<ul>
+<li>It is suitable for the distributed storage and processing.</li>
+<li>Hadoop provides a command interface to interact with HDFS.</li>
+<li>The built-in servers of namenode and datanode help users to easily check the status of cluster.</li>
+<li>Streaming access to file system data.</li>
+<li>HDFS provides file permissions and authentication.</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6287db3f0947543129990545.jpg" style="zoom:67%;" />
+
+<p><strong>Namenode</strong></p>
+<ul>
+<li>The namenode is the commodity hardware that contains the GNU&#x2F;Linux operating system and the namenode software.  </li>
+<li>The namenode acts as the master server and it does the following tasks.</li>
+<li>Manages the file system namespace.</li>
+<li>Regulates client’s access to files.</li>
+<li>It also executes file system operations such as renaming, closing, and opening files and directories.</li>
+</ul>
+<p><strong>Datanode</strong></p>
+<ul>
+<li>The datanode is a commodity hardware having the GNU&#x2F;Linux operating system and datanode software. For every node (Commodity hardware&#x2F;System) in a cluster, there will be a datanode. </li>
+<li>These nodes manage the data storage of their system.</li>
+<li>Datanodes perform read-write operations on the file systems, as per client request.</li>
+<li>They also perform operations such as block creation, deletion, and replication according to the instructions of the namenode.</li>
+</ul>
+<p><strong>File Block</strong></p>
+<ul>
+<li>The file in HDFS will be divided into one or more segments and stored in individual data nodes. </li>
+<li>These file segments are called as blocks. </li>
+<li>In other words, the minimum amount of data that HDFS can read or write is called a Block. </li>
+<li>The default block size is 64MB, but it can be increased as per the need to change in HDFS configuration.</li>
+</ul>
+<p><strong>Goals of HDFS</strong></p>
+<ul>
+<li><strong>Fault detection and recovery</strong> − Since HDFS includes a large number of commodity hardware, failure of components is frequent. Therefore HDFS should have mechanisms for quick and automatic fault detection and recovery.</li>
+<li><strong>Huge datasets</strong> − HDFS should have hundreds of nodes per cluster to manage the applications having huge datasets.</li>
+<li><strong>Hardware at data</strong> − A requested task can be done efficiently, when the computation takes place near the data. Especially where huge datasets are involved, it reduces the network traffic and increases the throughput.</li>
+</ul>
+<h4 id="7-8-Exercises"><a href="#7-8-Exercises" class="headerlink" title="7.8 Exercises"></a>7.8 Exercises</h4><p><strong>In-Class Exercise 1</strong></p>
+<ul>
+<li><p><strong>What kind transparency a DFS should be support? Which transparency is&#x2F;are required by large distributed system only?  Why?</strong></p>
+</li>
+<li><p><strong>Can you discuss how HDFS support any of the above transparency?</strong></p>
+<p>Access Transparency</p>
+<p>Location Transparency</p>
+<p>Concurrency Transparency</p>
+<p>Failure Transparency</p>
+<p>Performance Transparency</p>
+<p>Scaling Transparency</p>
+<p>Replication Transparency</p>
+<p>Migration Transparency</p>
+</li>
+</ul>
+<p><strong>Revision Exercise 2</strong></p>
+<p><strong>Consider the following diagram of NFS</strong></p>
+<img src="https://pic.imgdb.cn/item/6287de3809475431299a7700.jpg" style="zoom:80%;" />
+
+<ul>
+<li><p><strong>What are the main functions of the Virtual file System and NFS Server?</strong></p>
+<p>Virtual File System</p>
+<ul>
+<li>Distinguish local and remote files;</li>
+<li>Translate between UNIX-independent File Identifiers (FIDs) used by NFS and the internal file identifiers normally used in UNIX and other file systems.</li>
+</ul>
+<p>NSF Server Module </p>
+<ul>
+<li>Integrated with UNIX kernel for performance, including access control and authentication</li>
+</ul>
+</li>
+<li><p><strong>Which modules in the diagram may enhance by caching? Briefly explain your answer</strong></p>
+<p>NFS client caching and server caching.</p>
+<p>Client caching</p>
+<ul>
+<li>NFS client module caches results of: read, write, get-attribute, lookup and read-dir.</li>
+<li>Consistency problem: Writing by a client does not result in the immediate updating of cached copies in other clients.</li>
+</ul>
+<p>Server Caching</p>
+<p>……….see 7.7</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>HKU</category>
+      </categories>
+      <tags>
+        <tag>HKU</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java核心技术记录</title>
+    <url>/2022/05/17/java-core/</url>
+    <content><![CDATA[<p>本文记录了Java的一些核心技术和易混淆的概念</p>
+<span id="more"></span>
+
+<h4 id="对Java平台的理解"><a href="#对Java平台的理解" class="headerlink" title="对Java平台的理解"></a>对Java平台的理解</h4><p>Java本身是一种面向对象的语言，最显著的特性有两个方面：</p>
+<ul>
+<li><strong>“书写一次，到处运行”</strong>（Write once, run anywhere），能够非常容易地获得跨平台能力</li>
+<li><strong>垃圾收集</strong>（GC, Garbage Collection），Java通过垃圾收集器（Garbage Collector）回收分配内存，大部分情况下，程序员不需要自己操心内存的分配和回收</li>
+</ul>
+<p>我们日常会接触到 <strong>JRE</strong>（Java Runtime Environment）或 <strong>JDK</strong>（Java Development Kit）。JRE是Java运行环境，包含了JVM和Java类库，以及一些模块等。JDK是JRE的一个超集，提供了更多工具，比如编译器，各种诊断工具等。</p>
+<p>我们开发的Java的源代码，首先通过Javac编译称为字节码（bytecode），然后，在运行时，通过Java虚拟机（JVM）内嵌的解释器将字节码转换成为最终的机器码。但是常见的JVM都提供了JIT（Just-In-Time）编译器，也就是常说的动态编译器，JIT能够在运行时将热点代码编译成机器码，这种情况下部分热点代码就属于编译执行，而不是解释执行了。</p>
+<p><strong>JVM的基础概念和机制</strong></p>
+<ul>
+<li>Java的类加载机制，常用版本JDK（如JDK8）内嵌的Class-Loader，如Bootstrap、Application和Extension Class-Loader</li>
+<li>类加载大致过程：加载、验证、链接、初始化</li>
+<li>自定义Class-Loader</li>
+<li>垃圾收集的基本原理，最常见的垃圾收集器，如SerialGC，ParallelGC，CMS，G1等，要清楚适用于什么样的工作负载</li>
+<li>JDK包含的各种工具：编译器、运行时环境、安全工具、诊断和监控工具</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>简单的需求开发记录</title>
+    <url>/2022/05/12/MAPI/</url>
+    <content><![CDATA[<p>概述：本文记录了我开发第一个需求【挽留弹窗】的过程</p>
+<span id="more"></span>
+
+<h3 id="明确需求"><a href="#明确需求" class="headerlink" title="明确需求"></a>明确需求</h3><h4 id="芥末端"><a href="#芥末端" class="headerlink" title="芥末端"></a>芥末端</h4><img src="https://pic.imgdb.cn/item/627cacf10947543129944b06.jpg" alt="配置界面" style="zoom: 67%;" />
 
 <p>为游戏中心2.0的活动配置界面【新人引导奖励】下方增加一个挽留弹窗的part，拥有两个字段：</p>
 <ul>
@@ -29,7 +1690,19 @@
 <p>在【Shepherd】找到API接口后可以在【后端请求定义】中找到接口对应的名称，从而定位到了具体的代码（服务和方法）</p>
 <p>例如如这里通过 <code>/activity/generic/detail</code>找到了MAPI下的 <code>queryActivityDetail</code>方法（<code>.client.service.activity.ActivityManagerMTService</code>）</p>
 <p>通过 <code>/activity/generic/save</code>找到了MAPI下的 <code>saveActivity</code>方法（<code>.client.service.activity.ActivityManagerMTService</code>）</p>
-<h3 id="开发步骤"><a href="#开发步骤" class="headerlink" title="开发步骤"></a>开发步骤</h3><h4 id="DTO到VO"><a href="#DTO到VO" class="headerlink" title="DTO到VO"></a>DTO到VO</h4><p>找到要修改的位置：</p>
+<h4 id="C端"><a href="#C端" class="headerlink" title="C端"></a>C端</h4><p>需要调整主页加载接口</p>
+<p>增加用户类型字段：retainPopDisplay, true表示满足挽留弹窗条件，false表示不满足</p>
+<p>responseBody：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;code&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;data&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;code&quot;</span><span class="punctuation">:</span><span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span><span class="string">&quot;成功&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;retainPopDisplay&quot;</span><span class="punctuation">:</span><span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">        ......</span><br><span class="line">        ......</span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>如何定位对应的接口：</p>
+<ul>
+<li>APPMOCK中绑定自己的设备，选择测试环境，扫码美团优选APP测试版，然后在手机中的mis号和泳道中进行相应的设置，完成后点开游戏中心。</li>
+<li>在APPMOCK中搜索【game】即可找到一些请求，其中后缀为loadMainView的为我们需要的这条请求，点入之后选择【Response】即可查看response的具体信息</li>
+</ul>
+<p><strong>写UT</strong></p>
+<p>要尽量覆盖到各种可能性，覆盖每一行代码</p>
+<h3 id="芥末端开发步骤"><a href="#芥末端开发步骤" class="headerlink" title="芥末端开发步骤"></a>芥末端开发步骤</h3><h4 id="DTO到VO"><a href="#DTO到VO" class="headerlink" title="DTO到VO"></a>DTO到VO</h4><p>找到要修改的位置：</p>
 <ul>
 <li><p>从 <code>ActivityManagerMTService</code>类中的 <code>queryActivityDetail</code>方法出发，从接口找到实现类，</p>
 <ul>
@@ -79,7 +1752,28 @@
 
 
 
-<h4 id="调试和测试"><a href="#调试和测试" class="headerlink" title="调试和测试"></a>调试和测试</h4>]]></content>
+<h4 id="调试和测试"><a href="#调试和测试" class="headerlink" title="调试和测试"></a>调试和测试</h4><p>千万注意要在测试时要设置泳道 <code>Tracer.setSwimlane(&quot;泳道名称&quot;)</code>，否则默认是在默认渠道上进行的。并且要保证服务已经在泳道进行了部署，否则是在做无用功</p>
+<h3 id="C端开发"><a href="#C端开发" class="headerlink" title="C端开发"></a>C端开发</h3><p>在core模块下的local包下找到 <code>GameCenterLocalService</code>类中的 <code>loadMainSceneInfo</code>方法：</p>
+<ul>
+<li><p>首先看返回类型 <code>MainSceneResp</code>，这里的字段其实是和网页上的Response中的内容对应的，我们要做的就是增加一个挽留窗口<code>retainPopDisplay</code>的字段，类型为Boolean</p>
+</li>
+<li><p>查看 <code>ActivityDTO</code>可以发现其中有<code>bizConfig</code>字段</p>
+</li>
+<li><p>在合并奖励结果部分写：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">resp.setRetainPopDisplay(mainSceneService.getRetainPopDisplay(req, activityDto));</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>在 <code>MainSceneService</code>类下新增一个 <code>getRetainPopDisplay(activityDto)</code>的方法，用于通过DTO的状态获取得到RetainPopDisplay的结果。这里要<strong>写清楚业务需求的逻辑关系（最关键的部分！）</strong>，目前的需求就是按照传入的dto和req中的id进行分析，看是否符合弹出挽留窗口的需求。</p>
+<p>注意完成这部分的开发后要修改版本号，如从1.0.29到1.0.30-SNAPSHOT，然后在devtools网站上进行jar包的更新。</p>
+<h3 id="修改http服务"><a href="#修改http服务" class="headerlink" title="修改http服务"></a>修改http服务</h3><p>首先需要全局搜索<code>grocerymkthd-game-center-client</code>jar包所在的pom.xml的位置并进行相应版本号的修改，才能导入我们开发完成后的字段和功能。</p>
+<p>在web模块下，在controller包下找到 <code>GameCenterController</code>类中的 <code>loadMainView</code>方法，找到loadMainView的实现，在其中进入 <code>convertToResp</code>方法：</p>
+<ul>
+<li><p>查看返回类型 <code>GameCenterMainSceneResp</code>，在其中加入一个挽留弹窗状态 <code>retailPopDisplay</code> 的字段，返回类型为Boolean</p>
+</li>
+<li><p>加入以下一行：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">resp.setRetainPopDisplay(mainSceneResp.getRetainPopDisplay());</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="整体测试"><a href="#整体测试" class="headerlink" title="整体测试"></a>整体测试</h3><p>在ones中完成一些case的测试</p>
+]]></content>
       <categories>
         <category>Projects</category>
       </categories>
@@ -6638,6 +8332,40 @@
       </tags>
   </entry>
   <entry>
+    <title>Good questions —— 链表篇</title>
+    <url>/2022/03/31/questions03/</url>
+    <content><![CDATA[<p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
+<span id="more"></span>
+
+<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
+<p>（1）迭代</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）递归</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
+<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
+<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
+<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
+<p>（1）找到链表中间节点，并断开</p>
+<p>（2）反转后半部分的链表</p>
+<p>（3）合并两个链表</p>
+<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
+<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
+<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Good questions —— 二叉树篇</title>
     <url>/2022/03/31/questions02/</url>
     <content><![CDATA[<p>概述：本文记录了刷题过程中与二叉树相关的优质题目及解题思路</p>
@@ -6689,40 +8417,6 @@
 <p>（2）在递归的过程中不断更新一个最大路径和，包含当前节点并且可以同时包含左右子树的节点。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> maxsum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> lval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;left));<span class="comment">//包含根节点root的单条路径的最大值</span></span><br><span class="line">        <span class="type">int</span> rval = <span class="built_in">max</span>(<span class="number">0</span>,<span class="built_in">dfs</span>(root-&gt;right));</span><br><span class="line">        maxsum = <span class="built_in">max</span>(maxsum,root-&gt;val+lval+rval);</span><br><span class="line">        <span class="keyword">return</span> root-&gt;val + <span class="built_in">max</span>(lval,rval);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> maxsum = INT_MIN;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Good questions —— 链表篇</title>
-    <url>/2022/03/31/questions03/</url>
-    <content><![CDATA[<p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
-<span id="more"></span>
-
-<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
-<p>（1）迭代</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>（2）递归</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
-<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
-<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
-<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
-<p>（1）找到链表中间节点，并断开</p>
-<p>（2）反转后半部分的链表</p>
-<p>（3）合并两个链表</p>
-<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
-<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
-<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
 ]]></content>
       <categories>
         <category>算法</category>
