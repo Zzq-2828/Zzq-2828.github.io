@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">9.2k</span>
+            <span class="post-count">11.3k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">57 分钟</span>
+            <span class="post-count">70 分钟</span>
         </span>
     </span>
 </div>
@@ -157,7 +157,8 @@
 </ul>
 </li>
 </ul>
-<h4 id="1-3-Characteristics"><a href="#1-3-Characteristics" class="headerlink" title="1.3 Characteristics"></a>1.3 Characteristics</h4><h5 id="Resource-Sharing"><a href="#Resource-Sharing" class="headerlink" title="Resource Sharing"></a>Resource Sharing</h5><ul>
+<h4 id="1-3-Characteristics"><a href="#1-3-Characteristics" class="headerlink" title="1.3 Characteristics"></a>1.3 Characteristics</h4><p><strong>Resource Sharing</strong></p>
+<ul>
 <li>What to share?<ul>
 <li>Hardware devicesData</li>
 </ul>
@@ -173,12 +174,14 @@
 </ul>
 <img src="https://pic.imgdb.cn/item/628533b60947543129f0a7a2.jpg" style="zoom:80%;" />
 
-<h5 id="Openness"><a href="#Openness" class="headerlink" title="Openness"></a>Openness</h5><ul>
+<p><strong>Openness</strong></p>
+<ul>
 <li>Characteristic that determines whether the system can be extended in various ways</li>
 <li>Hardware: Additional peripherals, memory or communication interfaces;</li>
 <li>Software: Additional operating system features, communication protocols and resource-sharing services.</li>
 </ul>
-<h5 id="Concurrency"><a href="#Concurrency" class="headerlink" title="Concurrency"></a>Concurrency</h5><ul>
+<p><strong>Concurrency</strong></p>
+<ul>
 <li>In a distributed system with M computers (cores) , up to M processes can be executed in parallel.</li>
 <li>Parallel executions occur for two reasons:<ul>
 <li>More than one users simultaneously invoke commands or interact with application programs</li>
@@ -186,7 +189,8 @@
 </ul>
 </li>
 </ul>
-<h5 id="Scalability"><a href="#Scalability" class="headerlink" title="Scalability"></a>Scalability</h5><ul>
+<p><strong>Scalability</strong></p>
+<ul>
 <li>DS can be existed in different scale:</li>
 <li>The smallest: 2 workstations + 1 file server</li>
 <li>Local area network (LAN): <ul>
@@ -200,14 +204,16 @@
 </ul>
 </li>
 </ul>
-<h5 id="Fault-Tolerance"><a href="#Fault-Tolerance" class="headerlink" title="Fault Tolerance"></a>Fault Tolerance</h5><ul>
+<p><strong>Fault Tolerance</strong></p>
+<ul>
 <li>The design of fault-tolerant computer systems is based on:<ul>
 <li>Hardware redundancy: the use of redundant components</li>
 <li>Software recovery: the design of programs to tolerate (process group) or recover from faults</li>
 </ul>
 </li>
 </ul>
-<h5 id="Transparency"><a href="#Transparency" class="headerlink" title="Transparency"></a>Transparency</h5><ul>
+<p><strong>Transparency</strong></p>
+<ul>
 <li>Hidden from the user (application) programmer of separation of components;</li>
 <li>Achieve a single system image to make everyone into thinking that the collection of machines is simply an old-fashioned time-sharing system.</li>
 <li>Access transparency <ul>
@@ -247,7 +253,8 @@
 </ul>
 </li>
 </ul>
-<h4 id="1-4-User-Requirements"><a href="#1-4-User-Requirements" class="headerlink" title="1.4 User Requirements"></a>1.4 User Requirements</h4><h5 id="Functionality"><a href="#Functionality" class="headerlink" title="Functionality"></a>Functionality</h5><p>A distributed system should bring an improvement over the services provided by any single computer through enhancements of:</p>
+<h4 id="1-4-User-Requirements"><a href="#1-4-User-Requirements" class="headerlink" title="1.4 User Requirements"></a>1.4 User Requirements</h4><p><strong>Functionality</strong></p>
+<p>A distributed system should bring an improvement over the services provided by any single computer through enhancements of:</p>
 <ul>
 <li>Sharing across a network can bring access to a richer variety of resources.</li>
 <li>Parallel and Fault-tolerant applications.</li>
@@ -269,7 +276,8 @@
 </ul>
 </li>
 </ul>
-<h5 id="Re-configurability"><a href="#Re-configurability" class="headerlink" title="Re-configurability"></a>Re-configurability</h5><ul>
+<p><strong>Re-configurability</strong></p>
+<ul>
 <li>Short-term<ul>
 <li>A failed process, computer or network component is replaced by another, working counterpart.</li>
 <li>Overload is shifted from over-loaded to less-loaded machines to increase the total throughput of the DS.</li>
@@ -281,7 +289,8 @@
 </ul>
 </li>
 </ul>
-<h5 id="Quality-of-Service"><a href="#Quality-of-Service" class="headerlink" title="Quality of Service"></a>Quality of Service</h5><ul>
+<p><strong>Quality of Service</strong></p>
+<ul>
 <li>Performance<ul>
 <li>Speed up the response of software components in a distributed system;</li>
 </ul>
@@ -321,7 +330,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="2-Inter-process-Communication"><a href="#2-Inter-process-Communication" class="headerlink" title="2. Inter-process  Communication"></a>2. Inter-process  Communication</h3><p>Why we need Inter-process Communication (IPC)?</p>
+<h3 id="2-Inter-process-Communication"><a href="#2-Inter-process-Communication" class="headerlink" title="2. Inter-process  Communication"></a>2. Inter-process  Communication</h3><p>进程间通信</p>
+<p>Why we need Inter-process Communication (IPC)?</p>
 <ul>
 <li>The components of a distributed system are both logically and physically separated</li>
 <li>They must communicate in order to interact.</li>
@@ -578,8 +588,7 @@
 </ul>
 <img src="https://pic.imgdb.cn/item/628660320947543129c4717a.jpg" style="zoom:67%;" />
 
-<p><strong>Exercise</strong></p>
-<p>Consider a host using Cristian’s method to synchronize its clock with a time server T and got the following records. Assume the total delay of transmitting a message from the host to the time server or vice versa is 10ms.</p>
+<h5 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h5><p>Consider a host using Cristian’s method to synchronize its clock with a time server T and got the following records. Assume the total delay of transmitting a message from the host to the time server or vice versa is 10ms.</p>
 <img src="https://pic.imgdb.cn/item/6286622c0947543129c52ac0.jpg" style="zoom:80%;" />
 
 <ul>
@@ -1118,7 +1127,7 @@
 <p>**An Example with two concurrent tokens **</p>
 <img src="https://pic.imgdb.cn/item/6287aaa609475431297b7b9a.jpg" style="zoom: 67%;" />
 
-<h5 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h5><p><strong>In the ring-based election algorithm, the processes need to mark participant or non-participant in an election process.  Explain why.</strong></p>
+<h5 id="Exercise-1"><a href="#Exercise-1" class="headerlink" title="Exercise"></a>Exercise</h5><p><strong>In the ring-based election algorithm, the processes need to mark participant or non-participant in an election process.  Explain why.</strong></p>
 <p>Ans: Two processes may start the election process at the same time leading to more than one election message.  The purpose of marking participant or non-participant is to extinguish the concurrent election message as soon as possible and always before the “winning” result has been announced.</p>
 <h3 id="6-Replication"><a href="#6-Replication" class="headerlink" title="6. Replication"></a>6. Replication</h3><p>Replication is the maintenance of on-line copies of data and other resources.</p>
 <img src="https://pic.imgdb.cn/item/6287abe809475431297c2cc7.jpg" style="zoom: 80%;" />
@@ -1710,6 +1719,476 @@
 <p>……….see 7.7</p>
 </li>
 </ul>
+<h3 id="8-Blockchain-and-Digital-Cash"><a href="#8-Blockchain-and-Digital-Cash" class="headerlink" title="8. Blockchain and Digital Cash"></a>8. Blockchain and Digital Cash</h3><h4 id="8-1-Fault-Tolerance"><a href="#8-1-Fault-Tolerance" class="headerlink" title="8.1 Fault Tolerance"></a>8.1 Fault Tolerance</h4><ul>
+<li>Replication</li>
+<li>Consistency among replicas is maintained by consensus algorithms</li>
+<li>State machine replication: E.g. blockchain</li>
+<li>Type of Fault<ul>
+<li>Node is down</li>
+<li>Node is performing malicious &#x2F; inconsistent behavior</li>
+</ul>
+</li>
+</ul>
+<h4 id="8-2-Consensus-Mechanisms"><a href="#8-2-Consensus-Mechanisms" class="headerlink" title="8.2 Consensus Mechanisms"></a>8.2 Consensus Mechanisms</h4><p><strong>Requirements</strong></p>
+<ul>
+<li><p>Agreement: All honest nodes decide on the same value</p>
+</li>
+<li><p>Termination: All honest nodes terminate execution of the consensus process and eventually reach a decision</p>
+</li>
+<li><p>Validity: The final agreed value must be the one proposed by at least one honest node</p>
+</li>
+<li><p>Fault tolerant: Allow the presence of faulty or malicious node (Byzantine node)</p>
+</li>
+<li><p>Byzantine fault tolerance-based</p>
+<ul>
+<li>Nodes publishing signed message</li>
+<li>Agreement is reached when a certain number of messages are received</li>
+</ul>
+</li>
+<li><p>Leader-based consensus mechanisms</p>
+<ul>
+<li>By competition</li>
+<li>Winning node propose the final value</li>
+</ul>
+</li>
+</ul>
+<h4 id="8-3-CAP-Theorem"><a href="#8-3-CAP-Theorem" class="headerlink" title="8.3 CAP Theorem"></a>8.3 CAP Theorem</h4><ul>
+<li>“Any distributed system cannot have Consistency, Availability, and Partition tolerance simultaneously”</li>
+<li>Consistency: all nodes have the same latest copy of data </li>
+<li>Availability: the system is up and running, able to serve client without failure</li>
+<li>Partition tolerance:  The system is still operating correctly even group of nodes are down</li>
+</ul>
+<h4 id="8-4-Hashcash"><a href="#8-4-Hashcash" class="headerlink" title="8.4 Hashcash"></a>8.4 Hashcash</h4><ul>
+<li><p>Introduced by Adam back in 1997</p>
+</li>
+<li><p>Proof of work (PoW) for control email spam</p>
+</li>
+<li><p>Sender must compute a hash for sending an email (as a proof that they have spent a reasonable amount of computing resources)</p>
+</li>
+<li><p>Generating hashcash is a compute intensive process, but easy and quick to verify (by receiver)</p>
+</li>
+<li><p>Acceptable to normal user Cost too much to spammer</p>
+</li>
+<li><p>B-Money</p>
+<ul>
+<li>Introduced by Wei Dai in 1998</li>
+<li>Creating money via solving computational puzzles such as hashcash</li>
+<li>Each node maintains its own list of transactions</li>
+</ul>
+</li>
+<li><p>BitGold</p>
+<ul>
+<li>Nick Szabo, 2005</li>
+<li>Solving computational puzzles to mint digital currency</li>
+</ul>
+</li>
+<li><p>Cryptographic currency</p>
+<ul>
+<li>2005, Hal Finney</li>
+<li>B-money + hashcash puzzles</li>
+</ul>
+</li>
+<li><p>No clear solution to resolve conflict between nodes, must be relied on a centralized trusted authority</p>
+</li>
+</ul>
+<h4 id="8-5-Bitcoin"><a href="#8-5-Bitcoin" class="headerlink" title="8.5 Bitcoin"></a>8.5 Bitcoin</h4><img src="https://pic.imgdb.cn/item/628881fc0947543129ff2426.jpg" style="zoom: 50%;" />
+
+<ul>
+<li>2009</li>
+<li>Achieved distributed consensus in a trustless network</li>
+<li>Public key cryptography with hashcash as PoW</li>
+<li>Provide secure, controlled, and decentralized method of minting digital currency</li>
+<li>Blockchain &#x3D; Electronic cash scheme + distributed systems</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6288830d0947543129fff851.jpg" style="zoom:67%;" />
+
+<h4 id="8-6-Blockchain"><a href="#8-6-Blockchain" class="headerlink" title="8.6 Blockchain"></a>8.6 Blockchain</h4><p><strong>Tires of Blockchain Technology</strong></p>
+<ul>
+<li>Blockchain 1.0<ul>
+<li>Cryptocurrencies</li>
+</ul>
+</li>
+<li>Blockchain 2.0<ul>
+<li>Financial services and contracts</li>
+</ul>
+</li>
+<li>Blockchain 3.0<ul>
+<li>Other Applications used in general-purpose industries such as government, health, media</li>
+</ul>
+</li>
+</ul>
+<p><strong>What is Blockchain</strong></p>
+<ul>
+<li>Platform for peers to exchange values using transactions without central trusted arbitrator -&gt; Decentralized consensus mechanism</li>
+<li>Cryptographically secure</li>
+<li>Append-only</li>
+<li>Immutable</li>
+<li>Updateable only via consensus among peers</li>
+<li>Decentralized consensus mechanism</li>
+<li>Distributed shared ledger.  Transaction are ordered and grouped into blocks</li>
+<li>Data structure.  Linked list with hash pointers pointed to the previous block</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/62888434094754312900cc68.jpg" style="zoom:67%;" />
+
+<p><strong>Quick Question</strong></p>
+<ul>
+<li>How to carry a “private” communication in an open network?</li>
+<li>How to identify (and prove) who are you in an open network?</li>
+</ul>
+<p><strong>Secure key</strong></p>
+<img src="https://pic.imgdb.cn/item/628884db0947543129013d22.jpg" style="zoom:67%;" />
+
+<p><strong>Public and Private Key</strong></p>
+<img src="https://pic.imgdb.cn/item/6288851f0947543129016b8c.jpg" style="zoom:67%;" />
+
+<img src="https://pic.imgdb.cn/item/628885390947543129018016.jpg" style="zoom:67%;" />
+
+<p><strong>Protection Against Eavesdropping</strong></p>
+<img src="https://pic.imgdb.cn/item/628886e4094754312902b569.jpg" style="zoom:67%;" />
+
+<p><strong>Digtal signature</strong></p>
+<img src="C:\Users\win10\AppData\Roaming\Typora\typora-user-images\image-20220521143029919.png" alt="image-20220521143029919" style="zoom:67%;" />
+
+<p><strong>Hash function</strong></p>
+<ul>
+<li>Take a string with any length</li>
+<li>Output a fixed length hash code</li>
+<li>Small change in the string will give a totally different hash code</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6288874509475431290317c2.jpg" style="zoom:67%;" />
+
+<p><strong>Blockchain</strong></p>
+<img src="https://pic.imgdb.cn/item/62888861094754312903f715.jpg" style="zoom:67%;" />
+
+<img src="https://pic.imgdb.cn/item/6288887509475431290406bd.jpg" style="zoom:67%;" />
+
+<p>The nonce is the number that blockchain miners are solving for.</p>
+<img src="https://pic.imgdb.cn/item/628889050947543129046c4c.jpg" style="zoom:67%;" />
+
+<p><strong>Nonce</strong></p>
+<ul>
+<li>Nonce, or a “number only used once,” refers to the first number a blockchain miner needs to discover before solving for a block in the blockchain. </li>
+<li>Once the mathematical computations are solved by the miner, they are gifted cryptocurrency for their time and skill. </li>
+<li>Nonces are difficult to find and are considered a way to weed out the less talented crypto miners. </li>
+<li>The world of crypto mining is challenging, and one often needs excellent computational power to even begin to try and solve the nonce.</li>
+</ul>
+<p><strong>Generic Element of Blockchain</strong></p>
+<ul>
+<li>Addresses<ul>
+<li>Unique identifiers used in a transaction stored in blockchain</li>
+<li>Contain sender and recipient information</li>
+<li>Public key or derived from a public key</li>
+<li>Can be reused (for the same user) or one-off</li>
+</ul>
+</li>
+<li>Transaction<ul>
+<li>Fundamental unit of a blockchain</li>
+<li>Transfer of value from one address to another</li>
+</ul>
+</li>
+<li>Blocks<ul>
+<li>A block is composed of multiple transactionsIt also contains other elements, like previous block hash, timestamp, nonce</li>
+</ul>
+</li>
+<li>Peer-to-peer network<ul>
+<li>Network topology for peer to peer communication</li>
+</ul>
+</li>
+<li>Scripting or programming language, Virtual machine<ul>
+<li>Predefined sets of commands for nodes to transfer tokens</li>
+</ul>
+</li>
+<li>Nodes<ul>
+<li>Node in a blockchain network</li>
+<li>Provide various functions depending on its role<ul>
+<li>Propose and validate transaction</li>
+<li>Mining to facilitate consensus and secure the blockchain</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Smart contracts<ul>
+<li>Program runs on top of the blockchain</li>
+<li>Business logic to be executed when certain conditions are met.</li>
+<li>These actions could include releasing funds to the appropriate parties, registering a vehicle, sending notifications, or issuing a ticket</li>
+</ul>
+</li>
+</ul>
+<p><strong>Blockchain: Features</strong></p>
+<ul>
+<li>Distributed consensus<ul>
+<li>Achieve a single version of truth (agreed by all parties) without the need of a central authority</li>
+</ul>
+</li>
+<li>Transaction verification<ul>
+<li>Only transaction that fulfills the predetermined set of rules can be included in a block</li>
+</ul>
+</li>
+<li>Platforms for smart contracts<ul>
+<li>Execute business logic on behalf of the user </li>
+<li>Not all blockchains support the execution of smart contract</li>
+<li>Desirable feature</li>
+</ul>
+</li>
+<li>Transferring value between peers</li>
+<li>Generating cryptocurrency<ul>
+<li>Reward to the miners who validate the transactions and secure the blockchain</li>
+</ul>
+</li>
+<li>Smart property<ul>
+<li>Allow someone claim the ownership of property in blockchain</li>
+</ul>
+</li>
+<li>Immutability<ul>
+<li>Transaction added onto the blockchain is immutable</li>
+</ul>
+</li>
+</ul>
+<p><strong>Accumulate Blocks</strong></p>
+<ul>
+<li>A node uses its private key to sign a transaction </li>
+<li>The transaction is propagated to peers which validate the transaction based on the pre-set criteria.  (multiple peers are generally required)</li>
+<li>After validation, transaction is added to a block.  The block will propagate onto the network (Transaction confirmed)</li>
+<li>Next block links to the block created in (3).  Transaction is double confirmed when the newly added block is confirmed</li>
+<li>Reconfirm the transaction whenever a new block is created.  </li>
+<li>After six confirmations in the bitcoin network, the transaction is final</li>
+</ul>
+<p><strong>Benefit</strong></p>
+<ul>
+<li>Decentralization</li>
+<li>Transparency and trust<ul>
+<li>Blockchains are shared</li>
+</ul>
+</li>
+<li>Immutability </li>
+<li>It is extremely difficult to change the confirmed data back</li>
+<li>High availability <ul>
+<li>Involve thousands of nodes in a peer-to-peer network</li>
+<li>Data is replicated and updated on each and every node</li>
+</ul>
+</li>
+<li>Highly secure<ul>
+<li>All transactions on a blockchain are cryptographically secured and provide integrity</li>
+</ul>
+</li>
+</ul>
+<p><strong>Challenges and Limitations</strong></p>
+<ul>
+<li>Scalability</li>
+<li>Adaptability</li>
+<li>Regulation</li>
+<li>Relatively immature technology</li>
+<li>Privacy</li>
+</ul>
+<p><strong>Decentralization and Blockchain</strong></p>
+<ul>
+<li>Central<ul>
+<li>client-server system</li>
+<li>Single authority controls the system</li>
+</ul>
+</li>
+<li>Distributed<ul>
+<li>Data and computation are distributed to multiple nodes in the network</li>
+<li>Central authority control all nodes and governs processing</li>
+</ul>
+</li>
+<li>Decentralized<ul>
+<li>No authority exists</li>
+<li>Nodes are not dependent on a single master node</li>
+<li>Decentralized consensus</li>
+</ul>
+</li>
+<li>Disintermediation<ul>
+<li>In blockchain, everyone can add a transaction into a block, no intermediary is involved</li>
+</ul>
+</li>
+<li>Through competition<ul>
+<li>Instead of eliminating the intermediary, the system provides free choice of intermediary</li>
+<li>E.g. Smart contract in blockchain</li>
+</ul>
+</li>
+</ul>
+<p><strong>Blockchain and Full Ecosystem Decentralization</strong></p>
+<ul>
+<li>Storage<ul>
+<li>Blockchain is not designed to store large amounts of data, e.g. image</li>
+<li>It aims to store simple transaction </li>
+<li>One can use distributed hash tables (DHTs), originally come from peer-to-peer file sharing software, e.g. BitTorrent</li>
+<li>Inter Planetary File System (IPFS), Juan Benet, a decentralized World Wide Web, using Kadamlia DHT and merkle DAG(Directed Acyclic Graph) to provide the storage and searching functionality.</li>
+<li>Filecoin: pays incentives to nodes that store data using the BitSwap mechanism</li>
+</ul>
+</li>
+<li>Communication<ul>
+<li>Internet is decentralized by design</li>
+<li>But in practical, central authority (e.g. ISP, email server provider) is in control</li>
+<li>Some apps support communication in a peer-to-peer fashion without the Internet</li>
+</ul>
+</li>
+<li>Computation<ul>
+<li>With blockchain technology, e.g. Ethereum, one can send cryptocurrency to anyone for a small fee. </li>
+<li>E.g. smart contracts with embedded business logic can run on the network</li>
+</ul>
+</li>
+</ul>
+<h4 id="8-7-Bitcoin-2"><a href="#8-7-Bitcoin-2" class="headerlink" title="8.7 Bitcoin(2)"></a>8.7 Bitcoin(2)</h4><p><strong>Bitcoin Transaction</strong></p>
+<ul>
+<li>Bitcoin transaction tells the network that the owner of some bitcoin value has authorized the transfer of that value to another owner</li>
+<li>New owner sends the bitcoin by creating another similar transaction</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/6288943709475431290c4b3c.jpg" style="zoom:67%;" />
+
+<ul>
+<li>Each transaction contains one or more “inputs” and “outputs”</li>
+<li>Inputs: bitcoin account to be debited</li>
+<li>Outputs: bitcoin account to be creditedInputs and outputs are in bitcoin address</li>
+<li>Unspent bitcoin is output to original owner with same &#x2F; different bitcoin address</li>
+<li>Transactions move value from transaction inputs to transaction outputs</li>
+</ul>
+<p><strong>Common Transaction Forms</strong></p>
+<img src="https://pic.imgdb.cn/item/6288950509475431290ce7fc.jpg" style="zoom:67%;" />
+
+<p><strong>Transaction input</strong></p>
+<ul>
+<li>Full-node client <ul>
+<li>Contains a copy of every unspent output from every transaction in the blockchain</li>
+<li>Able to construct transaction inputs</li>
+<li>Quickly verify incoming transaction (having correct inputs) </li>
+<li>Requires a lot of disk space</li>
+</ul>
+</li>
+<li>Lightweight client<ul>
+<li>May track only the user’s own unspent outputs</li>
+</ul>
+</li>
+<li>Wallet application without unspent transaction output<ul>
+<li>Needs to query the bitcoin network or asking a full-node to retrieve unspent transaction output</li>
+</ul>
+</li>
+</ul>
+<p><strong>Transaction Output</strong></p>
+<ul>
+<li>Script that creates a claim on the value and can only be redeemed by the introduction of a solution to the script</li>
+<li>E.g. A transaction output will contain a script that says something like “This output is payable to whoever can present a signature from the key corresponding to “B” public address”</li>
+<li>Since only B’s wallet has the signature, B can present the signature and redeem the output</li>
+<li>Transaction fee is outputted to miner for validating and including the transaction in a block to be recorded on the blockchain</li>
+</ul>
+<p>**Transaction Confirmation **</p>
+<ul>
+<li>Bitcoin network is a peer to peer network</li>
+<li>Node connects to several other nodes in bitcoin network</li>
+<li>Nodes exchange transactions and blocks</li>
+<li>New transaction is flooded to all clients</li>
+<li>New transaction will be validated by multiple nodes and added to the blockchain </li>
+<li>Direct connection between input node and output node is not required</li>
+</ul>
+<p><strong>Bitcoin Mining</strong></p>
+<ul>
+<li>New transaction will be firstly added to the temporary pool of unverified transaction maintained by each node</li>
+<li>Miner constructs a new block with the following elements<ul>
+<li>Unverified transactions from temporary pool</li>
+<li>Previous block reference</li>
+<li>Transaction that pays his own bitcoin address as the block reward</li>
+<li>Transaction fee of including all transaction in this block</li>
+</ul>
+</li>
+<li>Miner proves the validity of his new block, which is computation intensive </li>
+<li>Multiple miners are involved in the step (2) and (3), each includes a special transaction in his block (transaction fee)</li>
+<li>The miners who firstly provides the proof of the validity of his block wins the competition and his block will be added to the blockchain</li>
+</ul>
+<p><strong>Nodes in Bitcoin Network</strong></p>
+<ul>
+<li>Full Nodes<ul>
+<li>Core clients</li>
+<li>Functionality: Wallet, miner, full blockchain storage, network routing functions</li>
+</ul>
+</li>
+<li>SPV (Simplified Payment Verification) Nodes<ul>
+<li>Lightweight clients</li>
+<li>Wallet and network routing</li>
+</ul>
+</li>
+<li>Pool protocol Servers<ul>
+<li>Nonstandard nodes</li>
+<li>Using alternative protocols, e.g. stratum protocol</li>
+<li>Mainly for mining and compute hashes</li>
+</ul>
+</li>
+</ul>
+<p><strong>Bitcoin Wallets</strong></p>
+<ul>
+<li>Software which stores private or public keys and bitcoin address</li>
+<li>Receiving bitcoins</li>
+<li>Sending bitcoins</li>
+<li>Do not store any coins</li>
+<li>In bitcoin network, coins do not exist</li>
+<li>Only transaction information is stored on the blockchain</li>
+</ul>
+<p><strong>Wallet Types</strong></p>
+<ul>
+<li>Non-deterministic wallets<ul>
+<li>Contain randomly generated private keys (Just a bunch of Key wallets)</li>
+<li>Bitcoin core client generates some keys when first started or when required</li>
+<li>Managing a large number of key is very difficult and an error prone process (theft and loss of coins) and need to create regular backups</li>
+</ul>
+</li>
+<li>Deterministic wallets<ul>
+<li>Key are derived out of a seed value via hash functions</li>
+<li>Seed number is generated randomly</li>
+<li>Seed number is represented by human-readable mnemonic code words</li>
+<li>All keys can be recovered by mnemonic code</li>
+</ul>
+</li>
+<li>Hierarchical Deterministic Wallets<ul>
+<li>Does not generate keys directly, it only produces some information that can be used to generate a sequence of private keys</li>
+<li>Store keys in a tree structure derived from a seed</li>
+<li>The seed generates the parent key (master key), which is used to generate child keys (which is used to generate grandchild keys</li>
+<li>Easily recoverable, maintain</li>
+<li>Highly portable</li>
+</ul>
+</li>
+<li>Brain wallets<ul>
+<li>Master private key is derived from the hash of passwords that are memorized</li>
+<li>HD wallets derived from a single memorized password</li>
+<li>Subject to password guessing and brute force attacks</li>
+</ul>
+</li>
+<li>Paper wallets<ul>
+<li>Required key material is printed on a paper</li>
+</ul>
+</li>
+<li>Hardware wallets<ul>
+<li>Use custom-built device or NFC-enabled phone to store keys</li>
+</ul>
+</li>
+<li>Online wallets<ul>
+<li>Store keys in cloud service provider</li>
+<li>Users manage their keys via web interface</li>
+</ul>
+</li>
+<li>Mobile wallets<ul>
+<li>Wallets are installed on mobile device</li>
+<li>Use camera to scan QR code and make payments</li>
+</ul>
+</li>
+</ul>
+<h4 id="8-8-Exercise"><a href="#8-8-Exercise" class="headerlink" title="8.8 Exercise"></a>8.8 Exercise</h4><p><strong>In-Class Exercise 1</strong></p>
+<p><strong>Briefly describe how the public and private key are used in blockchain and bitcoin.</strong>  </p>
+<p>Answers:</p>
+<ul>
+<li>Public key will be used as the address of the sender or the recipient of a transaction.  </li>
+<li>Private key presents the ownership of the bitcoin and will be used to sign transactions (fund transfer).</li>
+</ul>
+<p><strong>In-Class Exercise 2</strong></p>
+<p><strong>Consider the following Bitcoin transactions.</strong></p>
+<img src="https://pic.imgdb.cn/item/6288983d09475431290f57b7.jpg" style="zoom:67%;" />
+
+<p><strong>What is the value of X in the last transaction?</strong></p>
+<p>X &#x3D; 0.3BTC （1.0 - 0.5 - 0.2）</p>
+<p>**Suppose the following addresses are stored in Peter’s Wallet  **</p>
+<p>**3xADF341e **</p>
+<p><strong>a4Y0a23bb</strong></p>
+<p><strong>What is the final balance of Peter’s Bitcoin account after all these transactions?</strong> </p>
+<p>Ans &#x3D; 8.1BTC （7 + 0.9 + 0.2）</p>
  
       <!-- reward -->
       
