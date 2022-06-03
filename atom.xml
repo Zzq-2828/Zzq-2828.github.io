@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-05-20T13:36:38.344Z</updated>
+  <updated>2022-06-03T09:40:42.892Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,17 +17,67 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>project_in_meituan_02</title>
+    <title>project_in_meituan_03</title>
+    <link href="https://www.zzzzzq.com/2022/06/02/project-in-meituan-03/"/>
+    <id>https://www.zzzzzq.com/2022/06/02/project-in-meituan-03/</id>
+    <published>2022-06-02T07:07:10.000Z</published>
+    <updated>2022-06-03T09:40:42.892Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;一个简单需求&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Projects" scheme="https://www.zzzzzq.com/categories/Projects/"/>
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Projects/MeiTuan/"/>
+    
+    
+    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kafka</title>
+    <link href="https://www.zzzzzq.com/2022/05/30/kafka/"/>
+    <id>https://www.zzzzzq.com/2022/05/30/kafka/</id>
+    <published>2022-05-30T06:22:14.000Z</published>
+    <updated>2022-06-01T17:34:59.723Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文记录了Kafka消息引擎系统（Messaging System）的大致原理和用途及一些细节&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>project in meituan 02</title>
     <link href="https://www.zzzzzq.com/2022/05/20/project-in-meituan-02/"/>
     <id>https://www.zzzzzq.com/2022/05/20/project-in-meituan-02/</id>
     <published>2022-05-20T03:51:27.000Z</published>
-    <updated>2022-05-20T13:36:38.344Z</updated>
+    <updated>2022-05-27T15:44:01.647Z</updated>
     
     
-    <summary type="html">&lt;p&gt;一个较为复杂的需求&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;一个较为复杂的需求，我只负责芥末端的部分&lt;/p&gt;</summary>
     
     
     
+    <category term="Projects" scheme="https://www.zzzzzq.com/categories/Projects/"/>
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Projects/MeiTuan/"/>
+    
+    
+    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
     
   </entry>
   
@@ -36,7 +86,7 @@
     <link href="https://www.zzzzzq.com/2022/05/19/ELEC7078/"/>
     <id>https://www.zzzzzq.com/2022/05/19/ELEC7078/</id>
     <published>2022-05-18T17:31:41.000Z</published>
-    <updated>2022-05-21T15:48:46.750Z</updated>
+    <updated>2022-05-23T02:48:05.240Z</updated>
     
     
     <summary type="html">&lt;p&gt;Hong Kong University 2022 summer semester class review —— ELEC7078 Advanced topics in electrical and electronic engineering&lt;/p&gt;</summary>
@@ -55,7 +105,7 @@
     <link href="https://www.zzzzzq.com/2022/05/17/java-core/"/>
     <id>https://www.zzzzzq.com/2022/05/17/java-core/</id>
     <published>2022-05-16T16:17:13.000Z</published>
-    <updated>2022-05-17T02:52:15.321Z</updated>
+    <updated>2022-06-03T15:15:41.278Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文记录了Java的一些核心技术和易混淆的概念&lt;/p&gt;</summary>
@@ -74,7 +124,7 @@
     <link href="https://www.zzzzzq.com/2022/05/12/MAPI/"/>
     <id>https://www.zzzzzq.com/2022/05/12/MAPI/</id>
     <published>2022-05-12T03:31:06.000Z</published>
-    <updated>2022-05-20T03:50:41.962Z</updated>
+    <updated>2022-06-03T09:38:17.778Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了我开发第一个需求【挽留弹窗】的过程&lt;/p&gt;</summary>
@@ -83,8 +133,12 @@
     
     <category term="Projects" scheme="https://www.zzzzzq.com/categories/Projects/"/>
     
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Projects/MeiTuan/"/>
+    
     
     <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
     
   </entry>
   
@@ -268,7 +322,7 @@
     <link href="https://www.zzzzzq.com/2022/04/26/buildup/"/>
     <id>https://www.zzzzzq.com/2022/04/26/buildup/</id>
     <published>2022-04-26T06:16:18.000Z</published>
-    <updated>2022-05-01T10:32:52.548Z</updated>
+    <updated>2022-05-25T13:37:55.110Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文主要介绍了在Mac上进行开发环境搭建的主要步骤&lt;/p&gt;</summary>
@@ -279,6 +333,10 @@
     
     <category term="EnvBuildUp" scheme="https://www.zzzzzq.com/categories/Mac/EnvBuildUp/"/>
     
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Mac/EnvBuildUp/MeiTuan/"/>
+    
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
     
     <category term="Mac" scheme="https://www.zzzzzq.com/tags/Mac/"/>
     
@@ -366,46 +424,6 @@
     <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
     
     <category term="SpringBoot" scheme="https://www.zzzzzq.com/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringBoot01 —— 概览及Demo运行</title>
-    <link href="https://www.zzzzzq.com/2022/04/20/SpringBoot01/"/>
-    <id>https://www.zzzzzq.com/2022/04/20/SpringBoot01/</id>
-    <published>2022-04-19T16:00:00.000Z</published>
-    <updated>2022-04-19T19:51:56.259Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：SpringBoot入门程序搭建和运行&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://www.zzzzzq.com/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SSM08 —— SSM整合</title>
-    <link href="https://www.zzzzzq.com/2022/04/19/SSM08/"/>
-    <id>https://www.zzzzzq.com/2022/04/19/SSM08/</id>
-    <published>2022-04-19T14:56:15.000Z</published>
-    <updated>2022-04-19T15:36:34.070Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文记录了SSM框架的原始整合方式，mybatis整合spring，声明式事务控制实现&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/categories/SSM/"/>
-    
-    
-    <category term="SSM" scheme="https://www.zzzzzq.com/tags/SSM/"/>
     
   </entry>
   

@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">11.3k</span>
+            <span class="post-count">12.5k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">70 分钟</span>
+            <span class="post-count">77 分钟</span>
         </span>
     </span>
 </div>
@@ -157,6 +157,15 @@
 </ul>
 </li>
 </ul>
+<h4 id="Exercise-1"><a href="#Exercise-1" class="headerlink" title="Exercise(1)"></a>Exercise(1)</h4><p><strong>Give five types of hardware resource and five types of data or software resource that can usefully be shared. Give examples of their sharing as it occurs in practice in distributed systems.</strong></p>
+<img src="https://pic.imgdb.cn/item/628a1c7c0947543129184fe0.jpg" style="zoom: 80%;" />
+
+<img src="https://pic.imgdb.cn/item/628a1caf09475431291872b1.jpg" style="zoom:80%;" />
+
+
+
+
+
 <h4 id="1-3-Characteristics"><a href="#1-3-Characteristics" class="headerlink" title="1.3 Characteristics"></a>1.3 Characteristics</h4><p><strong>Resource Sharing</strong></p>
 <ul>
 <li>What to share?<ul>
@@ -330,10 +339,51 @@
 </ul>
 </li>
 </ul>
-<h3 id="2-Inter-process-Communication"><a href="#2-Inter-process-Communication" class="headerlink" title="2. Inter-process  Communication"></a>2. Inter-process  Communication</h3><p>进程间通信</p>
-<p>Why we need Inter-process Communication (IPC)?</p>
+<h4 id="Exercise-2-3"><a href="#Exercise-2-3" class="headerlink" title="Exercise(2)(3)"></a>Exercise(2)(3)</h4><p><strong>List the three main software components that may fail when a client process invokes a method in a server object, giving an example of a failure in each case. To what extent are these failures independent of one another?</strong> </p>
+<p>The three main software components that may fail are:</p>
 <ul>
-<li>The components of a distributed system are both logically and physically separated</li>
+<li>the client process e.g. it may crash</li>
+<li>the server process e.g. the process may crash</li>
+<li>the communication software e.g. a message may fail to arrive</li>
+</ul>
+<p>The failures are generally caused independently of one another. Examples of dependent failures:</p>
+<ul>
+<li>if the loss of a message causes the client or server process to crash. (The crashing of a server would cause a client to perceive that a reply message is missing and might indirectly cause it to fail).</li>
+<li>if clients crashing cause servers problems.</li>
+<li>if the crash of a process causes a failures in the communication software.</li>
+</ul>
+<p><strong>Suggest how the components can be made to tolerate one another’s failures.</strong> </p>
+<p>Both processes should be able to tolerate missing messages. </p>
+<ul>
+<li>The client must tolerate a missing reply message after it has sent an invocation request message. Instead of making the user wait forever for the reply, a client process could use a timeout and then tell the user it has not been able to contact the server.</li>
+<li>A simple server just waits for request messages, executes invocations and sends replies. It should be absolutely immune to lost messages. But if a server stores information about its clients it might eventually fail if clients crash without informing the server (so that it can remove redundant information). </li>
+<li>The communication software should be designed to tolerate crashes in the communicating processes.</li>
+</ul>
+<p>For example, the failure of one process should not cause problems in the communication between the surviving<br>processes.</p>
+<p><strong>Compare and contrast cloud computing with more traditional client server computing, what is novel about cloud computing as a concept?</strong></p>
+<p>Hardware: </p>
+<ul>
+<li>CPU: compute server (executes processor-intensive applications for clients), remote object server (executes methods on behalf of clients), worm program (shares cpu capacity of desktop machine with the local user). Most other servers, such as file servers, do some computation for their clients, hence their cpu is a shared resource. </li>
+<li>memory: cache server (holds recently-accessed web pages in its RAM, for faster access by other local computers) </li>
+<li>disk: file server, virtual disk server (see Chapter 8), video on demand server (see Chapter 15). </li>
+<li>screen: Network window systems, such as X-11, allow processes in remote computers to update the content of windows. </li>
+<li>printer: networked printers accept print jobs from many computers. managing them with a queuing system. </li>
+<li>network capacity: packet transmission enables many simultaneous communication channels (streams of data) to be transmitted on the same circuits.</li>
+</ul>
+<p>Data&#x2F;software: </p>
+<ul>
+<li>web page: web servers enable multiple clients to share read-only page content (usually stored in a file, but sometimes generated on-the-fly). </li>
+<li>file: file servers enable multiple clients to share read-write files. Conflicting updates may result in inconsistent results. Most useful for files that change infrequently, such as software binaries. </li>
+<li>object: possibilities for software objects are limitless. E.g. shared whiteboard, shared diary, room booking system, etc</li>
+<li>database: databases are intended to record the definitive state of some related sets of data. They have been shared ever since multi-user computers appeared. They include techniques to manage concurrent updates. </li>
+<li>newsgroup content: The netnews system makes read-only copies of the recently-posted news items available to clients throughout the Internet. A copy of newsgroup content is maintained at each netnews server that is an approximate replica of those at other servers. Each server makes its data available to multiple clients. </li>
+<li>video&#x2F;audio stream: Servers can store entire videos on disk and deliver them at playback speed to multiple clients simultaneously. </li>
+<li>exclusive lock: a system-level object provided by a lock server, enabling several clients to coordinate their use of a resource (such as printer that does not include a queuing scheme).Distributed</li>
+</ul>
+<h3 id="2-Inter-process-Communication"><a href="#2-Inter-process-Communication" class="headerlink" title="2. Inter-process  Communication"></a>2. Inter-process  Communication</h3><p>进程间通信IPC</p>
+<p><strong>Why we need Inter-process Communication (IPC)?</strong></p>
+<ul>
+<li>The components of a distributed system are <u>both logically and physically separated</u></li>
 <li>They must communicate in order to interact.</li>
 </ul>
 <img src="https://pic.imgdb.cn/item/628537cb0947543129f29b82.jpg" style="zoom:67%;" />
@@ -373,7 +423,15 @@
 <p><strong>JSON (JavaScript Object Notation)</strong></p>
 <img src="https://pic.imgdb.cn/item/628540bd0947543129f678bf.jpg" style="zoom:67%;" />
 
-<h4 id="2-3-Synchronization"><a href="#2-3-Synchronization" class="headerlink" title="2.3 Synchronization"></a>2.3 Synchronization</h4><ul>
+<h4 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h4><p><strong>Describe and illustrate the client-server architecture of one or more major Internet applications</strong></p>
+<p><strong>Web</strong></p>
+<img src="https://pic.imgdb.cn/item/628a23fe09475431291dbee4.jpg" style="zoom:80%;" />
+
+<p>Browsers are clients of Domain Name Servers (DNS) and web servers (HTTP). Some intranets are configured to interpose a Proxy server. Proxy servers fulfil several purposes – when they are located at the same site as the client, they reduce network delays and network traffic. When they are at the same site as the server, they form a security checkpoint (see pp. 107 and 271) and they can reduce load on the server. </p>
+<p>N.B. DNS servers are also involved in all of the application architectures described below, but they ore omitted from the discussion for clarity</p>
+<p><strong>Describe and illustrate the peer-to-peer architecture of one or more major Internet applications</strong></p>
+<h4 id="2-3-Synchronization"><a href="#2-3-Synchronization" class="headerlink" title="2.3 Synchronization"></a>2.3 Synchronization</h4><p>同步</p>
+<ul>
 <li>A central issue in the communication structure;</li>
 <li>2 types of operations<ul>
 <li>Blocking: the invocation blocks the execution of its invoker.</li>
@@ -382,6 +440,7 @@
 </li>
 </ul>
 <p><strong>Blocking</strong></p>
+<p>阻塞</p>
 <ul>
 <li><p>Blocking Send</p>
 <ul>
@@ -477,20 +536,20 @@
 </li>
 <li><p>Communication failures</p>
 <ul>
-<li>Loss of request message: communication link fails &#x2F; network switch fails &#x2F; receiver’s node is down.</li>
-<li>Loss of reply message: communication link fails &#x2F; network switch fails &#x2F; sender’s node is down.</li>
-<li>Unsuccessful execution of the request: server crashes while executing the request.</li>
+<li><u>Loss of request message</u>: communication link fails &#x2F; network switch fails &#x2F; receiver’s node is down.</li>
+<li><u>Loss of reply message</u>: communication link fails &#x2F; network switch fails &#x2F; sender’s node is down.</li>
+<li><u>Unsuccessful execution of the request</u>: server crashes while executing the request.</li>
 </ul>
 </li>
 <li><p>In the presence of communication failures three protocols are used for implementing various type of client-server communication.</p>
 </li>
-<li><p>The request (R) protocol</p>
+<li><p>The <strong>request (R)</strong> protocol</p>
 <ul>
 <li>Client issues a Send (server-id, request) and continues. It is suitable for cases in which there is no reply required from the server and that the client requires no confirmation that the request has been carried out.</li>
 </ul>
 <img src="https://pic.imgdb.cn/item/628549930947543129f9a33f.jpg" style="zoom:50%;" />
 </li>
-<li><p>The request-reply (RR) protocol</p>
+<li><p>The <strong>request-reply (RR)</strong> protocol</p>
 <ul>
 <li>Most commonly used; </li>
 <li>The reply message from the server also acts as acknowledgment to the original request message.</li>
@@ -498,7 +557,7 @@
 </ul>
 <img src="https://pic.imgdb.cn/item/628549e40947543129f9b76d.jpg" style="zoom: 50%;" />
 </li>
-<li><p>The request-reply-acknowledge reply (RRA) protocol</p>
+<li><p>The <strong>request-reply-acknowledge reply (RRA)</strong> protocol</p>
 <ul>
 <li>An acknowledgement will be sent back to the server after received the reply</li>
 <li>The ack includes the request-Id and acknowledges all request messages up to that request-Id.</li>
@@ -507,7 +566,7 @@
 <img src="https://pic.imgdb.cn/item/62854a230947543129f9c86c.jpg" style="zoom:50%;" /></li>
 </ul>
 <h4 id="2-5-Other-Issues"><a href="#2-5-Other-Issues" class="headerlink" title="2.5 Other Issues"></a>2.5 Other Issues</h4><ul>
-<li><p>Time-out </p>
+<li><p><strong>Time-out</strong> </p>
 <ul>
 <li><p>occur when a request message is lost or the network becomes partitioned, or the server is overloaded (and hence slow); or the reply message is lost.</p>
 </li>
@@ -519,18 +578,18 @@
 </li>
 </ul>
 </li>
-<li><p>Duplicated request messages</p>
+<li><p><strong>Duplicated request messages</strong></p>
 <ul>
 <li>Occur when request message is retransmitted (on time-outs).</li>
 <li>Duplicates can be detected using Request-Id (like a sequence number) and discarded.</li>
 </ul>
 </li>
-<li><p>Lost reply messages</p>
+<li><p><strong>Lost reply messages</strong></p>
 <ul>
 <li>If the server has already sent the reply message, it may need to execute the request again to obtain the result. Re-executing is only possible for idempotent operation.</li>
 </ul>
 </li>
-<li><p>An idempotent operation is an operation that can be performed repeatedly with the same effect as if it had been performed exactly once.</p>
+<li><p>An <u>idempotent operation</u>（幂等运算） is an operation that <u>can be performed repeatedly with the same effect</u> as if it had been performed exactly once.</p>
 </li>
 <li><p>If server operation is not idempotent a record of past results (called history) can be kept. History can be kept from growing too large by using the RAA protocol, or discarding results which have passed a certain time limit.</p>
 </li>
@@ -552,7 +611,7 @@
 <li>Physical clocks</li>
 <li>Electronic devices that count oscillations occurring in a crystal at a definite frequency. </li>
 <li>It is useful for keeping accurate time and time-stamping events, e.g., time in accounting records of connection. </li>
-<li>Event is an action that appears to occur indivisibly.</li>
+<li><u>Event is an action that appears to occur indivisibly（不可分割地）.</u></li>
 <li><strong>Sources of accurate timing signals:</strong> <ul>
 <li>coordinated universal time (UTC)</li>
 <li>Radio broadcast accuracy: 0.1 - 10 ms Satellite (Geostationary Operational Environment Satellite GOES) accuracy: 1 ms</li>
@@ -560,9 +619,9 @@
 </ul>
 </li>
 <li><strong>Difficulties in distributed systems</strong><ul>
-<li>Not all sites have direct access to accurate time sources such as GPS receivers.</li>
+<li><u>Not all sites have direct access to accurate time sources</u> such as GPS receivers.</li>
 <li>Sites have to synchronize their local clocks with those have more accurate time. </li>
-<li>Synchronization needs to be done periodically due to clock drift: they count time at different rates, and so diverge.</li>
+<li>Synchronization needs to be done periodically due to clock drift: they count time at different rates, and so diverge.（需要周期性同步）</li>
 </ul>
 </li>
 </ul>
@@ -572,8 +631,8 @@
 <img src="https://pic.imgdb.cn/item/62854d320947543129fa976c.jpg" style="zoom:67%;" />
 
 <ul>
-<li>If a process P requests the time in a message mr, and receives the time value t  in a message mt, then it could set its clock to the time t + Ttrans, where Ttrans is the time taken to transmit mt from the server S to P.</li>
-<li>Ttrans can be variant. We may say, Ttrans &#x3D; min + x, where x &#x3D; 0 and min is the time of message transmission if no other processes and no other messages. </li>
+<li>If a process P requests the time in a message m<sub>r</sub>, and receives the time value t  in a message m<sub>t</sub>, then it could set its clock to the time t + T<sub>trans</sub>, where T<sub>trans</sub> is the time taken to transmit m<sub>t</sub> from the server S to P.</li>
+<li>T<sub>trans</sub> can be variant. We may say, T<sub>trans</sub> &#x3D; min + x, where x &#x3D; 0 and min is the time of message transmission if no other processes and no other messages. </li>
 <li>min can be measured or conservatively estimated but x is still unknown!</li>
 </ul>
 <img src="https://pic.imgdb.cn/item/62865cdb0947543129c30757.jpg" style="zoom:67%;" />
@@ -581,19 +640,19 @@
 <img src="https://pic.imgdb.cn/item/62865cf60947543129c3131e.jpg" style="zoom:67%;" />
 
 <ul>
-<li>Let Tround be the total round trip time to send the request mr and receive the reply mt, then P should estimate its clock as t + Tround &#x2F; 2 (Tround can be measured or conservatively estimated ).</li>
-<li>The accuracy is ±(Tround &#x2F; 2 - min).</li>
+<li>Let T<sub>round</sub> be the total round trip time to send the request m<sub>r</sub> and receive the reply m<sub>t</sub>, then <strong>P should estimate its clock as t + T<sub>round</sub> &#x2F; 2</strong> (T<sub>round</sub> can be measured or conservatively estimated ).</li>
+<li><strong>The accuracy is ±(T<sub>round</sub> &#x2F; 2 - min).</strong></li>
 <li>Problem: single-server failure.</li>
 <li>Solution: group synchronization time server.</li>
 </ul>
 <img src="https://pic.imgdb.cn/item/628660320947543129c4717a.jpg" style="zoom:67%;" />
 
-<h5 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h5><p>Consider a host using Cristian’s method to synchronize its clock with a time server T and got the following records. Assume the total delay of transmitting a message from the host to the time server or vice versa is 10ms.</p>
+<h5 id="Exercise-1"><a href="#Exercise-1" class="headerlink" title="Exercise"></a>Exercise</h5><p>Consider a host using Cristian’s method to synchronize its clock with a time server T and got the following records. Assume the total delay of transmitting a message from the host to the time server or vice versa is 10ms.</p>
 <img src="https://pic.imgdb.cn/item/6286622c0947543129c52ac0.jpg" style="zoom:80%;" />
 
 <ul>
 <li><p>Which of these times should be used to set its clock?  To what time should it set? Estimate the accuracy of the setting.</p>
-<p><strong>24 (14:22:10.564)</strong></p>
+<p><strong>The message with minimal delay should be chosen, which is message 2 — 24ms (14:22:10.564)</strong></p>
 <p><strong>Time&#x3D;14:22:10.564+12ms&#x3D;14:22:10.576</strong></p>
 <p><strong>Accuracy: 12-min&#x3D;+&#x2F;- 2ms</strong></p>
 </li>
@@ -608,7 +667,7 @@
 <h5 id="The-Berkeley-algorithm"><a href="#The-Berkeley-algorithm" class="headerlink" title="The Berkeley algorithm"></a>The Berkeley algorithm</h5><ul>
 <li><p>An algorithm for internal synchronization in BSD UNIX.</p>
 </li>
-<li><p>(Unlike Cristian’s) In a group sites, one is chosen as coordinator (master). It periodically polls the other sites (slaves) to synchronize their clocks.</p>
+<li><p>(Unlike Cristian’s) In a group sites, <u>one is chosen as coordinator (master)</u>. It periodically polls the other sites (slaves) to synchronize their clocks.</p>
 </li>
 <li><p>Master estimates the slaves’ clock times by observing round trip time (like Cristian’s). It averages the time obtained (including its own).</p>
 </li>
@@ -623,8 +682,7 @@
 </ul>
 <img src="https://pic.imgdb.cn/item/628665af0947543129c6a016.jpg" style="zoom:67%;" />
 
-<p><strong>Exercise</strong></p>
-<p>A group of servers using Berkeley algorithm to synchronize their physical clocks.  The coordinator received the following replies:</p>
+<h5 id="Exercise-2"><a href="#Exercise-2" class="headerlink" title="Exercise"></a>Exercise</h5><p>A group of servers using Berkeley algorithm to synchronize their physical clocks.  The coordinator received the following replies:</p>
 <img src="https://pic.imgdb.cn/item/628668a60947543129c7f470.jpg" style="zoom: 80%;" />
 
 <ul>
@@ -695,9 +753,9 @@
 <img src="https://pic.imgdb.cn/item/6286763d0947543129cda652.jpg" style="zoom: 50%;" />
 
 <ul>
-<li><p>a &#x3D;&gt; b, b &#x3D;&gt; c, c &#x3D;&gt; d, d &#x3D;&gt; f &#x3D;&gt; a &#x3D;&gt; f.</p>
+<li><p>a &#x3D;&gt; b, b &#x3D;&gt; c, c &#x3D;&gt; d, d &#x3D;&gt; f  &#x3D;&#x3D;&#x3D;&gt; a &#x3D;&gt; f.</p>
 <ul>
-<li>a and e that are not ordered by &#x3D;&gt; are concurrent, and write this a||e.</li>
+<li>a and e that are not ordered by &#x3D;&gt; are concurrent（并行的）, and write this a||e.</li>
 <li>Logical clock can capture happened-before relation.</li>
 <li>It is a monotonically increasing software counter, whose value need bear no particular relationship to any physical clock.</li>
 </ul>
@@ -714,14 +772,14 @@
 <li>Create virtual time without generating additional message</li>
 </ul>
 </li>
-<li>Each entity x creates and maintains a logical clock Cx</li>
-<li>For each event a occurring at x, C(a)&#x3D;Cx(a)</li>
-<li>Denote the timestamp of event a at p by Cp(a) and the timestamp of event b at whatever process it occurred by C(b).</li>
+<li>Each entity x creates and maintains a logical clock C<sub>x</sub></li>
+<li>For each event a occurring at x, C(a)&#x3D;C<sub>x</sub>(a)</li>
+<li>Denote the timestamp of event a at p by C<sub>p</sub>(a) and the timestamp of event b at whatever process it occurred by C(b).</li>
 </ul>
-<p>To capture the happened-before relation &#x3D;&gt;, we have the following rules:</p>
+<p><strong>To capture the happened-before relation &#x3D;&gt;, we have the following rules:</strong></p>
 <ul>
-<li>LC1: Cp is incremented before each event is issued at process p: Cp :&#x3D; Cp + 1.</li>
-<li>LC2:  When a process p sends a message m, it piggybacks on m the value t &#x3D; Cp.  On receiving (m,t), a process q computes Cq :&#x3D; max(Cq, t) and then applies LC1 before timestamping the event rcv(m).</li>
+<li>LC1: <strong>C<sub>p</sub> is incremented before each event is issued at process p: C<sub>p</sub> :&#x3D; C<sub>p</sub> + 1.</strong></li>
+<li>LC2:  When a process <strong>p</strong> sends a message <strong>m</strong>, it piggybacks on m the value <strong>t &#x3D; C<sub>p</sub></strong>.    On receiving (m,t), a process q computes <strong>C<sub>q</sub> :&#x3D; max(C<sub>q</sub>, t)</strong> and then applies LC1 before timestamping the event rcv(m).</li>
 </ul>
 <p>It guarantees a &#x3D;&gt; b     C(a) &lt; C(b).</p>
 <img src="https://pic.imgdb.cn/item/628677750947543129ce0aa4.jpg" style="zoom:67%;" />
@@ -734,15 +792,15 @@
 <h4 id="3-4-Vector-Clock"><a href="#3-4-Vector-Clock" class="headerlink" title="3.4 Vector Clock"></a>3.4 Vector Clock</h4><img src="https://pic.imgdb.cn/item/628678730947543129ce5851.jpg" style="zoom:67%;" />
 
 <ul>
-<li><p>Each entity xi is equipped with a local integer counter Ci and increment its value by 1 at the beginning of every event like logical clock</p>
+<li><p>Each entity x<sub>i</sub> is equipped with a local integer counter C<sub>i</sub> and increment its value by 1 at the beginning of every event like logical clock</p>
 </li>
-<li><p>Each entity Xi is equipped with a n-dimensional vector Vi of values, one for each entity in the network. The value of Vi[i] is equal to Ci</p>
+<li><p>Each entity X<sub>i</sub> is equipped with a n-dimensional vector V<sub>i</sub> of values, one for each entity in the network. The value of V<sub>i</sub>[i] is equal to C<sub>i</sub></p>
 </li>
-<li><p>The value of Vi[j], i≠j is initially 0 and change only when a message arrives of Xi</p>
+<li><p>The value of V<sub>i</sub>[j], i≠j is initially 0 and change only when a message arrives of X<sub>i</sub></p>
 </li>
-<li><p>Whenever an entity Xi sends a message to a neighbor Xj, it encloses the message the vector of values Vi</p>
+<li><p>Whenever an entity X<sub>i</sub> sends a message to a neighbor X<sub>j</sub>, it encloses the message the vector of values V<sub>i</sub></p>
 </li>
-<li><p>Whenever an entity Xj processes the arrival of a message with a vector vect of values, it updates its local vector Vj as follows: for all i≠j, it sets Vj[i]:&#x3D;max{vect[i],Vj[i]}</p>
+<li><p>Whenever an entity X<sub>j</sub> processes the arrival of a message with a vector vect of values, it updates its local vector V<sub>j</sub> as follows: for all i≠j, it sets V<sub>j</sub>[i]:&#x3D;max{vect[i],V<sub>j</sub>[i]}</p>
 </li>
 <li><p>Partial Order</p>
 <ul>
@@ -781,6 +839,11 @@
 </ul>
 <img src="https://pic.imgdb.cn/item/62867a7d0947543129cf01bb.jpg" style="zoom: 80%;" />
 
+<p>quiz:</p>
+<img src="https://pic.imgdb.cn/item/6289dcd60947543129ec0c12.jpg" style="zoom:80%;" />
+
+
+
 <h3 id="4-Distributed-Coordination"><a href="#4-Distributed-Coordination" class="headerlink" title="4. Distributed Coordination"></a>4. Distributed Coordination</h3><p>Wave and Traversal Algorithms</p>
 <ul>
 <li>Wave algorithms: Message passing schemes<ul>
@@ -805,7 +868,7 @@
 </li>
 <li><p>|C| &#x3D; number of events of computation C</p>
 </li>
-<li><p>Cp &#x3D; event occur in process p</p>
+<li><p>C<sub>p</sub> &#x3D; event occur in process p</p>
 </li>
 <li><p>decide (event) &#x3D; internal event</p>
 </li>
@@ -873,7 +936,8 @@
 </ul>
 <img src="https://pic.imgdb.cn/item/628682350947543129d2107f.jpg" style="zoom:67%;" />
 
-<h4 id="4-4-Echo-Algorithm"><a href="#4-4-Echo-Algorithm" class="headerlink" title="4.4 Echo Algorithm"></a>4.4 Echo Algorithm</h4><ul>
+<h4 id="4-4-Echo-Algorithm"><a href="#4-4-Echo-Algorithm" class="headerlink" title="4.4 Echo Algorithm"></a>4.4 Echo Algorithm</h4><p>回波算法</p>
+<ul>
 <li>Initiator sends messages to all its neighbors</li>
 <li>Upon receipt of the first message a non-initiator forwards messages to all its neighbors except the one from which the message was received</li>
 <li>When a non-initiator has received messages from all its neighbors an echo is sent to the father</li>
@@ -883,7 +947,8 @@
 
 <img src="https://pic.imgdb.cn/item/628682df0947543129d23e0e.jpg" style="zoom:50%;" />
 
-<h4 id="4-5-Polling-Algorithm"><a href="#4-5-Polling-Algorithm" class="headerlink" title="4.5 Polling Algorithm"></a>4.5 Polling Algorithm</h4><p>A process can decide if it has received a message from each neighbor</p>
+<h4 id="4-5-Polling-Algorithm"><a href="#4-5-Polling-Algorithm" class="headerlink" title="4.5 Polling Algorithm"></a>4.5 Polling Algorithm</h4><p>轮询算法</p>
+<p>A process can decide if it has received a message from each neighbor</p>
 <img src="https://pic.imgdb.cn/item/628683030947543129d2470b.jpg" style="zoom: 67%;" />
 
 <h4 id="4-6-Phase-Algorithm"><a href="#4-6-Phase-Algorithm" class="headerlink" title="4.6 Phase Algorithm"></a>4.6 Phase Algorithm</h4><ul>
@@ -898,7 +963,8 @@
 <li><p>In the phase algorithm, each process sends exactly D messages to each out-neighbors</p>
 <img src="https://pic.imgdb.cn/item/6286836e0947543129d265dd.jpg" style="zoom:80%;" /></li>
 </ul>
-<h4 id="4-7-Traversal-Algorithms"><a href="#4-7-Traversal-Algorithms" class="headerlink" title="4.7 Traversal Algorithms"></a>4.7 Traversal Algorithms</h4><p>The traversal algorithms has the following properties:</p>
+<h4 id="4-7-Traversal-Algorithms"><a href="#4-7-Traversal-Algorithms" class="headerlink" title="4.7 Traversal Algorithms"></a>4.7 Traversal Algorithms</h4><p>遍历算法</p>
+<p>The traversal algorithms has the following properties:</p>
 <ul>
 <li>In each computation there is one initiator which starts the algorithm by sending out exactly one message</li>
 <li>A process, upon receipt of a message, either sends out one message or decides</li>
@@ -921,7 +987,9 @@
 
 <img src="https://pic.imgdb.cn/item/628687ad0947543129d37796.jpg" style="zoom:50%;" />
 
-<h3 id="5-Distributed-Mutual-Exclusion-and-Election"><a href="#5-Distributed-Mutual-Exclusion-and-Election" class="headerlink" title="5. Distributed Mutual Exclusion and Election"></a>5. Distributed Mutual Exclusion and Election</h3><h4 id="5-1-Distributed-Coordination"><a href="#5-1-Distributed-Coordination" class="headerlink" title="5.1 Distributed Coordination"></a>5.1 Distributed Coordination</h4><ul>
+<h3 id="5-Distributed-Mutual-Exclusion-and-Election"><a href="#5-Distributed-Mutual-Exclusion-and-Election" class="headerlink" title="5. Distributed Mutual Exclusion and Election"></a>5. Distributed Mutual Exclusion and Election</h3><p>分布式互斥与选举</p>
+<h4 id="5-1-Distributed-Coordination"><a href="#5-1-Distributed-Coordination" class="headerlink" title="5.1 Distributed Coordination"></a>5.1 Distributed Coordination</h4><p>分布式协作</p>
+<ul>
 <li>Why do we need distributed coordination?<ul>
 <li>To prevent interference and ensure consistency before accessing resources, e.g. NFS file system to share a common text file.</li>
 </ul>
@@ -931,13 +999,15 @@
 </ul>
 </li>
 </ul>
-<h4 id="5-2-Distributed-Mutual-Exclusion"><a href="#5-2-Distributed-Mutual-Exclusion" class="headerlink" title="5.2 Distributed Mutual Exclusion"></a>5.2 Distributed Mutual Exclusion</h4><p>Basic requirements for DME concerning some resources:</p>
+<h4 id="5-2-Distributed-Mutual-Exclusion"><a href="#5-2-Distributed-Mutual-Exclusion" class="headerlink" title="5.2 Distributed Mutual Exclusion"></a>5.2 Distributed Mutual Exclusion</h4><p>分布式互斥</p>
+<p>Basic requirements for DME concerning some resources:</p>
 <ul>
-<li>ME1: (safety) At most one process may execute in the critical section (CS) at a time.</li>
-<li>ME2: (liveness and deadlock-free) A process requesting entry to the CS is eventually granted it (so long as any process executing in the CS eventually leaves it.)</li>
-<li>ME3: (ordering) Entry to the CS should be granted in happened-before order.</li>
+<li><strong>ME1</strong>: (safety) At most one process may execute in the critical section (CS) at a time.</li>
+<li><strong>ME2</strong>: (liveness and deadlock-free) A process requesting entry to the CS is eventually granted it (so long as any process executing in the CS eventually leaves it.)</li>
+<li><strong>ME3</strong>: (ordering) Entry to the CS should be granted in happened-before order.</li>
 </ul>
-<p>The central server algorithm: server manages a mutual exclusion token for a set of processes</p>
+<p><strong>The central server algorithm: server manages a mutual exclusion token for a set of processes</strong></p>
+<p>中央服务器算法:服务器为一组进程管理一个互斥令牌</p>
 <img src="https://pic.imgdb.cn/item/62868b390947543129d456f8.jpg" style="zoom: 80%;" />
 
 <ul>
@@ -958,11 +1028,11 @@
 </li>
 <li><p>No center server is required.</p>
 </li>
-<li><p>The basic idea is that processes that require entry to a critical section multicast a request message, and can enter it only when all the other processes have replied to this message.</p>
+<li><p>The basic idea is that processes that require entry to a critical section multicast a request message, and can enter it only when all the other processes have replied to this message. （需要进入临界区的进程多播请求消息，并且只有当所有其他进程都对该消息作出了响应时才能进入该消息）</p>
 </li>
 <li><p>Assumption: </p>
 <ul>
-<li>p1, …, pn know one another addresses. </li>
+<li>p<sub>1</sub>, …, p<sub>n</sub> know one another addresses. </li>
 <li>All messages sent are eventually received and delivered</li>
 <li>each pi keeps a logical clock, updated according to rules LC1 and LC2.</li>
 </ul>
@@ -1034,6 +1104,25 @@
 <ul>
 <li>The central server algorithm is more reliable since only the failure of the central server will make the system stop working.</li>
 <li>For the distributed algorithm, any node failure will stop others from entering the critical section.</li>
+</ul>
+<h5 id="5-2-4-Exercise-2-quiz"><a href="#5-2-4-Exercise-2-quiz" class="headerlink" title="5.2.4 Exercise 2 (quiz)"></a>5.2.4 Exercise 2 (quiz)</h5><p><strong>The following system uses central server algorithm to achieve distributed mutual exclusion.</strong></p>
+<img src="https://pic.imgdb.cn/item/6289ff7c0947543129042ce0.jpg" style="zoom:67%;" />
+
+<p><strong>a. Which clock, real-time clock of server S or logical clocks in the system, should be used to order the requests in the Request Queue?  Briefly explain your answer.</strong></p>
+<p>As the order of granting token is based on the request arrival time, the order is based on the real-time clock of server S.  Maintaining logical clocks in the system (S, P1, P2 and P3) do not have significant benefit in this case.</p>
+<p><strong>b. Briefly suggest how the system recovers from the following situations (consider each situation independently):</strong></p>
+<ul>
+<li><p><strong>P2 is temporary disconnected from the network.</strong></p>
+<p>Assume a timer is assigned to the token which define its validity.  If the process doesn’t release the token before time out, the server will regenerate a new token for the next request.  The work done by the invalid token should be undo.  </p>
+<p>If the p2 is temporary disconnect from the system and reconnect to the network before time-out, it should have no effect on the system.</p>
+<p>However, if p2 only reconnect after time-out, the update associated with the token must be undo.</p>
+</li>
+<li><p><strong>P2 is crashed and restarted immediately</strong></p>
+<p>P2 probably will lost its memory after restart and new token should be generated after time out.  P2 should undo any operation associated with the lost token</p>
+</li>
+<li><p><strong>S is crashed</strong></p>
+<p>The system can only be recovered after a new server is elected.</p>
+</li>
 </ul>
 <h4 id="5-3-Distributed-Coordination-Election"><a href="#5-3-Distributed-Coordination-Election" class="headerlink" title="5.3 Distributed Coordination: Election"></a>5.3 Distributed Coordination: Election</h4><ul>
 <li>A method to choose a unique process to play a particular role is called an election algorithm.</li>
@@ -1127,7 +1216,7 @@
 <p>**An Example with two concurrent tokens **</p>
 <img src="https://pic.imgdb.cn/item/6287aaa609475431297b7b9a.jpg" style="zoom: 67%;" />
 
-<h5 id="Exercise-1"><a href="#Exercise-1" class="headerlink" title="Exercise"></a>Exercise</h5><p><strong>In the ring-based election algorithm, the processes need to mark participant or non-participant in an election process.  Explain why.</strong></p>
+<h5 id="Exercise-3"><a href="#Exercise-3" class="headerlink" title="Exercise"></a>Exercise</h5><p><strong>In the ring-based election algorithm, the processes need to mark participant or non-participant in an election process.  Explain why.</strong></p>
 <p>Ans: Two processes may start the election process at the same time leading to more than one election message.  The purpose of marking participant or non-participant is to extinguish the concurrent election message as soon as possible and always before the “winning” result has been announced.</p>
 <h3 id="6-Replication"><a href="#6-Replication" class="headerlink" title="6. Replication"></a>6. Replication</h3><p>Replication is the maintenance of on-line copies of data and other resources.</p>
 <img src="https://pic.imgdb.cn/item/6287abe809475431297c2cc7.jpg" style="zoom: 80%;" />
@@ -1753,7 +1842,7 @@
 </li>
 </ul>
 <h4 id="8-3-CAP-Theorem"><a href="#8-3-CAP-Theorem" class="headerlink" title="8.3 CAP Theorem"></a>8.3 CAP Theorem</h4><ul>
-<li>“Any distributed system cannot have Consistency, Availability, and Partition tolerance simultaneously”</li>
+<li>“Any distributed system cannot have <strong>Consistency, Availability, and Partition tolerance</strong> simultaneously”</li>
 <li>Consistency: all nodes have the same latest copy of data </li>
 <li>Availability: the system is up and running, able to serve client without failure</li>
 <li>Partition tolerance:  The system is still operating correctly even group of nodes are down</li>
@@ -1866,6 +1955,7 @@
 <img src="https://pic.imgdb.cn/item/628889050947543129046c4c.jpg" style="zoom:67%;" />
 
 <p><strong>Nonce</strong></p>
+<p>随机数</p>
 <ul>
 <li>Nonce, or a “number only used once,” refers to the first number a blockchain miner needs to discover before solving for a block in the blockchain. </li>
 <li>Once the mathematical computations are solved by the miner, they are gifted cryptocurrency for their time and skill. </li>
@@ -2270,7 +2360,7 @@
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            project_in_meituan_02
+            project in meituan 02
           
         </div>
       </a>

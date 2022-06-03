@@ -2,18 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.zzzzzq.com/2022/05/19/ELEC7078/</loc>
+    <loc>https://www.zzzzzq.com/2022/05/17/java-core/</loc>
     
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/2022/05/20/project-in-meituan-02/</loc>
+    <loc>https://www.zzzzzq.com/2022/06/02/project-in-meituan-03/</loc>
     
-    <lastmod>2022-05-20</lastmod>
+    <lastmod>2022-06-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -22,16 +22,43 @@
   <url>
     <loc>https://www.zzzzzq.com/2022/05/12/MAPI/</loc>
     
-    <lastmod>2022-05-20</lastmod>
+    <lastmod>2022-06-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/2022/05/17/java-core/</loc>
+    <loc>https://www.zzzzzq.com/2022/05/30/kafka/</loc>
     
-    <lastmod>2022-05-17</lastmod>
+    <lastmod>2022-06-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/2022/05/20/project-in-meituan-02/</loc>
+    
+    <lastmod>2022-05-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/2022/04/26/buildup/</loc>
+    
+    <lastmod>2022-05-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/2022/05/19/ELEC7078/</loc>
+    
+    <lastmod>2022-05-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -113,15 +140,6 @@
     <loc>https://www.zzzzzq.com/2022/04/29/applicationLayers/</loc>
     
     <lastmod>2022-05-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zzzzzq.com/2022/04/26/buildup/</loc>
-    
-    <lastmod>2022-05-01</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -400,134 +418,141 @@
 
   <url>
     <loc>https://www.zzzzzq.com/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>https://www.zzzzzq.com/tags/HKU/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <loc>https://www.zzzzzq.com/tags/Web/</loc>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/tags/Web/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <loc>https://www.zzzzzq.com/tags/HKU/</loc>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/tags/tools/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/tags/SSM/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/tags/SpringMVC/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/tags/MySQL/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/tags/Java/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/tags/JavaWeb/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/tags/Linux/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/tags/Projects/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/tags/MeiTuan/</loc>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/tags/RPC/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/tags/Redis/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/tags/Spring/</loc>
-    <lastmod>2022-05-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zzzzzq.com/tags/MyBatis/</loc>
-    <lastmod>2022-05-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zzzzzq.com/tags/SpringBoot/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/tags/MyBatis/</loc>
+    <lastmod>2022-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/tags/SpringBoot/</loc>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/tags/Mac/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/tags/C/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -535,120 +560,134 @@
 
   
   <url>
-    <loc>https://www.zzzzzq.com/categories/HKU/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <loc>https://www.zzzzzq.com/categories/Web/</loc>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/categories/Web/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <loc>https://www.zzzzzq.com/categories/HKU/</loc>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/categories/tools/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/categories/SSM/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/categories/MySQL/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/categories/Linux/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/categories/Projects/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/categories/RPC/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/categories/Redis/</loc>
-    <lastmod>2022-05-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zzzzzq.com/categories/SSM/Spring/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/categories/SSM/SpringMVC/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.zzzzzq.com/categories/SSM/MyBatis/</loc>
-    <lastmod>2022-05-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zzzzzq.com/categories/JavaWeb/</loc>
-    <lastmod>2022-05-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.zzzzzq.com/categories/Java/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <loc>https://www.zzzzzq.com/categories/SSM/Spring/</loc>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/categories/JavaWeb/</loc>
+    <lastmod>2022-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/categories/SSM/MyBatis/</loc>
+    <lastmod>2022-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/categories/Java/</loc>
+    <lastmod>2022-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/categories/Projects/MeiTuan/</loc>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/categories/Mac/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.zzzzzq.com/categories/Mac/EnvBuildUp/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <lastmod>2022-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zzzzzq.com/categories/Mac/EnvBuildUp/MeiTuan/</loc>
+    <lastmod>2022-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

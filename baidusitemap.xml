@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.zzzzzq.com/2022/05/19/ELEC7078/</loc>
-    <lastmod>2022-05-21</lastmod>
+    <loc>https://www.zzzzzq.com/2022/05/17/java-core/</loc>
+    <lastmod>2022-06-03</lastmod>
   </url>
   <url>
-    <loc>https://www.zzzzzq.com/2022/05/20/project-in-meituan-02/</loc>
-    <lastmod>2022-05-20</lastmod>
+    <loc>https://www.zzzzzq.com/2022/06/02/project-in-meituan-03/</loc>
+    <lastmod>2022-06-03</lastmod>
   </url>
   <url>
     <loc>https://www.zzzzzq.com/2022/05/12/MAPI/</loc>
-    <lastmod>2022-05-20</lastmod>
+    <lastmod>2022-06-03</lastmod>
   </url>
   <url>
-    <loc>https://www.zzzzzq.com/2022/05/17/java-core/</loc>
-    <lastmod>2022-05-17</lastmod>
+    <loc>https://www.zzzzzq.com/2022/05/30/kafka/</loc>
+    <lastmod>2022-06-01</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zzzzzq.com/2022/05/20/project-in-meituan-02/</loc>
+    <lastmod>2022-05-27</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zzzzzq.com/2022/04/26/buildup/</loc>
+    <lastmod>2022-05-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zzzzzq.com/2022/05/19/ELEC7078/</loc>
+    <lastmod>2022-05-23</lastmod>
   </url>
   <url>
     <loc>https://www.zzzzzq.com/2022/05/05/startup/</loc>
@@ -51,10 +63,6 @@
   <url>
     <loc>https://www.zzzzzq.com/2022/04/29/applicationLayers/</loc>
     <lastmod>2022-05-02</lastmod>
-  </url>
-  <url>
-    <loc>https://www.zzzzzq.com/2022/04/26/buildup/</loc>
-    <lastmod>2022-05-01</lastmod>
   </url>
   <url>
     <loc>https://www.zzzzzq.com/2022/04/01/IDEAerror/</loc>

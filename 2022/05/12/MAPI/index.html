@@ -79,7 +79,7 @@
   <time datetime="2022-05-12T03:31:06.000Z" itemprop="datePublished">2022-05-12</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Projects/">Projects</a>
+    <a class="article-category-link" href="/categories/Projects/">Projects</a> / <a class="article-category-link" href="/categories/Projects/MeiTuan/">MeiTuan</a>
   </div>
   
 <div class="word_count">
@@ -134,7 +134,7 @@
 
 <p>在network中【detail】的【Headers】中可以找到【Request URL】从而定位API的名称，方便于在API分组中搜索【path】进行寻找 。</p>
 <p>另外点击【保存】后会调用一个save方法，同样也可以在相应的Headers中定位API的位置和名称</p>
-<p>在【Shepherd】找到API接口后可以在【后端请求定义】中找到接口对应的名称，从而定位到了具体的代码（服务和方法）</p>
+<p>在【Shepherd】通过【path】找到API接口后可以在【后端请求定义】中找到接口对应的名称，从而定位到了具体的代码（服务和方法）</p>
 <p>例如如这里通过 <code>/activity/generic/detail</code>找到了MAPI下的 <code>queryActivityDetail</code>方法（<code>.client.service.activity.ActivityManagerMTService</code>）</p>
 <p>通过 <code>/activity/generic/save</code>找到了MAPI下的 <code>saveActivity</code>方法（<code>.client.service.activity.ActivityManagerMTService</code>）</p>
 <h4 id="C端"><a href="#C端" class="headerlink" title="C端"></a>C端</h4><p>需要调整主页加载接口</p>
@@ -149,7 +149,8 @@
 </ul>
 <p><strong>写UT</strong></p>
 <p>要尽量覆盖到各种可能性，覆盖每一行代码</p>
-<h3 id="芥末端开发步骤"><a href="#芥末端开发步骤" class="headerlink" title="芥末端开发步骤"></a>芥末端开发步骤</h3><h4 id="DTO到VO"><a href="#DTO到VO" class="headerlink" title="DTO到VO"></a>DTO到VO</h4><p>找到要修改的位置：</p>
+<h3 id="芥末端开发步骤"><a href="#芥末端开发步骤" class="headerlink" title="芥末端开发步骤"></a>芥末端开发步骤</h3><p>在interact.mapi包下</p>
+<h4 id="DTO到VO"><a href="#DTO到VO" class="headerlink" title="DTO到VO"></a>DTO到VO</h4><p>找到要修改的位置：</p>
 <ul>
 <li><p>从 <code>ActivityManagerMTService</code>类中的 <code>queryActivityDetail</code>方法出发，从接口找到实现类，</p>
 <ul>
@@ -162,7 +163,7 @@
 </li>
 <li><p>进入 <code>resolveExtraConfigWhenQuery</code>接口再进入实现（GameCenter前缀的那一个）</p>
 </li>
-<li><p>这里可以进入 <code>GameCenterExtraConfigDTO</code>加入DTO字段和对应方法（注意DTO的修改需要在另一个包下）和 <code>GameCenterInfoConfigVO</code>（需要在里面加入VO字段和对应方法）</p>
+<li><p>这里可以进入 <code>GameCenterExtraConfigDTO</code><strong>加入DTO字段和对应方法</strong>（注意DTO的修改需要在另一个包下）和 <code>GameCenterInfoConfigVO</code>（需要在里面加入VO字段和对应方法）</p>
 </li>
 <li><p>在同样的位置进入 <code>buildExtraConfigVO</code>方法，在其中new一个retainWindowVO对象，并将从DTO的对应数据set进去，<strong>完成DTO到VO对象的转换</strong></p>
 </li>
@@ -200,7 +201,7 @@
 
 
 <h4 id="调试和测试"><a href="#调试和测试" class="headerlink" title="调试和测试"></a>调试和测试</h4><p>千万注意要在测试时要设置泳道 <code>Tracer.setSwimlane(&quot;泳道名称&quot;)</code>，否则默认是在默认渠道上进行的。并且要保证服务已经在泳道进行了部署，否则是在做无用功</p>
-<h3 id="C端开发"><a href="#C端开发" class="headerlink" title="C端开发"></a>C端开发</h3><p>在core模块下的local包下找到 <code>GameCenterLocalService</code>类中的 <code>loadMainSceneInfo</code>方法：</p>
+<h3 id="C端开发"><a href="#C端开发" class="headerlink" title="C端开发"></a>C端开发</h3><p>在 <code>game-center</code> 包的core模块下的local包下找到 <code>GameCenterLocalService</code>类中的 <code>loadMainSceneInfo</code>方法：</p>
 <ul>
 <li><p>首先看返回类型 <code>MainSceneResp</code>，这里的字段其实是和网页上的Response中的内容对应的，我们要做的就是增加一个挽留窗口<code>retainPopDisplay</code>的字段，类型为Boolean</p>
 </li>
@@ -210,7 +211,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resp.setRetainPopDisplay(mainSceneService.getRetainPopDisplay(req, activityDto));</span><br></pre></td></tr></table></figure></li>
 </ul>
 <p>在 <code>MainSceneService</code>类下新增一个 <code>getRetainPopDisplay(activityDto)</code>的方法，用于通过DTO的状态获取得到RetainPopDisplay的结果。这里要<strong>写清楚业务需求的逻辑关系（最关键的部分！）</strong>，目前的需求就是按照传入的dto和req中的id进行分析，看是否符合弹出挽留窗口的需求。</p>
-<p>注意完成这部分的开发后要修改版本号，如从1.0.29到1.0.30-SNAPSHOT，然后在devtools网站上进行jar包的更新。</p>
+<p><strong>注意完成这部分的开发后要修改版本号，如从1.0.29到1.0.30-SNAPSHOT</strong>，然后在devtools网站上进行jar包的更新。</p>
 <h3 id="修改http服务"><a href="#修改http服务" class="headerlink" title="修改http服务"></a>修改http服务</h3><p>首先需要全局搜索<code>grocerymkthd-game-center-client</code>jar包所在的pom.xml的位置并进行相应版本号的修改，才能导入我们开发完成后的字段和功能。</p>
 <p>在web模块下，在controller包下找到 <code>GameCenterController</code>类中的 <code>loadMainView</code>方法，找到loadMainView的实现，在其中进入 <code>convertToResp</code>方法：</p>
 <ul>
@@ -289,7 +290,7 @@
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Projects/" rel="tag">Projects</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MeiTuan/" rel="tag">MeiTuan</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Projects/" rel="tag">Projects</a></li></ul>
 
     </footer>
   </div>
