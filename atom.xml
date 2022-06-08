@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-06-03T09:40:42.892Z</updated>
+  <updated>2022-06-06T02:58:30.599Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,30 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>UML类图和时序图</title>
+    <link href="https://www.zzzzzq.com/2022/06/05/UML-Basic/"/>
+    <id>https://www.zzzzzq.com/2022/06/05/UML-Basic/</id>
+    <published>2022-06-05T07:00:00.000Z</published>
+    <updated>2022-06-06T02:58:30.599Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;在学习设计模式之前，需要能够看懂UML类图和时序图。本文不会将UML整体介绍一遍，而是为了以看懂设计模式结构图为目的简单进行介绍&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="UML" scheme="https://www.zzzzzq.com/categories/UML/"/>
+    
+    
+    <category term="UML" scheme="https://www.zzzzzq.com/tags/UML/"/>
+    
+  </entry>
+  
+  <entry>
     <title>project_in_meituan_03</title>
     <link href="https://www.zzzzzq.com/2022/06/02/project-in-meituan-03/"/>
     <id>https://www.zzzzzq.com/2022/06/02/project-in-meituan-03/</id>
     <published>2022-06-02T07:07:10.000Z</published>
-    <updated>2022-06-03T09:40:42.892Z</updated>
+    <updated>2022-06-07T03:41:02.159Z</updated>
     
     
     <summary type="html">&lt;p&gt;一个简单需求&lt;/p&gt;</summary>
@@ -105,7 +124,7 @@
     <link href="https://www.zzzzzq.com/2022/05/17/java-core/"/>
     <id>https://www.zzzzzq.com/2022/05/17/java-core/</id>
     <published>2022-05-16T16:17:13.000Z</published>
-    <updated>2022-06-03T15:15:41.278Z</updated>
+    <updated>2022-06-05T13:31:56.207Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文记录了Java的一些核心技术和易混淆的概念&lt;/p&gt;</summary>
@@ -394,27 +413,6 @@
     
     <summary type="html">&lt;p&gt;概述：SpringBoot整合JUnit，MyBatis，MyBatis-Plus，Druid&lt;/p&gt;
 &lt;p&gt;SpringBoot之所以好用，就是它能方便快捷的整合其他技术&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://www.zzzzzq.com/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringBoot02 —— 基础配置</title>
-    <link href="https://www.zzzzzq.com/2022/04/20/SpringBoot02/"/>
-    <id>https://www.zzzzzq.com/2022/04/20/SpringBoot02/</id>
-    <published>2022-04-19T19:50:59.000Z</published>
-    <updated>2022-04-20T17:26:28.144Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：SpringBoot的基础配置，包括属性配置，配置文件分类，yaml文件，yaml数据读取&lt;/p&gt;</summary>
     
     
     

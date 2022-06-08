@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>Good questions —— 链表篇 |  Keep Making Progress</title>
+      <title>UML类图和时序图 |  Keep Making Progress</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-questions03"
+  id="post-UML-Basic"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Good questions —— 链表篇
+  UML类图和时序图
 </h1>
  
 
@@ -75,11 +75,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2022/03/31/questions03/" class="article-date">
-  <time datetime="2022-03-30T16:00:00.000Z" itemprop="datePublished">2022-03-31</time>
+      <a href="/2022/06/05/UML-Basic/" class="article-date">
+  <time datetime="2022-06-05T07:00:00.000Z" itemprop="datePublished">2022-06-05</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+    <a class="article-category-link" href="/categories/UML/">UML</a>
   </div>
   
 <div class="word_count">
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">399</span>
+            <span class="post-count">1.7k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">5 分钟</span>
         </span>
     </span>
 </div>
@@ -111,28 +111,108 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>概述：本文记录了刷题过程中与链表相关的优质题目及解题思路</p>
+  <p>在学习设计模式之前，需要能够看懂UML类图和时序图。本文不会将UML整体介绍一遍，而是为了以看懂设计模式结构图为目的简单进行介绍</p>
 <span id="more"></span>
 
-<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">反转链表</a></h2><p>（需要完全掌握递归和非递归写法）</p>
-<p>（1）迭代</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">迭代方法</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur=head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            ListNode* temp = cur-&gt;next;  <span class="comment">//暂存后继节点</span></span><br><span class="line">            cur-&gt;next=pre;</span><br><span class="line">            pre=cur;</span><br><span class="line">            cur=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;<span class="comment">//注意返回的是pre而不是cur，cur在出循环后是nullptr</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
+<h3 id="一个示例"><a href="#一个示例" class="headerlink" title="一个示例"></a>一个示例</h3><p>注意观察以下这个类图中类之间的关系：</p>
+<img src="https://pic.imgdb.cn/item/629c555c0947543129a34a39.jpg" style="zoom:80%;" />
 
-<p>（2）递归</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>车的类图结构为<code>&lt;&lt;abstract&gt;&gt;</code>，表示车是一个抽象类；</li>
+<li>它有两个继承类：小汽车和自行车；它们之间的关系为<strong>实现关系</strong>，使用<u>带空心箭头的虚线</u>表示；</li>
+<li>小汽车为与SUV之间也是<strong>继承关系</strong>，它们之间的关系为<strong>泛化关系</strong>，使用带<u>空心箭头的实线</u>表示；</li>
+<li>小汽车与发动机之间是<strong>组合关系</strong>，使用带<u>实心箭头的实线</u>表示；</li>
+<li>学生与班级之间是<strong>聚合关系</strong>，使用带<u>空心箭头的实线</u>表示；</li>
+<li>学生与身份证之间为<strong>关联关系</strong>，使用<u>一根实线</u>表示；</li>
+<li>学生上学需要用到自行车，与自行车是一种<strong>依赖关系</strong>，使用<u>带箭头的虚线</u>表示；</li>
+</ul>
+<h3 id="类之间的关系"><a href="#类之间的关系" class="headerlink" title="类之间的关系"></a>类之间的关系</h3><h4 id="泛化关系（generalization）"><a href="#泛化关系（generalization）" class="headerlink" title="泛化关系（generalization）"></a>泛化关系（generalization）</h4><p>类的继承结构表现在UML中为：泛化(generalize)与实现(realize)：</p>
+<p>继承关系为 is-a的关系；两个对象之间如果可以用 is-a 来表示，就是继承关系：（..是..)</p>
+<p>eg：自行车是车、猫是动物</p>
+<p>泛化关系用一条带空心箭头的直接表示；如下图表示（A继承自B）；</p>
+<img src="https://pic.imgdb.cn/item/629c577f0947543129a6577a.jpg" style="zoom:80%;" />
 
-<h2 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">复杂链表的复制</a></h2><p>思路：</p>
-<p>（1）哈希表存储所有原节点到新复制的节点的映射</p>
-<p>（2）原地复制（在链表每个节点后复制一个新节点），再处理所有的next和random指针，最后断开原链表与新链表之间的连接</p>
-<h2 id="重排链表"><a href="#重排链表" class="headerlink" title="重排链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/LGjMqU/">重排链表</a></h2><p>时间O(n), 空间O(1)思想：</p>
-<p>（1）找到链表中间节点，并断开</p>
-<p>（2）反转后半部分的链表</p>
-<p>（3）合并两个链表</p>
-<h2 id="k个一组反转链表"><a href="#k个一组反转链表" class="headerlink" title="k个一组反转链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/submissions/">k个一组反转链表</a></h2><p>思想：</p>
-<p>（1）设计一个反转[head,tail]区间的节点的函数，并<strong>返回反转后的头和尾</strong></p>
-<p>（2）注意<strong>保存头结点的前一节点</strong>，用于连接局部反转后的链表</p>
+<p>eg：汽车在现实中有实现，可用汽车定义具体的对象；汽车与SUV之间为泛化关系；</p>
+<p><strong>注：最终代码中，泛化关系表现为继承非抽象类；</strong></p>
+<h4 id="实现关系（realize）"><a href="#实现关系（realize）" class="headerlink" title="实现关系（realize）"></a>实现关系（realize）</h4><p>实现关系用一条带空心箭头的虚线表示；</p>
+<p>eg：”车”为一个抽象概念，在现实中并无法直接用来定义对象；只有指明具体的子类(汽车还是自行车)，才可以用来定义对象（”车”这个类在C++中用抽象类表示，在JAVA中有接口这个概念，更容易理解）</p>
+<img src="https://pic.imgdb.cn/item/629c58bf0947543129a815b3.jpg" style="zoom:80%;" />
+
+<p><strong>注：最终代码中，实现关系表现为继承抽象类；</strong></p>
+<h4 id="聚合关系（aggregation）"><a href="#聚合关系（aggregation）" class="headerlink" title="聚合关系（aggregation）"></a>聚合关系（aggregation）</h4><p>聚合关系用一条带空心菱形箭头的直线表示，如下图表示A聚合到B上，或者说<strong>B由A组成</strong>；</p>
+<img src="https://pic.imgdb.cn/item/629c58fc0947543129a86f47.jpg" style="zoom:80%;" />
+
+<p>聚合关系用于表示实体对象之间的关系，表示整体由部分构成的语义；例如一个部门由多个员工组成；</p>
+<p>与组合关系不同的是，整体和部分<strong>不是强依赖的</strong>，即使整体不存在了，部分仍然存在；例如， 部门撤销了，人员不会消失，他们依然存在；</p>
+<h4 id="组合关系（composition）"><a href="#组合关系（composition）" class="headerlink" title="组合关系（composition）"></a>组合关系（composition）</h4><p>组合关系用一条带实心菱形箭头直线表示，如下图表示A组成B，或者B由A组成；</p>
+<img src="https://pic.imgdb.cn/item/629c596e0947543129a91341.jpg" style="zoom:80%;" />
+
+<p>与聚合关系一样，组合关系同样表示整体由部分构成的语义；比如公司由多个部门组成；</p>
+<p>但组合关系是一种<strong>强依赖的特殊聚合关系</strong>，如果<u>整体不存在了，则部分也不存在了</u>；例如， 公司不存在了，部门也将不存在了；</p>
+<h4 id="关联关系（association）"><a href="#关联关系（association）" class="headerlink" title="关联关系（association）"></a>关联关系（association）</h4><p>关联关系是用一条直线表示的；它描述不同类的对象之间的结构关系；它是一种静态关系， 通常与运行状态无关，一般由常识等因素决定的；它一般用来定义对象之间静态的、天然的结构； 所以，关联关系是一种“强关联”的关系；</p>
+<p>比如，乘车人和车票之间就是一种关联关系；学生和学校就是一种关联关系；</p>
+<p>关联关系默认不强调方向，表示对象间相互知道；如果特别强调方向，如下图，表示A知道B，但 B不知道A；</p>
+<img src="https://pic.imgdb.cn/item/629c5a660947543129aa7651.jpg" style="zoom:80%;" />
+
+<p><strong>注：在最终代码中，关联对象通常是以成员变量的形式实现的</strong>；</p>
+<h4 id="依赖关系（dependency）"><a href="#依赖关系（dependency）" class="headerlink" title="依赖关系（dependency）"></a>依赖关系（dependency）</h4><p>依赖关系是用一套带箭头的虚线表示的；如下图表示A依赖于B；他描述<u>一个对象在运行期间会用到另一个对象的关系</u>；</p>
+<img src="https://pic.imgdb.cn/item/629c5ab00947543129aad302.jpg" style="zoom:80%;" />
+
+<p>与关联关系不同的是，它是一种<u>临时性的关系</u>，通常在运行期间产生，并且随着运行时的变化； 依赖关系也可能发生变化；</p>
+<p>显然，依赖也有方向，双向依赖是一种非常糟糕的结构，<u>我们总是应该保持单向依赖，杜绝双向依赖的产生</u>；</p>
+<p>注：在最终代码中，<strong>依赖关系体现为类构造方法及类方法的传入参数</strong>，箭头的指向为调用关系；依赖关系除了临时知道对方外，还是“使用”对方的方法和属性；</p>
+<h3 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h3><p>时序图（Sequence Diagram）是显示对象之间交互的图，这些对象是按时间顺序排列的。时序图中显示的是参与交互的对象及其对象之间消息交互的顺序。</p>
+<p>时序图包括的建模元素主要有：</p>
+<ul>
+<li><p>角色（Actor）：系统角色，可以是人、及其甚至其他的系统或者子系统。</p>
+</li>
+<li><p>对象（Object）：对象包括三种命名方式：</p>
+<ul>
+<li><p>第一种方式包括对象名和类名；</p>
+</li>
+<li><p>第二种方式只显示类名不显示对象名，即表示他是一个匿名对象；</p>
+</li>
+<li><p>第三种方式只显示对象名不显示类名。</p>
+<img src="https://pic.imgdb.cn/item/629c5cab0947543129ad9d9e.jpg" style="zoom:80%;" /></li>
+</ul>
+</li>
+<li><p>生命线（Lifeline）：生命线在顺序图中表示为从对象图标向下延伸的一条虚线，表示对象存在的时间，如下图</p>
+<img src="https://pic.imgdb.cn/item/629c5cdc0947543129ade036.jpg" style="zoom:80%;" />
+</li>
+<li><p>控制焦点（Focus of control）： 控制焦点是顺序图中表示时间段的符号，在这个时间段内对象将执行相应的操作。用小矩形表示，如下图。</p>
+<img src="https://pic.imgdb.cn/item/629c5d390947543129ae768b.jpg" style="zoom:80%;" />
+</li>
+<li><p>消息（Message）：消息一般分为同步消息（Synchronous Message），异步消息（Asynchronous Message）和返回消息（Return Message）.如下图所示：</p>
+<img src="https://pic.imgdb.cn/item/629c5d5e0947543129aea9b3.jpg" style="zoom:80%;" />
+
+<ul>
+<li><p><strong>同步消息&#x3D;调用消息</strong>（Synchronous Message）</p>
+<p>消息的发送者把控制传递给消息的接收者，然后停止活动，等待消息的接收者放弃或者返回控制。用来表示同步的意义。 </p>
+</li>
+<li><p><strong>异步消息</strong>（Asynchronous Message）</p>
+<p>消息发送者通过消息把信号传递给消息的接收者，然后继续自己的活动，不等待接受者返回消息或者控制。异步消息的接收者和发送者是并发工作的。 </p>
+</li>
+<li><p><strong>返回消息</strong>（Return Message）</p>
+<p>返回消息表示从过程调用返回</p>
+</li>
+</ul>
+</li>
+<li><p>自关联消息（Self-Message）：表示方法的自身调用以及一个对象内的一个方法调用另外一个方法</p>
+<img src="https://pic.imgdb.cn/item/629c5e0f0947543129afa66d.jpg" style="zoom:80%;" />
+</li>
+<li><p>Combined Fragments</p>
+<img src="https://pic.imgdb.cn/item/629c5e460947543129aff37f.jpg" style="zoom:80%;" />
+
+<ul>
+<li>Alternative fragment（denoted “alt”） 与 if…then…else对应</li>
+<li>Option fragment (denoted “opt”) 与 Switch对应</li>
+<li>Parallel fragment (denoted “par”) 表示同时发生</li>
+<li>Loop fragment(denoted “loop”) 与 for 或者 Foreach对应</li>
+</ul>
+</li>
+</ul>
  
       <!-- reward -->
       
@@ -197,12 +277,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/03/31/questions03/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/06/05/UML-Basic/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UML/" rel="tag">UML</a></li></ul>
 
     </footer>
   </div>
@@ -210,19 +290,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2022/03/31/questions/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            Good questions —— 数组篇
-          
-        </div>
-      </a>
     
-    
-      <a href="/2022/03/31/questions02/" class="article-nav-link">
+      <a href="/2022/06/02/project-in-meituan-03/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Good questions —— 二叉树篇</div>
+        <div class="article-nav-title">project_in_meituan_03</div>
       </a>
     
   </nav>

@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">9.5k</span>
+            <span class="post-count">12k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">34 分钟</span>
+            <span class="post-count">43 分钟</span>
         </span>
     </span>
 </div>
@@ -373,24 +373,121 @@
 </ul>
 <p>面向对象S.O.L.I.D设计原则：</p>
 <ul>
-<li><p>单一职责（Single Responsibility），类或者对象最好只有单一职责，在程序设计中如果发现某个类承担着多种义务，可以考虑进行拆分。</p>
+<li><p><strong>单一职责</strong>（Single Responsibility），类或者对象最好只有单一职责，在程序设计中如果发现某个类承担着多种义务，可以考虑进行拆分。</p>
 </li>
-<li><p>开关原则（Open-Close，Open for extension，close for modification），设计要对扩展开放，对修改关闭。换句话说，程序设计应保证平滑的扩展性，尽量避免因为新增同类功能而修改已有实现，这样可以少产出些回归（regression）问题。</p>
+<li><p><strong>开关原则</strong>（Open-Close，Open for extension，close for modification），设计要对扩展开放，对修改关闭。换句话说，程序设计应保证平滑的扩展性，尽量避免因为新增同类功能而修改已有实现，这样可以少产出些回归（regression）问题。</p>
 </li>
-<li><p>里氏替换（Liskov Substitution），这是面向对象的基本要素之一，进行继承关系抽象时，范式可以用父类或者基类的地方，都可以用子类替换。</p>
+<li><p><strong>里氏替换</strong>（Liskov Substitution），这是面向对象的基本要素之一，进行继承关系抽象时，范式可以用父类或者基类的地方，都可以用子类替换。</p>
 </li>
-<li><p>接口分离（Interface Segregation），我们在进行类和接口设计时，如果在一个接口里定义了太多方法，其子类很可能面临两难，就是只有部分方法对它是有意义的，这就破坏了程序的内聚性。</p>
+<li><p><strong>接口分离</strong>（Interface Segregation），我们在进行类和接口设计时，如果在一个接口里定义了太多方法，其子类很可能面临两难，就是只有部分方法对它是有意义的，这就破坏了程序的内聚性。</p>
 <p>对于这种情况，可以通过拆分成功能单一的多个接口，将行为进行解耦。在未来维护中，如果某个接口设计有变，不会对使用其他接口的子类构成影响。</p>
 </li>
-<li><p>依赖反转（Dependency Inversion），实体应该依赖于抽象而不是实现。也就是说高层次模块，不应该依赖于低层次模块，而是应该基于抽象。实践这一原则是保证产品代码之间适当耦合度的法宝。</p>
+<li><p><strong>依赖反转</strong>（Dependency Inversion），实体应该依赖于抽象而不是实现（要针对接口编程而不是对实现编程）。也就是说高层次模块，不应该依赖于低层次模块，而是应该基于抽象。实践这一原则是保证产品代码之间适当耦合度的法宝。</p>
 </li>
 </ul>
 <h4 id="设计模式相关"><a href="#设计模式相关" class="headerlink" title="设计模式相关"></a>设计模式相关</h4><p>大致按照模式的应用目标分类，设计模式可以分为创建型模式、结构性模式和行为型模式</p>
 <ul>
-<li>创建型模式，是对对象创建过程的各种问题和解决方案的总结，包括各种工厂模式（Factory、Abstract Factory）、单例模式（Singleton）、构建器模式（Builder）、原型模式（ProtoType）</li>
-<li>结构型模式，是针对软件设计结构的总结，关注于类、对象继承、组合方式的实践经验。常见的结构型模式，包括桥接模式（Bridge）、适配器模式（Adaptor）、装饰者模式（Decorator）、代理模式（Proxy）、组合模式（Composite）、外观模式（Facade）、享元模式（Flyweight）等</li>
-<li>行为型模式，是从类或对象之间交互、职责划分等角度总结的模式。比较常见的行为型模式有策略模式（Strategy）、解释器模式（Interpreter）、命令模式（Command）、观察者模式（Observer）、迭代器模式（Iterator）、模板方法模式（Template Method）、访问者模式（Visitor）。</li>
+<li><strong>创建型模式</strong>，是对对象创建过程的各种问题和解决方案的总结，包括各种工厂模式（Factory、Abstract Factory）、单例模式（Singleton）、构建器模式（Builder）、原型模式（ProtoType）</li>
+<li><strong>结构型模式</strong>，是针对软件设计结构的总结，关注于类、对象继承、组合方式的实践经验。常见的结构型模式，包括桥接模式（Bridge）、适配器模式（Adaptor）、装饰者模式（Decorator）、代理模式（Proxy）、组合模式（Composite）、外观模式（Facade）、享元模式（Flyweight）等</li>
+<li><strong>行为型模式</strong>，是从类或对象之间交互、职责划分等角度总结的模式。比较常见的行为型模式有策略模式（Strategy）、解释器模式（Interpreter）、命令模式（Command）、观察者模式（Observer）、迭代器模式（Iterator）、模板方法模式（Template Method）、访问者模式（Visitor）。</li>
 </ul>
+<p><strong>实现一个单例模式</strong></p>
+<p>最简单的方式就是为单例定义一个private的构造函数。</p>
+<p>另外可以通过标准类库中很多地方使用的懒加载（lazy-load）改善初始内存开销：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span>&#123;</span><br><span class="line">    <span class="comment">// 如果没有使用懒加载，会在第一次加载类的时候会连带着创建 Singleton 实例，但实际上可能暂时用不到，则浪费了资源</span></span><br><span class="line">    <span class="comment">// private static Singleton instance = new Singleton();</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//使用了懒加载机制，在使用的时候才去创建。</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="literal">null</span>)&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个实现在单线程环境不存在问题，但是如果处于并发场景，就需要考虑线程安全，最熟悉的莫过于“双检锁”，其要点在于：</p>
+<ul>
+<li>这里的volatile能够提供可见性，以及保证getInstance返回的是初始化完全的对象</li>
+<li>在同步之前进行null检查，以尽量避免进入相对昂贵的同步块</li>
+<li>直接在class级别进行同步，保证线程安全的类方法调用</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> <span class="type">Singleton</span> <span class="variable">singleton</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getSingleton</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(singleton == <span class="literal">null</span>)&#123;<span class="comment">//尽量避免重复进入同步块</span></span><br><span class="line">            <span class="keyword">synchronized</span>(Singleton.class)&#123;<span class="comment">//同步.class，意味着对同步类方法调用</span></span><br><span class="line">                <span class="keyword">if</span>(singleton = <span class="literal">null</span>)&#123;</span><br><span class="line">                    singleton = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>另外也有人推荐利用内部类持有静态对象的方式实现，其理论依据是对象初始化过程中隐含的初始化锁，不过语法稍显灰色，未必有特别的优势</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getSingleton</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Holder.singleton;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Holder</span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Singleton</span> <span class="variable">singleton</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Spring在API设计中使用的设计模式：</p>
+<ul>
+<li>BeanFactory和ApplicationContext应用了工厂模式</li>
+<li>在Bean的创建中，Spring也为不同scope定义的对象，提供了单例和原型等模式实现</li>
+<li>AOP领域使用了代理模式、装饰器模式、适配器模式等</li>
+<li>各种事件监听器，是观察者模式的典型应用</li>
+<li>类似JdbcTemplate等则是应用了模板模式</li>
+</ul>
+<h4 id="synchronized和ReentrantLock的区别"><a href="#synchronized和ReentrantLock的区别" class="headerlink" title="synchronized和ReentrantLock的区别"></a>synchronized和ReentrantLock的区别</h4><p>synchronized是Java内建的同步机制，也有人称其为Intrinsic Locking，它提供了互斥的语义和可见性，当一个线程已经获取当前锁时，其他试图获取的线程只能等待或者在阻塞在那里。</p>
+<p>在Java 5以前，synchronized是仅有的同步手段，在代码中，synchronized可以用来修饰方法，也可以使用在特定的代码块上，本质上synchronized方法等同于把方法全部语句用synchronized块包起来。<code>synchronized(ClassName.class) &#123;&#125;</code></p>
+<p>ReentrantLock，通常翻译为再入锁，是Java 5提供的锁实现，它的语义和synchronized基本相同。再入锁通过代码直接调用lock()方法获取，代码书写也更加灵活。与此同时，ReentrantLock提供了很多实用的方法，能够实现很多synchronized无法做到的细节控制，比如可以控制fairness，也就是公平性，或者利用定义条件等。但是，编码中也需要注意，必须要明确调用unlock()方法释放，不然就会一直持有该锁。</p>
+<p><strong>理解什么是线程安全</strong></p>
+<p>线程安全是一个多线程环境下正确性的概念，也就是保证多线程环境下共享的、可修改的状态的正确性，这里的状态反映在程序中其实可以看作是数据。</p>
+<p>换个角度看，如果状态不是共享的，或者不是可修改的，也就不存在线程安全问题，进而可以推理出保证线程安全的两个办法：</p>
+<ul>
+<li>封装：通过封装，我们可以将对象内部状态隐藏、保护起来</li>
+<li>不可变：final和immutable。Java语言目前还没有真正意义上的原生不可变。</li>
+</ul>
+<p>线程安全需要保证几个基本特性：</p>
+<ul>
+<li><strong>原子性</strong>：简单说就是相关操作不会中途被其他线程干扰，一般通过同步机制实现</li>
+<li><strong>可见性</strong>：是一个线程修改了某个共享变量，其状态能够立即被其他线程知晓，通常被解释为将线程本地状态反映到主内存上，volatile就是负责保证可见性的</li>
+<li><strong>有序性</strong>：保证线程内串行语义，避免指令重排</li>
+</ul>
+<h4 id="什么情况下Java程序会产生死锁"><a href="#什么情况下Java程序会产生死锁" class="headerlink" title="什么情况下Java程序会产生死锁"></a>什么情况下Java程序会产生死锁</h4><p>死锁是一种特定的程序状态，在实体之间，由于依赖导致彼此一直处于等待之中，没有任何个体可以继续前进。死锁不仅仅是在线程之间会发生，存在资源独占的进程之间同样也可能出现死锁。通常来说，我们大多是聚焦在多线程场景中的死锁，指两个或多个线程之间，由于互相持有对方需要的锁，而永久处于阻塞的状态</p>
+<p>以下是一个基本的死锁程序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DeadLockTest</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String first;</span><br><span class="line">    <span class="keyword">private</span> String second;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">DeadLockTest</span><span class="params">(String name, String first,String second)</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(name);</span><br><span class="line">        <span class="built_in">this</span>.first = first;</span><br><span class="line">        <span class="built_in">this</span>.second = second;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (first)&#123;</span><br><span class="line">            System.out.println(<span class="built_in">this</span>.getName()+<span class="string">&quot; obtained: &quot;</span>+ first);</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000L</span>);</span><br><span class="line">                <span class="keyword">synchronized</span> (second)&#123;</span><br><span class="line">                    System.out.println(<span class="built_in">this</span>.getName()+<span class="string">&quot; obtained: &quot;</span>+second);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">catch</span> (InterruptedException e)&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">lockA</span> <span class="operator">=</span> <span class="string">&quot;lockA&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">lockB</span> <span class="operator">=</span> <span class="string">&quot;lockB&quot;</span>;</span><br><span class="line">        <span class="type">DeadLockTest</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DeadLockTest</span>(<span class="string">&quot;Thread1&quot;</span>,lockA,lockB);</span><br><span class="line">        <span class="type">DeadLockTest</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DeadLockTest</span>(<span class="string">&quot;Thread2&quot;</span>,lockB,lockA);</span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">        t1.join();</span><br><span class="line">        t2.join();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这个程序编译执行后，几乎每次都可以重现死锁。这里查看输出还有一个有意思的地方：我先调用的是Thread1的start，但是Thread2却先打印出来了，这是因为线程调度依赖于（操作系统）调度器，虽然可以通过优先级之类进行影响，但是具体情况是不确定的。</p>
+<img src="https://pic.imgdb.cn/item/629c656e0947543129ba2827.jpg" style="zoom:80%;" />
+
+<p>要定位死锁，可以通过jstack、JConsole等工具进行查找，过程大概可总结为：</p>
+<ul>
+<li>区分线程状态 &#x3D;》查看等待目标&#x3D;》对比Monitor等持有状态</li>
+</ul>
+<p><strong>如何在编程中尽量预防死锁？</strong></p>
+<p>首先总结死锁发生的原因：</p>
+<ul>
+<li>互斥条件，类似Java中Monitor都是独占的</li>
+<li>互斥条件是长期持有的，在使用结束之前，自己不会释放，也不能被其他线程抢占</li>
+<li>循环依赖关系，两个或多个个体之间出现了锁的链条环</li>
+</ul>
+<p>因此可以总结出避免死锁的思路和方法：</p>
+<ul>
+<li><p>如果可能的话，尽量避免使用多个锁，并且只有需要时才持有锁（嵌套的synchronized或lock非常容易出问题）</p>
+</li>
+<li><p>如果必须使用多个锁，尽量设计好锁的获取顺序（参看银行家算法），一般情况可以采取些简单的辅助手段：</p>
+<ul>
+<li>将对象（方法）和锁之间的关系，用图形化的方式表示分别抽取出来</li>
+<li>然后根据对象之间组合、调用的关系对比和组合，考虑可能调用时序</li>
+<li>按照可能时序合并，发现可能死锁的场景</li>
+</ul>
+</li>
+<li><p>使用带超时的方法，为程序带来更多可控性：</p>
+<ul>
+<li><p>类似Object.wait(…)或者CountDownLatch.await(…)，都支持所谓的timed_wait，我们完全可以就不假定该锁一定会获得，指定超时时间，并为无法得到锁时准备退出逻辑</p>
+</li>
+<li><p>并发Lock实现，如ReentrantLock还支持非阻塞式的获取锁操作tryLock()，这是一个插队行为（barging），并不在乎等待的公平性，如果执行时对象恰好没有被独占，则直接获取锁。有时，我们希望条件条件允许就尝试插队，不然就按照现有公平性规则等待，一般采用下面的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(lock.tryLock() || lock.tryLock(timeout, unit))&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h4 id="Java类加载的过程"><a href="#Java类加载的过程" class="headerlink" title="Java类加载的过程"></a>Java类加载的过程</h4><p>一般来说，把Java的类加载过程分为三个主要步骤：加载、链接、初始化</p>
+<ul>
+<li><p>加载阶段（Loading），它是Java将字节码数据从不同的数据源读取到JVM中，并映射为JVM认可的数据结构（Class对象），这里的数据源可能是各种各样的形态，如jar文件、class文件，甚至是网络数据源等；如果输入数据不是ClassFile结构，则会抛出ClassFormatError。</p>
+<p>加载阶段是用户参与的阶段，我们可以自定义类加载器，去实现自己的类加载过程</p>
+</li>
+<li><p>链接（Linking），这是核心的步骤，简单说是把原始的类定义信息平滑地转化如JVM运行的过程中。这里可进一步细分为三个步骤：</p>
+<ul>
+<li>验证（Verification），这是虚拟机安全的重要保障，JVM需要核验字节信息是符合Java虚拟机规范的，否则就被认为是VerifyError，这样就防止了恶意信息或者不合规信息危害JVM的运行，验证阶段有可能触发更多class的加载</li>
+<li>准备（Preparation），创建类或接口中的静态变量，并初始化静态变量的初始值。但这里的“初始化”和下面的显式初始化阶段是有区别的，侧重点在与分配所需要的内存空间，不会去执行更进一步的JVM指令</li>
+<li>解析（Resolution），在这一步会将常量池中的符号引用（symbolic reference）替换为直接引用。</li>
+</ul>
+</li>
+<li><p>初始化阶段（Initialization），这一步真正去执行类初始化的代码逻辑，包括静态字段赋值的动作，以及执行类定义中的静态初始化块内的逻辑，编译器在编译阶段就会把这部分逻辑整理好，父类型的初始化逻辑优于当前类型的逻辑</p>
+</li>
+</ul>
+<p>双亲委派模型：</p>
+<p>简单来说就是当类加载器（Class-Loader）试图加载某个类型的时候，除非父加载器找不到相应类型，否则尽量将这个任务代理给当前加载器的父加载器去做。使用委派模型的目的是避免重复加载Java类型</p>
  
       <!-- reward -->
       
