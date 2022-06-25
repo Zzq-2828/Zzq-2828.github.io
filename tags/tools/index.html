@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>Tag: tools |  Keep Making Progress</title>
+      <title>Tag: Tools |  Keep Making Progress</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -60,7 +60,7 @@
   <article class="articles">
     
     
-    <h1 class="page-type-title">#&nbsptools</h1>
+    <h1 class="page-type-title">#&nbspTools</h1>
     
     
   
@@ -78,13 +78,13 @@
       <article class="archive-article archive-type-post">
   <div class="archive-article-inner">
     <header class="archive-article-header">
-      <a href="/2022/05/06/IDEAtechniques/" class="archive-article-date">
-  <time datetime="2022-05-06T13:45:49.000Z" itemprop="datePublished">05/06</time>
+      <a href="/2022/06/22/meituan-raptor/" class="archive-article-date">
+  <time datetime="2022-06-22T06:43:19.000Z" itemprop="datePublished">06/22</time>
 </a>
        
 <h2 itemprop="name">
-  <a class="archive-article-title" href="/2022/05/06/IDEAtechniques/"
-    >IDEA常用快捷键总结</a> 
+  <a class="archive-article-title" href="/2022/06/22/meituan-raptor/"
+    >meituan-raptor</a> 
 </h2>
  
 
@@ -92,32 +92,7 @@
     
     
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/" rel="tag">tools</a></li></ul>
-
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/04/01/IDEAerror/" class="archive-article-date">
-  <time datetime="2022-04-01T06:40:33.000Z" itemprop="datePublished">04/01</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2022/04/01/IDEAerror/"
-    >IDEAerror</a> 
-</h2>
- 
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/" rel="tag">tools</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MeiTuan/" rel="tag">MeiTuan</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li></ul>
 
     
   </div>
@@ -435,6 +410,36 @@
         let $icon = $($btn.find('i'));
         $icon.removeClass('ri-file-copy-2-line');
         $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>dClass('ri-time-line');
         let $span = $($btn.find('span'));
         $span[0].innerText = 'COPY FAILED';
         

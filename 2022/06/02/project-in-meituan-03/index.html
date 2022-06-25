@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">313</span>
+            <span class="post-count">469</span>
         </span>
     </span>
 
@@ -111,7 +111,7 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>一个简单需求</p>
+  <p>一个简单（又不简单的）需求，涉及到的模块和服务和之前的不太一样，代码结构熟悉起来花了很多时间</p>
 <span id="more"></span>
 
 
@@ -150,9 +150,29 @@
 </ul>
 <p>鸡蛋玩法：</p>
 <ul>
+<li>activity-growth下<ul>
 <li>CEViewTimeRewardDTO</li>
-<li>CETaskCenterBuildUtil  320</li>
+<li>CETaskCenterBuildUtil  320 可以注意到要更改的返回值</li>
+</ul>
+</li>
+<li>capi下<ul>
+<li>CETaskConverter.convertViewTImeRewardDTO</li>
+</ul>
+</li>
 <li>pom</li>
+</ul>
+<h3 id="远程debug方法"><a href="#远程debug方法" class="headerlink" title="远程debug方法"></a>远程debug方法</h3><ol>
+<li>找到机器的IP地址</li>
+<li>配置remote：取名，改IP地址，配置端口号（44399）</li>
+<li>设置断点，选择对应的运行配置，执行debug</li>
+<li>泳道请求任务列表</li>
+</ol>
+<p>注意如果显示无法连接，要重新部署一下服务</p>
+<h3 id="搜寻服务的另外一种方法"><a href="#搜寻服务的另外一种方法" class="headerlink" title="搜寻服务的另外一种方法"></a>搜寻服务的另外一种方法</h3><ul>
+<li>打开Raptor</li>
+<li>进入Transaction</li>
+<li>进入octo</li>
+<li>查找需要的api进行定位</li>
 </ul>
  
       <!-- reward -->

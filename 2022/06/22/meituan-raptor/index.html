@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="朱章齐的个人技术网站" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>meituan-raptor |  Keep Making Progress</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Keep Making Progress" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-meituan-raptor"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  meituan-raptor
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/06/22/meituan-raptor/" class="article-date">
+  <time datetime="2022-06-22T06:43:19.000Z" itemprop="datePublished">2022-06-22</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Tools/">Tools</a> / <a class="article-category-link" href="/categories/Tools/MeiTuan/">MeiTuan</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">12 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>概述：本文简单记录了Raptor服务端的功能和使用规范</p>
+<span id="more"></span>
+
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Raptor服务端融合改进了CAT和Falcon的功能，提供了java，c&#x2F;c++、node、python、go等多语言客户端，已经在基础架构中间件框架（MVC框架，RPC框架，数据库框架，缓存框架等，消息队列，配置系统等）深度继承，为各业务线提供系统丰富的性能指标、健康状况、实时告警等。</p>
+<p>Raptor的优势：</p>
+<ul>
+<li>Raptor是一个实时系统，大部分系统时分钟级统计，但是从数据生成到服务端处理结束是秒级别；Raptor在一些核心业务指标监控上，支持秒级监控，秒级整体端端延迟10s</li>
+<li>监控数据是全量统计，客户端预计算；链路数据是采样计算，大约有5%的项目链路是采样统计</li>
+</ul>
+<p>Raptor服务端监控主要分为两大类：</p>
+<ul>
+<li>应用层监控：主要面向的是聚合指标，应用要接入cat-client包，通过cat-client进行埋点上报数据，是一种侵入式监控</li>
+<li>系统层监控：主要面向的是非聚合类的时序指标，比如：机器cpu、内存使用率的监控</li>
+</ul>
+<h3 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h3><p>基本使用流程：</p>
+<img src="https://pic.imgdb.cn/item/62b2c2c809475431290ccc42.jpg" style="zoom:80%;" />
+
+<ul>
+<li>SDK（Software Development Kit，软件开发工具包）埋点接入：Raptor服务端监控通过SDK进行数据埋点</li>
+<li>查看监控数据，完成接入后，可在对应网页中查看监控数据：<ul>
+<li>Transaction：查看项目中一段代码运行情况数据</li>
+<li>Event：查看项目中一段代码运行次数数据</li>
+<li>Problem：查看项目在运行过程中出现的问题数据</li>
+<li>Business：查看项目业务指标数据</li>
+<li>Host：查看项目机器系统指标数据</li>
+<li>Stack：查看项目堆栈、jar包信息</li>
+</ul>
+</li>
+</ul>
+<p><strong>服务端指标说明</strong></p>
+<p>Raptor服务端相关指标包括：Transaction、Event、Metric、Heartbeat等</p>
+<ul>
+<li><strong>统一框架埋点</strong>：新美大所有的中间件上都继承了Raptor埋点，比如RPC框架Pigeon、Mtthrift，数据访问层框架Zebra，缓存框架Celler、Squirrel，消息中间件Mafka、Swallow等。业务方只需要升级对应监控，并且继承了统一项目命名规范就可以看到中间件访问相关监控</li>
+<li><strong>Transaction埋点</strong>：主要记录一些跨项目，跨模块的一些调用，记录一些复杂的比较耗时代码通缉，建议如果是本地代码的Transaction，建议平均执行时间要相对比较长，比如至少超过5ms，不少业务方用了Transaction，基本平均耗时基本都是1ms都不到，可能仅仅只是用统计功能，这个可以用Event来代替，Event相比Transaction开销要很低，并且埋点的代码也更加精简。Transaction支持AppKey、IP、Type、Name四个维度的聚合，统计指标有总数、失败数、成功率、TP90、TP95、TP99等丰富的性能指标。注意Transaction有IP维度的聚合，这样可以根据单台机器看性能指标，很多场景下，机器维度数据是非常有用的。</li>
+</ul>
+<ul>
+<li><strong>Event埋点</strong>： 主要记录用于记录事件。最常见的场景就是当埋Transaction时候，需要Event作为补充，比如记录当时访问参数等。代码一些特殊诡异路径的分析，还有异常信息记录。Event可以解决一些业务统计问题，它更加侧重于业务一些简单统计。Event埋点支持Appkey、IP、Type、Name四个维度的聚合，统计指标相比Transaction少一些，只有总数、失败、以及成功率，Event也支持机器维度的统计。</li>
+<li><strong>Metric埋点</strong>： 主要用于记录了一些实际的业务指标，用于运维监控，比如订单量，支付等这类case，Metric侧重于实时，侧重于非常重要关键业务指标，Metric侧重于实时监控，不做统计分析。这边有部分业务将一些某个失败作为一个Metric的指标，后续还想统计这个失败总数等，其实这个非常不适合用Metric来做，这类异常点的统计最好就是封装一个特定场景的业务异常，用logError的api即可。异常可以支持异常告警，也可以根据天等做统计。注意，业务指标没有机器维度的聚合，很大程度上因为业务指标比如订单和具体的某台机器没有关系。Metric业务指标最新版本支持多维度的tag，比如订单指标，可以额外加上来源、渠道等tag，这样当出现问题时候，可以根据来源、渠道等多种选择条件来看业务指标查询。每个Metric允许的多维度的tag乘积总数限制是1w，其实相比于一些faclon的指标上报，多tag一个指标最多可以充当1w个指标情况，每个不同的指标可以支持不一样的tag，这样可以极大解决业务指标监控和分析功能。</li>
+<li><strong>Heartbeat</strong>： 是cat客户端主动上报一些jvm等指标，不需要业务埋点。 Heartbeat默认每台机器每分钟上报一次，借助该指标可判断该appkey下正常运行的机器数量。</li>
+</ul>
+<h3 id="Transaction"><a href="#Transaction" class="headerlink" title="Transaction"></a>Transaction</h3><h4 id="1-主要功能："><a href="#1-主要功能：" class="headerlink" title="1.主要功能："></a><strong>1.主要功能：</strong></h4><p>Transaction主要用于监控一段代码的运行情况：运行次数、QPS、错误次数、失败率、响应时间统计（平均响应时间、Tp9XXX分位值）等等。</p>
+<p>应用启动后默认会打点的部分如下，具体打点信息可以参考<a target="_blank" rel="noopener" href="https://km.sankuai.com/page/815852655">基础架构组件Raptor打点统计</a>，来源组件非cat的打点问题咨询，可以提TT向各组件部门咨询。</p>
+<img src="https://pic.imgdb.cn/item/62b2c4ea09475431290ffad3.jpg" style="zoom:80%;" />
+
+<h4 id="2-报表介绍"><a href="#2-报表介绍" class="headerlink" title="2.报表介绍"></a><strong>2.报表介绍</strong></h4><h5 id="2-1-Transaction统计界面"><a href="#2-1-Transaction统计界面" class="headerlink" title="2.1 Transaction统计界面"></a><strong>2.1 Transaction统计界面</strong></h5><p>Type统计界面展示了一个Transaction的第一层分类的视图(👉 Type统计)，可以知道这段时间里面一个分类运行的次数，平均响应时间，延迟，95线以及99线。</p>
+<img src="https://pic.imgdb.cn/item/62b2c71b09475431291355c2.jpg" style="zoom:80%;" />
+
+<p>从上而下分析报表查询功能及Type介绍：</p>
+<ol>
+<li>输入Appkey，查看项目数据：页面会默认打开上次查看的appkey数据，如果需要切换其他项目数据，输入Appkey，回车即可。</li>
+<li>点击切换报表时间类型：小时、天、周、月等维度查看对应时间跨度报表；</li>
+<li>在对应时间类型下，切换对应查看的起始时间；或通过快捷按钮【-1小时】、【+1小时】、【当前】进行调整；</li>
+<li>可通过选择机器，查看具体机器或指定部分机器的报表；默认为All（即该Appkey的所有机器），还包括单机器、机房、自定义等维度的机器选择；</li>
+<li>可选择type类型进行某类数据查看；</li>
+<li>报表界面具体展示相应Type的：调用总次数、失败次数、失败率、最大耗时、平均耗时、90线耗时、95线耗时、99线耗时、999线耗时以及QPS信息；</li>
+</ol>
+<h5 id="2-2-报表分钟级数据查看"><a href="#2-2-报表分钟级数据查看" class="headerlink" title="2.2 报表分钟级数据查看"></a>2.2 报表分钟级数据查看</h5><ol>
+<li>点击报表的<strong>【[::show::]】</strong>可查看该Type的分钟级数据统计。</li>
+</ol>
+<img src="https://pic.imgdb.cn/item/62b2c76b094754312913c5e7.jpg" style="zoom:80%;" />
+
+<ol start="2">
+<li>分钟级统计主要包括：耗时分布、分钟级调用量、分钟平均耗时、分钟成功率、分钟最大耗时、分钟失败数、调用量机器分布、错误量机器分布以及机器维护报表；如下图：</li>
+</ol>
+<img src="https://pic.imgdb.cn/item/62b2c79d09475431291409b0.jpg" style="zoom:80%;" />
+
+<img src="https://pic.imgdb.cn/item/62b2c7b80947543129142f2d.jpg" style="zoom:80%;" />
+
+<img src="https://pic.imgdb.cn/item/62b2c7cf0947543129145691.jpg" style="zoom:80%;" />
+
+<h5 id="2-3-查看Type下二级分类数据"><a href="#2-3-查看Type下二级分类数据" class="headerlink" title="2.3 查看Type下二级分类数据"></a>2.3 查看Type下二级分类数据</h5><ol>
+<li>点击对应<strong>Type的名称</strong>，可查看该Type下的二级分类（Name）数据</li>
+</ol>
+<img src="https://pic.imgdb.cn/item/62b2cbf409475431291a6f23.jpg" style="zoom:80%;" />
+
+<ol start="2">
+<li>Transaction的埋点的Type和Name由业务自己定义，当打点了Cat.newTransaction(type, name)时，第一层分类是type，第二级分类是name；</li>
+<li>第二级分类数据是统计相同type下的所有name数据，点开展示界面的数据均与第一级（type）一样的展示风格。</li>
+</ol>
+<h5 id="2-4-LogView数据查看"><a href="#2-4-LogView数据查看" class="headerlink" title="2.4 LogView数据查看"></a>2.4 LogView数据查看</h5><p>点击LogView下的【L】最新、【S】最慢可查看当前时间段最新或最慢的一条链路日志信息，如下图：</p>
+<h3 id="Event"><a href="#Event" class="headerlink" title="Event"></a>Event</h3><h4 id="1-主要功能：-1"><a href="#1-主要功能：-1" class="headerlink" title="1.主要功能："></a><strong>1.主要功能：</strong></h4><p>监控一段代码运行次数：例如记录程序中一个事件记录了多少次，错误了多少次。Event报表的整体结构与Transaction报表几乎一样，<u>只缺少响应时间的统计</u>。</p>
+<p>应用启动后默认会打点的部分如下，具体打点信息可以参考<a target="_blank" rel="noopener" href="https://km.sankuai.com/page/815852655">基础架构组件Raptor打点统计</a>，来源组件非cat的打点问题咨询，可以提TT向各组件部门咨询。</p>
+<h4 id="2-报表介绍-1"><a href="#2-报表介绍-1" class="headerlink" title="2.报表介绍"></a><strong>2.报表介绍</strong></h4><h5 id="2-1-数据统计逻辑"><a href="#2-1-数据统计逻辑" class="headerlink" title="2.1 数据统计逻辑"></a><strong>2.1 数据统计逻辑</strong></h5><p><strong>第一级分类（Type）统计界面</strong></p>
+<p>Type统计界面展示了一个Event的第一层分类的视图(👉 Type统计)，Event相对于Transaction少了运行时间统计。可以知道这段时间里面一个分类运行的次数，失败次数，失败率，采样logView，QPS。</p>
+<p><strong>第二级分类（Name）统计界面</strong></p>
+<p>第二级分类在Type统计界面中点击具体的Type进入，具体视图(👉 Name统计)，展示的是相同type下所有的name数据，可以理解为某type下更细化的分类。</p>
+<h5 id="2-2-界面功能详细介绍"><a href="#2-2-界面功能详细介绍" class="headerlink" title="2.2 界面功能详细介绍"></a>2.2 界面功能详细介绍</h5><p>从上而下分析报表查询功能及Type介绍：</p>
+<ol>
+<li>输入Appkey，查看项目数据：页面会默认打开上次查看的appkey数据，如果需要切换其他项目数据，输入Appkey，回车即可；</li>
+<li>数据粒度时间筛选<ol>
+<li>点击切换报表时间类型：小时、天、周、月等维度查看对应时间跨度报表；</li>
+<li>在对应时间类型下，切换对应查看的起始时间；或通过快捷按钮【-1小时】、【+1小时】、【当前】进行调整；</li>
+</ol>
+</li>
+<li>机器分组：默认已机房对机器进行分组，支持自定义分组；</li>
+<li>可通过选择机器，查看具体机器或指定部分机器的报表；默认为All（即该Appkey的所有机器），还包括单机器、机房、自定义等维度的机器选择；</li>
+<li>报表界面具体展示相应Type的：调用总次数、失败次数、失败率以及QPS信息；</li>
+</ol>
+<h5 id="2-3-报表分钟级数据查看"><a href="#2-3-报表分钟级数据查看" class="headerlink" title="2.3 报表分钟级数据查看"></a>2.3 报表分钟级数据查看</h5><p>1.点击报表的【[::show::]】可查看该Type的分钟级数据统计</p>
+<p>2.分钟级统计主要包括：分钟级调用量、分钟失败数、调用量机器分布、错误量机器分布以及机器维护报表；</p>
+<h5 id="2-4-查看Type下二级分类数据"><a href="#2-4-查看Type下二级分类数据" class="headerlink" title="2.4 查看Type下二级分类数据"></a>2.4 查看Type下二级分类数据</h5><ol>
+<li>点击对应Type的名称，可查看该Type下的二级分类（Name）数据：</li>
+<li>Event的埋点的Type和Name由业务自己定义，当打点了Cat.newEvent(type, name)时，第一层分类是type，第二级分类是name；</li>
+<li>第二级分类数据是统计相同type下的所有name数据，点开展示界面的数据均与第一级（type）一样的展示风格</li>
+</ol>
+<h5 id="2-5-LogView数据查看"><a href="#2-5-LogView数据查看" class="headerlink" title="2.5 LogView数据查看"></a>2.5 LogView数据查看</h5><p>点击LogView下的【Logview】查看当前时间段最新的一条链路日志信息</p>
+<h3 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h3><p><strong>主要功能</strong></p>
+<p>Problem记录整个项目在运行过程中出现的问题，包括一些异常、错误、访问较长的行为。Problem报表是由logview存在的特征整合而成，方便用户定位问题。</p>
+<p>来源：</p>
+<ol>
+<li>业务代码显示调用Cat.logError(e) API进行埋点，具体埋点说明可查看埋点文档。</li>
+<li>中间件框架埋点，如SQL出错、RPC调用出错等。</li>
+<li>long-sql、long-cache等耗时较长系列。</li>
+<li>与LOG集成，会捕获log日志中有异常堆栈的exception日志。<a target="_blank" rel="noopener" href="https://docs.sankuai.com/dp/arch/cat/master/integration/java/#6log">cat-appender集成LOG</a></li>
+</ol>
+<p><strong>报表介绍</strong></p>
+<p>Problem报表展示项目相关异常信息及统计，选择【Problem】标签页，项目、时间、机器选择同Transaction报表，如下图：</p>
+<img src="https://pic.imgdb.cn/item/62b325290947543129a16126.jpg" style="zoom:80%;" />
+
+<ol>
+<li>选择Problem错误类型，All为展示所有错误，也可选择某一个错误类型type展示。</li>
+<li>对于较长耗时，也认为是problem错误，cat已经接入公司绝大多数组件，现支持url、sql、service(远程服务)、call(远程调用)、cache(缓存接口调用)、mq(消息队列)，可以选择不同的耗时阈值。</li>
+<li>选择错误的时间展示维度，默认为小时维度；分钟级分布可以查看某一分钟的所有错误分布统计，如下图：</li>
+</ol>
+<img src="https://pic.imgdb.cn/item/62b3255c0947543129a1bf78.jpg" style="zoom:80%;" />
+
+<ol start="4">
+<li>点击【[:::show:]】可查看分钟级错误分布以及机器维度分布；如下图：</li>
+</ol>
+<img src="https://pic.imgdb.cn/item/62b328c10947543129a7b200.jpg" style="zoom:80%;" />
+
+<p>对于机器分布，在时间轴上可选择开始、结束分钟数，可以看到这段时间内的机器错误分布。 同时，除了机器错误分布，还可展示机房错误分布，如yp表示月浦、dx表示大兴。业务方可通过机房错误分布check是否是机房影响。</p>
+<h3 id="Business"><a href="#Business" class="headerlink" title="Business"></a>Business</h3><p>Business监控为您提供了自定义监控项和报警规则的功能；</p>
+<p>您可以通过上报监控数据接口，将自己关心的业务指标上报至Raptor监控，并在Raptor监控上配置、添加监控图表和设置报警规则，对于故障指标发送报警通知，便于您及时处理故障，保障业务的正常运行。</p>
+<img src="https://pic.imgdb.cn/item/62b3298b0947543129a90574.jpg" style="zoom:80%;" />
+
+<h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><img src="https://pic.imgdb.cn/item/62b33c1c0947543129c4beb1.jpg" style="zoom:80%;" />
+
+<ul>
+<li><p>AppKey：应用的唯一key</p>
+</li>
+<li><p>BusinessKey：业务指标；business包括普通指标、复合指标两种类型的指标；</p>
+<ul>
+<li>普通指标：直接由业务上报数据生成的指标；</li>
+<li>复合指标：有多个“普通指标”通过表达式组合而成的指标；</li>
+</ul>
+</li>
+<li><p>Tag：business指标的维度，每个指标可以包括最多20个tag；</p>
+<p>举例：比如一个订单，可以包括status维度（成功、失败、待付款等等）、category维度（母婴、女装、男装等等）、source维度、chennel维度等等；</p>
+</li>
+<li><p>TagValue：Tag对应的值；business指标的每个维度Tag，可以包括多个具体的维度值；</p>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/06/22/meituan-raptor/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MeiTuan/" rel="tag">MeiTuan</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2022/06/23/project-in-meituan-06/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            project_in_meituan_06
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2022/06/22/Interview-Network/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Interview-Network</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "5J2nSr5DoqBGRRnpdFfTvawi-gzGzoHsz",
+    app_key: "24GWRfKBASGr6cA5FSBF4NY4",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2022
+        <i class="ri-heart-fill heart_icon"></i> ZHU
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Keep Making Progress"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

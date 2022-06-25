@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-06-06T02:58:30.599Z</updated>
+  <updated>2022-06-24T14:25:08.449Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -15,6 +15,288 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>project_in_meituan_06</title>
+    <link href="https://www.zzzzzq.com/2022/06/23/project-in-meituan-06/"/>
+    <id>https://www.zzzzzq.com/2022/06/23/project-in-meituan-06/</id>
+    <published>2022-06-23T06:37:43.000Z</published>
+    <updated>2022-06-24T14:25:08.449Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;配置一个白名单功能&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Projects" scheme="https://www.zzzzzq.com/categories/Projects/"/>
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Projects/MeiTuan/"/>
+    
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
+    
+    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>meituan-raptor</title>
+    <link href="https://www.zzzzzq.com/2022/06/22/meituan-raptor/"/>
+    <id>https://www.zzzzzq.com/2022/06/22/meituan-raptor/</id>
+    <published>2022-06-22T06:43:19.000Z</published>
+    <updated>2022-06-23T06:37:06.060Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文简单记录了Raptor服务端的功能和使用规范&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Tools" scheme="https://www.zzzzzq.com/categories/Tools/"/>
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Tools/MeiTuan/"/>
+    
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
+    
+    <category term="Tools" scheme="https://www.zzzzzq.com/tags/Tools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Interview-Network</title>
+    <link href="https://www.zzzzzq.com/2022/06/22/Interview-Network/"/>
+    <id>https://www.zzzzzq.com/2022/06/22/Interview-Network/</id>
+    <published>2022-06-21T16:23:46.000Z</published>
+    <updated>2022-06-25T03:18:38.370Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文对计算机网络的基础知识做了一些梳理和总结（主要针对面试中常见的一些问题）&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Interview" scheme="https://www.zzzzzq.com/categories/Interview/"/>
+    
+    
+    <category term="Interview" scheme="https://www.zzzzzq.com/tags/Interview/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>project_in_meituan_05</title>
+    <link href="https://www.zzzzzq.com/2022/06/16/project-in-meituan-05/"/>
+    <id>https://www.zzzzzq.com/2022/06/16/project-in-meituan-05/</id>
+    <published>2022-06-16T05:52:50.000Z</published>
+    <updated>2022-06-16T15:40:20.620Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;第五个需求，优选游戏接入平台游戏部广告聚合接口，较为复杂，仅实现M端的配置&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Projects" scheme="https://www.zzzzzq.com/categories/Projects/"/>
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Projects/MeiTuan/"/>
+    
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
+    
+    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>上线发布流程</title>
+    <link href="https://www.zzzzzq.com/2022/06/15/ServiceOnline/"/>
+    <id>https://www.zzzzzq.com/2022/06/15/ServiceOnline/</id>
+    <published>2022-06-15T03:10:43.000Z</published>
+    <updated>2022-06-15T06:20:23.497Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文记录了服务上线发布流程规范&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/MeiTuan/"/>
+    
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OS Basic</title>
+    <link href="https://www.zzzzzq.com/2022/06/14/Interview-OSBasic/"/>
+    <id>https://www.zzzzzq.com/2022/06/14/Interview-OSBasic/</id>
+    <published>2022-06-14T08:40:08.000Z</published>
+    <updated>2022-06-22T04:04:09.872Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文对操作系统的基础知识做了一些梳理和总结（主要针对面试中常见的一些问题）&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Interview" scheme="https://www.zzzzzq.com/categories/Interview/"/>
+    
+    
+    <category term="Interview" scheme="https://www.zzzzzq.com/tags/Interview/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DesignTemplate</title>
+    <link href="https://www.zzzzzq.com/2022/06/13/DesignTemplate/"/>
+    <id>https://www.zzzzzq.com/2022/06/13/DesignTemplate/</id>
+    <published>2022-06-13T13:29:07.000Z</published>
+    <updated>2022-06-21T07:10:55.542Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文介绍了软件设计的准则和常用的设计模式&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入拆解Java虚拟机JVM</title>
+    <link href="https://www.zzzzzq.com/2022/06/12/JVM/"/>
+    <id>https://www.zzzzzq.com/2022/06/12/JVM/</id>
+    <published>2022-06-11T17:18:14.000Z</published>
+    <updated>2022-06-14T08:39:34.755Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文记录了Java虚拟机的基本原理，高效实现和代码优化方面的内容&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL锁</title>
+    <link href="https://www.zzzzzq.com/2022/06/11/mysql04/"/>
+    <id>https://www.zzzzzq.com/2022/06/11/mysql04/</id>
+    <published>2022-06-11T08:06:58.000Z</published>
+    <updated>2022-06-11T15:28:06.020Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了MySQL的锁相关的知识，参考极客时间的文章&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="MySQL" scheme="https://www.zzzzzq.com/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL索引</title>
+    <link href="https://www.zzzzzq.com/2022/06/10/mysql03/"/>
+    <id>https://www.zzzzzq.com/2022/06/10/mysql03/</id>
+    <published>2022-06-10T13:18:59.000Z</published>
+    <updated>2022-06-11T08:07:34.080Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了MySQL索引相关的知识，参考极客时间的文章&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="MySQL" scheme="https://www.zzzzzq.com/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL事务隔离</title>
+    <link href="https://www.zzzzzq.com/2022/06/10/mysql02/"/>
+    <id>https://www.zzzzzq.com/2022/06/10/mysql02/</id>
+    <published>2022-06-10T06:34:20.000Z</published>
+    <updated>2022-06-10T13:20:10.602Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了MySQL事务隔离相关的知识，参考极客时间的文章&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="MySQL" scheme="https://www.zzzzzq.com/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>project_in_meituan_04</title>
+    <link href="https://www.zzzzzq.com/2022/06/09/project-in-meituan-04/"/>
+    <id>https://www.zzzzzq.com/2022/06/09/project-in-meituan-04/</id>
+    <published>2022-06-09T04:18:43.000Z</published>
+    <updated>2022-06-15T03:11:05.590Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;第四个需求，建一个RPC接口&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Projects" scheme="https://www.zzzzzq.com/categories/Projects/"/>
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Projects/MeiTuan/"/>
+    
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
+    
+    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL基础架构</title>
+    <link href="https://www.zzzzzq.com/2022/06/09/mysql/"/>
+    <id>https://www.zzzzzq.com/2022/06/09/mysql/</id>
+    <published>2022-06-09T03:03:10.000Z</published>
+    <updated>2022-06-09T04:12:10.462Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了MySQL的基本知识和实际使用中的常见问题，参考极客时间的技术文章&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="MySQL" scheme="https://www.zzzzzq.com/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>game_structure</title>
+    <link href="https://www.zzzzzq.com/2022/06/08/game-structure/"/>
+    <id>https://www.zzzzzq.com/2022/06/08/game-structure/</id>
+    <published>2022-06-08T04:01:30.000Z</published>
+    <updated>2022-06-08T15:09:18.206Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录对小组系统架构的理解和学习&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/MeiTuan/"/>
+    
+    
+    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
+    
+  </entry>
   
   <entry>
     <title>UML类图和时序图</title>
@@ -40,10 +322,10 @@
     <link href="https://www.zzzzzq.com/2022/06/02/project-in-meituan-03/"/>
     <id>https://www.zzzzzq.com/2022/06/02/project-in-meituan-03/</id>
     <published>2022-06-02T07:07:10.000Z</published>
-    <updated>2022-06-07T03:41:02.159Z</updated>
+    <updated>2022-06-08T04:01:41.798Z</updated>
     
     
-    <summary type="html">&lt;p&gt;一个简单需求&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;一个简单（又不简单的）需求，涉及到的模块和服务和之前的不太一样，代码结构熟悉起来花了很多时间&lt;/p&gt;</summary>
     
     
     
@@ -52,9 +334,9 @@
     <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Projects/MeiTuan/"/>
     
     
-    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
-    
     <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
+    
+    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
     
   </entry>
   
@@ -94,9 +376,9 @@
     <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Projects/MeiTuan/"/>
     
     
-    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
-    
     <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
+    
+    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
     
   </entry>
   
@@ -124,7 +406,7 @@
     <link href="https://www.zzzzzq.com/2022/05/17/java-core/"/>
     <id>https://www.zzzzzq.com/2022/05/17/java-core/</id>
     <published>2022-05-16T16:17:13.000Z</published>
-    <updated>2022-06-05T13:31:56.207Z</updated>
+    <updated>2022-06-22T03:57:46.065Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文记录了Java的一些核心技术和易混淆的概念&lt;/p&gt;</summary>
@@ -135,293 +417,6 @@
     
     
     <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>简单的需求开发记录</title>
-    <link href="https://www.zzzzzq.com/2022/05/12/MAPI/"/>
-    <id>https://www.zzzzzq.com/2022/05/12/MAPI/</id>
-    <published>2022-05-12T03:31:06.000Z</published>
-    <updated>2022-06-03T09:38:17.778Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了我开发第一个需求【挽留弹窗】的过程&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Projects" scheme="https://www.zzzzzq.com/categories/Projects/"/>
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Projects/MeiTuan/"/>
-    
-    
-    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>GET/POST</title>
-    <link href="https://www.zzzzzq.com/2022/05/10/GET-POST/"/>
-    <id>https://www.zzzzzq.com/2022/05/10/GET-POST/</id>
-    <published>2022-05-10T09:45:23.000Z</published>
-    <updated>2022-05-11T09:03:15.018Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;简介HTTP，并总结GET和POST的区别&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Web" scheme="https://www.zzzzzq.com/categories/Web/"/>
-    
-    
-    <category term="Web" scheme="https://www.zzzzzq.com/tags/Web/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>TCP/IP知识整理</title>
-    <link href="https://www.zzzzzq.com/2022/05/10/TCP-IP/"/>
-    <id>https://www.zzzzzq.com/2022/05/10/TCP-IP/</id>
-    <published>2022-05-10T08:41:14.000Z</published>
-    <updated>2022-05-11T03:21:21.055Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文记录了TCP&amp;#x2F;IP协议的一些基本知识，包括概念、功能和数据包格式&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Web" scheme="https://www.zzzzzq.com/categories/Web/"/>
-    
-    
-    <category term="Web" scheme="https://www.zzzzzq.com/tags/Web/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>IDEA常用快捷键总结</title>
-    <link href="https://www.zzzzzq.com/2022/05/06/IDEAtechniques/"/>
-    <id>https://www.zzzzzq.com/2022/05/06/IDEAtechniques/</id>
-    <published>2022-05-06T13:45:49.000Z</published>
-    <updated>2022-05-07T06:05:45.581Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了IDEA常用的一些快捷键，提高开发效率！&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="tools" scheme="https://www.zzzzzq.com/categories/tools/"/>
-    
-    
-    <category term="tools" scheme="https://www.zzzzzq.com/tags/tools/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>RPC</title>
-    <link href="https://www.zzzzzq.com/2022/05/05/RPC/"/>
-    <id>https://www.zzzzzq.com/2022/05/05/RPC/</id>
-    <published>2022-05-05T15:26:42.000Z</published>
-    <updated>2022-05-06T02:39:09.612Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文简单介绍了RPC框架&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="RPC" scheme="https://www.zzzzzq.com/categories/RPC/"/>
-    
-    
-    <category term="RPC" scheme="https://www.zzzzzq.com/tags/RPC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Startup in MeiTuan</title>
-    <link href="https://www.zzzzzq.com/2022/05/05/startup/"/>
-    <id>https://www.zzzzzq.com/2022/05/05/startup/</id>
-    <published>2022-05-05T06:45:21.000Z</published>
-    <updated>2022-05-11T10:04:19.847Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文记录了一个简易Java开发流程和服务部署和调用的学习过程&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Projects" scheme="https://www.zzzzzq.com/categories/Projects/"/>
-    
-    
-    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ObjectName</title>
-    <link href="https://www.zzzzzq.com/2022/05/03/objectName/"/>
-    <id>https://www.zzzzzq.com/2022/05/03/objectName/</id>
-    <published>2022-05-03T12:06:12.000Z</published>
-    <updated>2022-05-03T13:48:45.246Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;解释了Java中的各种O(Object)&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>High Performance Computer Architecture</title>
-    <link href="https://www.zzzzzq.com/2022/05/01/HighPerformance/"/>
-    <id>https://www.zzzzzq.com/2022/05/01/HighPerformance/</id>
-    <published>2022-05-01T10:27:32.000Z</published>
-    <updated>2022-05-10T06:59:34.075Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Hong Kong University 2022 summer semester class review —— ELEC6036 High Performance Computer Architecture.&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="HKU" scheme="https://www.zzzzzq.com/categories/HKU/"/>
-    
-    
-    <category term="HKU" scheme="https://www.zzzzzq.com/tags/HKU/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>applicationLayers</title>
-    <link href="https://www.zzzzzq.com/2022/04/29/applicationLayers/"/>
-    <id>https://www.zzzzzq.com/2022/04/29/applicationLayers/</id>
-    <published>2022-04-29T03:54:12.000Z</published>
-    <updated>2022-05-02T16:48:45.263Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;—— ELEC6036 High Performance Computer Architecture.&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/categories/JavaWeb/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-    <category term="JavaWeb" scheme="https://www.zzzzzq.com/tags/JavaWeb/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Sort Algorithms</title>
-    <link href="https://www.zzzzzq.com/2022/04/27/SortAlgorithms/"/>
-    <id>https://www.zzzzzq.com/2022/04/27/SortAlgorithms/</id>
-    <published>2022-04-27T08:59:38.000Z</published>
-    <updated>2022-04-27T09:10:16.649Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文主要记录了八大排序算法的Java实现&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Buildup the Java environment on MacOS</title>
-    <link href="https://www.zzzzzq.com/2022/04/26/buildup/"/>
-    <id>https://www.zzzzzq.com/2022/04/26/buildup/</id>
-    <published>2022-04-26T06:16:18.000Z</published>
-    <updated>2022-05-25T13:37:55.110Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文主要介绍了在Mac上进行开发环境搭建的主要步骤&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Mac" scheme="https://www.zzzzzq.com/categories/Mac/"/>
-    
-    <category term="EnvBuildUp" scheme="https://www.zzzzzq.com/categories/Mac/EnvBuildUp/"/>
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Mac/EnvBuildUp/MeiTuan/"/>
-    
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
-    
-    <category term="Mac" scheme="https://www.zzzzzq.com/tags/Mac/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringBoot05 —— 程序运行相关</title>
-    <link href="https://www.zzzzzq.com/2022/04/23/SpringBoot05/"/>
-    <id>https://www.zzzzzq.com/2022/04/23/SpringBoot05/</id>
-    <published>2022-04-22T17:19:36.000Z</published>
-    <updated>2022-04-25T08:35:11.552Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：SpringBoot框架中程序的打包与运行，高级配置相关，多环境开发，日志&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://www.zzzzzq.com/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringBoot04 —— SSMP整合案例</title>
-    <link href="https://www.zzzzzq.com/2022/04/21/SpringBoot04/"/>
-    <id>https://www.zzzzzq.com/2022/04/21/SpringBoot04/</id>
-    <published>2022-04-21T12:35:19.000Z</published>
-    <updated>2022-04-22T17:20:21.465Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：SpringBoot整合JUnit，MyBatis，MyBatis-Plus，Druid的简单案例&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://www.zzzzzq.com/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringBoot03 —— 第三方技术整合</title>
-    <link href="https://www.zzzzzq.com/2022/04/21/SpringBoot03/"/>
-    <id>https://www.zzzzzq.com/2022/04/21/SpringBoot03/</id>
-    <published>2022-04-20T17:26:01.000Z</published>
-    <updated>2022-05-03T15:32:36.047Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：SpringBoot整合JUnit，MyBatis，MyBatis-Plus，Druid&lt;/p&gt;
-&lt;p&gt;SpringBoot之所以好用，就是它能方便快捷的整合其他技术&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://www.zzzzzq.com/tags/SpringBoot/"/>
     
   </entry>
   
