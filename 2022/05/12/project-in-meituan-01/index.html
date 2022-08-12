@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.9k</span>
+            <span class="post-count">2.3k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">7 分钟</span>
+            <span class="post-count">8 分钟</span>
         </span>
     </span>
 </div>
@@ -222,7 +222,37 @@
 <li><p>加入以下一行：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resp.setRetainPopDisplay(mainSceneResp.getRetainPopDisplay());</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="在泳道上部署服务"><a href="#在泳道上部署服务" class="headerlink" title="在泳道上部署服务"></a>在泳道上部署服务</h3><h3 id="整体测试"><a href="#整体测试" class="headerlink" title="整体测试"></a>整体测试</h3><p>在ones中完成一些case的测试</p>
+<h3 id="在泳道上部署服务"><a href="#在泳道上部署服务" class="headerlink" title="在泳道上部署服务"></a>在泳道上部署服务</h3><p>主要目的是进行自测和配合前端进行联调，写好UT保证行覆盖率</p>
+<h3 id="整体测试"><a href="#整体测试" class="headerlink" title="整体测试"></a>整体测试</h3><p>在ones中完成一些case的测试</p>
+<h3 id="上线流程"><a href="#上线流程" class="headerlink" title="上线流程"></a>上线流程</h3><ol>
+<li><p>上线文档补充填写，（有需求链接的）注意贴需求链接，ones上建立相应的分支（注意设置成release而不是feature的，买票上车）</p>
+</li>
+<li><p>Code中提PR（Pull Request），注意要将代码中的版本号改为正式版本号</p>
+</li>
+<li><p>Merge分支（注意需要有评论（QA要求）再Approve，另外确认版本号不能冲突）</p>
+</li>
+<li><p>另外在CTS创建PR（注意发布要考虑先后顺序）</p>
+</li>
+<li><p>点击生成中可以看到检测过程</p>
+</li>
+<li><p>检测通过后和第三步一样，评论、Approve、Merge</p>
+</li>
+<li><p>在集成泳道进行服务的部署：</p>
+<ol>
+<li>去CTS可看到已生成</li>
+<li>在Service中进行打包，注意要选择【tag】，分支注意查看日期是否对应不要选错</li>
+<li>灰度发布，注意静默期间无法发布，并且发布过程中时刻在Raptor中注意异常数量和大盘趋势是否有异动，如果出现错误，单台机器可以直接禁用，多台机器则需要考虑回滚：<ol>
+<li>灰度任务创建，注意并发度</li>
+<li>开始发布，注意周知流程</li>
+<li>copy机器ID，到Raptor中查看Error，涉及到大盘的服务（如game-center，gamecapi）要注意大盘信息</li>
+<li>有问题需要禁用（Rhino）或回滚</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>在手机上进行测试，确认服务正常</p>
+</li>
+</ol>
 <h3 id="线上监控"><a href="#线上监控" class="headerlink" title="线上监控"></a>线上监控</h3><p>线上ERROR：</p>
 <ul>
 <li>线上ERROR率走势：errorRate &#x3D; failCount&#x2F;totalCount*100%</li>
@@ -249,6 +279,7 @@
 <li>故障数（COE）</li>
 <li>热修复统计</li>
 </ul>
+<p>遇到故障可以去日志中心进行问题定位（通过TraceId，UserId，注意要加双引号）</p>
  
       <!-- reward -->
       

@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>project_in_meituan_06 |  Keep Making Progress</title>
+      <title>network_programming |  Keep Making Progress</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-project-in-meituan-06"
+  id="post-network-programming"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  project_in_meituan_06
+  network_programming
 </h1>
  
 
@@ -75,11 +75,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2022/06/23/project-in-meituan-06/" class="article-date">
-  <time datetime="2022-06-23T06:37:43.000Z" itemprop="datePublished">2022-06-23</time>
+      <a href="/2022/08/12/network-programming/" class="article-date">
+  <time datetime="2022-08-12T06:35:51.000Z" itemprop="datePublished">2022-08-12</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Projects/">Projects</a> / <a class="article-category-link" href="/categories/Projects/MeiTuan/">MeiTuan</a>
+    <a class="article-category-link" href="/categories/Web/">Web</a>
   </div>
   
 <div class="word_count">
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">232</span>
+            <span class="post-count">2.7k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">9 分钟</span>
         </span>
     </span>
 </div>
@@ -111,23 +111,70 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>配置一个白名单功能</p>
+  <p>概述：本文记录了网络编程相关的知识要点</p>
 <span id="more"></span>
 
-<h3 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h3><p><code>grocerymkthd-interact-mapi-service</code>模块的aop包下：</p>
-<ul>
-<li>ConfigMonitorAop类中的collectData和checkData方法都加一个根据MUser过滤的白名单，不收集开发和测试人员的数据。</li>
-</ul>
-<p><code>grocerymkthd-interact-tools</code>模块中：</p>
-<ul>
-<li>LionConfig下增加白名单列表字段</li>
-<li>TaskConfigMonitorDataCollectService和ActivityConfigMonitorDataCollectService下注入LionConfig并且增加判断是否在白名单内的逻辑</li>
-</ul>
-<h3 id="要点学习"><a href="#要点学习" class="headerlink" title="要点学习"></a>要点学习</h3><p>注意在LionConfig中增加的字段类型必须为具体的实现类（如ArrayList）而不能是接口类（如List），并且要在Lion中进行相应的配置保证可以接收到。</p>
-<p>注意开发的这一部分是一个切面类</p>
-<p>表示位于com.sankuai下的所有带<code>@ConfigMonitor</code>注解的方法都作为切点，要织入这个around环绕方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ConfigMonitorAop</span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> ConfigMonitorDataService monitorDataService;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Around(&quot;execution(public * com.sankuai..*.*(..)) &amp;&amp; @annotation(annotation)&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">around</span><span class="params">(ProceedingJoinPoint pjp, ConfigMonitor annotation)</span> <span class="keyword">throws</span> Throwable&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        <span class="keyword">return</span> pjp.proceed();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-客户端-服务端网络编程模型"><a href="#1-客户端-服务端网络编程模型" class="headerlink" title="1. 客户端-服务端网络编程模型"></a>1. 客户端-服务端网络编程模型</h3><p>过程具体阐释如下：</p>
+<p><img src="https://static001.geekbang.org/resource/image/78/83/78e415180d2946c418485d30f3f78f83.png" alt="img"></p>
+<ol>
+<li>当一个客户端需要服务时，比如网络购物下单，它会向服务器端发送一个请求。注意，这个请求是按照双方约定的格式来发送的，以便保证服务器端是可以理解的；</li>
+<li>服务器端收到这个请求后，会根据双方约定的格式解释它，并且以合适的方式进行操作，比如调用数据库操作来创建一个购物单；</li>
+<li>服务器端完成处理请求之后，会给客户端发送一个响应，比如向客户端发送购物单的实际付款额，然后等待客户端的下一步操作；</li>
+<li>客户端收到响应并进行处理，比如在手机终端上显示该购物单的实际付款额，并且让用户选择付款方式。</li>
+</ol>
+<p>服务器端需要在一开始就监听在一个众所周知的端口上，等待客户端发送请求，一旦有客户端连接建立，服务器端就会消耗一定的计算机资源为它服务，服务器端是需要同时为成千上万的客户端服务的。如何保证服务器端在数据量巨大的客户端访问时依然能维持效率和稳定，这也是我们讲述高性能网络编程的目的。</p>
+<p>客户端相对来说更为简单，它向服务器端的监听端口发起连接请求，连接建立之后，通过连接通路和服务器端进行通信。</p>
+<p><strong>还有一点需要强调的是，无论是客户端，还是服务器端，它们运行的单位都是进程（process），而不是机器</strong>。一个客户端，比如我们的手机终端，同一个时刻可以建立多个到不同服务器的连接，比如同时打游戏，上知乎，逛天猫；而服务器端更是可能在一台机器上部署运行了多个服务，比如同时开启了SSH服务和HTTP服务。</p>
+<h4 id="IP和端口"><a href="#IP和端口" class="headerlink" title="IP和端口"></a>IP和端口</h4><p>正如寄信需要一个地址一样，在网络世界里，同样也需要地址的概念。在TCP&#x2F;IP协议栈中，IP用来表示网络世界的地址。</p>
+<p><u>在一台计算机上是可以同时存在多个连接的，那么如何区分出不同的连接呢？</u></p>
+<p>这里就必须提到端口这个概念。我们拿住酒店举例子，酒店的地址是唯一的，每间房间的号码是不同的，类似的，计算机的IP地址是唯一的，每个连接的端口号是不同的。</p>
+<p>端口号是一个16位的整数，最多为65536。当一个客户端发起连接请求时，客户端的端口是由操作系统内核临时分配的，称为临时端口；然而，前面也提到过，服务器端的端口通常是一个众所周知的端口。</p>
+<p><u>一个连接可以通过客户端-服务器端的IP和端口唯一确定，这叫做套接字对</u>，按照下面的四元组表示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（clientaddr:clientport, serveraddr: serverport)</span><br></pre></td></tr></table></figure>
 
+<p>下图表示了一个客户端-服务器之间的连接：</p>
+<p><img src="https://static001.geekbang.org/resource/image/54/2a/543b5488f9422558069df507cfaa462a.png" alt="img"></p>
+<h4 id="保留网段"><a href="#保留网段" class="headerlink" title="保留网段"></a>保留网段</h4><p>一个比较常见的现象是，我们所在的单位或者组织，普遍会使用诸如10.0.x.x或者192.168.x.x这样的IP地址，你可能会纳闷，这样的IP到底代表了什么呢？不同的组织使用同样的IP会不会导致冲突呢?</p>
+<p>背后的原因是这样的，国际标准组织在IPv4地址空间里面，专门划出了一些网段，这些网段不会用做公网上的IP，而是仅仅保留作内部使用，我们把这些地址称作保留网段。</p>
+<p>下表是三个保留网段，其可以容纳的计算机主机个数分别是16777216个、1048576个和65536个。</p>
+<p><img src="https://static001.geekbang.org/resource/image/80/ef/8062576bcd515e1c84cec960e4796fef.png" alt="img"><br>在详细讲述这个表格之前，我们需要首先了解一下子网掩码的概念。</p>
+<h4 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h4><p>在网络IP划分的时候，我们需要区分两个概念。</p>
+<p>第一是网络（network）的概念，直观点说，它表示的是这组IP共同的部分，比如在192.168.1.1~192.168.1.255这个区间里，它们共同的部分是192.168.1.0。</p>
+<p>第二是主机（host）的概念，它表示的是这组IP不同的部分，上面的例子中1~255就是不同的那些部分，表示有255个可用的不同IP。</p>
+<p>例如IPv4地址，192.0.2.12，我们可以说前面三个 bytes 是子网，最后一个 byte 是 host，或者换个方式，我们能说 host 为8 位，子网掩码为192.0.2.0&#x2F;24（255.255.255.0）。</p>
+<p>很久很久以前，有子网（subnet）的分类，在这里，一个IPv4地址的第一个，前两个或前三个 字节是属于网络的一部分。</p>
+<p>如果你很幸运地可以拥有一个字节的网络，而另外三个字节是 host 地址，那在你的网络里，你有价值三个字节，也就是24个比特的主机地址，这是什么概念呢？ 2的24次方，大约是一千六百万个地址左右。这是一个“Class A”（A 类）网络。</p>
+<p><img src="https://static001.geekbang.org/resource/image/80/ef/8062576bcd515e1c84cec960e4796fef.png" alt="img"><br>我们再来重新看一下这张表格，表格第一行就是这样的一个A类网络，10是对应的网络字节部分，主机的字节是3，我们将一个字节的子网记作255.0.0.0。</p>
+<p>相对的，“Class B”（B 类）的网络，网络有两个字节，而 host 只有两个字节，也就是说拥有的主机个数为65536。“Class C”（C 类）的网络，网络有三个 字节，而 host 只有一个 字节，也就是说拥有的主机个数为256。</p>
+<p><u>网络地址位数由子网掩码（Netmask）决定，你可以将IP地址与子网掩码进行“位与”操作，就能得到网络的值。</u>子网掩码一般看起来像是 255.255.255.0（二进制为11111111.11111111.11111111.00000000），比如你的IP是192.0.2.12，使用这个子网掩码时，你的网络就会是192.0.2.12与255.255.255.0所得到的值：192.0.2.0，192.0.2.0就是这个网络的值。</p>
+<p>子网掩码能接受任意个位，而不单纯是上面讨论的8，16或24个比特而已。所以你可以有一个子网掩码255.255.255.252（二进制位11111111.11111111.11111111.11111100），这个子网掩码能切出一个30个位的网络以及2个位的主机，这个网络最多有四台 host。为什么是4台host呢？因为变化的部分只有最后两位，所有的可能为2的2次方，即4台host。</p>
+<p>注意，子网掩码的格式永远都是二进制格式：前面是一连串的 1，后面跟着一连串的 0。</p>
+<p>不过一大串的数字会有点不好用，比如像 255.192.0.0 这样的子网掩码，人们无法直观地知道有多少个1，多少个0，后来人们发明了新的办法，你只需要将一个斜线放在IP地址后面，接着用一个十进制的数字用以表示网络的位数，类似这样：192.0.2.12&#x2F;30, 这样就很容易知道有30个1， 2个0，所以主机个数为4。</p>
+<h3 id="2-使用套接字建立连接"><a href="#2-使用套接字建立连接" class="headerlink" title="2. 使用套接字建立连接"></a>2. 使用套接字建立连接</h3><img src="/Users/zhu/Library/Application Support/typora-user-images/image-20220805174614970.png" alt="image-20220805174614970" style="zoom: 33%;" />
+
+<h4 id="服务端准备连接"><a href="#服务端准备连接" class="headerlink" title="服务端准备连接"></a>服务端准备连接</h4><ul>
+<li>创建套接字</li>
+<li>调用bind函数把套接字和套接字地址绑定</li>
+<li>依赖listen函数让服务器处于可接听的状态</li>
+<li>当客户端的链接请求到达时，服务端应答成功，连接建立，这时操作系统系统内核需要把这个事件通知到应用程序，并让应用程序感知到这个连接</li>
+</ul>
+<h4 id="客户端发起连接的过程："><a href="#客户端发起连接的过程：" class="headerlink" title="客户端发起连接的过程："></a>客户端发起连接的过程：</h4><ul>
+<li>创建套接字</li>
+<li>通过connect函数建立客户端和服务器端的连接，如果是TCP套接字，那么调用connect函数将激发TCP的三次握手过程，而且仅在连接成功或出错时才返回。出错的情况：<ul>
+<li>三次握手无法建立，客户端发出的SYN包没有任何相应，于是返回TIMEOUT错误。通常原因是对应的服务端IP写错了</li>
+<li>客户端收到了RST（复位）回答，这时候客户端会立即返回CONNECTION REFUSED错误。这种情况常见于客户端发送连接请求时的请求端口写错，因为RST是TCP在发生错误时发送的一种TCP分节。产生RST的三个条件是：目的地为某端口的SYN到达，然而该端口上没有正在监听的服务器（如前所述）；TCP想取消一个已有连接；TCP接收到一个根本不存在的连接上的分节</li>
+<li>客户发出的SYN包在网络上引起了”destination unreachable”，即目的不可达的错误。这种情况比较常见的原因是客户端和服务器端路由不通。</li>
+</ul>
+</li>
+</ul>
+<h4 id="TCP三次握手解读"><a href="#TCP三次握手解读" class="headerlink" title="TCP三次握手解读"></a>TCP三次握手解读</h4><p>最初，服务器端通过socket，bind和listen完成了被动套接字的准备工作，被动的意思就是等着别人来连接，然后调用accept，就会阻塞在这里，等待客户端的连接来临；客户端通过调用socket和connect函数之后，也会阻塞。接下来的事情是由操作系统内核完成的，更具体一点的说，是操作系统内核网络协议栈在工作。</p>
+<p>下面是具体的过程：</p>
+<ol>
+<li>客户端的协议栈向服务器端发送了SYN包，并告诉服务器端当前发送序列号j，客户端进入SYNC_SENT状态；</li>
+<li>服务器端的协议栈收到这个包之后，和客户端进行ACK应答，应答的值为j+1，表示对SYN包j的确认，同时服务器也发送一个SYN包，告诉客户端当前我的发送序列号为k，服务器端进入SYNC_RCVD状态；</li>
+<li>客户端协议栈收到ACK之后，使得应用程序从connect调用返回，表示客户端到服务器端的单向连接建立成功，客户端的状态为ESTABLISHED，同时客户端协议栈也会对服务器端的SYN包进行应答，应答数据为k+1；</li>
+<li>应答包到达服务器端后，服务器端协议栈使得accept阻塞调用返回，这个时候服务器端到客户端的单向连接也建立成功，服务器端也进入ESTABLISHED状态。</li>
+</ol>
  
       <!-- reward -->
       
@@ -192,12 +239,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/06/23/project-in-meituan-06/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/08/12/network-programming/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MeiTuan/" rel="tag">MeiTuan</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Projects/" rel="tag">Projects</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
 
     </footer>
   </div>
@@ -205,19 +252,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2022/08/12/network-programming/" class="article-nav-link">
+      <a href="/2022/08/12/multi-threaed/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            network_programming
+            multi_threaed
           
         </div>
       </a>
     
     
-      <a href="/2022/06/22/meituan-raptor/" class="article-nav-link">
+      <a href="/2022/06/23/project-in-meituan-06/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">meituan-raptor</div>
+        <div class="article-nav-title">project_in_meituan_06</div>
       </a>
     
   </nav>

@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-06-24T14:25:08.449Z</updated>
+  <updated>2022-08-12T20:12:54.744Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,70 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Top hot questions</title>
+    <link href="https://www.zzzzzq.com/2022/08/12/Interview-Questions04/"/>
+    <id>https://www.zzzzzq.com/2022/08/12/Interview-Questions04/</id>
+    <published>2022-08-12T14:07:21.000Z</published>
+    <updated>2022-08-12T20:12:54.744Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文根据&lt;a href=&quot;https://codetop.cc/home&quot;&gt;CodeTop&lt;/a&gt;记录了热门的一些算法问题&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
+    
+    <category term="算法" scheme="https://www.zzzzzq.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>multi_threaed</title>
+    <link href="https://www.zzzzzq.com/2022/08/12/multi-threaed/"/>
+    <id>https://www.zzzzzq.com/2022/08/12/multi-threaed/</id>
+    <published>2022-08-12T07:00:14.000Z</published>
+    <updated>2022-08-12T07:02:55.147Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了并发编程的一些知识，参考极客时间相关文章&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="multi_threaed" scheme="https://www.zzzzzq.com/categories/multi-threaed/"/>
+    
+    
+    <category term="multi_threaed" scheme="https://www.zzzzzq.com/tags/multi-threaed/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>network_programming</title>
+    <link href="https://www.zzzzzq.com/2022/08/12/network-programming/"/>
+    <id>https://www.zzzzzq.com/2022/08/12/network-programming/</id>
+    <published>2022-08-12T06:35:51.000Z</published>
+    <updated>2022-08-12T06:39:16.242Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了网络编程相关的知识要点&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Web" scheme="https://www.zzzzzq.com/categories/Web/"/>
+    
+    
+    <category term="Web" scheme="https://www.zzzzzq.com/tags/Web/"/>
+    
+  </entry>
+  
+  <entry>
     <title>project_in_meituan_06</title>
     <link href="https://www.zzzzzq.com/2022/06/23/project-in-meituan-06/"/>
     <id>https://www.zzzzzq.com/2022/06/23/project-in-meituan-06/</id>
     <published>2022-06-23T06:37:43.000Z</published>
-    <updated>2022-06-24T14:25:08.449Z</updated>
+    <updated>2022-06-27T07:26:08.038Z</updated>
     
     
     <summary type="html">&lt;p&gt;配置一个白名单功能&lt;/p&gt;</summary>
@@ -44,7 +103,7 @@
     <link href="https://www.zzzzzq.com/2022/06/22/meituan-raptor/"/>
     <id>https://www.zzzzzq.com/2022/06/22/meituan-raptor/</id>
     <published>2022-06-22T06:43:19.000Z</published>
-    <updated>2022-06-23T06:37:06.060Z</updated>
+    <updated>2022-06-27T07:41:44.968Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文简单记录了Raptor服务端的功能和使用规范&lt;/p&gt;</summary>
@@ -67,7 +126,7 @@
     <link href="https://www.zzzzzq.com/2022/06/22/Interview-Network/"/>
     <id>https://www.zzzzzq.com/2022/06/22/Interview-Network/</id>
     <published>2022-06-21T16:23:46.000Z</published>
-    <updated>2022-06-25T03:18:38.370Z</updated>
+    <updated>2022-08-12T08:30:44.138Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文对计算机网络的基础知识做了一些梳理和总结（主要针对面试中常见的一些问题）&lt;/p&gt;</summary>
@@ -86,10 +145,10 @@
     <link href="https://www.zzzzzq.com/2022/06/16/project-in-meituan-05/"/>
     <id>https://www.zzzzzq.com/2022/06/16/project-in-meituan-05/</id>
     <published>2022-06-16T05:52:50.000Z</published>
-    <updated>2022-06-16T15:40:20.620Z</updated>
+    <updated>2022-07-23T12:24:07.295Z</updated>
     
     
-    <summary type="html">&lt;p&gt;第五个需求，优选游戏接入平台游戏部广告聚合接口，较为复杂，仅实现M端的配置&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;第五个需求，优选游戏接入平台游戏部广告聚合接口&lt;/p&gt;</summary>
     
     
     
@@ -349,67 +408,6 @@
     
     
     <summary type="html">&lt;p&gt;本文记录了Kafka消息引擎系统（Messaging System）的大致原理和用途及一些细节&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>project in meituan 02</title>
-    <link href="https://www.zzzzzq.com/2022/05/20/project-in-meituan-02/"/>
-    <id>https://www.zzzzzq.com/2022/05/20/project-in-meituan-02/</id>
-    <published>2022-05-20T03:51:27.000Z</published>
-    <updated>2022-05-27T15:44:01.647Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;一个较为复杂的需求，我只负责芥末端的部分&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Projects" scheme="https://www.zzzzzq.com/categories/Projects/"/>
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Projects/MeiTuan/"/>
-    
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
-    
-    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Advanced topics in electrical and electronic engineering</title>
-    <link href="https://www.zzzzzq.com/2022/05/19/ELEC7078/"/>
-    <id>https://www.zzzzzq.com/2022/05/19/ELEC7078/</id>
-    <published>2022-05-18T17:31:41.000Z</published>
-    <updated>2022-05-23T02:48:05.240Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Hong Kong University 2022 summer semester class review —— ELEC7078 Advanced topics in electrical and electronic engineering&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="HKU" scheme="https://www.zzzzzq.com/categories/HKU/"/>
-    
-    
-    <category term="HKU" scheme="https://www.zzzzzq.com/tags/HKU/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java核心技术记录</title>
-    <link href="https://www.zzzzzq.com/2022/05/17/java-core/"/>
-    <id>https://www.zzzzzq.com/2022/05/17/java-core/</id>
-    <published>2022-05-16T16:17:13.000Z</published>
-    <updated>2022-06-22T03:57:46.065Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文记录了Java的一些核心技术和易混淆的概念&lt;/p&gt;</summary>
     
     
     
