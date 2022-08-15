@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-08-12T20:12:54.744Z</updated>
+  <updated>2022-08-15T11:53:56.534Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,68 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Interview-Java-JVM</title>
+    <link href="https://www.zzzzzq.com/2022/08/14/Interview-Java03/"/>
+    <id>https://www.zzzzzq.com/2022/08/14/Interview-Java03/</id>
+    <published>2022-08-14T15:52:13.000Z</published>
+    <updated>2022-08-15T11:53:56.534Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了Java JVM相关知识，参考Java Guide学习整理&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Interview-Java-Collections</title>
+    <link href="https://www.zzzzzq.com/2022/08/14/Interview-Java02/"/>
+    <id>https://www.zzzzzq.com/2022/08/14/Interview-Java02/</id>
+    <published>2022-08-14T06:59:12.000Z</published>
+    <updated>2022-08-14T15:53:03.533Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了Java集合相关知识，参考Java Guide学习整理&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Interview-Java-Basic</title>
+    <link href="https://www.zzzzzq.com/2022/08/13/Interview-Java/"/>
+    <id>https://www.zzzzzq.com/2022/08/13/Interview-Java/</id>
+    <published>2022-08-13T07:56:28.000Z</published>
+    <updated>2022-08-14T06:59:58.133Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;概述：本文记录了Java的基础知识，参考Java Guide学习整理&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Top hot questions</title>
     <link href="https://www.zzzzzq.com/2022/08/12/Interview-Questions04/"/>
     <id>https://www.zzzzzq.com/2022/08/12/Interview-Questions04/</id>
     <published>2022-08-12T14:07:21.000Z</published>
-    <updated>2022-08-12T20:12:54.744Z</updated>
+    <updated>2022-08-15T09:16:54.926Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文根据&lt;a href=&quot;https://codetop.cc/home&quot;&gt;CodeTop&lt;/a&gt;记录了热门的一些算法问题&lt;/p&gt;</summary>
@@ -354,67 +411,6 @@
     
     
     <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UML类图和时序图</title>
-    <link href="https://www.zzzzzq.com/2022/06/05/UML-Basic/"/>
-    <id>https://www.zzzzzq.com/2022/06/05/UML-Basic/</id>
-    <published>2022-06-05T07:00:00.000Z</published>
-    <updated>2022-06-06T02:58:30.599Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;在学习设计模式之前，需要能够看懂UML类图和时序图。本文不会将UML整体介绍一遍，而是为了以看懂设计模式结构图为目的简单进行介绍&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="UML" scheme="https://www.zzzzzq.com/categories/UML/"/>
-    
-    
-    <category term="UML" scheme="https://www.zzzzzq.com/tags/UML/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>project_in_meituan_03</title>
-    <link href="https://www.zzzzzq.com/2022/06/02/project-in-meituan-03/"/>
-    <id>https://www.zzzzzq.com/2022/06/02/project-in-meituan-03/</id>
-    <published>2022-06-02T07:07:10.000Z</published>
-    <updated>2022-06-08T04:01:41.798Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;一个简单（又不简单的）需求，涉及到的模块和服务和之前的不太一样，代码结构熟悉起来花了很多时间&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Projects" scheme="https://www.zzzzzq.com/categories/Projects/"/>
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Projects/MeiTuan/"/>
-    
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
-    
-    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kafka</title>
-    <link href="https://www.zzzzzq.com/2022/05/30/kafka/"/>
-    <id>https://www.zzzzzq.com/2022/05/30/kafka/</id>
-    <published>2022-05-30T06:22:14.000Z</published>
-    <updated>2022-06-01T17:34:59.723Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文记录了Kafka消息引擎系统（Messaging System）的大致原理和用途及一些细节&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
     
   </entry>
   
