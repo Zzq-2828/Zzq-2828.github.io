@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-08-15T11:53:56.534Z</updated>
+  <updated>2022-08-19T20:31:47.874Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -15,6 +15,63 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在Mac VSCode配置C/C++环境</title>
+    <link href="https://www.zzzzzq.com/2022/08/20/env-C-C-in-Mac/"/>
+    <id>https://www.zzzzzq.com/2022/08/20/env-C-C-in-Mac/</id>
+    <published>2022-08-19T20:03:39.000Z</published>
+    <updated>2022-08-19T20:31:47.874Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;网络编程的学习在Linux系统上比较方便（为了学习和运行tinyHttpd代码）。在MacOs上使用VSCode会比较方便，但是环境搭建的过程中还是遇到不少问题。本文对一些流程和问题加以记录。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="tools" scheme="https://www.zzzzzq.com/categories/tools/"/>
+    
+    
+    <category term="tools" scheme="https://www.zzzzzq.com/tags/tools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>wireshark</title>
+    <link href="https://www.zzzzzq.com/2022/08/19/wireshark/"/>
+    <id>https://www.zzzzzq.com/2022/08/19/wireshark/</id>
+    <published>2022-08-19T14:53:18.000Z</published>
+    <updated>2022-08-19T15:40:31.883Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;记录了wireshark的一些使用方式，用于学习TCP&amp;#x2F;IP&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="tools" scheme="https://www.zzzzzq.com/categories/tools/"/>
+    
+    
+    <category term="tools" scheme="https://www.zzzzzq.com/tags/tools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>clean_my_mac</title>
+    <link href="https://www.zzzzzq.com/2022/08/19/clean-my-mac/"/>
+    <id>https://www.zzzzzq.com/2022/08/19/clean-my-mac/</id>
+    <published>2022-08-19T14:30:42.000Z</published>
+    <updated>2022-08-19T14:45:04.054Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;离职后清理Mac上残留的安全软件&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="tools" scheme="https://www.zzzzzq.com/categories/tools/"/>
+    
+    
+    <category term="tools" scheme="https://www.zzzzzq.com/tags/tools/"/>
+    
+  </entry>
   
   <entry>
     <title>Interview-Java-JVM</title>
@@ -78,7 +135,7 @@
     <link href="https://www.zzzzzq.com/2022/08/12/Interview-Questions04/"/>
     <id>https://www.zzzzzq.com/2022/08/12/Interview-Questions04/</id>
     <published>2022-08-12T14:07:21.000Z</published>
-    <updated>2022-08-16T15:55:32.360Z</updated>
+    <updated>2022-08-19T10:20:51.901Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文根据&lt;a href=&quot;https://codetop.cc/home&quot;&gt;CodeTop&lt;/a&gt;记录了热门的一些算法问题&lt;/p&gt;</summary>
@@ -183,7 +240,7 @@
     <link href="https://www.zzzzzq.com/2022/06/22/Interview-Network/"/>
     <id>https://www.zzzzzq.com/2022/06/22/Interview-Network/</id>
     <published>2022-06-21T16:23:46.000Z</published>
-    <updated>2022-08-12T08:30:44.138Z</updated>
+    <updated>2022-08-19T20:03:48.137Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文对计算机网络的基础知识做了一些梳理和总结（主要针对面试中常见的一些问题）&lt;/p&gt;</summary>
@@ -350,67 +407,6 @@
     
     
     <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>project_in_meituan_04</title>
-    <link href="https://www.zzzzzq.com/2022/06/09/project-in-meituan-04/"/>
-    <id>https://www.zzzzzq.com/2022/06/09/project-in-meituan-04/</id>
-    <published>2022-06-09T04:18:43.000Z</published>
-    <updated>2022-06-15T03:11:05.590Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;第四个需求，建一个RPC接口&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Projects" scheme="https://www.zzzzzq.com/categories/Projects/"/>
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Projects/MeiTuan/"/>
-    
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
-    
-    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL基础架构</title>
-    <link href="https://www.zzzzzq.com/2022/06/09/mysql/"/>
-    <id>https://www.zzzzzq.com/2022/06/09/mysql/</id>
-    <published>2022-06-09T03:03:10.000Z</published>
-    <updated>2022-06-09T04:12:10.462Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了MySQL的基本知识和实际使用中的常见问题，参考极客时间的技术文章&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="MySQL" scheme="https://www.zzzzzq.com/categories/MySQL/"/>
-    
-    
-    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>game_structure</title>
-    <link href="https://www.zzzzzq.com/2022/06/08/game-structure/"/>
-    <id>https://www.zzzzzq.com/2022/06/08/game-structure/</id>
-    <published>2022-06-08T04:01:30.000Z</published>
-    <updated>2022-06-08T15:09:18.206Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录对小组系统架构的理解和学习&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/MeiTuan/"/>
-    
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
     
   </entry>
   

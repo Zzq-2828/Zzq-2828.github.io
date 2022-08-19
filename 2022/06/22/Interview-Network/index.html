@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">11.7k</span>
+            <span class="post-count">12.5k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">41 分钟</span>
+            <span class="post-count">44 分钟</span>
         </span>
     </span>
 </div>
@@ -149,8 +149,7 @@
 <p><strong>数据链路层常见协议：</strong></p>
 <img src="https://pic.imgdb.cn/item/62b1f98609475431293596d6.jpg" style="zoom:80%;" />
 
-<h3 id="2-DNS"><a href="#2-DNS" class="headerlink" title="2. DNS"></a>2. DNS</h3><p><strong>DNS是什么？</strong></p>
-<p><strong>官方解释</strong>：DNS（<strong>Domain Name System，域名系统</strong>），本质上是因特网上作为域名和IP地址相互映射的一个分布式数据库（数据库中记录了域名和IP的对应关系），能够使用户更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。同时也是一种用于客户端和服务端通讯的应用层的计算机网络协议。</p>
+<h3 id="2-DNS"><a href="#2-DNS" class="headerlink" title="2. DNS"></a>2. DNS</h3><h4 id="DNS是什么？"><a href="#DNS是什么？" class="headerlink" title="DNS是什么？"></a><strong>DNS是什么？</strong></h4><p><strong>官方解释</strong>：DNS（<strong>Domain Name System，域名系统</strong>），本质上是因特网上作为域名和IP地址相互映射的一个分布式数据库（数据库中记录了域名和IP的对应关系），能够使用户更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。同时也是一种用于客户端和服务端通讯的应用层的计算机网络协议。</p>
 <p>通过主机名，最终得到该主机名对应的IP地址的过程叫做域名解析（或主机名解析）。</p>
 <p>通俗的讲，我们更习惯于记住一个网站的名字，比如<a href="http://www.baidu.com,而不是记住它的ip地址，比如：167.23.10.2。">www.baidu.com,而不是记住它的ip地址，比如：167.23.10.2。</a></p>
 <p><strong>DNS的工作原理？</strong></p>
@@ -175,8 +174,7 @@
 <p>（DNS区域传送（DNS zone transfer）指的是一台备用服务器使用来自主服务器的数据刷新自己的域（zone）数据库，目的是为了做冗余备份，防止主服务器出现故障时 dns 解析不可用。）</p>
 <p>因为TCP协议可靠性好。</p>
 <p>要从主DNS上复制内容，不能用不可靠的UDP。 因为TCP协议传输的内容大，如果使用UDP，最大只能传512字节。如果同步的数据大于512字节就没有办</p>
-<p><strong>DNS的解析过程：</strong></p>
-<img src="https://pic.imgdb.cn/item/62b1fbf00947543129396cc5.jpg" style="zoom: 80%;" />
+<h4 id="DNS的解析过程："><a href="#DNS的解析过程：" class="headerlink" title="DNS的解析过程："></a><strong>DNS的解析过程：</strong></h4><img src="https://pic.imgdb.cn/item/62b1fbf00947543129396cc5.jpg" style="zoom: 80%;" />
 
 <ul>
 <li>请求一旦发起，若是chrome浏览器，先在浏览器找之前<strong>有没有缓存过的域名所对应的ip地址</strong>，有的话，直接跳过dns解析了，若是没有，就会<strong>找硬盘的hosts文件</strong>，看看有没有，有的话，直接找到hosts文件里面的ip</li>
@@ -187,6 +185,15 @@
 </ul>
 <p><strong>DNS负载均衡策略</strong></p>
 <p>当一个网站有足够多的用户的时候，假如每次请求的资源都位于同一台机器上面，那么这台机器随时可能会崩掉。处理办法就是用DNS负载均衡技术，它的原理是在<strong>DNS服务器中为同一个主机名配置多个IP地址,在应答DNS查询时,DNS服务器对每个查询将以DNS文件中主机记录的IP地址按顺序返回不同的解析结果,将客户端的访问引导到不同的机器上去,使得不同的客户端访问不同的服务器</strong>,从而达到负载均衡的目的｡例如可以根据每台机器的负载量，该机器离用户地理位置的距离等等。</p>
+<h4 id="随便修改DNS的后果"><a href="#随便修改DNS的后果" class="headerlink" title="随便修改DNS的后果"></a><strong>随便修改DNS的后果</strong></h4><p>DNS的作用是将网址（域名）解析成对应的IP地址，电脑必须知道IP地址才能访问网络上的资源。</p>
+<p>比较大型和重要的网站都采用多线接入，也就是说同一个域名会被解析成不同运营商的IP地址。运营商线路自动获取到的DNS地址是你采用的运营商的本地DNS服务器，这个服务器离你很近，访问速度很快，同时你使用这个DNS服务器时会解析给你最近的IP地址来访问。</p>
+<p>因此随便改DNS的副作用之一是DNS服务器延时比较大，访问速度不如自动获取的，另一个是可能解析给你的IP不是访问最快的，比如是联通的用户却解析给你一个电信的IP地址，跨运营商访问速度会比较慢。</p>
+<p>也有一些通用的DNS服务采用了智能解析的功能，也就是说可以根据你的源IP解析给你一个最快的访问地址，比如阿里的DNS：223.5.5.5，百度的DNS：180.76.76.76，腾讯的：119.29.29.29。这些公共DNS在全国多个地方做了镜像，访问速度比较快。但是使用这些DNS提供方可能会收集用户信息，并且可能有DNS劫持的情况。</p>
+<p>置于Google DNS：8.8.8.8和openDNS：208.67.222.222，这两个服务器都在国外，解析速度比较慢，而且解析出来的地址常常是离海外用户比较近的地址，国内访问效果并不好。</p>
+<h4 id="什么是DNS劫持"><a href="#什么是DNS劫持" class="headerlink" title="什么是DNS劫持"></a><strong>什么是DNS劫持</strong></h4><p>DNS服务器会告诉你A网站的IP是A，B网站的IP是B，那假如你输入的A网站域名，但是他给你B的IP，你是不是就访问到别的网站去了？</p>
+<p>既然DNS服务器可以这么玩，我是不是可以将用户引导到我的网站上？比如你要看个电影，然后你输入了爱奇艺的官网，然后我作为DNS服务器，我把优酷的IP返回给你，最后就是你虽然输入的爱奇艺官网，但是却得到了优酷的IP并访问了优酷的IP，进入了优酷的网站上。</p>
+<p>当然这里我只是举个例子，我举这个例子就是想告诉大家，DNS服务器想给你返回什么IP就给你返回什么，所以他可以在幕后操作一些东西。最简单的就是广告。比如A网站没有广告，你直接访问就是没有的，但是你的DNS服务器把A网站下载下来了，给这个网站加了个广告，然后重新上传到了一个IP上，并把这个IP告诉了你，那就是你虽然输入的A网站的域名，但是你访问的是一个包含了广告的复制版A网站，虽然两者功能一样，但是却完全不是一个服务器上的。</p>
+<p>这些就被我们成为DNS劫持，DNS劫持对于网络访问的影响和体验是非常严重的，除了DNS服务器，你的路由器同样可以这么干，所以在买路由器的时候也有人会关注这个路由器是否会进行DNS劫持。</p>
 <h3 id="3-HTTP和HTTPS"><a href="#3-HTTP和HTTPS" class="headerlink" title="3. HTTP和HTTPS"></a>3. HTTP和HTTPS</h3><h4 id="HTTP-协议"><a href="#HTTP-协议" class="headerlink" title="HTTP 协议"></a>HTTP 协议</h4><p><strong>HTTP 协议介绍</strong></p>
 <p>HTTP 协议，全称超文本传输协议（Hypertext Transfer Protocol）。顾名思义，HTTP 协议就是用来规范超文本的传输，超文本，也就是网络上的包括文本在内的各式各样的消，具体来说，主要是来规范浏览器和服务器端的行为的。</p>
 <p>并且，HTTP 是一个无状态（stateless）协议，也就是说服务器不维护任何有关客户端过去所发请求的消息。这其实是一种懒政，有状态协议会更加复杂，需要维护状态（历史信息），而且如果客户或服务器失效，会产生状态的不一致，解决这种不一致的代价更高。</p>
@@ -386,7 +393,7 @@
 <li><strong>Host头处理</strong> : HTTP&#x2F;1.1在请求头中加入了<code>Host</code>字段。</li>
 </ol>
 <h4 id="浏览器中输入Url地址后显示主页的过程"><a href="#浏览器中输入Url地址后显示主页的过程" class="headerlink" title="浏览器中输入Url地址后显示主页的过程"></a>浏览器中输入Url地址后显示主页的过程</h4><ul>
-<li>根据域名，进行DNS域名解析<ul>
+<li>根据域名，进行DNS域名解析（先查缓存，再根据配置的DNS地址查本地）<ul>
 <li>浏览器缓存&#x3D;&#x3D;》操作系统缓存&#x3D;&#x3D;》路由器缓存&#x3D;&#x3D;》本地（ISP, Internet Service Provide，如中国电信等）域名服务器缓存&#x3D;&#x3D;》根域名服务器</li>
 </ul>
 </li>
