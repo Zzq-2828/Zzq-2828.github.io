@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-08-19T20:31:47.874Z</updated>
+  <updated>2022-08-21T23:36:02.330Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -15,6 +15,44 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Interview-DataBase</title>
+    <link href="https://www.zzzzzq.com/2022/08/22/Interview-DataBase/"/>
+    <id>https://www.zzzzzq.com/2022/08/22/Interview-DataBase/</id>
+    <published>2022-08-21T23:35:01.000Z</published>
+    <updated>2022-08-21T23:36:02.330Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文对数据库以及MySQL的基础知识做了一些梳理和总结&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Interview" scheme="https://www.zzzzzq.com/categories/Interview/"/>
+    
+    
+    <category term="Interview" scheme="https://www.zzzzzq.com/tags/Interview/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTTP、Socket以及TinyHttpd Server学习</title>
+    <link href="https://www.zzzzzq.com/2022/08/20/tinyHttpd/"/>
+    <id>https://www.zzzzzq.com/2022/08/20/tinyHttpd/</id>
+    <published>2022-08-19T21:04:32.000Z</published>
+    <updated>2022-08-21T18:57:12.427Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文记录了tinyHttpd的代码学习过程。Tinyhttpd算是一个微型的web服务器，浏览器与Web服务器之间的通信采用的是Http，所以以HTTP协议作为切入点&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Web" scheme="https://www.zzzzzq.com/categories/Web/"/>
+    
+    
+    <category term="Web" scheme="https://www.zzzzzq.com/tags/Web/"/>
+    
+  </entry>
   
   <entry>
     <title>在Mac VSCode配置C/C++环境</title>
@@ -135,7 +173,7 @@
     <link href="https://www.zzzzzq.com/2022/08/12/Interview-Questions04/"/>
     <id>https://www.zzzzzq.com/2022/08/12/Interview-Questions04/</id>
     <published>2022-08-12T14:07:21.000Z</published>
-    <updated>2022-08-19T10:20:51.901Z</updated>
+    <updated>2022-08-20T19:15:51.665Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文根据&lt;a href=&quot;https://codetop.cc/home&quot;&gt;CodeTop&lt;/a&gt;记录了热门的一些算法问题&lt;/p&gt;</summary>
@@ -240,7 +278,7 @@
     <link href="https://www.zzzzzq.com/2022/06/22/Interview-Network/"/>
     <id>https://www.zzzzzq.com/2022/06/22/Interview-Network/</id>
     <published>2022-06-21T16:23:46.000Z</published>
-    <updated>2022-08-19T20:03:48.137Z</updated>
+    <updated>2022-08-21T23:35:09.917Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文对计算机网络的基础知识做了一些梳理和总结（主要针对面试中常见的一些问题）&lt;/p&gt;</summary>
@@ -362,44 +400,6 @@
     
     
     <summary type="html">&lt;p&gt;概述：本文记录了MySQL的锁相关的知识，参考极客时间的文章&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="MySQL" scheme="https://www.zzzzzq.com/categories/MySQL/"/>
-    
-    
-    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL索引</title>
-    <link href="https://www.zzzzzq.com/2022/06/10/mysql03/"/>
-    <id>https://www.zzzzzq.com/2022/06/10/mysql03/</id>
-    <published>2022-06-10T13:18:59.000Z</published>
-    <updated>2022-06-11T08:07:34.080Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了MySQL索引相关的知识，参考极客时间的文章&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="MySQL" scheme="https://www.zzzzzq.com/categories/MySQL/"/>
-    
-    
-    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL事务隔离</title>
-    <link href="https://www.zzzzzq.com/2022/06/10/mysql02/"/>
-    <id>https://www.zzzzzq.com/2022/06/10/mysql02/</id>
-    <published>2022-06-10T06:34:20.000Z</published>
-    <updated>2022-06-10T13:20:10.602Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了MySQL事务隔离相关的知识，参考极客时间的文章&lt;/p&gt;</summary>
     
     
     
