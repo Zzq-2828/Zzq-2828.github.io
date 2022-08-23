@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="朱章齐的个人技术网站" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>MakeFile |  Keep Making Progress</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Keep Making Progress" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-MakeFile"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  MakeFile
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/08/22/MakeFile/" class="article-date">
+  <time datetime="2022-08-22T11:21:12.000Z" itemprop="datePublished">2022-08-22</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/C/">C++</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">6 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>本文记录了MakeFile文件的基本编写规则和语法，参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/47390641">这篇文章</a>整理</p>
+<span id="more"></span>
+
+<h3 id="简介和示例"><a href="#简介和示例" class="headerlink" title="简介和示例"></a>简介和示例</h3><p>Makefile 文件描述了 Linux 系统下 C&#x2F;C++ 工程的编译规则，它用来自动化编译 C&#x2F;C++ 项目。一旦写编写好 Makefile 文件，只需要一个 make 命令，整个工程就开始自动编译，不再需要手动执行 GCC 命令。</p>
+<p>一个中大型 C&#x2F;C++ 工程的源文件有成百上千个，它们按照功能、模块、类型分别放在不同的目录中，Makefile 文件定义了一系列规则，指明了源文件的编译顺序、依赖关系、是否需要重新编译等。</p>
+<p>说明一下，文档目录结构是用户目录HOME下有src incl bin lib。</p>
+<p>src：源码</p>
+<p>incl：头文件</p>
+<p>bin：执行码</p>
+<p>lib：静态&#x2F;动态库</p>
+<p>这是最常见的Linux编程目录结构，以下代码编译都是依据这个结构。</p>
+<p>Makefile代码示例：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">hello:hello.c</span></span><br><span class="line">	gcc -I$&#123;HOME&#125;/incl -c hello.c</span><br><span class="line">	gcc -o hello hello.o</span><br><span class="line">	rm -f hello.o</span><br><span class="line">	mv hello $&#123;HOME&#125;/bin</span><br></pre></td></tr></table></figure>
+
+<p>把第一行去掉，这段代码其实就是把编译、链接、删除、移动写成shell脚本执行</p>
+<p>注：</p>
+<p>linux中变量调用的时候会在变量名前加一个$符号。一般作为规范，环境变量是全部大写的。</p>
+<p>在shell中你可以通过echo $PATH来查看变量$PATH的值。</p>
+<h3 id="Makefile结构说明"><a href="#Makefile结构说明" class="headerlink" title="Makefile结构说明"></a>Makefile结构说明</h3><p>Makefile里主要包含了五个东西：变量定义、显式规则、隐晦规则、文件指示和注释。</p>
+<p>1、变量的定义。在Makefile中我们要定义一系列的变量，变量一般都是字符串，这个有点像C语言中的宏，当Makefile被执行时，其中的变量都会被扩展到相应的引用位置上。</p>
+<p>2、显式规则。显式规则说明了，如何生成一个或多的的目标文件。这是由Makefile的书写者明显指出，要生成的文件，文件的依赖文件，生成的命令。 刚才写的疑似shell脚本的Makefile全部都是显示规则。</p>
+<p>3、隐晦规则。由于我们的make有自动推导的功能，所以隐晦的规则可以让我们比较粗糙地简略地书写Makefile，这是由make所支持的。</p>
+<p>4、文件指示。其包括了三个部分，一个是在一个Makefile中引用另一个Makefile，就像C语言中的include一样。</p>
+<p>5、注释。Makefile中只有行注释，和UNIX的Shell脚本一样，其注释是用“#”字符，这个就像C&#x2F;C++中的“&#x2F;&#x2F;”一样。</p>
+<h3 id="复杂一些的Makefile"><a href="#复杂一些的Makefile" class="headerlink" title="复杂一些的Makefile"></a>复杂一些的Makefile</h3><p>根据上面的结构说明，我们对Makefile一层一层的改写，首先是隐晦规则：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">.SUFFIXES: .cpp .c</span></span><br><span class="line"><span class="section">.cpp.o:</span></span><br><span class="line">	g++ $&#123;INCL&#125; -c <span class="variable">$&lt;</span></span><br><span class="line"></span><br><span class="line"><span class="section">.c.o:</span></span><br><span class="line">	gcc $&#123;INCL&#125; -c <span class="variable">$&lt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个隐晦规则其实就是告诉大家，后缀为cpp的文件怎么编译成.o，后缀为c的文件怎么编译成.o。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-32029320b78f533505de2118da3800a5_720w.jpg" alt="img"></p>
+<p>相关代码：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#隐含规则</span></span><br><span class="line">INCL=-I$&#123;HOME&#125;/incl </span><br><span class="line"></span><br><span class="line"><span class="section">.SUFFIXES: .cpp .c</span></span><br><span class="line"><span class="section">.cpp.o:</span></span><br><span class="line">	g++ $&#123;INCL&#125; -c <span class="variable">$&lt;</span></span><br><span class="line"></span><br><span class="line"><span class="section">.c.o:</span></span><br><span class="line">	gcc $&#123;INCL&#125; -c <span class="variable">$&lt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#C++编译</span></span><br><span class="line"><span class="section">hellocpp:hellocpp.o</span></span><br><span class="line">	echo <span class="string">&quot;开始编译&quot;</span></span><br><span class="line">	g++ -o hellocpp hellocpp.o</span><br><span class="line">	rm -f hellocpp.o</span><br><span class="line">	mv hellocpp $&#123;HOME&#125;/bin</span><br><span class="line">	echo <span class="string">&quot;编译结束&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#C编译</span></span><br><span class="line"><span class="section">hello:hello.o</span></span><br><span class="line">	echo <span class="string">&quot;开始编译&quot;</span></span><br><span class="line">	gcc -o hello hello.o</span><br><span class="line">	rm -f hello.o</span><br><span class="line">	mv hello $&#123;HOME&#125;/bin</span><br><span class="line">	echo <span class="string">&quot;编译结束&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>常用的预定义变量。</p>
+<ul>
+<li>$* 　 不包含扩展名的目标文件名称。</li>
+<li>$+ 　 所有的依赖文件，以空格分开，并以出现的先后为序，可能包含重复的依赖文件。</li>
+<li>$&lt; 　 第一个依赖文件的名称。</li>
+<li>$? 　 所有的依赖文件，以空格分开，这些依赖文件的修改日期比目标的创建日期晚。</li>
+<li>$@    目标的完整名称。</li>
+<li>$^ 　所有的依赖文件，以空格分开，不包含重复的依赖文件。</li>
+<li>$%    如果目标是归档成员，则该变量表示目标的归档成员名称。</li>
+</ul>
+<p>Makefile的最终展现：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-36f3142bfb11a11c7f487cbe06497a58_720w.jpg" alt="img"></p>
+<p>实际编译结果</p>
+<p><img src="https://pic4.zhimg.com/80/v2-aa68591ad2a5569402e3344b8384fd0b_720w.jpg" alt="img"></p>
+<p>看着挺乱的吧，稍微改一改，双手奉上Makefile代码。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#最后形成的Makefile</span></span><br><span class="line">INCL=-I$&#123;HOME&#125;/incl</span><br><span class="line">BIN=<span class="variable">$(HOME)</span>/bin</span><br><span class="line">OBJ1=hellocpp.o</span><br><span class="line">OBJ2=hello.o</span><br><span class="line"></span><br><span class="line"><span class="section">.SUFFIXES: .cpp .c</span></span><br><span class="line"><span class="section">.cpp.o:</span></span><br><span class="line">	g++ $&#123;INCL&#125; -c <span class="variable">$&lt;</span></span><br><span class="line"></span><br><span class="line"><span class="section">.c.o:</span></span><br><span class="line">	gcc $&#123;INCL&#125; -c <span class="variable">$&lt;</span></span><br><span class="line"></span><br><span class="line"><span class="section">all: hellocpp hello</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#C++编译</span></span><br><span class="line"><span class="section">hellocpp:$&#123;OBJ1&#125;</span></span><br><span class="line">	@echo <span class="string">&quot;============开始编译============&quot;</span></span><br><span class="line">	g++ -o <span class="variable">$@</span> <span class="variable">$?</span></span><br><span class="line">	@rm -f $&#123;OBJ1&#125;</span><br><span class="line">	@mv <span class="variable">$@</span> $&#123;BIN&#125;</span><br><span class="line">	@echo <span class="string">&quot;============编译结束============&quot;</span></span><br><span class="line">	@echo <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#C编译</span></span><br><span class="line"><span class="section">hello:$&#123;OBJ2&#125;</span></span><br><span class="line">	@echo <span class="string">&quot;============开始编译============&quot;</span></span><br><span class="line">	gcc -o <span class="variable">$@</span> <span class="variable">$?</span></span><br><span class="line">	@rm -f $&#123;OBJ2&#125;</span><br><span class="line">	@mv <span class="variable">$@</span> $&#123;BIN&#125;</span><br><span class="line">	@echo <span class="string">&quot;============编译结束============&quot;</span></span><br><span class="line">	@echo <span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>命令前加@，表示当前命令不显示，最后编译结果是这样。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-d128ccceadb378fcbd85da2dbbbcc0ce_720w.jpg" alt="img"></p>
+<hr>
+<p>分享几个Makefile的示例DEMO，</p>
+<p>编译SOCKET服务，使用mysql数据库。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-250d001dd95f69af823dd83ae0e6784b_720w.jpg" alt="img"></p>
+<p>Makefile代码如下</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#socket服务端编译(用到mysql数据库)</span></span><br><span class="line">INCL=-I/usr/local/mysql/<span class="keyword">include</span> -I<span class="variable">$(HOME)</span>/incl</span><br><span class="line">LIB=-L/usr/local/mysql/lib -lmysqlclient -lmysqld -lmysqlservices -L<span class="variable">$(HOME)</span>/lib -lbanktest</span><br><span class="line">BINDIR=<span class="variable">$(HOME)</span>/bin</span><br><span class="line"></span><br><span class="line"><span class="section">.SUFFIXES: .cpp .c</span></span><br><span class="line"></span><br><span class="line"><span class="section">.cpp.o:</span></span><br><span class="line">	g++ $&#123;INCL&#125; -c <span class="variable">$&lt;</span></span><br><span class="line"></span><br><span class="line"><span class="section">.c.o:</span></span><br><span class="line">	gcc <span class="variable">$(INCL)</span> -c <span class="variable">$&lt;</span></span><br><span class="line"></span><br><span class="line"><span class="section">all: clean server</span></span><br><span class="line"></span><br><span class="line"><span class="section">server:server.o</span></span><br><span class="line">	@echo <span class="string">&quot;============开始编译============&quot;</span></span><br><span class="line">	gcc -o <span class="variable">$@</span> <span class="variable">$?</span> <span class="variable">$(LIB)</span></span><br><span class="line">	@mv <span class="variable">$@</span> <span class="variable">$(BINDIR)</span></span><br><span class="line">	@echo <span class="string">&quot;============编译结束============&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	@rm -f *.o</span><br></pre></td></tr></table></figure>
+
+<p>编译des md5 base64密码服务的Makefile</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编译des md5 base64密码服务</span></span><br><span class="line">INCL=-I/usr/local/mysql/<span class="keyword">include</span> -I<span class="variable">$(HOME)</span>/incl</span><br><span class="line">LIB=-L/usr/local/mysql/lib -lmysqlclient -lmysqld -lmysqlservices</span><br><span class="line">BINDIR=<span class="variable">$(HOME)</span>/bin</span><br><span class="line">LIBDIR=<span class="variable">$(HOME)</span>/lib</span><br><span class="line"></span><br><span class="line"><span class="section">.SUFFIXES: .cpp .c</span></span><br><span class="line"></span><br><span class="line"><span class="section">.cpp.o:</span></span><br><span class="line">	g++ $&#123;INCL&#125; -c <span class="variable">$&lt;</span></span><br><span class="line"><span class="section">.c.o:</span></span><br><span class="line">	gcc <span class="variable">$(INCL)</span> -c <span class="variable">$&lt;</span></span><br><span class="line"></span><br><span class="line"><span class="section">all: clean des md5 base64</span></span><br><span class="line"></span><br><span class="line"><span class="section">des:des.o main_des.o</span></span><br><span class="line">	gcc -o <span class="variable">$@</span> <span class="variable">$?</span> <span class="variable">$(LIB)</span></span><br><span class="line">	mv <span class="variable">$@</span> <span class="variable">$(BINDIR)</span></span><br><span class="line"></span><br><span class="line"><span class="section">md5:md5.o main_md5.o</span></span><br><span class="line">	gcc -o <span class="variable">$@</span> <span class="variable">$?</span> <span class="variable">$(LIB)</span></span><br><span class="line">	mv <span class="variable">$@</span> <span class="variable">$(BINDIR)</span></span><br><span class="line"></span><br><span class="line"><span class="section">base64test:base64.o main_base64.o</span></span><br><span class="line">	gcc -o <span class="variable">$@</span> <span class="variable">$?</span> <span class="variable">$(LIB)</span></span><br><span class="line">	mv <span class="variable">$@</span> <span class="variable">$(BINDIR)</span></span><br><span class="line"></span><br><span class="line"><span class="section">rsa:rsa.o main_rsa.o</span></span><br><span class="line">	gcc -o <span class="variable">$@</span> <span class="variable">$?</span> <span class="variable">$(LIB)</span></span><br><span class="line">	mv <span class="variable">$@</span> <span class="variable">$(BINDIR)</span></span><br><span class="line"></span><br><span class="line"><span class="section">libjiami.a:des.o md5.o base64.o</span></span><br><span class="line">	ar -r <span class="variable">$@</span> <span class="variable">$?</span></span><br><span class="line">	mv <span class="variable">$@</span> <span class="variable">$(LIBDIR)</span></span><br><span class="line"></span><br><span class="line"><span class="section">libdestest:main_des.o</span></span><br><span class="line">	gcc -o <span class="variable">$@</span> <span class="variable">$?</span> <span class="variable">$(LIB)</span> -L<span class="variable">$(HOME)</span>/lib -ljiami</span><br><span class="line">	mv <span class="variable">$@</span> <span class="variable">$(BINDIR)</span></span><br><span class="line"></span><br><span class="line"><span class="section">libtest.so:des.c md5.c base64.c</span></span><br><span class="line">	gcc -o <span class="variable">$@</span> -fPIC -shared <span class="variable">$?</span></span><br><span class="line">	mv <span class="variable">$@</span> <span class="variable">$(LIBDIR)</span></span><br><span class="line"></span><br><span class="line"><span class="section">libmd5test:main_md5.o</span></span><br><span class="line">	gcc -o <span class="variable">$@</span> <span class="variable">$?</span> <span class="variable">$(LIB)</span> -L<span class="variable">$(HOME)</span>/lib -ltest</span><br><span class="line">	mv <span class="variable">$@</span> <span class="variable">$(BINDIR)</span></span><br><span class="line"></span><br><span class="line"><span class="section">libbanktest.a:banktest.o banksql.o</span></span><br><span class="line">	ar -r <span class="variable">$@</span> <span class="variable">$?</span></span><br><span class="line">	mv <span class="variable">$@</span> <span class="variable">$(LIBDIR)</span></span><br><span class="line"></span><br><span class="line"><span class="section">banktest:banktest.o banksql.o</span></span><br><span class="line">	gcc -o <span class="variable">$@</span> <span class="variable">$?</span> <span class="variable">$(LIB)</span> -L<span class="variable">$(HOME)</span>/lib -ltest</span><br><span class="line">	mv <span class="variable">$@</span> <span class="variable">$(BINDIR)</span></span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm -f *.o</span><br></pre></td></tr></table></figure>
+
+<p>最后，加几点写Makefile的注意事项</p>
+<ol>
+<li><p>tab分隔，不能用空格。</p>
+</li>
+<li><p>每个makefile最好加一个all</p>
+</li>
+<li><p>注释用“#”符号</p>
+</li>
+<li><p>文件指示，引用其他的makefile文件</p>
+</li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/08/22/MakeFile/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2022/08/22/myOs/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">myOs</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "5J2nSr5DoqBGRRnpdFfTvawi-gzGzoHsz",
+    app_key: "24GWRfKBASGr6cA5FSBF4NY4",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2022
+        <i class="ri-heart-fill heart_icon"></i> ZHU
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Keep Making Progress"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

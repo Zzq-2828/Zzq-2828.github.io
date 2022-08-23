@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="朱章齐的个人技术网站" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>myOs |  Keep Making Progress</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Keep Making Progress" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-myOs"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  myOs
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/08/22/myOs/" class="article-date">
+  <time datetime="2022-08-22T10:45:48.000Z" itemprop="datePublished">2022-08-22</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OS/">OS</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">17.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">67 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>参考<a target="_blank" rel="noopener" href="https://github.com/hurley25/hurlex-doc/tree/master/code">这篇文章</a>在mac系统中进行一个简单的基于Intel x86的32位操作系统内核实现</p>
+<span id="more"></span>
+
+<h3 id="预备知识梳理"><a href="#预备知识梳理" class="headerlink" title="预备知识梳理"></a>预备知识梳理</h3><h4 id="X86架构："><a href="#X86架构：" class="headerlink" title="X86架构："></a>X86架构：</h4><p>CPU里面是定义了一些指令的，CPU根据指令然后控制计算机进行各种各样的操作。那么CPU所有指令的集合，简称为指令集，也叫指令集架构。</p>
+<ul>
+<li>X86架构（The X86 architecture）是微处理器执行的计算机语言指令集，指一个intel通用计算机系列的标准编号缩写，也标识一套通用的计算机指令集合。 ——百度</li>
+<li><strong>x86</strong>泛指一系列基于Intel8086且向后兼容的中央处理器指令集架构。最早的8086处理器于1978年由Intel推出，为16位微处理器。——维基</li>
+</ul>
+<p><strong>CPU两大架构：ARM和X86</strong></p>
+<ul>
+<li>Intel和ARM处理器的第一个区别是，前者使用<strong>复杂指令集（CISC，Complex Instruction Set Computer)<strong>，而后者使用</strong>精简指令集（RISC，Reduced Instruction Set Computer）</strong>。属于这两种类中的各种架构之间最大的区别，在于它们的设计者考虑问题方式的不同。可以这么说，X86指令集中的指令是复杂的，一条很长指令就可以很多功能，而ARM指令集的指令是很精简的，需要几条精简的短指令完成很多功能。</li>
+<li>X86的方向是高性能方向，因为它<u>追求一条指令完成很多功能</u>，而ARM的方向是面向低功耗，要求指令尽可能精简。</li>
+<li>X86的市场主要是PC和服务器，因为需要高性能。ARM的市场主要是手机和平板，因为需要低功耗。</li>
+</ul>
+<h4 id="GDB的使用"><a href="#GDB的使用" class="headerlink" title="GDB的使用"></a>GDB的使用</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lvdongjie/p/8994092.html">使用指南</a></p>
+<p><strong>使用GDB</strong><br>一般来说GDB主要调试的是C&#x2F;C++的程序。要调试C&#x2F;C++的程序，首先在编译时，我们必须要把调试信息加到可执行文件中。使用编译器（cc&#x2F;gcc&#x2F;g++）的 -g 参数可以做到这一点。如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gcc -g hello.c -o hello</span><br><span class="line"></span><br><span class="line">g++ -g hello.cpp -o hello</span><br></pre></td></tr></table></figure>
+
+
+<p>如果没有-g，你将看不见程序的函数名、变量名，所代替的全是运行时的内存地址。</p>
+<p><strong>启动GDB的方法有以下几种：</strong></p>
+<p>1、gdb program<br>program 也就是你的执行文件，一般在当前目录下。</p>
+<p>2、gdb program core<br>用gdb同时调试一个运行程序和core文件，core是程序非法执行后core dump后产生的文件。</p>
+<p>3、gdb program 1234<br>如果你的程序是一个服务程序，那么你可以指定这个服务程序运行时的进程ID。gdb会自动attach上去，并调试他。program应该在PATH环境变量中搜索得到。<br>GDB启动时，可以加上一些GDB的启动开关，详细的开关可以用gdb -help查看。下面只列举一些比较常用的参数：</p>
+<ul>
+<li><code>--symbols=SYMFILE</code>   从指定文件中读取符号表。</li>
+<li><code>--se=FILE</code>     从指定文件中读取符号表信息，并把他用在可执行文件中。</li>
+<li><code>--core=COREFILE</code>    调试时core dump的core文件。</li>
+<li><code>--directory=DIR</code>     加入一个源文件的搜索路径。默认搜索路径是环境变量中PATH所定义的路径。</li>
+</ul>
+<p><strong>GDB命令</strong></p>
+<p>GDB中的命令很多，但我们只需掌握其中十个左右的命令，就大致可以完成日常的基本的程序调试工作。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200325143501870.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NoZW4xNDE1ODg2MDQ0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>gdb命令拥有较多内部命令。在gdb命令提示符“(gdb)”下输入“help”可以查看所有内部命令及使用说明。</p>
+<p><strong>GDB</strong> <strong>中运行UNIX的shell程序</strong></p>
+<p>在gdb环境中，你可以执行UNIX的shell的命令，使用gdb的shell命令来完成：</p>
+<ul>
+<li><p><code>shell</code><br>调用UNIX的shell来执行，环境变量SHELL中定义的UNIX的shell将会被用来执行，如果SHELL没有定义，那就使用UNIX的标准shell：&#x2F;bin&#x2F;sh。<br>退出用exit命令，回到gdb提示符</p>
+</li>
+<li><p><code>make</code><br>可以在gdb中执行make命令来重新build自己的程序。这个命令等价于“shell make ”。</p>
+</li>
+</ul>
+<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><h4 id="安装qemu虚拟机"><a href="#安装qemu虚拟机" class="headerlink" title="安装qemu虚拟机"></a>安装qemu虚拟机</h4><p>mac下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">brew install qemu</span></span><br></pre></td></tr></table></figure>
+
+<p>执行该指令报错，需要 <code>brew update -v</code>更新一下</p>
+<p>安装过程很慢，需要耐心等待……..</p>
+<p>安装过程实在太慢，开启VPN也没有用，因此尝试替换brew源，切换为国内的阿里源：</p>
+<p><code>Homebrew</code> 主要有四个部分组成: <code>brew</code>、<code>homebrew-core</code> 、<code>homebrew-bottles</code>、<code>homebrew-cask</code>。</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">brew</td>
+<td align="left">Homebrew 源代码仓库</td>
+</tr>
+<tr>
+<td align="left">homebrew-core</td>
+<td align="left">Homebrew 核心软件仓库</td>
+</tr>
+<tr>
+<td align="left">homebrew-bottles</td>
+<td align="left">Homebrew 预编译二进制软件包</td>
+</tr>
+<tr>
+<td align="left">homebrew-cask</td>
+<td align="left">提供 macOS 应用和大型二进制文件</td>
+</tr>
+</tbody></table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看 brew.git 当前源</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(brew --repo)</span>&quot;</span> &amp;&amp; git remote -v</span></span><br><span class="line">origin    https://github.com/Homebrew/brew.git (fetch)</span><br><span class="line">origin    https://github.com/Homebrew/brew.git (push)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看 homebrew-core.git 当前源</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(brew --repo homebrew/core)</span>&quot;</span> &amp;&amp; git remote -v</span></span><br><span class="line">origin    https://github.com/Homebrew/homebrew-core.git (fetch)</span><br><span class="line">origin    https://github.com/Homebrew/homebrew-core.git (push)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改 brew.git 为阿里源</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git -C <span class="string">&quot;<span class="subst">$(brew --repo)</span>&quot;</span> remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改 homebrew-core.git 为阿里源</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git -C <span class="string">&quot;<span class="subst">$(brew --repo homebrew/core)</span>&quot;</span> remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">zsh 替换 brew bintray 镜像</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&#x27;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#x27;</span> &gt;&gt; ~/.zshrc</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">source</span> ~/.zshrc</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">bash 替换 brew bintray 镜像</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&#x27;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#x27;</span> &gt;&gt; ~/.bash_profile</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">source</span> ~/.bash_profile</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">刷新源</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">brew update</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>linux下：</strong>（我用的是centOs7）</p>
+<p><code>sudo yum install qemu -y</code></p>
+<p>另外要安装汇编编译器nasm</p>
+<p><code>sudo yum install qemu -y</code></p>
+<h4 id="开发过程中用到的脚本文件"><a href="#开发过程中用到的脚本文件" class="headerlink" title="开发过程中用到的脚本文件"></a>开发过程中用到的脚本文件</h4><p><strong>MakeFile</strong>：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!Makefile</span></span><br><span class="line"></span><br><span class="line">C_SOURCES = <span class="variable">$(<span class="built_in">shell</span> find . -name &quot;*.c&quot;)</span></span><br><span class="line">C_OBJECTS = <span class="variable">$(<span class="built_in">patsubst</span> %.c, %.o, <span class="variable">$(C_SOURCES)</span>)</span></span><br><span class="line">S_SOURCES = <span class="variable">$(<span class="built_in">shell</span> find . -name &quot;*.s&quot;)</span></span><br><span class="line">S_OBJECTS = <span class="variable">$(<span class="built_in">patsubst</span> %.s, %.o, <span class="variable">$(S_SOURCES)</span>)</span></span><br><span class="line"></span><br><span class="line">CC = gcc</span><br><span class="line">LD = ld</span><br><span class="line">ASM = nasm</span><br><span class="line"></span><br><span class="line">C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-pic -fno-builtin -fno-stack-protector -I <span class="keyword">include</span></span><br><span class="line">LD_FLAGS = -T scripts/kernel.ld -m elf_i386 -nostdlib</span><br><span class="line">ASM_FLAGS = -f elf -g -F stabs</span><br><span class="line"></span><br><span class="line"><span class="section">all: <span class="variable">$(S_OBJECTS)</span> <span class="variable">$(C_OBJECTS)</span> link update_image</span></span><br><span class="line"></span><br><span class="line"><span class="section">.c.o:</span></span><br><span class="line">    @echo 编译代码文件 <span class="variable">$&lt;</span> ...</span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$(C_FLAGS)</span> <span class="variable">$&lt;</span> -o <span class="variable">$@</span></span><br><span class="line"></span><br><span class="line"><span class="section">.s.o:</span></span><br><span class="line">    @echo 编译汇编文件 <span class="variable">$&lt;</span> ...</span><br><span class="line">    <span class="variable">$(ASM)</span> <span class="variable">$(ASM_FLAGS)</span> <span class="variable">$&lt;</span></span><br><span class="line"></span><br><span class="line"><span class="section">link:</span></span><br><span class="line">    @echo 链接内核文件...</span><br><span class="line">    <span class="variable">$(LD)</span> <span class="variable">$(LD_FLAGS)</span> <span class="variable">$(S_OBJECTS)</span> <span class="variable">$(C_OBJECTS)</span> -o hx_kernel</span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="keyword">.PHONY</span>:clean</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">    <span class="variable">$(RM)</span> <span class="variable">$(S_OBJECTS)</span> <span class="variable">$(C_OBJECTS)</span> hx_kernel</span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="keyword">.PHONY</span>:update_image</span></span><br><span class="line"><span class="section">update_image:</span></span><br><span class="line">    sudo mount floppy.img /mnt/kernel</span><br><span class="line">    sudo cp hx_kernel /mnt/kernel/hx_kernel</span><br><span class="line">    sleep 1</span><br><span class="line">    sudo umount /mnt/kernel</span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="keyword">.PHONY</span>:mount_image</span></span><br><span class="line"><span class="section">mount_image:</span></span><br><span class="line">    sudo mount floppy.img /mnt/kernel</span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="keyword">.PHONY</span>:umount_image</span></span><br><span class="line"><span class="section">umount_image:</span></span><br><span class="line">    sudo umount /mnt/kernel</span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="keyword">.PHONY</span>:qemu</span></span><br><span class="line"><span class="section">qemu:</span></span><br><span class="line">    qemu-x86_64 -fda floppy.img -boot a</span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="keyword">.PHONY</span>:bochs</span></span><br><span class="line"><span class="section">bochs:</span></span><br><span class="line">    bochs -f tools/bochsrc.txt</span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="keyword">.PHONY</span>:debug</span></span><br><span class="line"><span class="section">debug:</span></span><br><span class="line">    qemu-x86_64 -S -s -fda floppy.img -boot a &amp;</span><br><span class="line">    sleep 1</span><br><span class="line">    cgdb -x tools/gdbinit</span><br></pre></td></tr></table></figure>
+
+<p>注意Makefile中关于gcc编译参数的这一行:</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-builtin -fno-stack-protector -I <span class="keyword">include</span></span><br></pre></td></tr></table></figure>
+
+<p>重要的几个参数：</p>
+<ul>
+<li>-m32 是生成32位代码，这样的话我们的开发环境也可以使用64位的Linux系统。</li>
+<li>-ggdb 和-gstabs+ 是添加相关的调试信息，调试对后期的排错很重要。</li>
+<li>-nostdinc 是不包含C语言的标准库里的头文件。<a target="_blank" rel="noopener" href="http://wiki.0xffffff.org/posts/hurlex-3.html#fn:1">1</a></li>
+<li>-fno-builtin 是要求gcc不主动使用自己的内建函数，除非显式声明。</li>
+<li>-fno-stack-protector 是不使用栈保护等检测。</li>
+</ul>
+<p>另外注意这里qemu指令是需要带上后缀的 <code>qemu-system-x86_64</code>而不是只有qemu（不知道原因，centOs下没有直接的qemu命令）</p>
+<p><strong>kernel.ld</strong></p>
+<p>链接器脚本。</p>
+<p>我们知道一个可执行的文件大致由代码段和数据段组成，但是操作系统怎么正确加载它呢？事实上可执行文件有义务向操作系统提供代码段和数据段位置等信息，以便操作系统正确找到它的代码段和数据段并加载执行。通常这个信息被统一组织放置在可执行文件的头部区域。不同的操作系统中自然就设计了不同的组织方式，比如Linux常见的ELF(Executable and Linkable Format，可执行链接格式)格式，windows下常见的PE(Portable Executable，可移植的可执行文件)格式都是。而ld支持很多种链接格式，我们可以在参数里指定。那为何选择ELF格式呢？原因很简单，因为GRUB可以检测识别出ELF格式的可执行文件，并且能找到相关的代码段和数据段的位置信息，从而正确的把我们的内核加载到正确的位置上去。</p>
+<p>看懂了这个Makefile和链接器脚本，我们就向成功迈出了一大步了。大家还记得上一章谈过的GRUB Multiboot标准吗？只要按照标准生成规范的Multiboot引导信息，同时使用标准的ELF格式，GRUB就能把我们的内核正确的加载和执行了。</p>
+<p>链接脚本结构：</p>
+<ol>
+<li>链接配置（可有可无）</li>
+</ol>
+<p>如一些符号变量的定义、入口地址、输出格式等</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">STACK_SIZE = 0X200;</span><br><span class="line">OUTPUT_FORMAT(elf32-littlearm)</span><br><span class="line">OUTPUT_ARCH(arm)</span><br><span class="line">ENTRY(_start)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>内存布局定义</li>
+</ol>
+<p>脚本中以MEMORY命令定义了存储空间，其中以ORIGIN定义地址空间的起始地址，LENGTH定义地址空间的长度。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MEMORY</span><br><span class="line">&#123;</span><br><span class="line">FLASH (rx) : ORIGIN = 0, LENGTH = 64K</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>段链接定义</li>
+</ol>
+<p>脚本中以SECTIONS命令定义一些段（text、data、bss等段）链接分布。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SECTIONS</span><br><span class="line">&#123;</span><br><span class="line">    <span class="selector-class">.text</span> :</span><br><span class="line">    &#123;</span><br><span class="line">      *(<span class="selector-class">.text</span>*)</span><br><span class="line">    &#125; &gt; FLASH</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>.text段即代码段，* (.text*)指示将工程中所有目标文件的.text段链接到FLASH中</li>
+</ol>
+<p>接下来是项目初步采用的<u>链接器脚本</u>的定义。</p>
+<p>kernal.ld：</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *      kernel.ld -- 针对 kernel 格式所写的链接脚本</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">ENTRY(start)</span><br><span class="line">SECTIONS</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* 段起始位置 */</span></span><br><span class="line"></span><br><span class="line">    . = <span class="number">0x100000</span>;</span><br><span class="line">    .text :</span><br><span class="line">    &#123;</span><br><span class="line">        *(.text)</span><br><span class="line">        . = ALIGN(<span class="number">4096</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .data :</span><br><span class="line">    &#123;</span><br><span class="line">        *(.data)</span><br><span class="line">        *(.rodata)</span><br><span class="line">        . = ALIGN(<span class="number">4096</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .bss :</span><br><span class="line">    &#123;</span><br><span class="line">        *(.bss)</span><br><span class="line">        . = ALIGN(<span class="number">4096</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .stab :</span><br><span class="line">    &#123;</span><br><span class="line">        *(.stab)</span><br><span class="line">        . = ALIGN(<span class="number">4096</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    .stabstr :</span><br><span class="line">    &#123;</span><br><span class="line">        *(.stabstr)</span><br><span class="line">        . = ALIGN(<span class="number">4096</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="regexp">/DISCARD/</span> : &#123; *(.comment) *(.eh_frame) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ld链接命令的参数:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LD_FLAGS = -T scripts/kernel.ld -m elf_i386 -nostdlib</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-T scripts&#x2F;kernel.ld 是使用我们自己的链接器脚本。</li>
+<li>-m elf_i386 是生成i386平台下的ELF格式的可执行文件，这是Linux下的可执行文件格式。</li>
+<li>-nostdlib 是不链接C语言的标准库。</li>
+</ul>
+<p>这个脚本告诉ld程序如何构造我们所需的内核映像文件。</p>
+<p>首先，脚本声明了内核程序的入口地址是符号 “start” 。然后声明了段起始位置0x100000（1MB），接着是第一个段.text段（代码段）、已初始化数据段.data、未初始化数据段.bss以及它们采用的4096的页对齐方式。Linux GCC 增加了额外的数据段.rodata，这是一个只读的已初始化数据段，放置常量什么的。另外为了简单起见，我们把.rodata段和.data段放在了一起。最后的stab和stabstr段暂时无需关注，等到后面讲到调试信息的时候就会明白。</p>
+<p>如果你对这里的ld链接器的脚本不是很理解也不是很重要，只要理解了脚本表示的意思就好</p>
+<p>我们所用到的脚本暂时就是这两个，随着项目的逐渐展开，还会有陆续的代码加进来。</p>
+<p>目前的目录结构是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">|-- Makefile</span><br><span class="line">`-- scripts</span><br><span class="line">    `-- kernel.ld</span><br><span class="line"></span><br><span class="line">1 directory, 2 files</span><br></pre></td></tr></table></figure>
+
+<p>你也可以按照这个目录来放置代码，这样会比较清晰</p>
+<h3 id="计算机启动过程、GRUB-以及-multiboot-标准"><a href="#计算机启动过程、GRUB-以及-multiboot-标准" class="headerlink" title="计算机启动过程、GRUB 以及 multiboot 标准"></a>计算机启动过程、GRUB 以及 multiboot 标准</h3><h4 id="操作系统的启动过程"><a href="#操作系统的启动过程" class="headerlink" title="操作系统的启动过程"></a>操作系统的启动过程</h4><p><strong>一、第一阶段：BIOS（Basic Input&#x2F;Output System）</strong></p>
+<p>上个世纪70年代初，”只读内存”（read-only memory，缩写为ROM）发明，开机程序被刷入ROM芯片，计算机通电后，第一件事就是读取它。</p>
+<p><strong>1.1 硬件自检</strong></p>
+<p>BIOS程序首先检查，计算机硬件能否满足运行的基本条件，这叫做”硬件自检”（Power-On Self-Test），缩写为<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Power-on_self-test">POST</a>。</p>
+<p>如果硬件出现问题，主板会发出不同含义的蜂鸣，启动中止。如果没有问题，屏幕就会显示出CPU、内存、硬盘等信息。</p>
+<img src="https://pic.imgdb.cn/item/6303b85e16f2c2beb135b8c3.jpg" style="zoom:80%;" />
+
+<p><strong>1.2 启动顺序</strong></p>
+<p>硬件自检完成后，BIOS把控制权转交给下一阶段的启动程序。</p>
+<p>这时，BIOS需要知道，”下一阶段的启动程序”具体存放在哪一个设备。也就是说，BIOS需要有一个外部储存设备的排序，排在前面的设备就是优先转交控制权的设备。这种排序叫做”启动顺序”（Boot Sequence）。</p>
+<p>打开BIOS的操作界面，里面有一项就是”设定启动顺序”。</p>
+<img src="https://pic.imgdb.cn/item/6303b8be16f2c2beb135debb.jpg" style="zoom:80%;" />
+
+<p><strong>二、第二阶段：主引导记录</strong></p>
+<p>BIOS按照”启动顺序”，把控制权转交给排在第一位的储存设备。</p>
+<p>这时，计算机读取该设备的第一个扇区，也就是读取最前面的512个字节。如果这512个字节的最后两个字节是0x55和0xAA，表明这个设备可以用于启动；如果不是，表明设备不能用于启动，控制权于是被转交给”启动顺序”中的下一个设备。</p>
+<p>这最前面的512个字节，就叫做<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Master_boot_record">“主引导记录”</a>（Master boot record，缩写为MBR）。</p>
+<p><strong>2.1 主引导记录的结构</strong></p>
+<p>“主引导记录”只有512个字节，放不了太多东西。它的主要作用是，告诉计算机到硬盘的哪一个位置去找操作系统。</p>
+<p>主引导记录由三个部分组成：</p>
+<blockquote>
+<p>　　（1） 第1-446字节：调用操作系统的机器码。</p>
+<p>　　（2） 第447-510字节：分区表（Partition table）。</p>
+<p>　　（3） 第511-512字节：主引导记录签名（0x55和0xAA）。</p>
+</blockquote>
+<p>其中，第二部分”分区表”的作用，是将硬盘分成若干个区。</p>
+<p><strong>2.2 分区表</strong></p>
+<p>硬盘分区有很多<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Disk_partitioning#Benefits_of_multiple_partitions">好处</a>。考虑到每个区可以安装不同的操作系统，”主引导记录”因此必须知道将控制权转交给哪个区。</p>
+<p>分区表的长度只有64个字节，里面又分成四项，每项16个字节。所以，一个硬盘最多只能分四个一级分区，又叫做”主分区”。</p>
+<p>每个主分区的16个字节，由6个部分组成：</p>
+<blockquote>
+<p>　　（1） 第1个字节：如果为0x80，就表示该主分区是激活分区，控制权要转交给这个分区。四个主分区里面只能有一个是激活的。</p>
+<p>　　（2） 第2-4个字节：主分区第一个扇区的物理位置（柱面、磁头、扇区号等等）。</p>
+<p>　　（3） 第5个字节：<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Partition_type">主分区类型</a>。</p>
+<p>　　（4） 第6-8个字节：主分区最后一个扇区的物理位置。</p>
+<p>　　（5） 第9-12字节：该主分区第一个扇区的逻辑地址。</p>
+<p>　　（6） 第13-16字节：主分区的扇区总数。</p>
+</blockquote>
+<p>最后的四个字节（”主分区的扇区总数”），决定了这个主分区的长度。也就是说，一个主分区的扇区总数最多不超过2的32次方。</p>
+<p>如果每个扇区为512个字节，就意味着单个分区最大不超过2TB。再考虑到扇区的逻辑地址也是32位，所以单个硬盘可利用的空间最大也不超过2TB。如果想使用更大的硬盘，只有2个方法：一是提高每个扇区的字节数，二是<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/GUID_Partition_Table">增加扇区总数</a>。</p>
+<p><strong>三、第三阶段：硬盘启动</strong></p>
+<p>这时，<u>计算机的控制权就要转交给硬盘的某个分区</u>了，这里又分成三种情况。</p>
+<p><strong>3.1 情况A：卷引导记录</strong></p>
+<p>上一节提到，四个主分区里面，只有一个是激活的。计算机会读取激活分区的第一个扇区，叫做<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Volume_Boot_Record">“卷引导记录</a>“（Volume boot record，缩写为VBR）。</p>
+<p>“卷引导记录”的主要作用是，告诉计算机，操作系统在这个分区里的位置。然后，计算机就会加载操作系统了。</p>
+<p><strong>3.2 情况B：扩展分区和逻辑分区</strong></p>
+<p>随着硬盘越来越大，四个主分区已经不够了，需要更多的分区。但是，分区表只有四项，因此规定有且仅有一个区可以被定义成”扩展分区”（Extended partition）。</p>
+<p>所谓”扩展分区”，就是指这个区里面又分成多个区。这种分区里面的分区，就叫做”逻辑分区”（logical partition）。</p>
+<p>计算机先读取扩展分区的第一个扇区，叫做<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Extended_partition">“扩展引导记录”</a>（Extended boot record，缩写为EBR）。它里面也包含一张64字节的分区表，但是最多只有两项（也就是两个逻辑分区）。</p>
+<p>计算机接着读取第二个逻辑分区的第一个扇区，再从里面的分区表中找到第三个逻辑分区的位置，以此类推，直到某个逻辑分区的分区表只包含它自身为止（即只有一个分区项）。因此，扩展分区可以包含无数个逻辑分区。</p>
+<p>但是，似乎很少通过这种方式启动操作系统。如果操作系统确实安装在扩展分区，一般采用下一种方式启动。</p>
+<p><strong>3.3 情况C：启动管理器</strong></p>
+<p>在这种情况下，计算机读取”主引导记录”前面446字节的机器码之后，不再把控制权转交给某一个分区，而是运行事先安装的<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Boot_loader#Modern_boot_loaders">“启动管理器”</a>（boot loader），由用户选择启动哪一个操作系统。</p>
+<p>Linux环境中，目前最流行的启动管理器是<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/GNU_GRUB">Grub</a>。</p>
+<p><strong>四、第四阶段：操作系统</strong></p>
+<p>控制权转交给操作系统后，操作系统的内核首先被载入内存。</p>
+<p>以Linux系统为例，先载入&#x2F;boot目录下面的kernel。内核加载成功后，第一个运行的程序是&#x2F;sbin&#x2F;init。它根据配置文件（Debian系统是&#x2F;etc&#x2F;initab）产生init进程。这是Linux启动后的第一个进程，pid进程编号为1，其他进程都是它的后代。</p>
+<p>然后，init线程加载系统的各个模块，比如窗口程序和网络程序，直至执行&#x2F;bin&#x2F;login程序，跳出登录界面，等待用户输入用户名和密码。</p>
+<p>至此，全部启动过程完成。</p>
+<img src="https://pic.imgdb.cn/item/6303bbfb16f2c2beb1372a47.jpg" style="zoom:80%;" />
+
+
+
+<h4 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h4><p><strong>CPU寻址</strong></p>
+<p>首先，我们的内核使用32位的地址总线来寻址，所以能编址出2的32次方，也就是4G的地址空间。那么这4G的空间指向哪里？大多数人的第一反应都是内存。然而我们知道在主板上除了内存还有BIOS、显卡、声卡、网卡等外部设备，CPU需要和这些外设进行通信。那么实现通信自然就得有地址，不然怎么表示数据的去向呢？比如显卡内部就有自己的一些存储单元。在x86下，当需要访问这些存储单元的时候，就需要给予不同的访问地址来区分每一个读写单元。</p>
+<p>引出两个专业名词：端口统一编址和端口独立编址：</p>
+<ul>
+<li>端口统一编址就是把所有和外设存储单元对应的端口直接编址在这4G的地址空间里，当我们对某一个地址进行访问的时候实际上是在访问某个外设的存储单元。</li>
+<li>端口独立编址就是说这些端口没有编址在地址空间里，而是另行独立编址。</li>
+</ul>
+<p>而<u>x86架构部分的采用了端口独立编址，又部分的采用了端口统一编址</u>。部分外设的部分存储单元直接可以通过某个内存地址访问，而其他部分在一个独立的端口地址空间中，需要使用in&#x2F;out指令去访问，我们用到的时候再来细说。</p>
+<p><strong>CPU在加电后的启动过程</strong></p>
+<p>从按下电源开始：</p>
+<ul>
+<li>首先是CPU重置。主板加电之后在电压尚未稳定之前，主板上的北桥控制芯片会向CPU发出重置信号（Reset），此时CPU进行初始化。</li>
+<li>当电压稳定后，控制芯片会撤销Reset信号，CPU便开始了模式化的工作。此时形成的第一条指令的地址是0xFFFFFFF0，从这里开始，CPU就进入了一个“取指令-翻译指令-执行”的循环了。</li>
+<li>我们需要做的就是在各个阶段提供给CPU相关的数据，以完成这个“接力赛”。这个接力过程中任何一个环节如果出现致命问题，其导致的直接后果就是宕机。死机是最好的结果，最坏的结果是程序在“默默的”破坏我们的数据，所以一定要谨慎对待。</li>
+</ul>
+<p>这个0xFFFFFFF0地址指向的是BIOS芯片里。刚刚提到，在4G的地址空间里，有一些地址是分给外设的，这个地址便是映射到BIOS的。由于计算机刚加电的时候内存等芯片尚未初始化，所以也只能是指向BIOS芯片里已经被“固化”的指令了。</p>
+<p>紧接着就是BIOS的POST（Power On Self Test，上电自检）过程了，BIOS对计算机各个部件开始初始化，如果有错误会给出报警音。当BIOS完成这些工作之后，它的任务就是在外部存储设备中寻找操作系统，而我们最常用的外存自然就是硬盘了。</p>
+<p>BIOS里面就有一张启动设备表，BIOS会按照这个表里面列出的顺序查找可启动设备。那么怎么知道该设备是否可以启动呢？规则其实很简单：如果这个存储设备的第一个扇区中512个字节的最后两个字节是0x55和0xAA，那么该存储设备就是可启动的。这是一个约定，所以BIOS会对这个列表中的设备逐一检测，只要有一个设备满足要求，后续的设备将不再测试。</p>
+<p>当BIOS找到可启动的设备后，便将该设备的第一个扇区加载到内存的0x7C00地址处，并且跳转过去执行。而我们要做的事情，便是从构造这个可启动的扇区开始。</p>
+<h4 id="GRUB和multiboot规范"><a href="#GRUB和multiboot规范" class="headerlink" title="GRUB和multiboot规范"></a>GRUB和multiboot规范</h4><p>因为一个扇区只有512字节，放不下太多的代码，所以常规的做法便是在这里写下载入操作系统内核的代码，这段代码就是所谓的bootloader程序。一般意义上的bootloader负责将软硬件的环境设置到一个合适的状态，然后加载操作系统内核并且移交执行权限。</p>
+<p>而GRUB是一个来自GNU项目的多操作系统启动程序。它是多启动规范的实现，允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。</p>
+<p>引出GRUB的原因很简单：我不准备自己实现bootloader程序。</p>
+<ul>
+<li>其一，实现bootloader牵扯太多在后期才要讲述的知识。与其前期简陋的实现这个bootloader，还不如就用现成的优秀实现，以后有机会自己再学着改进；</li>
+<li>第二，我想在后面把这个小内核安装到物理机器上去，而读者们想必在自己的机器上已经有了多个操作系统了。这样的话如果非得实现自己的bootloader的话，势必会造成和已有操作系统的不兼容。</li>
+</ul>
+<p>所以，我干脆决定直接使用GRUB来加载内核。以后就能让它很简单的安装在物理机器上，这样的话我们能拥有一个Linux系统和自己的小内核共存的计算机了。如果你愿意的话，也可以再加上一个Windows系统。</p>
+<p>那么问题是怎么能让GRUB加载这个小内核呢？答案是GRUB提供的<a target="_blank" rel="noopener" href="https://blog.csdn.net/wuhui_gdnt/article/details/6647757">multiboot规范</a>。这份规范是描述如何构造出一个能够被GRUB识别，并且按照我们定义的规则去加载的操作系统内核。</p>
+<p>P.S. 古老的8086处理器是0xFFFF0这个地址。</p>
+<h3 id="裸机上运行Hello-Os-Kernel！"><a href="#裸机上运行Hello-Os-Kernel！" class="headerlink" title="裸机上运行Hello Os Kernel！"></a>裸机上运行Hello Os Kernel！</h3><h4 id="启动镜像的制作"><a href="#启动镜像的制作" class="headerlink" title="启动镜像的制作"></a>启动镜像的制作</h4><p>解决了理论上的问题之后，我们来解决一个现实的问题。这个问题是，这个小内核放在哪里？虚拟机是它运行的场所，那么虚拟磁盘自然就是安放内核的选择了。不过我们这次不选择硬盘，而是选择已经几乎消失殆尽的1.44MB的软盘。为什么？说实话是因为比较简单。</p>
+<p>在Linux下制作一个1.44MB软盘的技术太简单了，甚至dd命令也可以做一个出来。不过在这个软盘镜像上安装一个GRUB稍有难度，所以大家直接可以使用我提供的已经安装好了GRUB的软盘镜像。</p>
+<p>再必须引入一个新的术语名词——文件系统。什么是文件系统呢？其实简单的说，这里所谓的文件系统指的是<u>操作系统用于明确磁盘或分区上的文件存储的方法和数据结构，即在磁盘上组织文件的方法</u>。如果把这个1.44MB的软盘可以看做一个巨大的数组，那么每个数组成员都是一个扇区，拥有512字节的存储单元。现在需要往这个软盘上写入文件，那么自然需要一套合适的管理规则，否则的话岂不是全乱套了？就和这篇文档一样，不同的章节被划分在不同的位置，同时在最前面有所有章节的目录，这就是一种对信息的组织方式，文件系统也不过是这么一套组织策略罢了。</p>
+<p>考虑到兼容因素，自然是选择目前使用的比较广泛的文件系统了，这样的话也便于我们对软盘里面存储的文件进行管理操作。那么使用什么文件系统呢？软盘一般使用的是<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/121807427">FAT12文件系统</a>，所以我们也就不标新立异了。这个文件系统也很简单，后期大家有兴趣的话甚至可以在我们的内核里实现能处理这个文件系统的代码。至于FAT12文件系统的资料也很多，我就不详细说了。</p>
+<p>GRUB支持从很多常见的文件系统中去读取和载入内核文件，当然也包括我们使用的FAT12格式。我们在自己开发使用的Linux系统上很容易就可以挂载和读写这个虚拟软盘里的文件，这给开发带来了极大的便利。我们经常做的事就是拷贝编译好的内核进去，然后在虚拟机运行。另外这个虚拟软盘文件里还有GRUB和它的配置文件，我提供的软盘镜像里安装的是一个很早的GRUB版本，它的配置文件简单到一看就懂。所以大家完全可以自己看着修改。</p>
+<h4 id="内核的入口和初始化"><a href="#内核的入口和初始化" class="headerlink" title="内核的入口和初始化"></a>内核的入口和初始化</h4><p>前期的铺垫到这里就告一段落了，下面我们开始编码工作吧。</p>
+<p>代码从什么函数开始执行呢？如果你记忆力足够好的话你会记得ld链接脚本里面的一行文字:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENTRY(start)</span><br></pre></td></tr></table></figure>
+
+<p>这就意味着我们告诉了ld链接器入口函数是start，所以代码从start函数开始。</p>
+<p>大家先来一起围观下入口部分的代码全貌:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">; ----------------------------------------------------------------</span><br><span class="line">;</span><br><span class="line">;   boot.s -- 内核从这里开始</span><br><span class="line">;</span><br><span class="line">; ----------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">; Multiboot 魔数，由规范决定的，这个十六进制数是固定的</span><br><span class="line">MBOOT_HEADER_MAGIC  equ     0x1BADB002</span><br><span class="line"></span><br><span class="line">; 0 号位表示所有的引导模块将按页(4KB)边界对齐，4KB与后面谈到的分页有关</span><br><span class="line">MBOOT_PAGE_ALIGN    equ     1 &lt;&lt; 0</span><br><span class="line"></span><br><span class="line">; 1 号位通过 Multiboot 信息结构的 mem_* 域包括可用内存的信息</span><br><span class="line">; (告诉GRUB把内存空间的信息包含在Multiboot信息结构中)</span><br><span class="line">MBOOT_MEM_INFO      equ     1 &lt;&lt; 1    </span><br><span class="line"></span><br><span class="line">; 定义我们使用的 Multiboot 的标记</span><br><span class="line">MBOOT_HEADER_FLAGS  equ     MBOOT_PAGE_ALIGN | MBOOT_MEM_INFO</span><br><span class="line"></span><br><span class="line">; 域checksum是一个32位的无符号值，当与其他的magic域(也就是magic和flags)</span><br><span class="line">; 相加时，要求其结果必须是32位的无符号值 0 (即magic+flags+checksum = 0)</span><br><span class="line">MBOOT_CHECKSUM      equ     -(MBOOT_HEADER_MAGIC+MBOOT_HEADER_FLAGS)</span><br><span class="line"></span><br><span class="line">; 符合Multiboot规范的 OS 映象需要这样一个 magic Multiboot 头</span><br><span class="line">; Multiboot 头的分布必须如下表所示：</span><br><span class="line">; ----------------------------------------------------------</span><br><span class="line">; 偏移量  类型  域名        备注</span><br><span class="line">;</span><br><span class="line">;   0     u32   magic       必需</span><br><span class="line">;   4     u32   flags       必需 </span><br><span class="line">;   8     u32   checksum    必需 </span><br><span class="line">;</span><br><span class="line">; 我们只使用到这些就够了，更多的详细说明请参阅 GNU 相关文档</span><br><span class="line">;-----------------------------------------------------------</span><br><span class="line"></span><br><span class="line">;-----------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">[BITS 32]   ; 所有代码以 32-bit 的方式编译</span><br><span class="line">section .text   ; 代码段从这里开始</span><br><span class="line"></span><br><span class="line">; 在代码段的起始位置设置符合 Multiboot 规范的标记</span><br><span class="line">; dd的意思是四字节符号</span><br><span class="line"></span><br><span class="line">dd MBOOT_HEADER_MAGIC   ; GRUB 会通过这个魔数判断该映像是否支持</span><br><span class="line">dd MBOOT_HEADER_FLAGS   ; GRUB 的一些加载时选项，其详细注释在定义处</span><br><span class="line">dd MBOOT_CHECKSUM       ; 检测数值，其含义在定义处</span><br><span class="line"></span><br><span class="line">[GLOBAL start]      ; 向外部声明内核代码入口，此处提供该声明给链接器</span><br><span class="line">[GLOBAL glb_mboot_ptr]  ; 向外部声明 struct multiboot * 变量</span><br><span class="line">[EXTERN kern_entry]     ; 声明内核 C 代码的入口函数</span><br><span class="line"></span><br><span class="line">start:</span><br><span class="line">    cli              ; 此时还没有设置好保护模式的中断处理，要关闭中断</span><br><span class="line">                 ; 所以必须关闭中断。这个命令会将IF寄存器置为0</span><br><span class="line">    mov esp, STACK_TOP       ; 设置内核栈地址</span><br><span class="line">    mov ebp, 0       ; 栈顶指针修改为 0</span><br><span class="line">    and esp, 0FFFFFFF0H  ; 栈地址按照16字节对齐</span><br><span class="line">    mov [glb_mboot_ptr], ebx ; 将 ebx 中存储的指针存入前面声明的全局变量</span><br><span class="line">    call kern_entry      ; 调用内核入口函数，进入kernel的init函数</span><br><span class="line">stop:</span><br><span class="line">    hlt              ; 停机指令，可以降低 CPU 功耗</span><br><span class="line">    jmp stop         ; 进入死循环,到这里结束，关机什么的后面再说</span><br><span class="line"></span><br><span class="line">;-----------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">section .bss             ; 未初始化的数据段从这里开始</span><br><span class="line">stack:</span><br><span class="line">    resb 32768       ; 0x8000 这里作为内核栈</span><br><span class="line">glb_mboot_ptr:           ; 全局的 multiboot 结构体指针</span><br><span class="line">    resb 4</span><br><span class="line"></span><br><span class="line">STACK_TOP equ $-stack-1      ; 内核栈顶，$ 符指代是当前地址</span><br><span class="line"></span><br><span class="line">;-----------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+
+<p>我们简单的介绍下这段代码做的事情。</p>
+<p>首先是一些宏定义，定义了Multiboot标准的魔数和几个标识，GRUB会读取这些信息以判断我们的意图。真正的代码是从39行以后开始的，首先我们在代码段的入口位置之前定义了几个Multiboot规范要求的配置信息，其实也就是3个4字节变量。我们通过这几个变量告诉了GRUB我们要求它提供可用内存的信息，而且要求内核中所有的段在内存里按照4KB进行对齐。</p>
+<p>紧接着就是我们内核的入口函数start了，入口代码很短，主要做的是关闭中断，传参数(按照协议，GRUB把一些计算机硬件和我们内核文件相关的信息放在了一个结构体中，并且将这个结构体指针放在了ebx寄存器中)并且调用内核的入口函数。</p>
+<p>等到这个函数返回之后，内核就进入了一个死循环了。</p>
+<p>这段代码我加上了很多注释，希望这能给你阅读代码带来便利。如果你之前按照我的要求认真的去翻阅了GRUB的Multiboot标准的话，因该很容易就能理解这里代码的含义。如果你理解起来感到很困难，那就结合Multiboot标准的相关规范仔细阅读，这个过程是必须的。</p>
+<p>OK，理解了上面这两段代码，我们暂时的告别汇编，用C语言来实现内核的入口函数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">kern_entry</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还有一个在后面需要用到的头文件，主要是几个宏和一些类型的重定义。代码如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> INCLUDE_TYPES_H_</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INCLUDE_TYPES_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> NULL</span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> NULL 0</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> TRUE</span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> TRUE  1</span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> FALSE 0</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">int</span>   <span class="type">uint32_t</span>;</span><br><span class="line"><span class="keyword">typedef</span>          <span class="type">int</span>   <span class="type">int32_t</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">short</span> <span class="type">uint16_t</span>;</span><br><span class="line"><span class="keyword">typedef</span>          <span class="type">short</span> <span class="type">int16_t</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">char</span>  <span class="type">uint8_t</span>;</span><br><span class="line"><span class="keyword">typedef</span>          <span class="type">char</span>  <span class="type">int8_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>  <span class="comment">// INCLUDE_TYPES_H_</span></span></span><br></pre></td></tr></table></figure>
+
+<p>最后我再列出当GRUB载入我们的内核时，CPU的一些状态信息:</p>
+<ol>
+<li>CS 指向基地址为 0x00000000，限长为4G – 1的代码段描述符。</li>
+<li>DS，SS，ES，FS 和 GS 指向基地址为0x00000000，限长为4G–1的数据段描述符。</li>
+<li>A20 地址线已经打开。</li>
+<li>页机制被禁止。</li>
+<li>中断被禁止。</li>
+<li>EAX &#x3D; 0x2BADB002</li>
+<li>系统信息和启动信息块的线性地址保存在 EBX中(相当于一个指针)。</li>
+</ol>
+<p>准备好了这一切之后，再把之前完成的软盘镜像放在Makefile文件的同级目录下，现在目录结构是这样的:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">|-- boot</span><br><span class="line">|   `-- boot.s</span><br><span class="line">|-- floppy.img</span><br><span class="line">|-- include</span><br><span class="line">|   `-- types.h</span><br><span class="line">|-- init</span><br><span class="line">|   |-- entry.c</span><br><span class="line">|-- Makefile</span><br><span class="line">`-- scripts</span><br><span class="line">    `-- kernel.ld</span><br><span class="line"></span><br><span class="line">4 directories, 6 files</span><br></pre></td></tr></table></figure>
+
+<p>我们直接执行 make 命令编译代码，没有意外的话会生成一个叫做hx_kernel的文件，并且自动挂载软盘镜像把这个文件复制进去。<a target="_blank" rel="noopener" href="http://wiki.0xffffff.org/posts/hurlex-3.html#fn:18">18</a></p>
+<p>最后我们来运行它，使用下面的命令即可运行:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make qemu</span><br></pre></td></tr></table></figure>
+
+<p>很简单吧，这样我们的内核就在qemu虚拟机里执行了。首先显示的是GRUB菜单，但是我们的内核载入之后就在也没有动静了，因为我们什么代码也没有写。</p>
+<p>有点失望是不是？别急，下一章过后，我们就可以自如的在屏幕上显示字符了。有点迫不及待了？那我就先透露一点吧，按照如下代码修改kern_entry函数:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;types.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">kern_entry</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint8_t</span> *input = (<span class="type">uint8_t</span> *)<span class="number">0xB8000</span>;</span><br><span class="line">    <span class="type">uint8_t</span> color = (<span class="number">0</span> &lt;&lt; <span class="number">4</span>) | (<span class="number">15</span> &amp; <span class="number">0x0F</span>);</span><br><span class="line"></span><br><span class="line">    *input++ = <span class="string">&#x27;H&#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27;e&#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27;l&#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27;l&#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27;o&#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27;,&#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27; &#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27;O&#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27;S&#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27; &#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27;K&#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27;e&#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27;r&#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27;n&#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27;e&#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27;l&#x27;</span>; *input++ = color;</span><br><span class="line">    *input++ = <span class="string">&#x27;!&#x27;</span>; *input++ = color;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在我们编译并且启动虚拟机，就能看到了第一阶段的成果，屏幕上华丽丽的输出了“Hello, OS World!”的字样</p>
+<p><strong>注意点：</strong></p>
+<ul>
+<li>如果在挂载这一步出错，请在自己系统的&#x2F;mnt目录下建立一个叫做kernel的目录，当然你也可以修改Makefile文件</li>
+</ul>
+<p>运行结果：</p>
+<img src="https://pic.imgdb.cn/item/6303ed3216f2c2beb147f0f6.jpg"  />
+
+<h3 id="字符模式下的显卡驱动"><a href="#字符模式下的显卡驱动" class="headerlink" title="字符模式下的显卡驱动"></a>字符模式下的显卡驱动</h3><h4 id="1MB以下的地址空间分布"><a href="#1MB以下的地址空间分布" class="headerlink" title="1MB以下的地址空间分布"></a>1MB以下的地址空间分布</h4><p>在第二章我们简单的谈过地址空间的概念，并提到4G的地址空间并非全部指向主存储器，而是有部分的地址分给了其他外设。特别地，在地址空间的最低1MB处，有很多地址是属于外部设备的，下图描绘了该处地址映射的分布情况：</p>
+<img src="https://raw.githubusercontent.com/hurley25/wiki/gh-pages/_posts/picture/chapt4/BIOS-mem.png" alt="低端地址空间的映射关系" style="zoom:80%;" />
+
+<p>在PC上要显示文字，通常需要显示器和显卡这两个硬件设备。一般来说显卡负责提供显示内容，并控制具体的显示模块和状态。显示器的职责是负责将显卡呈递的内容可视化的显示出来。既然显卡需要控制显示的数据，自然就需要存储这些待显示的内容，所以显卡就有自己的存储区域。这个存储区域叫做显示存储器（Video RAM，VRAM），简称显存。</p>
+<p>当然，访问显存就需要地址。CGA&#x2F;EGA+ Chroma text video buffer 这个区域映射的就是工作在文本模式的显存。同时显卡还有另外一个工作模式叫做图形模式，这个模式是目前最最常用的模式。</p>
+<h4 id="显卡在文本模式下的显示规则"><a href="#显卡在文本模式下的显示规则" class="headerlink" title="显卡在文本模式下的显示规则"></a>显卡在文本模式下的显示规则</h4><p>我们知道，对于一个字符的编码通常有输入码、内码和字模码三种。其中字模码定义了一个字符在屏幕上显示的点阵坐标。通常显卡内置一套关于基本英文字符的显示是很容易做到的，而内置汉字的显示就较为麻烦。</p>
+<p>在这篇文档中我们只使用显卡的文本模式，不会涉及到图形模式的内容。因为一旦使用了图形模式的内容，我们就需要自行定义字符的字模码了，这很繁琐而且对我们理解操作系统原理的意义不是很大。</p>
+<p>所以我们只使用显卡的文本模式进行屏幕显示控制。所有在PC上工作的显卡，在加电初始化之后都会自动初始化到80*25的文本模式。</p>
+<p>在这个模式下，屏幕被划分为25行，每行可以显示80个字符，所以一屏可以显示2000个字符。上图中的0xB8000～0xBFFFF这个地址段便是映射到文本模式的显存的。当访问这些地址的时候，实际上读写的是显存区域，而显卡会周期性的读取这里的数据，并且把它们按顺序显示在屏幕上。</p>
+<p>那么，按照什么规则显示呢？这就要谈到内码了。内码定义了字符在内存中存储的形式，而英文编码就是大家所熟知的ASCII（American Standard Code for Information Interchange，美国信息交换标准代码）码了。对应的关系很简单，从0xB8000这个地址开始，每2个字节表示屏幕上显示的一个字符。从屏幕的第一行开始对应，一行接着一行的对应下去。而这两个字节的前一个是显示字符的ASCII码，后一个是控制这个字符颜色和属性的控制信息，这个字节的8个bit位表示不同的含义。每一位的含义如图所示：</p>
+<img src="https://raw.githubusercontent.com/hurley25/wiki/gh-pages/_posts/picture/chapt4/char_color.png" alt="字符属性示意图" style="zoom: 50%;" />
+
+<p>这些位的组合效果如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/hurley25/wiki/gh-pages/_posts/picture/chapt4/text_mode_color.png" alt="显卡文本模式的颜色表"></p>
+<p>这两张图可以帮助我们在显卡的字符模式显示彩色的文本了，懂得这些原理对于探索性质的显示也就足够了。</p>
+<p>理解了显卡文本模式的原理之后接下来就是对屏幕显示控制编码了。不过显卡除了显示内容的存储单元之外，还有部分的显示控制单元需要了解。这些显示控制单元被编制在了独立的I&#x2F;O空间里，需要用特殊的in&#x2F;out指令去读写。这里相关的控制寄存器多达300多个，显然无法一一映射到I&#x2F;O端口的地址空间。对此工程师们解决方案是，将一个端口作为内部寄存器的索引：0x3D4，再通过0x3D5端口来设置相应寄存器的值。</p>
+<h4 id="端口读写函数的实现"><a href="#端口读写函数的实现" class="headerlink" title="端口读写函数的实现"></a>端口读写函数的实现</h4><p>在具体的设置之前，我们首先需要几个端口读写函数的实现。因为C语言并没有直接操作端口的方法，而且频繁的内联汇编麻烦又容易出错。所以好的做法就是定义几个端口读写函数。代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;common.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 端口写一个字节</span></span><br><span class="line"><span class="keyword">inline</span> <span class="type">void</span> <span class="title function_">outb</span><span class="params">(<span class="type">uint16_t</span> port, <span class="type">uint8_t</span> value)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">asm</span> <span class="title function_">volatile</span> <span class="params">(<span class="string">&quot;outb %1, %0&quot;</span> : : <span class="string">&quot;dN&quot;</span> (port), <span class="string">&quot;a&quot;</span> (value))</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 端口读一个字节</span></span><br><span class="line"><span class="keyword">inline</span> <span class="type">uint8_t</span> <span class="title function_">inb</span><span class="params">(<span class="type">uint16_t</span> port)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint8_t</span> ret;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(<span class="string">&quot;inb %1, %0&quot;</span> : <span class="string">&quot;=a&quot;</span> (ret) : <span class="string">&quot;dN&quot;</span> (port))</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 端口读一个字</span></span><br><span class="line"><span class="keyword">inline</span> <span class="type">uint16_t</span> <span class="title function_">inw</span><span class="params">(<span class="type">uint16_t</span> port)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint16_t</span> ret;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">asm</span> <span class="title function_">volatile</span> <span class="params">(<span class="string">&quot;inw %1, %0&quot;</span> : <span class="string">&quot;=a&quot;</span> (ret) : <span class="string">&quot;dN&quot;</span> (port))</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对应的头文件如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> INCLUDE_COMMON_H_</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INCLUDE_COMMON_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;types.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 端口写一个字节</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">outb</span><span class="params">(<span class="type">uint16_t</span> port, <span class="type">uint8_t</span> value)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 端口读一个字节</span></span><br><span class="line"><span class="type">uint8_t</span> <span class="title function_">inb</span><span class="params">(<span class="type">uint16_t</span> port)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 端口读一个字</span></span><br><span class="line"><span class="type">uint16_t</span> <span class="title function_">inw</span><span class="params">(<span class="type">uint16_t</span> port)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">// INCLUDE_COMMON_H_</span></span></span><br></pre></td></tr></table></figure>
+
+<p>细心的读者想必已经发现了函数定义之前的inline关键字了吧？这是GNU对ANSI C的扩展，它和C++语言里的inline的作用是一样的。函数前面加上inline之后，编译器会尝试在该函数的调用点进行直接进行代码展开，而不是传统的函数调用。这么做的既有传统函数的好处，即避免了重复性的编码，减少了出错的几率。又减少了函数的调用，提高了代码的执行效率。另外，你可能见过宏函数这种用法，但是宏函数是没有参数类型的检查的，相比inline还是逊了一筹。</p>
+<h4 id="颜色的枚举定义和屏幕操作函数的实现"><a href="#颜色的枚举定义和屏幕操作函数的实现" class="headerlink" title="颜色的枚举定义和屏幕操作函数的实现"></a>颜色的枚举定义和屏幕操作函数的实现</h4><p>接下来是颜色定义的枚举和一些屏幕控制函数的声明。代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> INCLUDE_CONSOLE_H_</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INCLUDE_CONSOLE_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;types.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">real_color</span> &#123;</span></span><br><span class="line">    rc_black = <span class="number">0</span>,</span><br><span class="line">    rc_blue = <span class="number">1</span>,</span><br><span class="line">    rc_green = <span class="number">2</span>,</span><br><span class="line">    rc_cyan = <span class="number">3</span>,</span><br><span class="line">    rc_red = <span class="number">4</span>,</span><br><span class="line">    rc_magenta = <span class="number">5</span>,</span><br><span class="line">    rc_brown = <span class="number">6</span>,</span><br><span class="line">    rc_light_grey = <span class="number">7</span>,</span><br><span class="line">    rc_dark_grey = <span class="number">8</span>,</span><br><span class="line">    rc_light_blue = <span class="number">9</span>,</span><br><span class="line">    rc_light_green = <span class="number">10</span>,</span><br><span class="line">    rc_light_cyan = <span class="number">11</span>,</span><br><span class="line">    rc_light_red = <span class="number">12</span>,</span><br><span class="line">    rc_light_magenta = <span class="number">13</span>,</span><br><span class="line">    rc_light_brown  = <span class="number">14</span>,   <span class="comment">// yellow</span></span><br><span class="line">    rc_white = <span class="number">15</span></span><br><span class="line">&#125; <span class="type">real_color_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 清屏操作</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">console_clear</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 屏幕输出一个字符  带颜色</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">console_putc_color</span><span class="params">(<span class="type">char</span> c, <span class="type">real_color_t</span> back, <span class="type">real_color_t</span> fore)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 屏幕打印一个以 \0 结尾的字符串  默认黑底白字</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">console_write</span><span class="params">(<span class="type">char</span> *cstr)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 屏幕打印一个以 \0 结尾的字符串  带颜色</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">console_write_color</span><span class="params">(<span class="type">char</span> *cstr, <span class="type">real_color_t</span> back, <span class="type">real_color_t</span> fore)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 屏幕输出一个十六进制的整型数</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">console_write_hex</span><span class="params">(<span class="type">uint32_t</span> n, <span class="type">real_color_t</span> back, <span class="type">real_color_t</span> fore)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 屏幕输出一个十进制的整型数</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">console_write_dec</span><span class="params">(<span class="type">uint32_t</span> n, <span class="type">real_color_t</span> back, <span class="type">real_color_t</span> fore)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>  <span class="comment">// INCLUDE_CONSOLE_H_</span></span></span><br></pre></td></tr></table></figure>
+
+<p>参照着前面的表格，理解颜色的枚举类型并不困难。接下来是显存起始位置和当前输出的屏幕位置的变量定义。同时，我们将屏幕抽象为一个80*25的二维数组，每个数组成员都是2个字节，表示屏幕上显示的一个字符。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// VGA 的显示缓冲的起点是 0xB8000</span></span><br><span class="line"><span class="type">static</span> <span class="type">uint16_t</span> *video_memory = (<span class="type">uint16_t</span> *)<span class="number">0xB8000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 屏幕&quot;光标&quot;的坐标</span></span><br><span class="line"><span class="type">static</span> <span class="type">uint8_t</span> cursor_x = <span class="number">0</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">uint8_t</span> cursor_y = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>请大家留意这里变量定义时候的 static 限定符，当一个全局变量或者函数只在本模块文件内被使用时，最好限定其作用域。每个模块应当尽可能的向外部暴露较少的接口。</p>
+<h4 id="屏幕输入光标的移动"><a href="#屏幕输入光标的移动" class="headerlink" title="屏幕输入光标的移动"></a>屏幕输入光标的移动</h4><p>在本模块内，cursor_x 和 cursor_y 这两个变量指明了逻辑上的当前输出位置，但是并没有实际上移动硬件的显示“光标”，下面的函数实现了根据这两个变量的值移动光标的功能。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">move_cursor</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 屏幕是 80 字节宽</span></span><br><span class="line">    <span class="type">uint16_t</span> cursorLocation = cursor_y * <span class="number">80</span> + cursor_x;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 在这里用到的两个内部寄存器的编号为14与15，分别表示光标位置</span></span><br><span class="line">    <span class="comment">// 的高8位与低8位。</span></span><br><span class="line"></span><br><span class="line">    outb(<span class="number">0x3D4</span>, <span class="number">14</span>);                    <span class="comment">// 告诉 VGA 我们要设置光标的高字节</span></span><br><span class="line">    outb(<span class="number">0x3D5</span>, cursorLocation &gt;&gt; <span class="number">8</span>);   <span class="comment">// 发送高 8 位</span></span><br><span class="line">    outb(<span class="number">0x3D4</span>, <span class="number">15</span>);                    <span class="comment">// 告诉 VGA 我们要设置光标的低字节</span></span><br><span class="line">    outb(<span class="number">0x3D5</span>, cursorLocation);        <span class="comment">// 发送低 8 位</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的端口和设置值都是固定的，也没有什么道理可讲。虽然显卡的各项技术发展的很快，但是这个原始的VGA标准被所有显卡完整的保存了下来。</p>
+<h4 id="清屏操作"><a href="#清屏操作" class="headerlink" title="清屏操作"></a>清屏操作</h4><p>然后是清屏操作，其实这里的“清屏”很简单，其实就是用白底黑字的“空格符”覆盖整个屏幕的显示区域罢了，然后移动光标到0位置。这么做自然就实现了我们想要的“清屏”操作了。代码很简单：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">console_clear</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint8_t</span> attribute_byte = (<span class="number">0</span> &lt;&lt; <span class="number">4</span>) | (<span class="number">15</span> &amp; <span class="number">0x0F</span>);</span><br><span class="line">    <span class="type">uint16_t</span> blank = <span class="number">0x20</span> | (attribute_byte &lt;&lt; <span class="number">8</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">80</span> * <span class="number">25</span>; i++) &#123;</span><br><span class="line">          video_memory[i] = blank;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cursor_x = <span class="number">0</span>;</span><br><span class="line">    cursor_y = <span class="number">0</span>;</span><br><span class="line">    move_cursor();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="屏幕滚动显示"><a href="#屏幕滚动显示" class="headerlink" title="屏幕滚动显示"></a>屏幕滚动显示</h4><p>那么屏幕滚动呢？用C语言来描述实际上就是将后24行的数据全部向上挪动一行，最后一行清空罢了，就是这么简单。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">scroll</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// attribute_byte 被构造出一个黑底白字的描述格式</span></span><br><span class="line">    <span class="type">uint8_t</span> attribute_byte = (<span class="number">0</span> &lt;&lt; <span class="number">4</span>) | (<span class="number">15</span> &amp; <span class="number">0x0F</span>);</span><br><span class="line">    <span class="type">uint16_t</span> blank = <span class="number">0x20</span> | (attribute_byte &lt;&lt; <span class="number">8</span>);  <span class="comment">// space 是 0x20</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// cursor_y 到 25 的时候，就该换行了</span></span><br><span class="line">    <span class="keyword">if</span> (cursor_y &gt;= <span class="number">25</span>) &#123;</span><br><span class="line">        <span class="comment">// 将所有行的显示数据复制到上一行，第一行永远消失了...</span></span><br><span class="line">        <span class="type">int</span> i;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span> * <span class="number">80</span>; i &lt; <span class="number">24</span> * <span class="number">80</span>; i++) &#123;</span><br><span class="line">              video_memory[i] = video_memory[i+<span class="number">80</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 最后的一行数据现在填充空格，不显示任何字符</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">24</span> * <span class="number">80</span>; i &lt; <span class="number">25</span> * <span class="number">80</span>; i++) &#123;</span><br><span class="line">              video_memory[i] = blank;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 向上移动了一行，所以 cursor_y 现在是 24</span></span><br><span class="line">        cursor_y = <span class="number">24</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="显示字符串"><a href="#显示字符串" class="headerlink" title="显示字符串"></a>显示字符串</h4><p>那么屏幕显示字符串呢？我们可以先实现屏幕显示一个字符的函数，那么屏幕显示一个字符串不就可以了么。这几个函数的实现如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">console_putc_color</span><span class="params">(<span class="type">char</span> c, <span class="type">real_color_t</span> back, <span class="type">real_color_t</span> fore)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint8_t</span> back_color = (<span class="type">uint8_t</span>)back;</span><br><span class="line">    <span class="type">uint8_t</span> fore_color = (<span class="type">uint8_t</span>)fore;</span><br><span class="line"></span><br><span class="line">    <span class="type">uint8_t</span> attribute_byte = (back_color &lt;&lt; <span class="number">4</span>) | (fore_color &amp; <span class="number">0x0F</span>);</span><br><span class="line">    <span class="type">uint16_t</span> attribute = attribute_byte &lt;&lt; <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 0x08 是退格键的 ASCII 码</span></span><br><span class="line">    <span class="comment">// 0x09 是tab 键的 ASCII 码</span></span><br><span class="line">    <span class="keyword">if</span> (c == <span class="number">0x08</span> &amp;&amp; cursor_x) &#123;</span><br><span class="line">          cursor_x--;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="number">0x09</span>) &#123;</span><br><span class="line">          cursor_x = (cursor_x+<span class="number">8</span>) &amp; ~(<span class="number">8</span><span class="number">-1</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">&#x27;\r&#x27;</span>) &#123;</span><br><span class="line">          cursor_x = <span class="number">0</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">&#x27;\n&#x27;</span>) &#123;</span><br><span class="line">        cursor_x = <span class="number">0</span>;</span><br><span class="line">        cursor_y++;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c &gt;= <span class="string">&#x27; &#x27;</span>) &#123;</span><br><span class="line">        video_memory[cursor_y*<span class="number">80</span> + cursor_x] = c | attribute;</span><br><span class="line">        cursor_x++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 每 80 个字符一行，满80就必须换行了</span></span><br><span class="line">    <span class="keyword">if</span> (cursor_x &gt;= <span class="number">80</span>) &#123;</span><br><span class="line">        cursor_x = <span class="number">0</span>;</span><br><span class="line">        cursor_y ++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果需要的话滚动屏幕显示</span></span><br><span class="line">    scroll();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 移动硬件的输入光标</span></span><br><span class="line">    move_cursor();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">console_write</span><span class="params">(<span class="type">char</span> *cstr)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span> (*cstr) &#123;</span><br><span class="line">          console_putc_color(*cstr++, rc_black, rc_white);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">console_write_color</span><span class="params">(<span class="type">char</span> *cstr, <span class="type">real_color_t</span> back, <span class="type">real_color_t</span> fore)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span> (*cstr) &#123;</span><br><span class="line">          console_putc_color(*cstr++, back, fore);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码里唯一需要注意的便是输出后要检查当前的位置和判断一些特殊的符号表示的操作，例如换行之类的实现。同时一定要注意修改存储当前位置的两个变量和移动屏幕上的光标，而且屏幕输出满了以后要上滚。我们暂时不考虑诸如屏幕翻页之类的功能。至于屏幕输出十六进制数字和十进制数字的函数请大家自己实现，相信这并不困难。</p>
+<h4 id="测试屏幕操作函数"><a href="#测试屏幕操作函数" class="headerlink" title="测试屏幕操作函数"></a>测试屏幕操作函数</h4><p>屏幕的操作到这里就告一段落了，我们修改下初始化函数，感受一下今天的成果吧。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;console.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">kern_entry</span><span class="params">(<span class="type">multiboot_t</span> *mboot_ptr)</span></span><br><span class="line">&#123;</span><br><span class="line">    console_clear();</span><br><span class="line"></span><br><span class="line">    console_write_color(<span class="string">&quot;Hello, OS kernel!\n&quot;</span>, rc_black, rc_green);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译运行，干净的屏幕上出现了我们绿色的文字，还有下一行闪烁着的输入光标。</p>
+<h3 id="相关库函数和调试打印函数"><a href="#相关库函数和调试打印函数" class="headerlink" title="相关库函数和调试打印函数"></a>相关库函数和调试打印函数</h3><p>我们已经实现了一个能在屏幕上任意输出字符的小内核了。但是在开始新的探索之前，需要完成一些在内核开发中至关重要的模块。</p>
+<h4 id="C语言的字符串处理函数"><a href="#C语言的字符串处理函数" class="headerlink" title="C语言的字符串处理函数"></a>C语言的字符串处理函数</h4><p>我们之前多次提到现有的用户态的C语言标准库无法使用在内核中，但是内核开发中难免要用到诸如字符串操作的函数，所以我们需要自己实现这些字符串相关的函数。</p>
+<p>首先给出函数的声明：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> INCLUDE_STRING_H_</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INCLUDE_STRING_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;types.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">memcpy</span><span class="params">(<span class="type">uint8_t</span> *dest, <span class="type">const</span> <span class="type">uint8_t</span> *src, <span class="type">uint32_t</span> len)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">memset</span><span class="params">(<span class="type">void</span> *dest, <span class="type">uint8_t</span> val, <span class="type">uint32_t</span> len)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">bzero</span><span class="params">(<span class="type">void</span> *dest, <span class="type">uint32_t</span> len)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">strcmp</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *str1, <span class="type">const</span> <span class="type">char</span> *str2)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">char</span> *<span class="title function_">strcpy</span><span class="params">(<span class="type">char</span> *dest, <span class="type">const</span> <span class="type">char</span> *src)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">char</span> *<span class="title function_">strcat</span><span class="params">(<span class="type">char</span> *dest, <span class="type">const</span> <span class="type">char</span> *src)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">strlen</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *src)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>  <span class="comment">// INCLUDE_STRING_H_</span></span></span><br></pre></td></tr></table></figure>
+
+<p>至于函数的实现我只给出其中几个函数的参考实现，剩下的请大家自己实现吧，考验大家C语言指针基本功的时候到了。注意这里的函数最好在用户态下进行编码和测试，确认正确无误了再放入内核中使用。 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;string.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="type">void</span> <span class="title function_">memcpy</span><span class="params">(<span class="type">uint8_t</span> *dest, <span class="type">const</span> <span class="type">uint8_t</span> *src, <span class="type">uint32_t</span> len)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (; len != <span class="number">0</span>; len--) &#123;</span><br><span class="line">        *dest++ = *src++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="type">void</span> <span class="title function_">memset</span><span class="params">(<span class="type">void</span> *dest, <span class="type">uint8_t</span> val, <span class="type">uint32_t</span> len)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint8_t</span> *dst = (<span class="type">uint8_t</span> *)dest;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> ( ; len != <span class="number">0</span>; len--) &#123;</span><br><span class="line">        *dst++ = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="type">void</span> <span class="title function_">bzero</span><span class="params">(<span class="type">void</span> *dest, <span class="type">uint32_t</span> len)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">memset</span>(dest, <span class="number">0</span>, len);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="内核级的屏幕打印函数"><a href="#内核级的屏幕打印函数" class="headerlink" title="内核级的屏幕打印函数"></a>内核级的屏幕打印函数</h4><p>初学C语言时使用的printf函数想必大家都很熟悉吧？可是在这里是没有办法使用现有的库的。不过完成了屏幕的控制输出之后，我们就可以基于它同时根据printf函数的实现原理，写出一个内核态下可以进行屏幕打印的函数printk了。但是这里恐怕不敢展开来讲，这涉及到C语言的可变形参表和函数调用栈等繁多细节。原本我只想给出具体的实现以供大家参考，但是又觉得带给大家“夹生饭”的做法不太好。所以我简单的结合代码给大家阐述下基本的实现原理，同时希望没理解的读者自行检索相关资料，争取理解这个函数的实现。</p>
+<p>我们之前已经实现过了屏幕打印字符串和数字等内容的函数了，那么此时想实现printf函数，难点就在于构造这个最终打印的字符串。现在摆在我们面前的问题其实只有两个，那就是如何知道有多少个参数传进来和如何知道每一个参数的类型。其实我们完全可以照搬printf的做法，提供同样的接口。printf的用法大家很清楚，首先是一个待显示的字符串，里面分别用%加相关字母的方式一一指明了后面的参数数量和类型。只要我们传递正确的带有格式描述的字符串和相关参数，printf函数就能正确的打印出来结果。</p>
+<p>我们的printk函数的实现完全模仿printf函数的接口，首先是函数声明：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;console.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;vargs.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 内核的打印函数</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">printk</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *format, ...)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 内核的打印函数 带颜色</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">printk_color</span><span class="params">(<span class="type">real_color_t</span> back, <span class="type">real_color_t</span> fore, <span class="type">const</span> <span class="type">char</span> *format, ...)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>后面一个printk_color对应之前的带颜色的屏幕输出，因为C语言没有C++那样的函数重载或者默认参数的特性，所以我们只能定义两个函数了。printk函数的声明的参数列表首先是一个字符串，然后是三个小数点，这样的话编译器会允许我们在调用printk函数的时候带有任意多个实参了。剩下的问题就是在printk的实现里，如何在没有形参名的情况下找到取到每一个参数。解决了这个问题之后，我想剩下的问题就很简单了。</p>
+<p>我们先贴出另一个所需要的头文件 vargs.h 的内容：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> INCLUDE_VARGS_H_</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INCLUDE_VARGS_H_</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> __builtin_va_list va_list;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> va_start(ap, last)         (__builtin_va_start(ap, last))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> va_arg(ap, type)           (__builtin_va_arg(ap, type))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> va_end(ap) </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>  <span class="comment">// INCLUDE_VARGS_H_</span></span></span><br></pre></td></tr></table></figure>
+
+<p>我们定义了几个宏，这几个宏用于取得每一个调用printk函数时传入的参数值。可能你会很诧异va_list、__builtin_va_start和__builtin_va_arg这几个类似于函数东西在何处定义，其实它们是gcc内置的变量和函数之类的存在了。GNU C提供了很多扩展，这只是其中的一个。而其他平台上通常把它们定义为宏，下面是一个简化版的定义：（事实上出于x86压栈元素长度的限制和优化的考虑，小于等于4字节的类型统一扩展到4字节压栈。大于4字节小于等于8字节的类型统一以8字节压栈（另外32位压栈指令的操作数只能是16位或者32位的））</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span>  va_list              char *</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>  va_start(p, first)   (p = (va_list)&amp;first + sizeof(first))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>  va_arg(p, next)      (*(next*)((p += sizeof(next) ) - sizeof(next)))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>  va_end(p)            (p = (va_list)NULL)</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，这几个宏的作用是根据第一个参数的地址和类型，通过逐渐计算出以后每一个参数的起始地址的方法取出每一个参数。也就是说这是建立在“函数调用的参数在内存里是连续的”这一简单假设之上的。</p>
+<p>我们知道函数调用是通过栈来传递参数的，那参数按照什么顺序入栈？入栈后使用完参数后何处的代码清理之前栈里的参数呢？</p>
+<p>事实上传递参数的工作必须由函数调用者和函数本身来协调，即就是所谓的“调用约定”。现行的调用约定有很多中，而C语言默认的调用约定就是cdecl了，cdecl约定规定由调用者<u>从右向左向栈里连续的压入参数</u>，在函数返回之后，再清理掉压入的参数以保证堆栈平衡。对于类似于 func(1, 2, 3, 4); 这样的函数调用编译后生成的汇编代码类似下面这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">push 4</span><br><span class="line">    push 3</span><br><span class="line">    push 2</span><br><span class="line">    push 1</span><br><span class="line">    call func</span><br><span class="line">    sub esp, 16</span><br></pre></td></tr></table></figure>
+
+<p>大家看明白没有？默认情况下按照cdecl约定，参数被从右向左连续压栈了，而且调用完后根据参数长度自行清理了参数。<a target="_blank" rel="noopener" href="http://wiki.0xffffff.org/posts/hurlex-5.html#fn:5">5</a>明白了这些，我们就为以后的汇编和C语言函数的相互调用打好了基础。而且也明白了参数在栈里面是连续的存储的，只要知道了第一个参数在栈里的地址和每个参数的类型，就能计算出每一个参数的地址访问到它们了。</p>
+<p>printk涉及的代码比较多，没有办法在这里一一细说了。还是那句话，需要大家主动的去探索学习。这个项目使用的printk甚至直接参考和复制了Linux早期内核里的一些思想和子函数的实现，希望大家自己去研究一下。至于使用的方法就很简单了，它和大家熟悉的printk函数没有什么太大差异。</p>
+<h4 id="代码级调试的实现"><a href="#代码级调试的实现" class="headerlink" title="代码级调试的实现"></a>代码级调试的实现</h4><p>不知道大家之前的编码过程是否顺利？是否遇到了运行后无法得出结果的问题？我们平时构建用户级程序的时候，有很长一段都是在调试。那这个小内核能否像平时那样轻松的调试查错？如果不能或者只能进行汇编级别的调试，恐怕会对我们的后期开发造成很大的影响。毕竟在客观上bug一就避免不了，那我们能否使用平日里习惯的调试工具进行轻松的排错？答案是肯定的。我们给出的解决方案就是使用qemu联合gdb进行C语言源代码级别的调试。具体怎么做呢？</p>
+<p>首先是通讯问题，因为qemu和gdb运行的时候毕竟是两个进程，数据交换必然涉及到进程间通信机制。所幸它们都支持一个标准的调试协议，而且开启的方法都很简单。qemu使用以下命令启动即可：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu -S -s -fda floppy.img -boot a </span><br></pre></td></tr></table></figure>
+
+<p>这几个参数中 -fda floppy.img 和 -boot a 是指定启动的镜像，-s 这个参数指的是启动时开启1234端口等待gdb连接（这个参数从字面上看比较隐晦），-S 是指是启动时不自动开始运行，等待调试器的执行命令。以调试模式启动了虚拟机之后，再启动gdb。需要注意的是，此时的gdb没有内核程序的符号文件，没有办法进行代码级调试。解决的办法很简单，我们使用命令加载待调试内核对应的可执行文件即可。启动了gdb之后，我们依次执行以下指令即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">file hx_kernel</span><br><span class="line">target remote :1234</span><br><span class="line">break kern_entry</span><br><span class="line">c</span><br></pre></td></tr></table></figure>
+
+<p>这几个命令的意思分别是加载待调试文件的符号信息；连接本地的1234端口；在 kern_entry 函数处下断点；执行到断点处。如果每次调试都需要这样做的话也未免太麻烦了，所以我们可以把上面几条命令写在scripts目录里的gdbinit文件里，在启动gdb的时候自动加载执行。甚至在Makefile里也有我写的一个专门用于调试的伪目标debug 。在开始测试前，先给出我此时的目录结构以便大家核对。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">|-- boot</span><br><span class="line">|   `-- boot.s</span><br><span class="line">|-- drivers</span><br><span class="line">|   `-- console.c</span><br><span class="line">|-- floppy.img</span><br><span class="line">|-- include</span><br><span class="line">|   |-- common.h</span><br><span class="line">|   |-- console.h</span><br><span class="line">|   |-- debug.h</span><br><span class="line">|   |-- string.h</span><br><span class="line">|   |-- types.h</span><br><span class="line">|   `-- vargs.h</span><br><span class="line">|-- init</span><br><span class="line">|   `-- entry.c</span><br><span class="line">|-- kernel</span><br><span class="line">|   `-- debug</span><br><span class="line">|       |-- debug.c</span><br><span class="line">|       `-- printk.c</span><br><span class="line">|-- libs</span><br><span class="line">|   |-- common.c</span><br><span class="line">|   `-- string.c</span><br><span class="line">|-- Makefile</span><br><span class="line">`-- scripts</span><br><span class="line">    |-- gdbinit</span><br><span class="line">    `-- kernel.ld</span><br><span class="line">    </span><br><span class="line">    8 directories, 17 files</span><br></pre></td></tr></table></figure>
+
+<p>现在开始调试测试，执行以下命令开始调试。<a target="_blank" rel="noopener" href="http://wiki.0xffffff.org/posts/hurlex-5.html#fn:8">8</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">make debug</span><br></pre></td></tr></table></figure>
+
+<p>源码级的调试效果如图：</p>
+<p><img src="https://raw.githubusercontent.com/hurley25/wiki/gh-pages/_posts/picture/chapt5/os_debug.png" alt="源码级别调试内核"></p>
+<p>剩下的调试操作和平时使用gdb的方法别无二致，所以大家应该都不陌生。有的读者可能需要学习一些查看寄存器值之类的命令，请查阅手册吧。</p>
+<h4 id="打印函数调用栈"><a href="#打印函数调用栈" class="headerlink" title="打印函数调用栈"></a>打印函数调用栈</h4><p>解决了代码级调试的功能，我们来完成一些稍微复杂的函数，那就是当内核遇到致命错误时，如何自动打印当前的函数调用栈？这涉及到GRUB Multiboot规范的很多细节和函数调用栈的结构。我们先从Multiboot的细节说起。</p>
+<p>在boot&#x2F;boot.s里的start函数调用kern_entry函数之前，我们把ebx寄存器的值赋给了一个全局变量glb_mboot_ptr。这是一个指向了multiboot_t类型结构体的指针，这个结构体存储了GRUB在调用内核前获取的硬件信息和内核文件本身的一些信息。我们先给出具体的结构体的定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> INCLUDE_MULTIBOOT_H_</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INCLUDE_MULTIBOOT_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;types.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">multiboot_t</span> &#123;</span></span><br><span class="line">    <span class="type">uint32_t</span> flags;     <span class="comment">// Multiboot 的版本信息</span></span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 从 BIOS 获知的可用内存</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * mem_lower 和 mem_upper 分别指出了低端和高端内存的大小，单位是K。</span></span><br><span class="line"><span class="comment">     * 低端内存的首地址是 0 ，高端内存的首地址是 1M 。</span></span><br><span class="line"><span class="comment">     * 低端内存的最大可能值是 640K </span></span><br><span class="line"><span class="comment">     * 高端内存的最大可能值是最大值减去 1M 。但并不保证是这个值。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">uint32_t</span> mem_lower;</span><br><span class="line">    <span class="type">uint32_t</span> mem_upper;</span><br><span class="line"></span><br><span class="line">    <span class="type">uint32_t</span> boot_device;   <span class="comment">// 指出引导程序从哪个BIOS磁盘设备载入的OS映像</span></span><br><span class="line">    <span class="type">uint32_t</span> cmdline;   <span class="comment">// 内核命令行</span></span><br><span class="line">    <span class="type">uint32_t</span> mods_count;    <span class="comment">// boot 模块列表</span></span><br><span class="line">    <span class="type">uint32_t</span> mods_addr;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * ELF 格式内核映像的 section 头表。包括每项的大小、一共有几项以及作为名字索引</span></span><br><span class="line"><span class="comment">     * 的字符串。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">uint32_t</span> num;</span><br><span class="line">    <span class="type">uint32_t</span> size;</span><br><span class="line">    <span class="type">uint32_t</span> addr;</span><br><span class="line">    <span class="type">uint32_t</span> shndx;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 以下两项指出保存由 BIOS 提供的内存分布的缓冲区的地址和长度</span></span><br><span class="line"><span class="comment">     * mmap_addr 是缓冲区的地址， mmap_length 是缓冲区的总大小</span></span><br><span class="line"><span class="comment">     * 缓冲区由一个或者多个下面的 mmap_entry_t 组成</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">uint32_t</span> mmap_length;       </span><br><span class="line">    <span class="type">uint32_t</span> mmap_addr;</span><br><span class="line">    </span><br><span class="line">    <span class="type">uint32_t</span> drives_length;     <span class="comment">// 指出第一个驱动器这个结构的大小</span></span><br><span class="line">    <span class="type">uint32_t</span> drives_addr;       <span class="comment">// 指出第一个驱动器结构的物理地址</span></span><br><span class="line">    <span class="type">uint32_t</span> config_table;      <span class="comment">// ROM 配置表</span></span><br><span class="line">    <span class="type">uint32_t</span> boot_loader_name;  <span class="comment">// boot loader 的名字</span></span><br><span class="line">    <span class="type">uint32_t</span> apm_table;             <span class="comment">// APM 表</span></span><br><span class="line">    <span class="type">uint32_t</span> vbe_control_info;</span><br><span class="line">    <span class="type">uint32_t</span> vbe_mode_info;</span><br><span class="line">    <span class="type">uint32_t</span> vbe_mode;</span><br><span class="line">    <span class="type">uint32_t</span> vbe_interface_seg;</span><br><span class="line">    <span class="type">uint32_t</span> vbe_interface_off;</span><br><span class="line">    <span class="type">uint32_t</span> vbe_interface_len;</span><br><span class="line">&#125; __attribute__((packed)) <span class="type">multiboot_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * size 是相关结构的大小，单位是字节，它可能大于最小值 20</span></span><br><span class="line"><span class="comment"> * base_addr_low 是启动地址的低32位，base_addr_high 是高 32 位，启动地址总共有 64 位</span></span><br><span class="line"><span class="comment"> * length_low 是内存区域大小的低32位，length_high 是内存区域大小的高 32 位，总共是 64 位</span></span><br><span class="line"><span class="comment"> * type 是相应地址区间的类型，1 代表可用 RAM，所有其它的值代表保留区域</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">mmap_entry_t</span> &#123;</span></span><br><span class="line">    <span class="type">uint32_t</span> size;      <span class="comment">// size 是不含 size 自身变量的大小</span></span><br><span class="line">    <span class="type">uint32_t</span> base_addr_low;</span><br><span class="line">    <span class="type">uint32_t</span> base_addr_high;</span><br><span class="line">    <span class="type">uint32_t</span> length_low;</span><br><span class="line">    <span class="type">uint32_t</span> length_high;</span><br><span class="line">    <span class="type">uint32_t</span> type;</span><br><span class="line">&#125; __attribute__((packed)) <span class="type">mmap_entry_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明全局的 multiboot_t * 指针</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">multiboot_t</span> *glb_mboot_ptr;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>  <span class="comment">// INCLUDE_MULTIBOOT_H_</span></span></span><br></pre></td></tr></table></figure>
+
+<p>结构体中有很多注释，大家结合具体的协议文档很容易就可以看懂。我们暂时需要关心的主要是符号表，其它的信息我们之后用到的时候再讨论。也就是说，我们暂时只关注结构体中以下几个字段的内容即可：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * ELF 格式内核映像的 section 头表。</span></span><br><span class="line"><span class="comment">     * 包括每项的大小、一共有几项以及作为名字索引的字符串表。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">uint32_t</span> num;</span><br><span class="line">    <span class="type">uint32_t</span> size;</span><br><span class="line">    <span class="type">uint32_t</span> addr;</span><br><span class="line">    <span class="type">uint32_t</span> shndx;</span><br><span class="line">    ......</span><br></pre></td></tr></table></figure>
+
+<p>要理解下面的内容还真有些困难，因为它涉及的面太广了。我们先以ELF的文件格式做为切入点。我们先添加elf.h这个头文件：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> INCLUDE_ELF_H_</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INCLUDE_ELF_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;types.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;multiboot.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ELF32_ST_TYPE(i) ((i)&amp;0xf)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ELF 格式区段头</span></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">elf_section_header_t</span> &#123;</span></span><br><span class="line">  <span class="type">uint32_t</span> name;</span><br><span class="line">  <span class="type">uint32_t</span> type;</span><br><span class="line">  <span class="type">uint32_t</span> flags;</span><br><span class="line">  <span class="type">uint32_t</span> addr;</span><br><span class="line">  <span class="type">uint32_t</span> offset;</span><br><span class="line">  <span class="type">uint32_t</span> size;</span><br><span class="line">  <span class="type">uint32_t</span> link;</span><br><span class="line">  <span class="type">uint32_t</span> info;</span><br><span class="line">  <span class="type">uint32_t</span> addralign;</span><br><span class="line">  <span class="type">uint32_t</span> entsize;</span><br><span class="line">&#125; __attribute__((packed)) <span class="type">elf_section_header_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ELF 格式符号</span></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">elf_symbol_t</span> &#123;</span></span><br><span class="line">  <span class="type">uint32_t</span> name;</span><br><span class="line">  <span class="type">uint32_t</span> value;</span><br><span class="line">  <span class="type">uint32_t</span> size;</span><br><span class="line">  <span class="type">uint8_t</span>  info;</span><br><span class="line">  <span class="type">uint8_t</span>  other;</span><br><span class="line">  <span class="type">uint16_t</span> shndx;</span><br><span class="line">&#125; __attribute__((packed)) <span class="type">elf_symbol_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ELF 信息</span></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">elf_t</span> &#123;</span></span><br><span class="line">  <span class="type">elf_symbol_t</span> *symtab;</span><br><span class="line">  <span class="type">uint32_t</span>      symtabsz;</span><br><span class="line">  <span class="type">const</span> <span class="type">char</span>   *strtab;</span><br><span class="line">  <span class="type">uint32_t</span>      strtabsz;</span><br><span class="line">&#125; <span class="type">elf_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从 multiboot_t 结构获取ELF信息</span></span><br><span class="line"><span class="type">elf_t</span> <span class="title function_">elf_from_multiboot</span><span class="params">(<span class="type">multiboot_t</span> *mb)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查看ELF的符号信息</span></span><br><span class="line"><span class="type">const</span> <span class="type">char</span> *<span class="title function_">elf_lookup_symbol</span><span class="params">(<span class="type">uint32_t</span> addr, <span class="type">elf_t</span> *elf)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>  <span class="comment">// INCLUDE_ELF_H_</span></span></span><br></pre></td></tr></table></figure>
+
+<p>这段结构体定义里包含了ELF文件的区段头、符号表等信息。我们给出从multiboot_t结构中提取出ELF相关信息的代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;common.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;string.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;elf.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 从 multiboot_t 结构获取ELF信息</span></span><br><span class="line"><span class="type">elf_t</span> <span class="title function_">elf_from_multiboot</span><span class="params">(<span class="type">multiboot_t</span> *mb)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="type">elf_t</span> elf;</span><br><span class="line">    <span class="type">elf_section_header_t</span> *sh = (<span class="type">elf_section_header_t</span> *)mb-&gt;addr;</span><br><span class="line"></span><br><span class="line">    <span class="type">uint32_t</span> shstrtab = sh[mb-&gt;shndx].addr;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; mb-&gt;num; i++) &#123;</span><br><span class="line">        <span class="type">const</span> <span class="type">char</span> *name = (<span class="type">const</span> <span class="type">char</span> *)(shstrtab + sh[i].name);</span><br><span class="line">        <span class="comment">// 在 GRUB 提供的 multiboot 信息中寻找</span></span><br><span class="line">        <span class="comment">// 内核 ELF 格式所提取的字符串表和符号表</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">strcmp</span>(name, <span class="string">&quot;.strtab&quot;</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">            elf.strtab = (<span class="type">const</span> <span class="type">char</span> *)sh[i].addr;</span><br><span class="line">            elf.strtabsz = sh[i].size;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">strcmp</span>(name, <span class="string">&quot;.symtab&quot;</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">            elf.symtab = (<span class="type">elf_symbol_t</span>*)sh[i].addr;</span><br><span class="line">            elf.symtabsz = sh[i].size;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> elf;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查看ELF的符号信息</span></span><br><span class="line"><span class="type">const</span> <span class="type">char</span> *<span class="title function_">elf_lookup_symbol</span><span class="params">(<span class="type">uint32_t</span> addr, <span class="type">elf_t</span> *elf)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; (elf-&gt;symtabsz / <span class="keyword">sizeof</span>(<span class="type">elf_symbol_t</span>)); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ELF32_ST_TYPE(elf-&gt;symtab[i].info) != <span class="number">0x2</span>) &#123;</span><br><span class="line">              <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 通过函数调用地址查到函数的名字</span></span><br><span class="line">        <span class="keyword">if</span> ( (addr &gt;= elf-&gt;symtab[i].value) &amp;&amp; (addr &lt; (elf-&gt;symtab[i].value + elf-&gt;symtab[i].size)) ) &#123;</span><br><span class="line">            <span class="keyword">return</span> (<span class="type">const</span> <span class="type">char</span> *)((<span class="type">uint32_t</span>)elf-&gt;strtab + elf-&gt;symtab[i].name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们之前多次提过GRUB在载入内核之后，会读取ELF并把相关的信息组织成结构体放在multiboot_t结构，并把结构体指针放在ebx寄存器里传递给内核。其multiboot_t结构的addr成员便指向的是elf_section_header_t类型的结构体数组，num成员是这个结构体数组的成员个数。</p>
+<p>这里的代码可能让大家一下子有点蒙，如果你觉得无从下手的话不妨在纸上画一画这几个结构体的关系图，这能帮助你理解。对于这里的代码大家不必过于深究，毕竟ELF格式只是Linux平台下的一种可执行格式，而本文档的目的是想让大家建立对项目的整体把握，细节问题就留给大家自己去理解吧。</p>
+<p>通过以上的努力，我们获取了ELF文件中关于每个函数的名称和它们代码的区域，那么此时如何使用这些信息寻找函数名称呢？其实大家从elf_lookup_symbol函数的实现里就能看出来。我们提供了一个地址，然后查询这个地址在哪个函数的代码区间里，然后返回了这个函数名的字符串指针。</p>
+<p>终于到了最后的函数调用栈问题了，这也是最终的打印调用栈函数panic的实现原理。</p>
+<p>我们利用objdump文件反汇编生成的hx_kernel文件，找到入口函数的代码结合start函数的实现一起分析。反汇编的指令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objdump -M intel -d hx_kernel</span><br></pre></td></tr></table></figure>
+
+<p>-M intel 参数是生成Intel风格的汇编，想必大家对Intel风格的汇编更熟悉吧。这个命令会反汇编所有的函数，我们找到start函数和kern_entry函数的反汇编代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">0010000c &lt;start&gt;:</span><br><span class="line">  10000c:   fa                      cli    </span><br><span class="line">  10000d:   89 1d 00 b0 10 00       mov    DWORD PTR ds:0x10b000,ebx</span><br><span class="line">  100013:   bc 03 80 00 00          mov    esp,0x8003</span><br><span class="line">  100018:   83 e4 f0                and    esp,0xfffffff0</span><br><span class="line">  10001b:   bd 00 00 00 00          mov    ebp,0x0</span><br><span class="line">  100020:   e8 af 0a 00 00          call   100ad4 &lt;kern_entry&gt;</span><br><span class="line">00100025 &lt;stop&gt;:</span><br><span class="line">  100025:   f4                      hlt    </span><br><span class="line">  100026:   eb fd                   jmp    100025 &lt;stop&gt;</span><br><span class="line"></span><br><span class="line">00100ad4 &lt;kern_entry&gt;:</span><br><span class="line">  100ad4:   55                      push   ebp</span><br><span class="line">  100ad5:   89 e5                   mov    ebp,esp</span><br><span class="line">  100ad7:   83 ec 18                sub    esp,0x16</span><br><span class="line">  100ada:   e8 39 01 00 00          call   100c18 &lt;console_clear&gt;</span><br><span class="line">  100adf:   c7 44 24 08 9b 21 10    mov    DWORD PTR [esp+0x8],0x10219b</span><br><span class="line">  100ae6:   00 </span><br><span class="line">  100ae7:   c7 44 24 04 02 00 00    mov    DWORD PTR [esp+0x4],0x2</span><br><span class="line">  100aee:   00 </span><br><span class="line">  100aef:   c7 04 24 00 00 00 00    mov    DWORD PTR [esp],0x0</span><br><span class="line">  100af6:   e8 33 f7 ff ff          call   10022e &lt;printk_color&gt;</span><br><span class="line">  100afb:   b8 00 00 00 00          mov    eax,0x0</span><br><span class="line">  100b00:   c9                      leave  </span><br><span class="line">  100b01:   c3                      ret    </span><br></pre></td></tr></table></figure>
+
+<p>我们从start函数开始分析。首先第2行是关闭中断，因为此时尚未设置中断相关的一些数据结构，如果发生了中断的话就会崩溃。接下来第3行是我们把ebx寄存器中存储的multiboot_t结构的指针传给了全局变量glb_mboot_ptr，接着4、5行分别是初始化内核栈的栈顶指针，第5行与运算的目的是使得栈地址按照16字节对齐，这样的效率比较好。随后start函数调用了内核入口kern_entry函数。大家注意这里的call指令实际上做了两件事情，第一件事情是将call指令随后的地址压入栈，然后跳转到kern_entry函数的起始地址那里去。也就是说这里的call 100ad4 <kern_entry>等价于以下两条指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">push 100022</span><br><span class="line">jmp 100ad4</span><br></pre></td></tr></table></figure>
+
+<p>我们这里碰巧有个stop的标号在这里，所以nasm处理成stop函数了。其实所有的函数在代码段里都是连续的，无论跳转到哪里，都会从该处开始执行的。现在大家思考这样一个问题，为什么要保存call指令的下一条指令的地址到栈里呢？其实很简单，因为子函数调用完会返回，不保存返回的地址的话怎么知道该往哪里返回呢。</p>
+<p>我们继续往下看，kern_entry函数一开始就把ebp寄存器压栈，然后将esp赋给ebp寄存器。为什么要先压栈呢？因为在一个CPU核里所有的寄存器都只有一份，当执行流程从一个函数跳转到另外一个函数的时候，之前的寄存器可能保存着重要的信息。如果我们不保护之前的执行现场，当子函数执行完返回的时候就会出问题。那这么多寄存器全都要保存吗？当然不是，x86的规则是这样的：寄存器分为调用者保存寄存器和被调用者保存寄存器。按照惯例，eax，edx，ecx寄存器是调用者保存，ebx，esi，edi，ebp等寄存器是被调用者负责保存。举个例子，一个函数想使用ebp寄存器那么必须在返回前恢复ebp原先的值，而使用edx寄存器就无需暂存和恢复。如果我们只用C语言编程的话自然无需关注这些，因为编译器会替我们打点这一切。但是如果要实现汇编和C语言的混合编程的话，就要留心这些了。</p>
+<p>我们回到正题。第16行的汇编指令实际上是开辟函数局部变量的操作，不过这个函数没有用到。接着又是一个函数调用，同理，压入当前指令之后一条指令的地址，然后跳转过去执行，而且之后所有的函数调用基本上都是按照这个套路进行的。当函数执行完之后，函数清理开辟的局部变量的空间，恢复在栈里保存的ebp寄存器，弹出返回地址跳转回去。这就是函数执行和返回的一个大致的流程。所以当一个函数遇到了错误的时候，我们就可以调用一个打印当前栈里的函数调用链的函数来帮助我们调试。原理很简单，所有函数的返回地址都保存在栈里，我们结合之前获取到的所有函数的名称和它们的地址区间，只要查找到这个返回地址在哪一个函数的地址区间里，就能知道之前调用的函数了。而这个查找函数我们已经实现了。</p>
+<p>不知道我刚刚的描述大家理解了没有？如果还有点迷糊的话来看下面的这张图片，这是按照上文的描述给出的函数调用函数栈的示意图。不过需要注意的是，所有的地址是根据我自己机器上生成的汇编地址绘制的。大家可能会有不一样的地址，但是原理是一致的。</p>
+<p><img src="https://raw.githubusercontent.com/hurley25/wiki/gh-pages/_posts/picture/chapt5/os_function_stack.png" alt="内核函数调用栈"></p>
+<p>在示意图中我们假设从start函数-&gt;kern_entry函数-&gt;console_clear函数的调用过程，最终暂停在console_clear函数里面。我们可以清楚的看到，只要拿到此时的ebp寄存器的值，就可以沿着这个调用链找到每一个调用的函数的返回地址，之前的问题就这样解决了。需要注意的是C语言里对指针做算数运算时，改变的地址长度是和当前指针变量的类型相关的。</p>
+<p>我们分别给出最终的打印函数调用信息的panic函数的声明和实现。顺带还有几个调试使用的宏，都很简单：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> INCLUDE_DEBUG_H_</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INCLUDE_DEBUG_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;console.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;vargs.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;elf.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> assert(x, info)							\</span></span><br><span class="line"><span class="meta">    do &#123;										\</span></span><br><span class="line"><span class="meta">        <span class="keyword">if</span> (!(x)) &#123;								\</span></span><br><span class="line"><span class="meta">            panic(info);						\</span></span><br><span class="line"><span class="meta">        &#125;										\</span></span><br><span class="line"><span class="meta">    &#125; while (0)</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// 编译期间静态检测</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> static_assert(x)						\</span></span><br><span class="line"><span class="meta">    switch (x) &#123; case 0: case (x): ; &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化 Debug 信息</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">init_debug</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印当前的函数调用栈信息</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">panic</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *msg)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印当前的段存器值</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">print_cur_status</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 内核的打印函数</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">printk</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *format, ...)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 内核的打印函数 带颜色</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">printk_color</span><span class="params">(<span class="type">real_color_t</span> back, <span class="type">real_color_t</span> fore, <span class="type">const</span> <span class="type">char</span> *format, ...)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>  <span class="comment">// INCLUDE_DEBUG_H_</span></span></span><br></pre></td></tr></table></figure>
+
+<p>这里已经是debug.h头文件的完整的内容了，具体的几个实现函数一并在下面列出。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;debug.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">print_stack_trace</span><span class="params">()</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">elf_t</span> kernel_elf;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">init_debug</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 从 GRUB 提供的信息中获取到内核符号表和代码地址信息</span></span><br><span class="line">    kernel_elf = elf_from_multiboot(glb_mboot_ptr);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">print_cur_status</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> round = <span class="number">0</span>;</span><br><span class="line">    <span class="type">uint16_t</span> reg1, reg2, reg3, reg4;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">asm</span> <span class="title function_">volatile</span> <span class="params">(  <span class="string">&quot;mov %%cs, %0;&quot;</span></span></span><br><span class="line"><span class="params">            <span class="string">&quot;mov %%ds, %1;&quot;</span></span></span><br><span class="line"><span class="params">            <span class="string">&quot;mov %%es, %2;&quot;</span></span></span><br><span class="line"><span class="params">            <span class="string">&quot;mov %%ss, %3;&quot;</span></span></span><br><span class="line"><span class="params">            : <span class="string">&quot;=m&quot;</span>(reg1), <span class="string">&quot;=m&quot;</span>(reg2), <span class="string">&quot;=m&quot;</span>(reg3), <span class="string">&quot;=m&quot;</span>(reg4))</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打印当前的运行级别</span></span><br><span class="line">    printk(<span class="string">&quot;%d: @ring %d\n&quot;</span>, round, reg1 &amp; <span class="number">0x3</span>);</span><br><span class="line">    printk(<span class="string">&quot;%d:  cs = %x\n&quot;</span>, round, reg1);</span><br><span class="line">    printk(<span class="string">&quot;%d:  ds = %x\n&quot;</span>, round, reg2);</span><br><span class="line">    printk(<span class="string">&quot;%d:  es = %x\n&quot;</span>, round, reg3);</span><br><span class="line">    printk(<span class="string">&quot;%d:  ss = %x\n&quot;</span>, round, reg4);</span><br><span class="line">    ++round;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">panic</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *msg)</span></span><br><span class="line">&#123;</span><br><span class="line">    printk(<span class="string">&quot;*** System panic: %s\n&quot;</span>, msg);</span><br><span class="line">    print_stack_trace();</span><br><span class="line">    printk(<span class="string">&quot;***\n&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 致命错误发生后打印栈信息后停止在这里</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">print_stack_trace</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint32_t</span> *ebp, *eip;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">asm</span> <span class="title function_">volatile</span> <span class="params">(<span class="string">&quot;mov %%ebp, %0&quot;</span> : <span class="string">&quot;=r&quot;</span> (ebp))</span>;</span><br><span class="line">    <span class="keyword">while</span> (ebp) &#123;</span><br><span class="line">        eip = ebp + <span class="number">1</span>;</span><br><span class="line">        printk(<span class="string">&quot;   [0x%x] %s\n&quot;</span>, *eip, elf_lookup_symbol(*eip, &amp;kernel_elf));</span><br><span class="line">        ebp = (<span class="type">uint32_t</span>*)*ebp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>至此，本章要阐述的内容到此结束。我们整合所有代码，如下修改entry函数并编译运行测试一下这个打印函数调用栈的函数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;console.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;debug.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">kern_entry</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    init_debug();</span><br><span class="line"></span><br><span class="line">    console_clear();</span><br><span class="line"></span><br><span class="line">    printk_color(rc_black, rc_green, <span class="string">&quot;Hello, OS kernel!\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    panic(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如图：</p>
+<p><img src="https://raw.githubusercontent.com/hurley25/wiki/gh-pages/_posts/picture/chapt5/os_panic.png" alt="panic 函数测试图"></p>
+<h3 id="添加全局段描述符表"><a href="#添加全局段描述符表" class="headerlink" title="添加全局段描述符表"></a>添加全局段描述符表</h3> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/08/22/myOs/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/" rel="tag">OS</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2022/08/22/MakeFile/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            MakeFile
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2022/08/22/Interview-DataBase/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Interview-DataBase</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "5J2nSr5DoqBGRRnpdFfTvawi-gzGzoHsz",
+    app_key: "24GWRfKBASGr6cA5FSBF4NY4",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2022
+        <i class="ri-heart-fill heart_icon"></i> ZHU
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Keep Making Progress"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

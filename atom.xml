@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-08-21T23:36:02.330Z</updated>
+  <updated>2022-08-22T11:49:56.375Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -17,11 +17,49 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>MakeFile</title>
+    <link href="https://www.zzzzzq.com/2022/08/22/MakeFile/"/>
+    <id>https://www.zzzzzq.com/2022/08/22/MakeFile/</id>
+    <published>2022-08-22T11:21:12.000Z</published>
+    <updated>2022-08-22T11:49:56.375Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文记录了MakeFile文件的基本编写规则和语法，参考&lt;a href=&quot;https://zhuanlan.zhihu.com/p/47390641&quot;&gt;这篇文章&lt;/a&gt;整理&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="C++" scheme="https://www.zzzzzq.com/categories/C/"/>
+    
+    
+    <category term="C++" scheme="https://www.zzzzzq.com/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>myOs</title>
+    <link href="https://www.zzzzzq.com/2022/08/22/myOs/"/>
+    <id>https://www.zzzzzq.com/2022/08/22/myOs/</id>
+    <published>2022-08-22T10:45:48.000Z</published>
+    <updated>2022-08-23T18:52:02.859Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;参考&lt;a href=&quot;https://github.com/hurley25/hurlex-doc/tree/master/code&quot;&gt;这篇文章&lt;/a&gt;在mac系统中进行一个简单的基于Intel x86的32位操作系统内核实现&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="OS" scheme="https://www.zzzzzq.com/categories/OS/"/>
+    
+    
+    <category term="OS" scheme="https://www.zzzzzq.com/tags/OS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Interview-DataBase</title>
     <link href="https://www.zzzzzq.com/2022/08/22/Interview-DataBase/"/>
     <id>https://www.zzzzzq.com/2022/08/22/Interview-DataBase/</id>
     <published>2022-08-21T23:35:01.000Z</published>
-    <updated>2022-08-21T23:36:02.330Z</updated>
+    <updated>2022-08-22T09:48:12.684Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文对数据库以及MySQL的基础知识做了一些梳理和总结&lt;/p&gt;</summary>
@@ -339,7 +377,7 @@
     <link href="https://www.zzzzzq.com/2022/06/14/Interview-OSBasic/"/>
     <id>https://www.zzzzzq.com/2022/06/14/Interview-OSBasic/</id>
     <published>2022-06-14T08:40:08.000Z</published>
-    <updated>2022-06-22T04:04:09.872Z</updated>
+    <updated>2022-08-22T19:54:02.146Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文对操作系统的基础知识做了一些梳理和总结（主要针对面试中常见的一些问题）&lt;/p&gt;</summary>
@@ -369,44 +407,6 @@
     
     
     <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入拆解Java虚拟机JVM</title>
-    <link href="https://www.zzzzzq.com/2022/06/12/JVM/"/>
-    <id>https://www.zzzzzq.com/2022/06/12/JVM/</id>
-    <published>2022-06-11T17:18:14.000Z</published>
-    <updated>2022-06-14T08:39:34.755Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文记录了Java虚拟机的基本原理，高效实现和代码优化方面的内容&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL锁</title>
-    <link href="https://www.zzzzzq.com/2022/06/11/mysql04/"/>
-    <id>https://www.zzzzzq.com/2022/06/11/mysql04/</id>
-    <published>2022-06-11T08:06:58.000Z</published>
-    <updated>2022-06-11T15:28:06.020Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;概述：本文记录了MySQL的锁相关的知识，参考极客时间的文章&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="MySQL" scheme="https://www.zzzzzq.com/categories/MySQL/"/>
-    
-    
-    <category term="MySQL" scheme="https://www.zzzzzq.com/tags/MySQL/"/>
     
   </entry>
   

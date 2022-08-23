@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.zzzzzq.com/2022/08/22/myOs/</loc>
+    <lastmod>2022-08-23</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zzzzzq.com/2022/06/14/Interview-OSBasic/</loc>
+    <lastmod>2022-08-22</lastmod>
+  </url>
+  <url>
+    <loc>https://www.zzzzzq.com/2022/08/22/MakeFile/</loc>
+    <lastmod>2022-08-22</lastmod>
+  </url>
+  <url>
     <loc>https://www.zzzzzq.com/2022/08/22/Interview-DataBase/</loc>
-    <lastmod>2022-08-21</lastmod>
+    <lastmod>2022-08-22</lastmod>
   </url>
   <url>
     <loc>https://www.zzzzzq.com/2022/06/22/Interview-Network/</loc>
@@ -70,10 +82,6 @@
   </url>
   <url>
     <loc>https://www.zzzzzq.com/2022/05/05/project-in-meituan-00/</loc>
-    <lastmod>2022-06-22</lastmod>
-  </url>
-  <url>
-    <loc>https://www.zzzzzq.com/2022/06/14/Interview-OSBasic/</loc>
     <lastmod>2022-06-22</lastmod>
   </url>
   <url>
