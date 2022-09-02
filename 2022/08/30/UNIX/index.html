@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="朱章齐的个人技术网站" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>UNIX/Linux学习记录 |  Keep Making Progress</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Keep Making Progress" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-UNIX"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  UNIX/Linux学习记录
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/08/30/UNIX/" class="article-date">
+  <time datetime="2022-08-29T18:33:50.000Z" itemprop="datePublished">2022-08-30</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">5.9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">25 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>本文主要记录了阅读《UNIX&#x2F;Linux编程实践教程》过程中的学习笔记</p>
+<span id="more"></span>
+
+<h2 id="Linux常用命令"><a href="#Linux常用命令" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h2><p>注意所有命令几乎都是人为编写的程序（大多都是C语言写的）</p>
+<p>在Unix系统下增加新的命令只需要把程序的可执行文件放到以下任意目录即可：</p>
+<ul>
+<li><code>/bin</code></li>
+<li><code>/usr/bin</code></li>
+<li><code>/usr/local/bin</code></li>
+</ul>
+<p>目录树样例：</p>
+<img src="https://pic.imgdb.cn/item/630dda6d16f2c2beb100702a.jpg" style="zoom:80%;" />
+
+<p><strong>程序运行和注销</strong></p>
+<ul>
+<li><code>exit</code>用于注销已运行的程序</li>
+<li></li>
+</ul>
+<p><strong>目录操作</strong></p>
+<ul>
+<li><code>ls</code>：列出目录内容<ul>
+<li><code>ls /</code>：列出根目录内容</li>
+</ul>
+</li>
+<li><code>cd</code>：改变当前目录<ul>
+<li><code>cd ..</code>：回退到上一层目录</li>
+</ul>
+</li>
+<li><code>pwd</code>：显示当前目录路径</li>
+<li><code>mkdir</code> <code>rmdir</code>：新建、删除目录</li>
+</ul>
+<p><strong>文件操作</strong></p>
+<p>注意文件名不能包含根目录符号 <code>/</code></p>
+<ul>
+<li><code>cat</code> <code>more</code> <code>less</code> <code>pg</code> 查看文件内容</li>
+<li><code>cp</code>：文件赋值</li>
+<li><code>rm</code>：文件删除（注意Unix不提供恢复被删除文件的功能，其中一个原因是由于Unix是一个多用户系统，文件被删掉以后存储空间可能立即被分配给其他用户的文件）</li>
+<li><code>mv</code>：重命名或移动文件</li>
+<li><code>lpr</code>：打印文件</li>
+<li><code>ls -l</code>：查看文件详细信息，可以看到文件权限<ul>
+<li>共三组rwx，表示user group other是否可以read write excute</li>
+</ul>
+</li>
+</ul>
+<p><strong>bc： Unix计算器</strong></p>
+<p>输入bc即可启动计算器，使用Ctrl + D退出</p>
+<p>bc还是可编程的，语法与C语言类似</p>
+<p><strong>其他</strong></p>
+<ul>
+<li><p><code>ps</code>：列出系统中运行的所有进程</p>
+</li>
+<li><p><code>man</code>：查看帮助</p>
+<ul>
+<li>使用 <code>man -k</code>可以根据关键字搜索联机帮助</li>
+</ul>
+</li>
+<li><p><code>who</code>：列出当前系统中活动的用户</p>
+</li>
+</ul>
+<h2 id="设计自己的who命令"><a href="#设计自己的who命令" class="headerlink" title="设计自己的who命令"></a>设计自己的who命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">man <span class="built_in">who</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">根据描述可以发现<span class="built_in">who</span>是用于查询所有登录用户的信息的，放在文件/var/run/utmp中</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">man -k utmp</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">man 5 utmp</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">可以找到utmp的数据结构</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>问题：如何从文件中读取数据结构</strong></p>
+<p>可以在帮助中寻找答案，寻找与file和read相关的帮助。</p>
+<p>由于man命令选项-k(根据关键字查找)只支持一个关键字的查找，可以借助grep命令查找（使用正则表达式搜索文本，并打印匹配的行）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">man -k file | grep <span class="built_in">read</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">man 2 <span class="built_in">read</span></span></span><br></pre></td></tr></table></figure>
+
+<p>查看read系统调用的说明</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">NAME</span><br><span class="line">       read - read from a file descriptor</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       #include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">       ssize_t read(int fd, void *buf, size_t count);</span><br><span class="line"></span><br><span class="line">DESCRIPTION</span><br><span class="line">       read()  attempts to read up to count bytes from file descriptor fd into</span><br><span class="line">       the buffer starting at buf.</span><br><span class="line"></span><br><span class="line">       On files that support seeking, the read operation commences at the cur‐</span><br><span class="line">       rent  file  offset, and the file offset is incremented by the number of</span><br><span class="line">       bytes read.  If the current file offset is at or past the end of  file,</span><br><span class="line">       no bytes are read, and read() returns zero.</span><br><span class="line"></span><br><span class="line">       If count is zero, read() may detect the errors described below.  In the</span><br><span class="line">       absence of any errors, or if read() does not check for errors, a read()</span><br><span class="line">       with a count of 0 returns zero and has no other effects.</span><br><span class="line">       </span><br><span class="line">       If count is greater than SSIZE_MAX, the result is unspecified.</span><br><span class="line">       </span><br><span class="line"> ......</span><br><span class="line"> </span><br><span class="line"> SEE ALSO</span><br><span class="line">       close(2), fcntl(2), ioctl(2), lseek(2), open(2), pread(2),  readdir(2),</span><br><span class="line">       readlink(2), readv(2), select(2), write(2), fread(3)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>这个系统调用可以将一定数目的字节读入一个缓冲区。</p>
+</li>
+<li><p>因为每次都要读入一个数据结构，所以要用<code>sizeof(struct utmp)</code>来指定每次读入的字节数</p>
+</li>
+<li><p>read()需要一个文件描述符作为输入参数，文件描述符通过open()获取</p>
+</li>
+</ul>
+<p><strong>答案：使用open、read和close</strong></p>
+<ol>
+<li>打开一个文件：<code>int open(const char *pathname, int flags);</code><ul>
+<li>这个系统调用在进程和文件之间建立一条连接，这个连接被称为文件描述符，它就像一条由进程通向内核的管道。</li>
+<li>如果文件被顺利打开，内核就会返回一个正整数的值，即文件描述符，用来唯一标识这个连接。（打开不同的文件或者同一文件打开多次得到的文件描述符是不同的）</li>
+<li>The argument flags must include one  of  the  following  access  modes: O_RDONLY,  O_WRONLY,  or  O_RDWR.  These request opening the file read-only, write-only, or read&#x2F;write, respectively.</li>
+</ul>
+</li>
+<li>从文件读取数据：<code>ssize_t read(int fd, void *buf, size_t count);</code><ul>
+<li>这个系统调用请求内核从fd指定的文件中读取count字节的数据，存放到buf所指定的内存空间中，如果成功读取了数据，就返回读取的字节数目，否则返回-1.</li>
+</ul>
+</li>
+<li>关闭文件：<code>int close(int fd);</code><ul>
+<li>当不需要对文件进行读写操作时，就把文件关闭</li>
+<li>这个系统调用会关闭进程和文件fd之间的连接，如果关闭的过程中出现错误，close返回-1，如：fd所指的文件不存在等</li>
+</ul>
+</li>
+</ol>
+<p><strong>编写who1.c</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span><span class="string">&lt;utmp.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span><span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SHOWHOST</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span>  <span class="title">utmp</span>  <span class="title">current_record</span>;</span> </span><br><span class="line">    <span class="type">int</span>     utmpfd; <span class="comment">//存储utmp文件的文件描述符</span></span><br><span class="line">    <span class="type">int</span>     reclen = <span class="keyword">sizeof</span>(current_record);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//UTMP_FILE定义在/usr/include/utmp.h中， O_RDONLY表示只读模式打开文件</span></span><br><span class="line">    <span class="keyword">if</span>((utmpfd = open(UTMP_FILE, O_RDONLY)) == <span class="number">-1</span>)&#123;</span><br><span class="line">        perror(UTMP_FILE);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//一次读取一个数据结构，重复到读完为之</span></span><br><span class="line">    <span class="keyword">while</span>(read(utmpfd, &amp;current_record,reclen) == reclen)&#123;</span><br><span class="line">        show_info(&amp;current_record);</span><br><span class="line">    &#125;</span><br><span class="line">    close(utmpfd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//显示登录信息</span></span><br><span class="line">show_info(<span class="keyword">struct</span> utmp *utbufp)&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;% - 8.8s&quot;</span>,utbufp-&gt;ut_name);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;% - 8.8s&quot;</span>,utbufp-&gt;ut_line);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%10ld&quot;</span>,utbufp-&gt;ut_time);<span class="comment">//以long int格式输出</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> SHOWHOST</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,utbufp-&gt;ut_line);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将上述代码编译、运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">cc who1.c -o who1</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">./who1</span></span><br></pre></td></tr></table></figure>
+
+<p>与系统的who命令输出对比</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[zhangqi@localhost test]$ who</span><br><span class="line">zhangqi  :0           2022-08-30 06:58 (:0)</span><br><span class="line">zhangqi  pts/0        2022-08-31 01:59 (:0)</span><br><span class="line"></span><br><span class="line">[zhangqi@localhost test]$ ./who1</span><br><span class="line">reboot   ~        1661813849 ~</span><br><span class="line">runlevel ~        1661813884 ~</span><br><span class="line">zhangqi  :0       1661813911 :0</span><br><span class="line">zhangqi  pts/0    1661882367 pts/0</span><br></pre></td></tr></table></figure>
+
+<p>存在问题：</p>
+<ol>
+<li>需要消除空白记录</li>
+<li>登陆时间没有正确显示</li>
+</ol>
+<p><strong>编写who2.c</strong></p>
+<ul>
+<li><p>如何消除空白记录：</p>
+<ul>
+<li><p>空白记录产生的原因是utmp包含所有终端的信息，包括那些尚未被用到的终端信息。</p>
+</li>
+<li><p>因此要做到能够区分出哪些终端对应活动的用户：</p>
+<ul>
+<li><p>在utmp.h中定义了如下内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/* Values for ut_type field, below */</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">define EMPTY         0 /* Record does not contain valid info (formerly known as UT_UNKNOWN on Linux) */</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">define RUN_LVL       1 /* Change <span class="keyword">in</span> system run-level (see init(8)) */</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">define BOOT_TIME     2 /* Time of system boot (<span class="keyword">in</span> ut_tv) */</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">define NEW_TIME      3 /* Time after system clock change (<span class="keyword">in</span> ut_tv) */</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">define OLD_TIME      4 /* Time before system clock change (<span class="keyword">in</span> ut_tv) */</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">define INIT_PROCESS  5 /* Process spawned by init(8) */</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">define LOGIN_PROCESS 6 /* Session leader process <span class="keyword">for</span> user login */</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">define USER_PROCESS  7 /* Normal process */</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">define DEAD_PROCESS  8 /* Terminated process */</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">define ACCOUNTING    9 /* Not implemented */</span></span><br></pre></td></tr></table></figure>
+
+<p>可知utmp结构中的ut_type成员，当其值为7（USER_PROCESS）时，表示这是一个已经登录的用户</p>
+</li>
+<li><p>因此对原程序进行修改（我的方式是在while循环中增加判断，不走show_info，书中是在show_info中进行判断的）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(read(utmpfd, &amp;current_record,reclen) == reclen)&#123;</span><br><span class="line">    <span class="keyword">if</span>((&amp;current_record)-&gt;ut_type != USER_PROCESS) <span class="keyword">continue</span>;</span><br><span class="line">    show_info(&amp;current_record);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>以可读的方式显示登录时间</p>
+<ul>
+<li><p>可在联机帮助中搜索关于时间的主题：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">man -k time</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">man -k time | grep transform</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">man -k time | grep -i convert</span></span><br></pre></td></tr></table></figure>
+
+<p>可以发现很多记录都涉及到time.h</p>
+</li>
+<li><p>了解可的值Unix储存时间的方式是 time_t数据类型 time.h中有<code>typedef lont int time_t</code>，表示从1970年1月1日0时开始所经过的秒数</p>
+</li>
+<li><p>将time_t显示出来用到ctime，将整数值转换为常用的时间形式：</p>
+<p><code>char *ctime(const time_t *timep);</code></p>
+</li>
+<li><p>注意不是所有的字符串内容都需要（去掉周几和年份，只返回ctime返回字符串从第4个字符串开始的12个字符）</p>
+<p><code>printf(&quot;%12.12s&quot;,ctime(&amp;t) + 4);</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>整体代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;utmp.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SHOWHOST</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">display_time</span><span class="params">(<span class="type">long</span>)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">show_info</span><span class="params">(<span class="keyword">struct</span> utmp*)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">utmp</span> <span class="title">current_record</span>;</span></span><br><span class="line">        <span class="type">int</span>     utmpfd;</span><br><span class="line">        <span class="type">int</span>     reclen = <span class="keyword">sizeof</span>(current_record);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>((utmpfd = open(UTMP_FILE, O_RDONLY)) == <span class="number">-1</span>)&#123;</span><br><span class="line">                perror(UTMP_FILE);</span><br><span class="line">                <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(read(utmpfd, &amp;current_record,reclen) == reclen)&#123;</span><br><span class="line">                <span class="keyword">if</span>((&amp;current_record)-&gt;ut_type != USER_PROCESS) <span class="keyword">continue</span>;</span><br><span class="line">                show_info(&amp;current_record);</span><br><span class="line">        &#125;</span><br><span class="line">        close(utmpfd);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">show_info</span><span class="params">(<span class="keyword">struct</span> utmp *utbufp)</span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;% - 8.8s&quot;</span>,utbufp-&gt;ut_name);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;% - 8.8s&quot;</span>,utbufp-&gt;ut_line);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        display_time(utbufp-&gt;ut_time);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> SHOWHOST</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,utbufp-&gt;ut_line);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">display_time</span><span class="params">(<span class="type">long</span> timeval)</span>&#123;</span><br><span class="line">        <span class="type">char</span>* cp;</span><br><span class="line">        cp = ctime(&amp;timeval);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%12.12s&quot;</span>,cp + <span class="number">4</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="编写cp（读和写）"><a href="#编写cp（读和写）" class="headerlink" title="编写cp（读和写）"></a>编写cp（读和写）</h3><p><strong>cp命令的典型用法：</strong></p>
+<p><code>cp source-file target-file</code></p>
+<p>如果target-file所指定的文件不存在，cp就创建这个文件，如果已经存在就覆盖，target-file的内容与source-file相同</p>
+<p><strong>cp命令是如何创建&#x2F;重写文件的</strong></p>
+<ul>
+<li><p>其中一种方法是使用系统调用函数creat：</p>
+<p><code>int creat(const char *pathname, mode_t mode);</code></p>
+<ul>
+<li><p>creat告诉内核创建一个名为pathname的文件，如果这个文件不存在，就创建它，如果已经存在，就把它的内容清空，把文件长度设为0</p>
+</li>
+<li><p>如果内核成功创建了文件，那么文件的许可位（permission bits）被设置为由第2个参数mode所指定的值，如：</p>
+<p><code>fd = creat(&quot;addressbook&quot;, 0644);</code></p>
+<p>创建一个名为addressbook的文件，如果文件不存在，那么文件的许可位被设为rw-r-r–</p>
+<p>返回值是指向addressbook的文件描述符</p>
+</li>
+</ul>
+</li>
+<li><p>用write系统调用向已打开的文件中写入数据：</p>
+<p><code>ssize_t write(int fd, const void *buf, size_t count);</code></p>
+<ul>
+<li>fd文件描述符，buf内存数据，count要写的字节数</li>
+<li>写入失败返回-1，写入成功返回写入的字节数</li>
+<li>注意实际写入的字节数可能少于count（有的系统对文件最大尺寸有限制或磁盘空间接近满了）</li>
+<li>因此调用write后必须检查返回值是否与要写入的相同，若不同作出相应的处理</li>
+</ul>
+</li>
+</ul>
+<p>完整代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BUFFERSIZE 4096</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> COPYMODE 0644</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">oops</span><span class="params">(<span class="type">char</span> *, <span class="type">char</span> *)</span>;</span><br><span class="line"></span><br><span class="line">main(<span class="type">int</span> ac, <span class="type">char</span> *av[])&#123;</span><br><span class="line">        <span class="type">int</span>     in_fd, out_fd, n_chars;</span><br><span class="line">        <span class="type">char</span>    buf[BUFFERSIZE];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(ac!=<span class="number">3</span>)&#123; </span><br><span class="line">                <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;usage: %s source destination\n&quot;</span>, *av);</span><br><span class="line">                <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>((in_fd = open(av[<span class="number">1</span>],O_RDONLY)) == <span class="number">-1</span>)<span class="comment">//判断能否打开</span></span><br><span class="line">                oops(<span class="string">&quot;Cannot open &quot;</span>, av[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">if</span>((out_fd = creat(av[<span class="number">2</span>],COPYMODE)) == <span class="number">-1</span>)<span class="comment">//判断能否创建</span></span><br><span class="line">                oops(<span class="string">&quot;Cannot creat &quot;</span>, av[<span class="number">2</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>((n_chars = read(in_fd, buf, BUFFERSIZE)) &gt; <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">if</span>(write(out_fd,buf,n_chars) != n_chars)</span><br><span class="line">                        oops(<span class="string">&quot;Write error to &quot;</span>,av[<span class="number">2</span>]);</span><br><span class="line">        <span class="keyword">if</span>(n_chars == <span class="number">-1</span>)</span><br><span class="line">                oops(<span class="string">&quot;Read error from &quot;</span>,av[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(close(in_fd) == <span class="number">-1</span> || close(out_fd) == <span class="number">-1</span>)</span><br><span class="line">                oops(<span class="string">&quot;Error closing files&quot;</span>,<span class="string">&quot;&quot;</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">oops</span><span class="params">(<span class="type">char</span> *s1, <span class="type">char</span> *s2)</span>&#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>,<span class="string">&quot;Error: %s&quot;</span>,s1);</span><br><span class="line">        perror(s2);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译并测试：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">cc cp1.c -o cp1</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">./cp1 cp1 copy.of.cp1</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">cmp cp1 copy.of.cp1 <span class="comment">#Unix自带的文件比较工具cmp，无任何提示则说明内容完全相同</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="提高文件I-x2F-O效率的方法：使用缓冲"><a href="#提高文件I-x2F-O效率的方法：使用缓冲" class="headerlink" title="提高文件I&#x2F;O效率的方法：使用缓冲"></a>提高文件I&#x2F;O效率的方法：使用缓冲</h3><p>注意cp1中定义了BUFFERSIZE这个常量，用于标识每次读&#x2F;写操作的数据长度，这里的值是4096。</p>
+<p>要注意缓冲区大小对性能有很大的影响，使用大的缓冲区可以减少系统调用的次数（在cp1中就是减少read()和write()的次数）</p>
+<p><strong>为什么系统调用耗时很长：</strong></p>
+<ul>
+<li>用户进程位于用户空间，内核位于系统空间，磁盘只能被内核直接访问</li>
+<li>当系统调用发生时，执行权会从用户代码转移到内核代码，执行内核代码是需要时间的</li>
+<li>由于运行内核代码时，CPU工作在管理员（supervisor）模式，这对应于一些特殊的对战和内存环境，必须在系统调用发生时建立好。</li>
+<li>系统调用结束后，CPU要切换到用户模式，必须把堆栈和内存环境恢复成用户程序运行时的状态，这种运行环境的切换要消耗很多时间。（上下文切换）</li>
+</ul>
+<p><strong>在who2.c中运用缓冲技术</strong></p>
+<img src="https://pic.imgdb.cn/item/630e936716f2c2beb15cdf06.jpg" style="zoom:80%;" />
+
+<p>使用一个能容纳16个utmp结构的数组作为缓冲区，标识为buffer。</p>
+<p>我们需要编写utmp_next函数来从缓冲区中取得下一个utmp结构的数据</p>
+<p>在utmplib.c中进行实现：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;utmp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NRECS 16</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NULLUT ((struct utmp *)NULL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> UTSIZE (sizeof(struct utmp))</span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">char</span> utmpbuf[NRECS * UTSIZE];</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> num_recs;</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> cur_rec;</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> fd_utmp = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">utmp_open</span><span class="params">(<span class="type">char</span>* filename)</span>&#123;</span><br><span class="line">        fd_utmp = open(filename, O_RDONLY);</span><br><span class="line">        cur_rec = num_recs = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> fd_utmp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">struct</span> utmp* <span class="title function_">utmp_next</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">utmp</span> *<span class="title">recp</span>;</span></span><br><span class="line">        <span class="keyword">if</span>(fd_utmp == <span class="number">-1</span>) <span class="keyword">return</span> NULLUT;</span><br><span class="line">    	<span class="comment">//如果缓冲记录读到头并且文件记录也读完了，返回空指针</span></span><br><span class="line">        <span class="keyword">if</span>(cur_rec == num_recs &amp;&amp; utmp_reload()==<span class="number">0</span>) <span class="keyword">return</span> NULLUT;</span><br><span class="line">        recp = (<span class="keyword">struct</span> utmp*)&amp;utmpbuf[cur_rec * UTSIZE];</span><br><span class="line">        ++cur_rec;</span><br><span class="line">        <span class="keyword">return</span> recp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">utmp_reload</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">int</span> amt_read;</span><br><span class="line">        amt_read = read(fd_utmp, utmpbuf, NRECS*UTSIZE);</span><br><span class="line">        num_recs = amt_read/UTSIZE;</span><br><span class="line">        cur_rec = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> num_recs;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">utmp_close</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(fd_utmp!=<span class="number">-1</span>) close(fd_utmp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主函数流程修改如下：</p>
+<p>修改后的主函数没有直接对open、read和close进行调用，而是调用与之等价的具有缓冲模式的函数接口。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;utmplib.c&quot;</span>  <span class="comment">//注意包含.c文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">utmp</span> *<span class="title">utbufp</span>, *<span class="title">utmp_next</span>();</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(utmp_open(UTMP_FILE) == <span class="number">-1</span>)&#123;</span><br><span class="line">                perror(UTMP_FILE);</span><br><span class="line">                <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>((utbufp = utmp_next())!= ((<span class="keyword">struct</span> utmp*)<span class="literal">NULL</span>))&#123;</span><br><span class="line">                show_info(utbufp);</span><br><span class="line">        &#125;</span><br><span class="line">        utmp_close();</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="内核缓冲技术"><a href="#内核缓冲技术" class="headerlink" title="内核缓冲技术"></a>内核缓冲技术</h3><p>主要思想是一次读入大量数据放入缓冲区，需要的时候从缓冲区取得数据。</p>
+<p>用户态和内核态之间的切换需要消耗时间，相比之下，磁盘的I&#x2F;O操作消耗的时间更多，为了提高效率，内核也是用缓冲技术来提高对磁盘的访问速度。</p>
+<ul>
+<li>正如utmp文件是用户登录记录的集合，磁盘是数据块的集合，内核会对磁盘上的数据块作缓冲，就像who程序缓冲utmp记录一样。</li>
+<li>内核将磁盘上的数据块复制到内核缓冲区中，当一个用户空间中的进程要从磁盘上读数据时，内核一般不直接读磁盘，而是将内核缓冲区中的数据复制到进程的缓冲区中。</li>
+<li>当进程所要求的数据块不在内核缓冲区中时，内核会把相应的数据块加入到请求数据列表中，然后将该进程挂起，接着为其他进程服务</li>
+<li>等把相应的数据块从磁盘读到内核缓冲区后，再把数据复制到进程的缓冲区中，最后环形被挂起的进程。</li>
+<li>注意read就是把数据从内核缓冲区复制到进程缓冲区，write把数据从进程缓冲区复制到内核缓冲区，它们不等价于数据在内核缓冲和磁盘之间的交换。内核在积累一定数量的写数据后再一次写入磁盘中。</li>
+</ul>
+<p>该应用的结果：</p>
+<ul>
+<li>提高磁盘I&#x2F;O效率</li>
+<li>优化磁盘写操作</li>
+<li>需要及时将缓冲数据写入磁盘（这是个缺点，比如当发生意外状况如断电时，内核来不及写入数据到磁盘，则更新的数据会丢失）</li>
+</ul>
+<p><strong>标准C函数的实现</strong></p>
+<p>标准C函数如fopen getc fclose fgets的实现都包含内核级缓冲，它们用到了一个结构FILE，并以此为基础构造了类似utmplib的中间层</p>
+<p>FILE的结构定义在<code>/usr/include/libio.h</code>中</p>
+<h3 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h3><p><strong>注销过程是如何工作的：</strong>（utmp记录的改变）</p>
+<ul>
+<li>打开文件utmp<ul>
+<li><code>fd = open(UTMP_FILE, O_RDWR);</code></li>
+</ul>
+</li>
+<li>从utmp中找到包含你所在终端的登录记录<ul>
+<li>在while循环中读取一条utmp记录，将它的ut_line字段跟终端名字做比较，若相等则调用修改函数</li>
+</ul>
+</li>
+<li>对当前记录作修改<ul>
+<li>负责注销的程序修改当前记录，再把它写回到文件utmp中</li>
+<li>即要把ut_type的值从USER_PROCESS改成DEAD_PROCESS，把ut_time字段的值改为注销时间，也就是当前时间</li>
+<li>把修改过的记录写会文件不能用write（write只会更新下一条记录而不会修改）</li>
+<li><u>使用系统调用lseek进行修改</u> <code>off_t lseek(int fd, off_t offset, int whence);</code></li>
+</ul>
+</li>
+<li>关闭文件<ul>
+<li>close(fd)</li>
+</ul>
+</li>
+</ul>
+<p><strong>改变文件的当前位置</strong></p>
+<p>我们知道Unix每次打开一个文件都会保存一个指针来记录文件的当前位置</p>
+<img src="https://pic.imgdb.cn/item/630f49f216f2c2beb1c6aea5.jpg" style="zoom:80%;" />
+
+<p><u>当从文件读数据时，内核从指针标明的地方开始，读取指定的字节，然后移动位置指针，指向下一个未被读取的字节</u>，写文件的操作也是类似的。</p>
+<p>指针是与文件描述符相关联的，而不是与文件关联，所以如果两个程序同时打开一个文件，这时会有两个指针，两个程序对文件的读操作不会相互干扰。</p>
+<p>系统调用lseek的用法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">off_t</span> <span class="title function_">lseek</span><span class="params">(<span class="type">int</span> fd, <span class="type">off_t</span> offset, <span class="type">int</span> whence)</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>fd：文件描述符</li>
+<li>offset：从基准位置开始的偏移量（可以是负值）</li>
+<li>whence：<ul>
+<li>SEEK_SET：文件的开始</li>
+<li>SEEK_CUR：当前位置</li>
+<li>SEEK_END：文件结尾</li>
+</ul>
+</li>
+<li>遇到错误返回-1，否则返回指针变化前的位置</li>
+</ul>
+<p>如：</p>
+<ul>
+<li><code>lseek(fd, -sizeof(struct utmp),SEEK_CUR);</code> 把指针往前移一个utmp结构</li>
+<li><code>lseek(fd, 10*sizeof(struct utmp), SEEK_SET);</code>把指针移到第11个记录的开始位置</li>
+<li><code>lseek(fd, 0, SEEK_END);write(fd, &quot;hello&quot;, strlen(&quot;hello&quot;));</code>使指针移到文件末尾，然后写一个字符串到文件中</li>
+</ul>
+<p><strong>编写终端注销的代码</strong></p>
+<p>可以编写一个函数对注销的用户修改utmp中相应的记录</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">logout_tty</span><span class="params">(<span class="type">char</span> * line)</span>&#123;</span><br><span class="line">    <span class="type">int</span>	fd;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">utmp</span> <span class="title">rec</span>;</span></span><br><span class="line">    <span class="type">int</span> len = <span class="keyword">sizeof</span>(<span class="keyword">struct</span> utmp);</span><br><span class="line">    <span class="type">int</span> retval = <span class="number">-1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>((fd = open(UTMP_FILE,O_RDWR)) == <span class="number">-1</span>) </span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="comment">//寻找并修改</span></span><br><span class="line">    <span class="keyword">while</span>(read(fd,&amp;rec,len) == len)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">strncmp</span>(rec.ut_line, line))&#123;</span><br><span class="line">            rec.ut_type = DEAD_PROCESS;</span><br><span class="line">            <span class="keyword">if</span>(time(&amp;rec.ut_time != <span class="number">-1</span>))&#123;</span><br><span class="line">                <span class="keyword">if</span>(lseek(fd, -len, SEEK_CUR) != <span class="number">-1</span>)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(write(fd,&amp;rec,len) == len)</span><br><span class="line">                        retval = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//关闭文件</span></span><br><span class="line">    <span class="keyword">if</span>(close(fd) == <span class="number">-1</span>)&#123;</span><br><span class="line">    	retval = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> retval;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理系统调用中的错误"><a href="#处理系统调用中的错误" class="headerlink" title="处理系统调用中的错误"></a>处理系统调用中的错误</h3><p>很多系统调用遇到错误会返回-1，表示出了某些问题，因此调用者每次都必须检查返回值，一旦检测到错误，必须做出相应的处理。</p>
+<p><strong>确定错误的种类errno</strong></p>
+<p>内核通过全局变量errno来指明错误的类型，每个程序都可以访问到这个变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">NAME</span><br><span class="line">       errno - number of last error</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       #include &lt;errno.h&gt;</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line">		A common mistake is to do</span><br><span class="line">           if (somecall() == -1) &#123;</span><br><span class="line">               printf(&quot;somecall() failed\n&quot;);</span><br><span class="line">               if (errno == ...) &#123; ... &#125;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">       where errno no longer needs to have the value it had upon  return  from</span><br><span class="line">       somecall()  (i.e.,  it may have been changed by the printf(3)).  If the</span><br><span class="line">       value of errno should be preserved across a library call,  it  must  be</span><br><span class="line">       saved:</span><br><span class="line"></span><br><span class="line">           if (somecall() == -1) &#123;</span><br><span class="line">               int errsv = errno;</span><br><span class="line">               printf(&quot;somecall() failed\n&quot;);</span><br><span class="line">               if (errsv == ...) &#123; ... &#125;</span><br><span class="line">           &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>显示错误信息：perror(3)</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">perror</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;errno.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">char</span> *sys_errlist[];</span><br><span class="line"><span class="type">int</span> sys_nerr;</span><br><span class="line"><span class="type">int</span> errno;</span><br></pre></td></tr></table></figure>
+
+<p>perror(string)这个函数会自己查找错误代码，在标准错误输出中显示出相应的错误信息，参数string是要同时显示出的描述信息</p>
+<h2 id="目录与文件属性：编写ls"><a href="#目录与文件属性：编写ls" class="headerlink" title="目录与文件属性：编写ls"></a>目录与文件属性：编写ls</h2><ul>
+<li><code>ls</code>默认动作是找出当前目录中所有文件的文件名，字典序排序后输出</li>
+<li><code>ls -l</code>（ls的长格式）会列出每个文件的详细信息，每一行代表一个文件和它的多个属性</li>
+<li><code>ls *.c</code>显示与*.c匹配的文件</li>
+<li><code>ls -a</code>列出的内容包含以”.”开头的文件</li>
+<li><code>ls -lu</code> 显示最后访问时间</li>
+<li><code>ls -s</code> 显示以块为单位的文件大小</li>
+<li><code>ls -t</code>输出时按时间排序</li>
+<li><code>ls -F</code>显示文件类型</li>
+</ul>
+<p><strong>Unix是如何组织磁盘上的文件的</strong></p>
+<p>磁盘上的文件和目录被组成一棵目录树，每个节点都是目录或文件</p>
+<img src="https://pic.imgdb.cn/item/630f617a16f2c2beb1d71e55.jpg" style="zoom:80%;" />
+
+<p>图中的大方框表示目录，大方框内的小方框表示文件，目录之间的连线表示目录之间的组织关系</p>
+<p>Unix系统中，每个文件都位于某个目录中，在逻辑上是没有驱动器或卷的，当然在物理上一个系统可以有多个驱动器或分区，每个驱动器上都可以有分区，位于不同驱动器和分区上的目录通过文件树无缝地连接在一起。</p>
+<p>软盘、光盘这些移动存储介质也被挂到文件树的某一个子目录来处理。</p>
+<p>因此ls的实现只需考虑文件和目录两种情况，无需考虑驱动或分区</p>
+<p><strong>什么是目录</strong></p>
+<p>目录是一种特殊的文件，它的内容是文件和目录的名字。与utmp文件类似，目录文件包含很多记录，每个记录的格式由统一的标准定义。每条记录的内容代表一个文件或目录</p>
+<p>与普通文件不同，目录文件永远不会空，每个目录都至少包含两个特殊的项：</p>
+<ul>
+<li><code>.</code> 表示当前目录</li>
+<li><code>..</code> 表示上一级目录</li>
+</ul>
+<p>可以发现cat more od命令在centos7系统下都无法读取目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[zhangqi@localhost test]$ cat /</span><br><span class="line">cat: /: Is a directory</span><br><span class="line">[zhangqi@localhost test]$ more /tmp</span><br><span class="line"></span><br><span class="line">*** /tmp: directory ***</span><br><span class="line"></span><br><span class="line">[zhangqi@localhost test]$ od -c /dev</span><br><span class="line">od: /dev: read error: Is a directory</span><br><span class="line">0000000</span><br></pre></td></tr></table></figure>
+
+<p>那么如何读取呢？</p>
+<p>通过 <code>man -k direct | grep read</code>可以找到readdir命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">man 3 readdir</span></span><br><span class="line"></span><br><span class="line">NAME</span><br><span class="line">       readdir, readdir_r - read a directory</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       #include &lt;dirent.h&gt;</span><br><span class="line"></span><br><span class="line">       struct dirent *readdir(DIR *dirp);</span><br><span class="line"></span><br><span class="line">       int readdir_r(DIR *dirp, struct dirent *entry, struct dirent **result);</span><br><span class="line"></span><br><span class="line">   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):</span><br><span class="line"></span><br><span class="line">       readdir_r():</span><br><span class="line">           _POSIX_C_SOURCE &gt;= 1 || _XOPEN_SOURCE || _BSD_SOURCE || _SVID_SOURCE || _POSIX_SOURCE</span><br><span class="line"></span><br><span class="line">DESCRIPTION</span><br><span class="line">       The readdir() function returns a pointer to a dirent structure representing the next directory</span><br><span class="line">       entry in the directory stream pointed to by dirp.  It returns NULL on reaching the end of  the</span><br><span class="line">       directory stream or if an error occurred.</span><br><span class="line"></span><br><span class="line">       On Linux, the dirent structure is defined as follows:</span><br><span class="line"></span><br><span class="line">           struct dirent &#123;</span><br><span class="line">               ino_t          d_ino;       /* inode number */</span><br><span class="line">               off_t          d_off;       /* not an offset; see NOTES */</span><br><span class="line">               unsigned short d_reclen;    /* length of this record */</span><br><span class="line">               unsigned char  d_type;      /* type of file; not supported</span><br><span class="line">                                              by all file system types */</span><br><span class="line">               char           d_name[256]; /* filename */</span><br><span class="line">           &#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>编写简单的ls：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;dirent.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">do_ls</span><span class="params">(<span class="type">char</span> *dirname)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (argc == <span class="number">1</span>) &#123;<span class="comment">//如果没有任何参数，则显示当前目录下所有文件</span></span><br><span class="line">    do_ls(<span class="string">&quot;.&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123; <span class="comment">//否则，显示指定的目录下的文件，可以加多个参数</span></span><br><span class="line">    <span class="keyword">while</span> (--argc) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%s:\n&quot;</span>, *++argv);</span><br><span class="line">      do_ls(*argv);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">do_ls</span><span class="params">(<span class="type">char</span> *dirname)</span> &#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">dirent</span> *<span class="title">dirent_p</span>;</span></span><br><span class="line">  DIR *dir_p = opendir(dirname);</span><br><span class="line">  <span class="keyword">if</span> (dir_p == <span class="literal">NULL</span>) &#123;</span><br><span class="line">    perror(dirname);</span><br><span class="line">    <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> ((dirent_p = readdir(dir_p)) != <span class="literal">NULL</span>) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, dirent_p-&gt;d_name);</span><br><span class="line">  &#125;</span><br><span class="line">  closedir(dir_p);</span><br><span class="line">  <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个简单的版本基本实现了查看目录功能，但还需要加进去一些功能：</p>
+<ul>
+<li>排序：ls1的输出没有进过排序。<ul>
+<li>解决办法：把所有文件名读入一个数组，用qsort函数把数组排序</li>
+</ul>
+</li>
+<li>分栏：标准的ls输出是分栏排列的，有些以行排序输出，有些以列排序输出<ul>
+<li>解决办法：把文件名读入数组，然后计算出列的宽度和行数</li>
+</ul>
+</li>
+<li>“.”文件：ls1列出了“.”文件，而标准的ls只有在给出-a选项时才会列出这些文件<ul>
+<li>解决办法：ls1能够接收选项-a，并在没有-a的时候不显示隐藏文件</li>
+</ul>
+</li>
+<li>选项 -l ：如果选项里有-l，标准的ls会列出文件的详细信息，而ls1不会。<ul>
+<li>解决办法：由于dirent结构中没有所需信息，如文件大小、文件所有者等，要找到存储这些信息的地方（使用stat系统调用）</li>
+</ul>
+</li>
+</ul>
+<p><strong>用stat得到文件信息</strong></p>
+<p>用法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">NAME</span><br><span class="line">       stat, fstat, lstat, fstatat - get file status</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line">       <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line">       <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">       <span class="type">int</span> <span class="title function_">stat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="keyword">struct</span> stat *buf)</span>;</span><br><span class="line">       <span class="type">int</span> <span class="title function_">fstat</span><span class="params">(<span class="type">int</span> fd, <span class="keyword">struct</span> stat *buf)</span>;</span><br><span class="line">       <span class="type">int</span> <span class="title function_">lstat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="keyword">struct</span> stat *buf)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>入参：文件名，指向stat结构buffer的指针</li>
+<li>返回值：-1（遇到错误） 0（成功返回）</li>
+</ul>
+<p>stat结构</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">stat</span> &#123;</span></span><br><span class="line">    <span class="type">dev_t</span>     st_dev;         <span class="comment">/* ID of device containing file */</span></span><br><span class="line">    <span class="type">ino_t</span>     st_ino;         <span class="comment">/* inode number */</span></span><br><span class="line">    <span class="type">mode_t</span>    st_mode;        <span class="comment">/* file type and mode */</span></span><br><span class="line">    <span class="type">nlink_t</span>   st_nlink;       <span class="comment">/* number of hard links */</span></span><br><span class="line">    <span class="type">uid_t</span>     st_uid;         <span class="comment">/* user ID of owner */</span></span><br><span class="line">    <span class="type">gid_t</span>     st_gid;         <span class="comment">/* group ID of owner */</span></span><br><span class="line">    <span class="type">dev_t</span>     st_rdev;        <span class="comment">/* device ID (if special file) */</span></span><br><span class="line">    <span class="type">off_t</span>     st_size;        <span class="comment">/* total size, in bytes */</span></span><br><span class="line">    <span class="type">blksize_t</span> st_blksize;     <span class="comment">/* blocksize for filesystem I/O */</span></span><br><span class="line">    <span class="type">blkcnt_t</span>  st_blocks;      <span class="comment">/* number of 512B blocks allocated */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Since Linux 2.6, the kernel supports nanosecond</span></span><br><span class="line"><span class="comment">                  precision for the following timestamp fields.</span></span><br><span class="line"><span class="comment">                  For the details before Linux 2.6, see NOTES. */</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_atim</span>;</span>  <span class="comment">/* time of last access */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_mtim</span>;</span>  <span class="comment">/* time of last modification */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_ctim</span>;</span>  <span class="comment">/* time of last status change */</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> st_atime st_atim.tv_sec      <span class="comment">/* Backward compatibility */</span></span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> st_mtime st_mtim.tv_sec</span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> st_ctime st_ctim.tv_sec</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/08/30/UNIX/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2022/08/30/Interview-muduo/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">muduo高性能网络服务器库学习笔记</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "5J2nSr5DoqBGRRnpdFfTvawi-gzGzoHsz",
+    app_key: "24GWRfKBASGr6cA5FSBF4NY4",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2022
+        <i class="ri-heart-fill heart_icon"></i> ZHU
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Keep Making Progress"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

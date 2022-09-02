@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="朱章齐的个人技术网站" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>项目梳理 |  Keep Making Progress</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Keep Making Progress" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Interview-Projects"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  项目梳理
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/08/26/Interview-Projects/" class="article-date">
+  <time datetime="2022-08-25T17:48:41.000Z" itemprop="datePublished">2022-08-26</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Interview/">Interview</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">13 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>本文对个人从本科至今所做的项目进行一次系统的梳理总结</p>
+<span id="more"></span>
+
+<h3 id="本科毕设-—-基于DBSCAN聚类的三维柱体的识别、提取与分割"><a href="#本科毕设-—-基于DBSCAN聚类的三维柱体的识别、提取与分割" class="headerlink" title="本科毕设 — 基于DBSCAN聚类的三维柱体的识别、提取与分割"></a>本科毕设 — 基于DBSCAN聚类的三维柱体的识别、提取与分割</h3><p><strong>论文</strong>：Bolt 3D Point Cloud Segmentation and Measurement Based on DBSCAN Clustering <a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/9728702">链接</a></p>
+<p><strong>专利</strong>：基于DBSCAN聚类的点云图螺栓分割和高度测量方法 专利号：5221271</p>
+<p><strong>研究背景及意义：</strong></p>
+<p>高架高速铁路桥墩通常位于水域或山谷等各种环境中。根据设计图纸，需要在桥墩表面安装螺栓，紧固供电牵引电缆的支撑柱。铺设牵引电缆前应检查螺栓的数量、分布情况和高度，以确保安装实现与技术要求一致。通常，为了完成测量任务，工人需要通过搭设攀爬工具爬到高桥墩的顶部进行操作，并在操作后将其拆除。</p>
+<p>目前的工作模式存在着三个严重的问题:</p>
+<p>(1) 存在着严重的安全隐患。操作人员在铁路沿线桥墩上下攀爬的过程中，处在一个非常危险的工作环境中。</p>
+<p>(2) 测量过程耗费了巨大的人力和时间成本，从而导致项目建设进度明显滞后、不可控。</p>
+<p>(3) 测量结果的保存依赖于人工记录，不利于测量数据的管理和存储</p>
+<p>因此亟需一种自动化的方式，使工作人员不再需要以攀登这种危险系数高的方式进行螺栓位置和高度等信息的测量，并且可以高效地存储数据，方便后续进行数据分析和统计。</p>
+<p><strong>技术要点</strong>：</p>
+<ol>
+<li>放弃深度学习的方法，原因：<ol>
+<li>单纯对二维RGB图像进行分割的分割精度不高，高度测量误差无法达到要求</li>
+<li>对三维数据进行分割的时间复杂度很高，并且无法利用工程图纸的先验信息，精度也同样无法得到保证</li>
+</ol>
+</li>
+<li>无人机搭载深度相机获取三维点云数据图代替RGB图像，从而获得更精细的目标物体在三维空间中的形态。无人机可保证相机在高精度的水平状态下进行拍摄，因此不考虑螺栓安装平面的水平性，我们获取到的螺栓图像是与水平面完全垂直的</li>
+<li>选取DBSCAN聚类算法进行数据处理（相较于其他聚类算法如K means，该算法不需要预先输入聚类的个数，而完全凭借设定的密度区间进行聚类。）</li>
+<li>点云图中存在许多噪声：通过工程设计图纸的先验信息，可大致获得整个螺栓分布的范围。通过计算所有点到三维坐标原点的欧氏距离，消除了位置过远和过近的噪声点。<ol>
+<li>首先进行压缩聚类，将原始点云图的所有点按竖直方向压缩，然后通过DBSCAN找到密度最高的几个类，即可得到螺栓在水平方向的xy坐标，将除螺栓及其附近位置以外的所有点都舍弃。</li>
+<li>将点云图复原，此时噪声已经消除了大部分，那么就该更精确地去获取螺栓所属的点了</li>
+<li>将点云图沿水平方向进行切片，为了保证精度，可以选择2mm-5mm之间的切割间距，不能过小，因为会使点云密度过于稀疏。再对每一层的点云数据进行聚类，如果符合图纸的要求，即每个类之间的距离和角度是符合要求的，那么证明这个类就是属于螺栓的，这一层也是属于螺栓的。</li>
+<li>把所有层处理完以后，我们拿出符合存在螺栓点云的层再进行组合，便可大致复原螺栓的所在</li>
+</ol>
+</li>
+<li>要处理的螺栓图像往往有多排，而前后排的螺栓由于距离深度相机的距离差异，导致点云密度不同。因此采用分割再组合的方式，分别对一张点云图前半部分和后半部分进行不同滤波强度的滤波处理然后再进行组合，从而平衡每个螺栓的点云密度</li>
+<li>项目的最终目标使对螺栓高度进行精确的测量，并且要求高度测量误差在5mm之内（实际上就是要精确得到螺栓顶部坐标和底部和平台连接处的坐标相减）。为了提高测量精度，消除螺栓底部和平台连接处在点云图上模糊不清的影响。采用取螺栓底部向外的一圈圆环范围内的部分点，取其平均值即可较为精确地作为底部平台表面的y值大小。</li>
+</ol>
+<p><strong>遇到的问题</strong></p>
+<ol>
+<li><p>最大的问题就是室内与室外环境的不同。由于一开始是在室内对螺栓模型进行拍摄的，噪声点很少，干扰物体也比较简单。当算法设计完成实际进行使用时，发现深度相机在室外得到的图像质量很低，由于室外光的缘故，存在大量不规则且密集的噪声点。这也催生了我设计的相对复杂并且过滤多次的噪声过滤算法。另外很重要的一点是深度相机需要调整滤波强度，滤波强度越高，噪声点就越少，但是同时螺栓的所属的点被过滤的可能性就越大，点云密度也越低，不利于算法的实现。因此需要找到一个最合适的滤波强度。</p>
+<img src="file:///C:\Users\win10\AppData\Local\Temp\ksohtml27280\wps1.jpg" alt="img" style="zoom:80%;" />
+</li>
+<li><p>实际搭载上无人机去现场拍摄后还发现由于场地和无人机的螺旋桨比较大的情况，很难与螺栓处于同一个平面进行拍摄，因此需要旋转摄像头的角度，</p>
+</li>
+</ol>
+<p><strong>简述</strong>：</p>
+<ul>
+<li><p>为中国铁建公司设计了一种可以从无人机拍摄得到的三维点云图中提取柱体螺栓的算法。应用了分层聚类的思想，采取了 DBSCAN 的聚类方式，并能够很好地结合设计图纸，无人机拍摄角度等先验信息提高分割精度，最终可控制螺栓高度测量误差在 5mm 之内。 </p>
+</li>
+<li><p>研究成果获得了一项发明专利，最终论文已被 IEEE xplore 数据库收录，获得了校优秀毕业设计</p>
+</li>
+</ul>
+<h3 id="硕士毕设-—-探索强化学习在金融投资问题中的应用"><a href="#硕士毕设-—-探索强化学习在金融投资问题中的应用" class="headerlink" title="硕士毕设 — 探索强化学习在金融投资问题中的应用"></a>硕士毕设 — 探索强化学习在金融投资问题中的应用</h3><p><strong>研究背景及意义</strong>：</p>
+<p>金融市场中没有模型能够做到准确的预测，深度学习往往也不能实际指导买卖的操作。而强化学习可以利用action空间自主地进行金融市场中的资产配置，也就是自主买卖所持有的的股票。在大量的数据和合适的模型构建以及算法选择之下，是可以做到在高频交易的场景下获取超额收益的。</p>
+<p>由于强化学习的技术相对比较新，又由于这个应用场景比较特殊，很少有效果优秀的模型作为论文发表出来（更多的可能是一些量化投资公司内部进行开发和使用）。因此对这种新技术的实际应用能力还是需要进行进一步的研究。</p>
+<p><strong>技术点：</strong></p>
+<ul>
+<li><p>框架选择：基于一个开源的强化学习框架FinRL进行开发和设计</p>
+</li>
+<li><p>训练数据集：</p>
+<ul>
+<li>近20年的北美道琼斯三十的股票数据（时间跨度长，频率低），参照FinRL框架所对应的论文里的实现方式，发现效果差，复现程度低</li>
+<li>中国期货市场的基差数据（频率高，15秒间隔的市场数据），数据量比第一个数据集大20倍</li>
+</ul>
+</li>
+<li><p>选择特定的适合高频交易的alpha因子作为增加状态空间状态的因子，提高模型的操作准确性</p>
+</li>
+<li><p>数据的预处理：标准化</p>
+</li>
+<li><p>奖励函数的重新设计：由原本的当前收益再加上一项回撤率的权重，可以发现明显提高了模型的稳定性和提高了最终收益并降低了波动率（也就是降低了风险）</p>
+</li>
+<li><p>收敛性的验证：在增加环境复杂度之后，必须同时增加训练时间，否则会使模型无法收敛，这是通过tensor board查看value_loss的变化曲线得到的</p>
+</li>
+<li><p>模型结构：主要用的是PPO算法，模型由两个网络组成：一个价值网络（输出当前策略的预估价值）和一个策略网络（决定action，在该实验中就是买卖的股票数量），每个网络由两层全连接层组成，</p>
+</li>
+<li><p>不同复杂度环境下的算法效果验证，与传统的布林带方法进行对比，可以获得明显更优的收益</p>
+</li>
+</ul>
+<p><strong>遇到的问题</strong>：</p>
+<ul>
+<li>主要问题是受到模型训练速度的影响，无法验证</li>
+<li>另外奖励函数中回撤率的权重对实验影响是比较大的，如果没有一个合适的权重，可能导致模型无法收敛</li>
+</ul>
+<p><strong>简述：</strong></p>
+<ul>
+<li><p>探索了强化学习在资产配置领域的应用 </p>
+</li>
+<li><p>使用 FinRL 库在北美市场的道琼斯 30 数据集和中国市场的期货基差数据集上构建环境并验证了强化学习算法(A2C, PPO, DDPG 等)的有效性 </p>
+</li>
+<li><p>创新点：在奖励函数中新增了一定权重的回撤率因子，可以获得在更严格环境下的高收益低风险回报</p>
+</li>
+<li><p>贡献：验证了强化学习在金融领域的能力并且提出了几点为了达到更好的训练效果所需的处理步骤</p>
+</li>
+</ul>
+<h3 id="实现C-标准库STL"><a href="#实现C-标准库STL" class="headerlink" title="实现C++标准库STL"></a>实现C++标准库STL</h3><p><strong>项目初衷</strong></p>
+<ol>
+<li>算法题中用到很多STL标准库中的容器和算法，一直都知道他们是非常高效的，对象的耦合性低、复用性高，但是却不知道是怎么样实现了高效。因此很想了解他们的底层实现。也一直知道内存管理是C++的精髓，但是只从语法上学习并没有很直接的感受，因此希望通过阅读STL源码中对内存的管理方法，对智能指针的实现来对内存管理有更好的认识。</li>
+<li>实现一份类似STL的标准库也能学习到很多巧妙的设计方法，也是我从单单从C++primer上学习语法和做算法题到真正实现设计和开发一些东西的跨越。</li>
+<li>SGI版本中源码中未实现的：move相关的操作，另外智能指针实现的只有auto_ptr。</li>
+<li>我们版本的TinySTL：灵活使用了auto关键字，因为很多很长也很复杂的类型名。另外static_cast的使用也很多，增加了move的相关操作。</li>
+</ol>
+<p><strong>设计经验</strong>：</p>
+<ol>
+<li>声明与定义分离，类中尽量只放声明。尽可能多用const和引用。</li>
+<li>类型偏特化的使用：不同类型的数据使用相同的算法也有可能具有不一样的效率。对于某些只有一个字节大小的类型（如char、const unsigned char（原生指针））我们会设计针对特定类型的特化版本的函数来增进效率（通过使用C标准库函数如memmove、memcmp）。</li>
+<li>模板出错比较难检查，因为必须运行时才能发现错误，编译阶段无法发现。一般模板中既包含声明又包含定义</li>
+<li>做一个类似这样的库的项目最先要实现的是底层的内存分配，保证不发生内存泄露。然后要设计一系列基础的算法例如copy、fill等，并且尽可能做到最高效（通过尽可能地调用C库中的函数来写）。因为我们需要设计一系列容器，而对于容器进行整体的拷贝和赋值等操作需要大量应用copy等算法，因此需要事先设计好并且保证高效。同时由于容器的操作涉及到一系列对象的拷贝、移动等，因此要保证异常的安全，需要更多的思考。</li>
+</ol>
+<h3 id="美团后端开发实习"><a href="#美团后端开发实习" class="headerlink" title="美团后端开发实习"></a>美团后端开发实习</h3><p>所属的小组是美团优选的营销开发组，接触到的任务大多都是直接面向实际需求的。</p>
+<p>最主要的挑战还是从零开始接触Java到能实际上手做项目解决问题，也算是接触了互联网，或者计算机行业从业者的每日工作和一个项目的解决过程吧。</p>
+<p>读代码和分析代码的能力获得了很大的提升。</p>
+<p><strong>技术点</strong>：</p>
+<ul>
+<li>spring boot框架的使用</li>
+<li>rpc框架的使用</li>
+<li>不同模块之间的交互</li>
+<li>上线的基本步骤与注意点</li>
+<li>远程调试与错误的排查（日志中心的使用）</li>
+</ul>
+<p><strong>涉及到的几个包</strong>：</p>
+<p>mapi包（芥末端&#x2F;B端接口）—— 用于创建任务配置，提供给运营，用于设置玩法任务，其中包括玩法的生效时间，奖励，城市，poi，与玩法相关的一些配置（如浏览任务的浏览时长）等等</p>
+<p>capi（服务接口层）——比较薄的一层controller接口，调用后端的服务</p>
+<p>game-center包——核心的包，</p>
+<p>task-center-view——任务中心，调用这个模块的接口获取任务实例和任务配置</p>
+<p><strong>设计模式</strong>：</p>
+<ul>
+<li>门面模式：用来封装系统的底层实现，隐藏系统的复杂性，提供一组更加简单易用、更高层的接口（mapi、capi）。（另外<u>Linux系统调用函数就可以看作一种“门面”</u>。它是Linux操作系统暴露给开发者的一组“特殊”的编程接口，它封装了底层更基础的Linux内核调用）</li>
+<li>建造者模式（builder），各种配置Config基本都是通过builder而不是new构造的（lombok注解在java进行编译时进行代码的构建）。它提供在设计数据实体时，对外保持private setter，而对属性的赋值采用Builder的方式，这种方式最优雅，也更符合封装的原则，不对外公开属性的写操作</li>
+<li>简单工厂模式 SampleDataConstructorFactory，把所有第一次遇到的活动类型或者任务类型存到对象内的HashMap中，之后要调用的时候直接通过</li>
+<li>代理模式（AOP、RPC框架</li>
+</ul>
+<p><strong>遇到的异常</strong>:</p>
+<p>调试的时候遇到最多的还是NPE null pointer exception，大多数情况还是代码：</p>
+<ul>
+<li>没有考虑到比较极端的一些用例</li>
+<li>级联调用没有校验判空（fooService.getFunc1().getFunc2().getFunc3()）</li>
+<li>函数中校验参数不够完善导致的（入参没有校验为空直接使用）</li>
+<li>方法或者远程服务返回的List不是空而是null</li>
+<li>字符串比较出现NPE</li>
+</ul>
+<p><strong>简述</strong></p>
+<ul>
+<li><p>从零开始学习 Java 相关的内容，基于 Spring Boot 框架和美团自研的 RPC 框架（基于 Thrift）和消息队列（基于 Kafka）进行一系列需求(挽留弹窗，交叉引流任务，配置卡控…)的开发 </p>
+</li>
+<li><p>对实际应用中的开发流程有了一定的了解，从技术方案的形成，到前后端任务的分配，需求的开发与自测，联调与上线的流程都进行了熟悉和实际的操作 </p>
+</li>
+<li><p>调试定位问题解决问题的能力有所提升</p>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/08/26/Interview-Projects/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Interview/" rel="tag">Interview</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2022/08/27/Interview-Cpp/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Interview-C++
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2022/08/22/MakeFile/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">MakeFile</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "5J2nSr5DoqBGRRnpdFfTvawi-gzGzoHsz",
+    app_key: "24GWRfKBASGr6cA5FSBF4NY4",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2022
+        <i class="ri-heart-fill heart_icon"></i> ZHU
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Keep Making Progress"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

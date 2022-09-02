@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-08-22T11:49:56.375Z</updated>
+  <updated>2022-08-31T19:30:41.324Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -15,6 +15,82 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>UNIX/Linux学习记录</title>
+    <link href="https://www.zzzzzq.com/2022/08/30/UNIX/"/>
+    <id>https://www.zzzzzq.com/2022/08/30/UNIX/</id>
+    <published>2022-08-29T18:33:50.000Z</published>
+    <updated>2022-08-31T19:30:41.324Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文主要记录了阅读《UNIX&amp;#x2F;Linux编程实践教程》过程中的学习笔记&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://www.zzzzzq.com/categories/Linux/"/>
+    
+    
+    <category term="Linux" scheme="https://www.zzzzzq.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>muduo高性能网络服务器库学习笔记</title>
+    <link href="https://www.zzzzzq.com/2022/08/30/Interview-muduo/"/>
+    <id>https://www.zzzzzq.com/2022/08/30/Interview-muduo/</id>
+    <published>2022-08-29T17:24:50.000Z</published>
+    <updated>2022-08-29T23:31:17.596Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文主要记录了阅读陈硕大神的muduo服务器库源码的一些学习笔记&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="muduo" scheme="https://www.zzzzzq.com/categories/muduo/"/>
+    
+    
+    <category term="muduo" scheme="https://www.zzzzzq.com/tags/muduo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Interview-C++</title>
+    <link href="https://www.zzzzzq.com/2022/08/27/Interview-Cpp/"/>
+    <id>https://www.zzzzzq.com/2022/08/27/Interview-Cpp/</id>
+    <published>2022-08-27T13:54:12.000Z</published>
+    <updated>2022-08-29T21:52:05.138Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文对C++语言方面的一些基础知识做了一些梳理和总结&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Interview" scheme="https://www.zzzzzq.com/categories/Interview/"/>
+    
+    
+    <category term="Interview" scheme="https://www.zzzzzq.com/tags/Interview/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>项目梳理</title>
+    <link href="https://www.zzzzzq.com/2022/08/26/Interview-Projects/"/>
+    <id>https://www.zzzzzq.com/2022/08/26/Interview-Projects/</id>
+    <published>2022-08-25T17:48:41.000Z</published>
+    <updated>2022-08-26T22:21:06.012Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文对个人从本科至今所做的项目进行一次系统的梳理总结&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Interview" scheme="https://www.zzzzzq.com/categories/Interview/"/>
+    
+    
+    <category term="Interview" scheme="https://www.zzzzzq.com/tags/Interview/"/>
+    
+  </entry>
   
   <entry>
     <title>MakeFile</title>
@@ -40,7 +116,7 @@
     <link href="https://www.zzzzzq.com/2022/08/22/myOs/"/>
     <id>https://www.zzzzzq.com/2022/08/22/myOs/</id>
     <published>2022-08-22T10:45:48.000Z</published>
-    <updated>2022-08-23T18:52:02.859Z</updated>
+    <updated>2022-08-26T19:24:29.222Z</updated>
     
     
     <summary type="html">&lt;p&gt;参考&lt;a href=&quot;https://github.com/hurley25/hurlex-doc/tree/master/code&quot;&gt;这篇文章&lt;/a&gt;在mac系统中进行一个简单的基于Intel x86的32位操作系统内核实现&lt;/p&gt;</summary>
@@ -75,10 +151,10 @@
   
   <entry>
     <title>HTTP、Socket以及TinyHttpd Server学习</title>
-    <link href="https://www.zzzzzq.com/2022/08/20/tinyHttpd/"/>
-    <id>https://www.zzzzzq.com/2022/08/20/tinyHttpd/</id>
+    <link href="https://www.zzzzzq.com/2022/08/20/Interview-tinyHttpd/"/>
+    <id>https://www.zzzzzq.com/2022/08/20/Interview-tinyHttpd/</id>
     <published>2022-08-19T21:04:32.000Z</published>
-    <updated>2022-08-21T18:57:12.427Z</updated>
+    <updated>2022-08-30T09:12:26.455Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文记录了tinyHttpd的代码学习过程。Tinyhttpd算是一个微型的web服务器，浏览器与Web服务器之间的通信采用的是Http，所以以HTTP协议作为切入点&lt;/p&gt;</summary>
@@ -211,7 +287,7 @@
     <link href="https://www.zzzzzq.com/2022/08/12/Interview-Questions04/"/>
     <id>https://www.zzzzzq.com/2022/08/12/Interview-Questions04/</id>
     <published>2022-08-12T14:07:21.000Z</published>
-    <updated>2022-08-20T19:15:51.665Z</updated>
+    <updated>2022-09-01T10:23:09.199Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文根据&lt;a href=&quot;https://codetop.cc/home&quot;&gt;CodeTop&lt;/a&gt;记录了热门的一些算法问题&lt;/p&gt;</summary>
@@ -327,86 +403,6 @@
     
     
     <category term="Interview" scheme="https://www.zzzzzq.com/tags/Interview/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>project_in_meituan_05</title>
-    <link href="https://www.zzzzzq.com/2022/06/16/project-in-meituan-05/"/>
-    <id>https://www.zzzzzq.com/2022/06/16/project-in-meituan-05/</id>
-    <published>2022-06-16T05:52:50.000Z</published>
-    <updated>2022-07-23T12:24:07.295Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;第五个需求，优选游戏接入平台游戏部广告聚合接口&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Projects" scheme="https://www.zzzzzq.com/categories/Projects/"/>
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/Projects/MeiTuan/"/>
-    
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
-    
-    <category term="Projects" scheme="https://www.zzzzzq.com/tags/Projects/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>上线发布流程</title>
-    <link href="https://www.zzzzzq.com/2022/06/15/ServiceOnline/"/>
-    <id>https://www.zzzzzq.com/2022/06/15/ServiceOnline/</id>
-    <published>2022-06-15T03:10:43.000Z</published>
-    <updated>2022-06-15T06:20:23.497Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文记录了服务上线发布流程规范&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/categories/MeiTuan/"/>
-    
-    
-    <category term="MeiTuan" scheme="https://www.zzzzzq.com/tags/MeiTuan/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>OS Basic</title>
-    <link href="https://www.zzzzzq.com/2022/06/14/Interview-OSBasic/"/>
-    <id>https://www.zzzzzq.com/2022/06/14/Interview-OSBasic/</id>
-    <published>2022-06-14T08:40:08.000Z</published>
-    <updated>2022-08-22T19:54:02.146Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文对操作系统的基础知识做了一些梳理和总结（主要针对面试中常见的一些问题）&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Interview" scheme="https://www.zzzzzq.com/categories/Interview/"/>
-    
-    
-    <category term="Interview" scheme="https://www.zzzzzq.com/tags/Interview/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DesignTemplate</title>
-    <link href="https://www.zzzzzq.com/2022/06/13/DesignTemplate/"/>
-    <id>https://www.zzzzzq.com/2022/06/13/DesignTemplate/</id>
-    <published>2022-06-13T13:29:07.000Z</published>
-    <updated>2022-06-21T07:10:55.542Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文介绍了软件设计的准则和常用的设计模式&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="https://www.zzzzzq.com/tags/Java/"/>
     
   </entry>
   
