@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">5.9k</span>
+            <span class="post-count">14.3k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">25 分钟</span>
+            <span class="post-count">59 分钟</span>
         </span>
     </span>
 </div>
@@ -114,6 +114,69 @@
   <p>本文主要记录了阅读《UNIX&#x2F;Linux编程实践教程》过程中的学习笔记</p>
 <span id="more"></span>
 
+<h2 id="环境配置相关问题"><a href="#环境配置相关问题" class="headerlink" title="环境配置相关问题"></a>环境配置相关问题</h2><p><strong>centos7更换镜像源：</strong></p>
+<ol>
+<li><p>安装wget<br><code>yum install -y wget</code></p>
+</li>
+<li><p>备份服务器原有的yum源文件<br><code>mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</code></p>
+</li>
+<li><p>下载阿里云镜像文件<br><code>wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</code></p>
+</li>
+<li><p>清理缓存<br><code>yum clean all</code></p>
+</li>
+<li><p>生成缓存<br><code>yum makecache</code></p>
+</li>
+<li><p>更新最新源设置<br><code>yum update -y</code></p>
+</li>
+</ol>
+<p><strong>vim插件的使用</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.linuxidc.com/Linux/2016-06/132262.htm">参考文档</a></p>
+<p><strong>安装管理vim插件的插件pathogen</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> -p ~/.vim/autoload ~/.vim/bundle &amp;&amp; \</span></span><br><span class="line"><span class="language-bash">curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim</span></span><br></pre></td></tr></table></figure>
+
+<p>创建该插件所需要的目录， 把 pathogen.vim 安装在 ~&#x2F;.vim&#x2F;autoload 目录，vim 会自动载入这个目录下的 pathogen 插件（目录名 autoload 顾名思义），将插件交给 pathogen 管理。创建 ~&#x2F;.vim&#x2F;bundle 目录是用来存放管理以后要安装插件。</p>
+<p>在 .vimrc 里配置，加上下面这句话，意思是执行这个函数 infect()</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">execute pathogen#infect()</span><br><span class="line"></span><br><span class="line"># 如果没有 .vimrc 文件， 则 vim ~/.vimrc ，然后黏贴下面这几句话</span><br><span class="line"></span><br><span class="line">execute pathogen#infect()</span><br><span class="line">syntax on</span><br><span class="line">filetype plugin indent on</span><br></pre></td></tr></table></figure>
+
+<p>以后直接把插件安装到<code>~/.vim/bundle</code>目录下即可</p>
+<p><strong>auto-pairs自动补齐括号、引号插件</strong></p>
+<p>在 <code>~/.vim/bundle</code>目录下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> git@github.com:jiangmiao/auto-pairs.git</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>NERDTree树状文件列表</strong></p>
+<p>安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> git@github.com:preservim/nerdtree.git</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>打开NERDTree： shift + : 然后输入 NERDTree 可看到结果</li>
+<li>ctrl + w + h 光标切换到左侧树形目录</li>
+<li>ctrl + w  + l 光标切换到右侧文件显示窗口</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.programminghunter.com/article/7761796988/">更多使用方式</a></p>
+<p><strong>安装 MiniBufExplorer 的改进版</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git@github.com:fholgado/minibufexpl.vim.git ~/.vim/bundle/minibufexpl</span><br></pre></td></tr></table></figure>
+
+<p>测试, 可以打开多个 buffer, :vsp 加文件名</p>
+<p><strong>taglist</strong></p>
+<p>taglist 依赖 ctags ，默认自带， 没有就自己安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install ctags</span><br></pre></td></tr></table></figure>
+
+<p>下载 taglist 到 bundle 目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:vim-scripts/taglist.vim.git</span><br></pre></td></tr></table></figure>
+
+<p>测试， 用 vim 打开一个文件，然后输入 TlistToggle </p>
+<p>注意修改完文件后要保存重新进以后才能更新tag</p>
+<p><strong>C++自动补齐插件OmniCppComplete</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:vim-scripts/OmniCppComplete.git</span><br></pre></td></tr></table></figure>
+
+<p>在 test 目录，生成 tags 文件，这样才能自动补全：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctags -R --<span class="built_in">sort</span>=<span class="built_in">yes</span> --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++</span><br></pre></td></tr></table></figure>
+
+<p>自动补全快捷键 ctr+x ctr+o ， 上下选择快捷键 ctr+n ctr+p。</p>
 <h2 id="Linux常用命令"><a href="#Linux常用命令" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h2><p>注意所有命令几乎都是人为编写的程序（大多都是C语言写的）</p>
 <p>在Unix系统下增加新的命令只需要把程序的可执行文件放到以下任意目录即可：</p>
 <ul>
@@ -405,8 +468,7 @@
 <li><code>ls -t</code>输出时按时间排序</li>
 <li><code>ls -F</code>显示文件类型</li>
 </ul>
-<p><strong>Unix是如何组织磁盘上的文件的</strong></p>
-<p>磁盘上的文件和目录被组成一棵目录树，每个节点都是目录或文件</p>
+<h3 id="Unix是如何组织磁盘上的文件的"><a href="#Unix是如何组织磁盘上的文件的" class="headerlink" title="Unix是如何组织磁盘上的文件的"></a>Unix是如何组织磁盘上的文件的</h3><p>磁盘上的文件和目录被组成一棵目录树，每个节点都是目录或文件</p>
 <img src="https://pic.imgdb.cn/item/630f617a16f2c2beb1d71e55.jpg" style="zoom:80%;" />
 
 <p>图中的大方框表示目录，大方框内的小方框表示文件，目录之间的连线表示目录之间的组织关系</p>
@@ -449,17 +511,415 @@
 </ul>
 </li>
 </ul>
-<p><strong>用stat得到文件信息</strong></p>
-<p>用法</p>
+<h3 id="用stat得到文件信息"><a href="#用stat得到文件信息" class="headerlink" title="用stat得到文件信息"></a>用stat得到文件信息</h3><p>用法</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">NAME</span><br><span class="line">       stat, fstat, lstat, fstatat - get file status</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line">       <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line">       <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">       <span class="type">int</span> <span class="title function_">stat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="keyword">struct</span> stat *buf)</span>;</span><br><span class="line">       <span class="type">int</span> <span class="title function_">fstat</span><span class="params">(<span class="type">int</span> fd, <span class="keyword">struct</span> stat *buf)</span>;</span><br><span class="line">       <span class="type">int</span> <span class="title function_">lstat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="keyword">struct</span> stat *buf)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <ul>
+<li>stat把文件pathname的信息复制到指针buf所指的结构中</li>
 <li>入参：文件名，指向stat结构buffer的指针</li>
 <li>返回值：-1（遇到错误） 0（成功返回）</li>
 </ul>
 <p>stat结构</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">stat</span> &#123;</span></span><br><span class="line">    <span class="type">dev_t</span>     st_dev;         <span class="comment">/* ID of device containing file */</span></span><br><span class="line">    <span class="type">ino_t</span>     st_ino;         <span class="comment">/* inode number */</span></span><br><span class="line">    <span class="type">mode_t</span>    st_mode;        <span class="comment">/* file type and mode */</span></span><br><span class="line">    <span class="type">nlink_t</span>   st_nlink;       <span class="comment">/* number of hard links */</span></span><br><span class="line">    <span class="type">uid_t</span>     st_uid;         <span class="comment">/* user ID of owner */</span></span><br><span class="line">    <span class="type">gid_t</span>     st_gid;         <span class="comment">/* group ID of owner */</span></span><br><span class="line">    <span class="type">dev_t</span>     st_rdev;        <span class="comment">/* device ID (if special file) */</span></span><br><span class="line">    <span class="type">off_t</span>     st_size;        <span class="comment">/* total size, in bytes */</span></span><br><span class="line">    <span class="type">blksize_t</span> st_blksize;     <span class="comment">/* blocksize for filesystem I/O */</span></span><br><span class="line">    <span class="type">blkcnt_t</span>  st_blocks;      <span class="comment">/* number of 512B blocks allocated */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Since Linux 2.6, the kernel supports nanosecond</span></span><br><span class="line"><span class="comment">                  precision for the following timestamp fields.</span></span><br><span class="line"><span class="comment">                  For the details before Linux 2.6, see NOTES. */</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_atim</span>;</span>  <span class="comment">/* time of last access */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_mtim</span>;</span>  <span class="comment">/* time of last modification */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_ctim</span>;</span>  <span class="comment">/* time of last status change */</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> st_atime st_atim.tv_sec      <span class="comment">/* Backward compatibility */</span></span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> st_mtime st_mtim.tv_sec</span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> st_ctime st_ctim.tv_sec</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<p>示例代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//filesize.c</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">stat</span> <span class="title">infobuf</span>;</span></span><br><span class="line">    <span class="keyword">if</span>(stat(<span class="string">&quot;/etc/passwd&quot;</span>, &amp;infobuf) == <span class="number">-1</span>)</span><br><span class="line">        perror(<span class="string">&quot;/etc/passwd&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">//用stat来获取文件大小</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;The size of /etc/passwd is %d\n&quot;</span>, infobuf.st_size);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>编写fileinfo.c</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fileinfo.c - use stat() to obtain and print file properties</span></span><br><span class="line"><span class="comment">//            - some menbers are just numbers</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">show_stat_info</span><span class="params">(<span class="type">char</span> *filename, <span class="keyword">struct</span> stat *stat_buf)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">stat</span> <span class="title">stat_buf</span>;</span></span><br><span class="line">  <span class="keyword">while</span> (--argc &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (stat(*++argv, &amp;stat_buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">      perror(*argv);</span><br><span class="line">      <span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line">    &#125;</span><br><span class="line">    show_stat_info(*argv, &amp;stat_buf);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">show_stat_info</span><span class="params">(<span class="type">char</span> *filename, <span class="keyword">struct</span> stat *stat_buf_p)</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;  mode: %o\n&quot;</span>, stat_buf_p-&gt;st_mode);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot; links: %d\n&quot;</span>, stat_buf_p-&gt;st_nlink);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;  user: %d\n&quot;</span>, stat_buf_p-&gt;st_uid);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot; group: %d\n&quot;</span>, stat_buf_p-&gt;st_gid);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;  size: %d\n&quot;</span>, stat_buf_p-&gt;st_size);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot; mtime: %d\n&quot;</span>, stat_buf_p-&gt;st_mtime);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;  name: %s\n&quot;</span>, filename);</span><br><span class="line">  <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译，运行，并与ls -l作对比</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[zhangqi@localhost chap3]$ ./fileinfo fileinfo.c </span><br><span class="line">  mode: 100664</span><br><span class="line"> links: 1</span><br><span class="line">  user: 1000</span><br><span class="line"> group: 1000</span><br><span class="line">  size: 777</span><br><span class="line"> mtime: 1662418390</span><br><span class="line">  name: fileinfo.c</span><br><span class="line">[zhangqi@localhost chap3]$ <span class="built_in">ls</span> -l fileinfo.c </span><br><span class="line">-rw-rw-r--. 1 zhangqi zhangqi 777 Sep  6 06:53 fileinfo.c</span><br><span class="line">[zhangqi@localhost chap3]$ </span><br></pre></td></tr></table></figure>
+
+<p>可以发现链接数（links，即文件被引用的次数，即别名的数量）、文件大小（size，即实际所占用的存储空间的字节数）的显示都没有问题，时间是可以用ctime转化成字符串的，也没有问题。</p>
+<p>然而fileinfo将模式（mode）字段以数字形式输出，然而需要的是 <code>-rw-rw-r--</code>这种形式。</p>
+<p>另外结构中的user和group字段都是数值，显示出来的应该是用户名（需要通过getpwuid()来获取）和组名（通过getgrgid()来获取组列表）。</p>
+<p>因此要进一步处理这些问题</p>
+<p><code>st_mode</code>是一个16位的二进制数，文件类型和权限被编码在这个数中：</p>
+<img src="https://pic.imgdb.cn/item/631681e216f2c2beb1280d65.jpg" style="zoom:80%;" />
+
+<ul>
+<li><p>前四位用作文件类型，最多标识16种类型，目前已使用其中的7个</p>
+</li>
+<li><p>接下来3位是文件的特殊属性，1代表具有某个属性，0代表没有。</p>
+<ul>
+<li><code>set-user-ID</code>位：SUID位告诉内核，运行这个程序的时候认为是由文件所有者在运行这个程序</li>
+<li><code>set-group-ID</code>位：用来设置程序运行时所属组</li>
+<li><code>sticky</code>位：对于文件来说，告诉内核即使没有人在使用程序，也要把它放在交换空间中（早期类似虚拟内存的实现技术）；对于目录来说，sticky位使目录里的文件只能被创建者删除</li>
+</ul>
+</li>
+<li><p>最后9位是许可权限，分为三组，对应文件所有者、同组用户和其他用户。每组三位，分别是读、写和执行的权限。相应位置如果是1说明有权限，0代表没有</p>
+<ul>
+<li><p>文件所有者：就是创建文件的用户，当用户通过creat建立文件时，内核把文件所有者设为运行程序的用户，如果程序具有set-user-ID位，那么新文件的文件所有者就是程序的文件所有者</p>
+</li>
+<li><p>组：通常新文件的组被设为执行创建动作的用户所在的组</p>
+</li>
+<li><p>修改文件所有者和组：通过系统调用<code>chown</code>来修改文件所有者和组：</p>
+<p><code>chown(&quot;file1&quot;,200,40);</code>将文件file1的用户ID改为200，组ID改为40，如果后两个参数都为-1，则文件所有者和组都不会改变。</p>
+<p>shell命令chown和chgrp可以用来修改文件所有者和组，它们可以一次修改多个文件</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>如何读取被编码的值</strong>：</p>
+<p>“掩码”技术——为了比较，把不需要的地方置0，需要的字段值不发生改变</p>
+<p>实现：与0作位与（&amp;）操作可以将相应的bit置为0</p>
+<p>在&lt;sys&#x2F;stat.h&gt;中定义了一系列掩码，用于过滤出不同的信息</p>
+<h3 id="综合实现"><a href="#综合实现" class="headerlink" title="综合实现"></a>综合实现</h3><p>ls2.c</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;dirent.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">do_ls</span><span class="params">(<span class="type">char</span>[])</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">dostat</span><span class="params">(<span class="type">char</span>*)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">show_file_info</span><span class="params">(<span class="type">char</span>*, <span class="keyword">struct</span> stat *)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">mode_to_letters</span><span class="params">(<span class="type">int</span>, <span class="type">char</span>[])</span>;</span><br><span class="line"><span class="type">char</span> * <span class="title function_">uid_to_name</span><span class="params">(<span class="type">uid_t</span>)</span>;</span><br><span class="line"><span class="type">char</span> * <span class="title function_">gid_to_name</span><span class="params">(<span class="type">gid_t</span>)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">main(<span class="type">int</span> argc, <span class="type">char</span> *argv[]) &#123;</span><br><span class="line">	<span class="keyword">if</span>(argc == <span class="number">1</span>)</span><br><span class="line">		do_ls(<span class="string">&quot;.&quot;</span>); <span class="comment">//如果没有指定参数，则列出该目录下所有文件信息</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">while</span>(--argc)&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;%s:\n&quot;</span>,*++argv);</span><br><span class="line">			do_ls(*argv);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">do_ls</span><span class="params">(<span class="type">char</span> dirname[])</span>&#123;</span><br><span class="line">	<span class="comment">//list files in directory called dirname</span></span><br><span class="line">	DIR	*dir_ptr;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span>	 <span class="title">dirent</span> * <span class="title">direntp</span>;</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>((dir_ptr = opendir(dirname)) == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;ls2: cannot open %s\n&quot;</span>, dirname);</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">while</span>((direntp = readdir(dir_ptr)) != <span class="literal">NULL</span>)</span><br><span class="line">			dostat(direntp-&gt;d_name);</span><br><span class="line">		closedir(dir_ptr);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">dostat</span><span class="params">(<span class="type">char</span> * filename)</span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span>	<span class="title">stat</span>	<span class="title">info</span>;</span></span><br><span class="line">	<span class="keyword">if</span>(stat(filename, &amp;info)==<span class="number">-1</span>)</span><br><span class="line">		perror(filename);</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		show_file_info(filename,&amp;info);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">show_file_info</span><span class="params">(<span class="type">char</span> *filename, <span class="keyword">struct</span> stat *info_p)</span> &#123;</span><br><span class="line">	<span class="type">char</span> *<span class="title function_">uid_to_name</span><span class="params">()</span>, *<span class="title function_">ctime</span><span class="params">()</span>, *<span class="title function_">gid_to_name</span><span class="params">()</span>, *<span class="title function_">filemode</span><span class="params">()</span>;</span><br><span class="line">	<span class="type">void</span> <span class="title function_">mode_to_letters</span><span class="params">()</span>;</span><br><span class="line">	<span class="type">char</span> modestr[<span class="number">11</span>];</span><br><span class="line"></span><br><span class="line">	mode_to_letters(info_p-&gt;st_mode, modestr);</span><br><span class="line"></span><br><span class="line"> 	<span class="built_in">printf</span>(<span class="string">&quot;%s &quot;</span>, modestr);</span><br><span class="line">  	<span class="built_in">printf</span>(<span class="string">&quot;%4d &quot;</span>,(<span class="type">int</span>)info_p-&gt;st_nlink);</span><br><span class="line">  	<span class="built_in">printf</span>(<span class="string">&quot;%-8s &quot;</span>, uid_to_name(info_p-&gt;st_uid));</span><br><span class="line">  	<span class="built_in">printf</span>(<span class="string">&quot;%-8s &quot;</span>, gid_to_name(info_p-&gt;st_gid));</span><br><span class="line">  	<span class="built_in">printf</span>(<span class="string">&quot;%8ld &quot;</span>, (<span class="type">long</span>)info_p-&gt;st_size);</span><br><span class="line">  	<span class="built_in">printf</span>(<span class="string">&quot;%.12s &quot;</span>, <span class="number">4</span>+ctime(&amp;info_p-&gt;st_mtime));</span><br><span class="line">  	<span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, filename);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">mode_to_letters</span><span class="params">(<span class="type">int</span> mode, <span class="type">char</span> str[])</span>&#123;</span><br><span class="line">	<span class="built_in">strcpy</span>(str,<span class="string">&quot;----------&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(S_ISDIR(mode)) str[<span class="number">0</span>] = <span class="string">&#x27;d&#x27;</span>;</span><br><span class="line">	<span class="keyword">if</span>(S_ISCHR(mode)) str[<span class="number">0</span>] = <span class="string">&#x27;c&#x27;</span>;</span><br><span class="line">	<span class="keyword">if</span>(S_ISBLK(mode)) str[<span class="number">0</span>] = <span class="string">&#x27;b&#x27;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(mode &amp; S_IRUSR) str[<span class="number">1</span>] = <span class="string">&#x27;r&#x27;</span>;</span><br><span class="line">	<span class="keyword">if</span>(mode &amp; S_IWUSR) str[<span class="number">2</span>] = <span class="string">&#x27;w&#x27;</span>;</span><br><span class="line">	<span class="keyword">if</span>(mode &amp; S_IXUSR) str[<span class="number">3</span>] = <span class="string">&#x27;x&#x27;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(mode &amp; S_IRGRP) str[<span class="number">4</span>] = <span class="string">&#x27;r&#x27;</span>;</span><br><span class="line">	<span class="keyword">if</span>(mode &amp; S_IWGRP) str[<span class="number">5</span>] = <span class="string">&#x27;w&#x27;</span>;</span><br><span class="line">	<span class="keyword">if</span>(mode &amp; S_IXGRP) str[<span class="number">6</span>] = <span class="string">&#x27;x&#x27;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(mode &amp; S_IROTH) str[<span class="number">7</span>] = <span class="string">&#x27;r&#x27;</span>;</span><br><span class="line">	<span class="keyword">if</span>(mode &amp; S_IWOTH) str[<span class="number">8</span>] = <span class="string">&#x27;w&#x27;</span>;</span><br><span class="line">	<span class="keyword">if</span>(mode &amp; S_IXOTH) str[<span class="number">9</span>] = <span class="string">&#x27;x&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pwd.h&gt;</span></span></span><br><span class="line"><span class="type">char</span> *<span class="title function_">uid_to_name</span><span class="params">(<span class="type">uid_t</span> uid)</span>&#123;</span><br><span class="line">	<span class="keyword">struct</span> passwd * <span class="title function_">getpwuid</span><span class="params">()</span>, *pw_ptr;</span><br><span class="line">	<span class="type">static</span> <span class="type">char</span> numstr[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>((pw_ptr = getpwuid(uid))== <span class="literal">NULL</span>)&#123;</span><br><span class="line">		<span class="built_in">sprintf</span>(numstr,<span class="string">&quot;%d&quot;</span>,uid);</span><br><span class="line">		<span class="keyword">return</span> numstr;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> pw_ptr-&gt;pw_name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;grp.h&gt;</span></span></span><br><span class="line"><span class="type">char</span> *<span class="title function_">gid_to_name</span><span class="params">(<span class="type">gid_t</span> gid)</span>&#123;</span><br><span class="line">	<span class="keyword">struct</span> group * <span class="title function_">getgrgid</span><span class="params">()</span>, *grp_ptr;</span><br><span class="line">	<span class="type">static</span> <span class="type">char</span> numstr[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">if</span>((grp_ptr = getgrgid(gid)) == <span class="literal">NULL</span>)&#123;</span><br><span class="line">		<span class="built_in">sprintf</span>(numstr,<span class="string">&quot;%d&quot;</span>,gid);</span><br><span class="line">		<span class="keyword">return</span> numstr;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> grp_ptr-&gt;gr_name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="设置和修改文件的属性"><a href="#设置和修改文件的属性" class="headerlink" title="设置和修改文件的属性"></a>设置和修改文件的属性</h3><p>ls2.c的属性</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zhangqi@localhost chap3]$ <span class="built_in">ls</span> -l ls2.c</span><br><span class="line">-rw-rw-r--. 1 zhangqi zhangqi 2336 Sep  7 01:11 ls2.c</span><br></pre></td></tr></table></figure>
+
+<p><strong>文件类型</strong></p>
+<p>有普通文件、目录文件、设备文件、socket文件、符号链接文件、命名管道文件等</p>
+<ul>
+<li>文件类型的建立：是在创建文件的时候建立的，如用系统调用creat建立一个普通文件。其他类型的文件如目录（mkdir()系统调用）等，可使用不同的函数创建。</li>
+<li>修改文件类型：文件一经创建，类型就无法修改</li>
+</ul>
+<p><strong>许可位与特殊属性位</strong></p>
+<p>每个文件都有9位许可权限和3位特殊属性，是在文件创建的时候建立的，创建后，它们可以被chmod系统调用修改</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">chmod</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *path, <span class="type">mode_t</span> mode)</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>建立文件的模式：creat的第二个参数制定了要创建文件的许可位</p>
+<p><code>fd = creat(&quot;newfile&quot;,0744)</code>指定新创建文件的许可位为rwxr–r–</p>
+</li>
+<li><p>改变文件的模式：</p>
+<ul>
+<li><p>程序可以通过系统调用<code>chmod</code>来改变文件的模式：</p>
+<p><code>chmod(&quot;/tmp/myfile&quot;, 04764);</code></p>
+<p><code>chomod(&quot;/tmp/myfile,S_ISUID|S_IRWXU|S_IRWXU|S_IRGRP|S_IWGRP|S_IROTH&quot;);</code></p>
+</li>
+<li><p>以上两条指令的作用相同，第一条是八进制表示，第二条是用&lt;sys&#x2F;stat.h&gt;中定义的符号来表示。后者有明显的优点，当系统定义的许可位的值改变时，无需修改程序。即系统调用chmod不受“新建文件掩码”的影响</p>
+</li>
+<li><p>返回-1即错误，0则是成功</p>
+</li>
+<li><p>shell命令chmod也可以用来完成上述操作。它可以通过八进制模式（如04764）和符号模式（如u&#x3D;rws g&#x3D;rw o&#x3D;r）来指定权限和属性</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="文件系统：编写pwd"><a href="#文件系统：编写pwd" class="headerlink" title="文件系统：编写pwd"></a>文件系统：编写pwd</h2><p>文件包含数据，而目录是文件的列表。不同的目录互相连接构成树状的结构。目录还可以包含其他的目录。</p>
+<p>pwd命令显示你在目录树中的位置。从树根到你所处位置所经过的目录的序列被称作路径（path）。</p>
+<p><strong>用户角度看文件系统</strong></p>
+<p>Unix系统中一盘上的文件组成一棵目录树</p>
+<p>针对目录树的命令：</p>
+<ul>
+<li><code>ls -R</code>可以查看以当前节点为根节点的整个树结构。-R要求列出指定目录及其子目录的所有内容</li>
+<li><code>chmod -R</code> 可以改变子目录中所有文件的许可权</li>
+<li><code>du</code> 是disk usage的缩写，该命令给出指定目录及其子目录下所有文件占用硬盘中数据块的总数</li>
+<li><code>find</code> 将在一个目录及其所有子目录中检索符合要求的文件和目录</li>
+</ul>
+<p>目录树的深度几乎没有限制</p>
+<h3 id="Unix文件系统的内部结构"><a href="#Unix文件系统的内部结构" class="headerlink" title="Unix文件系统的内部结构"></a>Unix文件系统的内部结构</h3><p>硬盘实际上是由一些磁性盘片组成的计算机系统的一个设备。文件系统其实是对该设备的一种多层次的抽象</p>
+<p><strong>第一层抽象：从磁盘到分区</strong></p>
+<ul>
+<li>一个磁盘可被划分为若干个分区，以便在一个大的实体内创建独立的区域。每个分区都可以看做是一个独立的磁盘</li>
+</ul>
+<p><strong>第二层抽象：从磁盘到块序列</strong></p>
+<ul>
+<li><p>一个磁盘由一些磁性盘片组成。每个盘片的表面都被划分为很多同心圆，这些同心圆被称作磁道，每个磁道又进一步被划分为扇区。</p>
+</li>
+<li><p>每个扇区可以存储一定字节数的数据（512字节）</p>
+</li>
+<li><p>扇区是磁盘上的基本存储单元</p>
+</li>
+<li><p>为磁盘块编号：</p>
+<img src="https://pic.imgdb.cn/item/631a294316f2c2beb1c84330.jpg" style="zoom:80%;" />
+
+<ul>
+<li>给每个磁盘块分配连续的编号使得系统能够计算磁盘上的每个块。</li>
+<li>可以一个磁盘接一个磁盘从上到下给所有块编号，还可以一个磁道接一个磁道地从外向里给所有的块编号。</li>
+<li>一个将磁盘扇区编号的系统使得我们可以把磁盘视为一系列块的组合</li>
+</ul>
+</li>
+</ul>
+<p><strong>第三层抽象：从块序列到三个区域的划分</strong></p>
+<ul>
+<li><p>文件系统被分为三个区域来存储不同类型的数据（文件内容、文件属性（所有者、日期等）和目录）</p>
+<img src="https://pic.imgdb.cn/item/631a2c3116f2c2beb1cb613a.jpg" style="zoom:80%;" />
+
+<ul>
+<li><strong>超级块</strong>：存放文件系统本身的信息（如每个区域的大小、未被使用的磁盘块信息）</li>
+<li><strong>i-节点表</strong>：存放文件属性（如大小、文件所有者和最近修改时间）<ul>
+<li>这些性质被记录在一个称为 “i-节点”的结构中，所有inode有相同的大小，这是一个inode的列表。</li>
+<li>文件系统中的每个文件在该表中都有一个inode</li>
+<li>如果有root权限，可以像操作文件一样将分区打开、阅读并显示i-节点表。</li>
+<li>注意：表中的每个inode都通过位置来标识。例如，标识为2的inode（inode 2）位于文件系统i-节点表中的第3个位置</li>
+</ul>
+</li>
+<li><strong>数据区</strong>：用来存放文件内容。一个较大的文件可能分布在上千个独立的磁盘块中</li>
+</ul>
+</li>
+<li><p>文件系统由这三部分组合而成，其中任一部分都是由很多有序磁盘块组成的</p>
+</li>
+</ul>
+<h3 id="文件系统的实现："><a href="#文件系统的实现：" class="headerlink" title="文件系统的实现："></a>文件系统的实现：</h3><p><strong>创建一个文件的过程</strong></p>
+<p>考虑如下命令： who &gt; userlist，创建了一个存放命令who输出内容的新文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[zhangqi@localhost chap4]$ <span class="built_in">who</span> &gt; userlist</span><br><span class="line">[zhangqi@localhost chap4]$ <span class="built_in">ls</span></span><br><span class="line">demodir  userlist</span><br><span class="line">[zhangqi@localhost chap4]$ <span class="built_in">cat</span> userlist</span><br><span class="line">zhangqi  :0           2022-09-06 06:39 (:0)</span><br><span class="line">zhangqi  pts/0        2022-09-06 06:46 (:0)</span><br><span class="line">zhangqi  pts/1        2022-09-08 08:13 (:0)</span><br></pre></td></tr></table></figure>
+
+<p>文件有内容和属性，内核将文件内容存放在数据区，文件属性存放在inode节点，文件名存在目录</p>
+<img src="https://pic.imgdb.cn/item/631a307d16f2c2beb1cfcfcf.jpg" style="zoom:80%;" />
+
+<p>创建一个新文件的四个操作：</p>
+<ul>
+<li>存储属性：<ul>
+<li>文件属性的存储：内核先找到一个空的 inode。如图中，内核找到 inode 47。内核把文件的信息记录其中</li>
+</ul>
+</li>
+<li>存储数据<ul>
+<li>文件内容的存储：由于该新文件需要3个存储磁盘块，因此内核从自由块的列表中找出3个自由块。如图中，找到块627、200和992。内核将第一块数据复制到块627， 下一块数据复制到块200，最后一块数据复制到块992。</li>
+</ul>
+</li>
+<li>记录分配情况：<ul>
+<li>内核在inode的磁盘分布区记录了上述的块序列。</li>
+<li>磁盘分布区是一个磁盘块序号的列表，这3个编号放在最开始的3个位置</li>
+</ul>
+</li>
+<li>添加文件名到目录<ul>
+<li>新文件的名字是userlist。Unix内核将入口（47，userlist）添加到目录文件。</li>
+<li>文件名和i-节点号之间的对应关系将文件名和文件内容及属性连接了起来</li>
+</ul>
+</li>
+</ul>
+<p><strong>目录的工作过程</strong></p>
+<p>目录是一种包含了文件名字列表的特殊文件。不同版本的Unix目录的内部结构不同，但是抽象模型总是一致的——一个包含i-节点号和文件名的表</p>
+<p>可通过 <code>ls -1ia</code> （选项第一位是数字1）来看目录的内容：</p>
+<ul>
+<li>输出的是文件名和对应的 i-节点号，如文件名x对应于 i-节点号37405777</li>
+<li>当前目录用 <code>.</code>表示，有关大小、文件所有者、组等各项关于当前目录的信息存放在i-节点表中的编号为37405773中</li>
+<li><code>-i</code>告诉ls在列表中包含 i-节点号</li>
+<li><code>-1</code>要求每行列出一个文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[zhangqi@localhost chap4]$ <span class="built_in">ls</span> -1ia</span><br><span class="line">17507719 .</span><br><span class="line">36866887 ..</span><br><span class="line">37405773 demodir</span><br><span class="line">17507727 userlist</span><br><span class="line">[zhangqi@localhost chap4]$ <span class="built_in">ls</span> -1ia demodir</span><br><span class="line">37405773 .</span><br><span class="line">17507719 ..</span><br><span class="line">51681516 a</span><br><span class="line">51681478 c</span><br><span class="line">37405778 copy.of.x</span><br><span class="line">37405777 x</span><br></pre></td></tr></table></figure>
+
+<p>可以用 <code>ls -i</code>查看系统上任何一个文件的 i-节点号。</p>
+<p>如查看系统根目录中各文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[zhangqi@localhost chap4]$ <span class="built_in">ls</span> -ia /</span><br><span class="line">      64 .            3 dev         83 lib64         1 proc    551128 snap  33593488 usr</span><br><span class="line">      64 ..    16777281 etc         84 media  33574977 root  50332836 srv   50331713 var</span><br><span class="line">   74275 bin   50332835 home  16777863 mnt        8868 run          1 sys</span><br><span class="line">      64 boot        81 lib   33593545 opt       74279 sbin  16777288 tmp</span><br></pre></td></tr></table></figure>
+
+<p>这个列表有两个重要的注意点：</p>
+<ul>
+<li><code>proc</code>和 <code>sys</code>文件的节点号相同都为1，这说明他们是同一个文件的两个不同名字</li>
+<li>根目录的<code>.</code>和 <code>..</code>都指向同一个目录。根目录比较特别，当Unix命令mkfs创建一个文件系统，mkfs将根目录的父目录指向自己</li>
+</ul>
+<p><strong>cat命令的工作原理</strong></p>
+<p><code>cat userlist</code> 从目录文件到找到数据：</p>
+<img src="https://pic.imgdb.cn/item/631a57c016f2c2beb1eddab8.jpg" style="zoom:80%;" />
+
+<ol>
+<li><p>在目录寻找文件名：</p>
+<ul>
+<li>内核在目录文件中寻找包含字符串userlist的记录。从而找到编号为47的i-节点号</li>
+</ul>
+</li>
+<li><p>定位 i-节点 47 并读取其内容：</p>
+<ul>
+<li>内核在文件系统中的i-节点区域找到节点 inode 47。（由于所有inode大小相同，每个磁盘块包含相同数量的inode，因此可通过简单的计算进行定位）。</li>
+<li>为了提高访问效率，内核有可能将inode置于缓冲区中。inode包含数据块编号的列表</li>
+</ul>
+</li>
+<li><p>访问存储文件内容的数据块</p>
+<ul>
+<li>通过以上过程，内核已经可以知道文件内容存放在哪些数据块上，以及它们的顺序。由于cat不断地调用read函数，使得内核不断将字节从磁盘复制到内核缓冲区，进而到达用户空间</li>
+<li>所有从文件读取数据的命令，例如cat、cp、more、who等，都是将文件名传给open来访问文件内容。对open的每次调用都是先在目录中寻找文件名，然后根据目录中的i-节点号获得文件的属性，最终找到文件的内容</li>
+</ul>
+</li>
+</ol>
+<p>如果open一个没有读或写权限的文件：</p>
+<ul>
+<li>内核首先完成1 2两步</li>
+<li>然后在inode中内核可以读取文件权限相关的信息（权限位和拥有者的用户ID）</li>
+<li>如果权限位设置你的用户ID对文件没有访问权限，则open返回-1并且将全局变量errno的值设为EPERM</li>
+</ul>
+<p><strong>如何跟踪大文件</strong></p>
+<p>我们知道一个大的文件需要多个磁盘块，而inode中存放有磁盘块分配列表。那么一个固定大小的inode如何存储较长的分配列表呢？</p>
+<img src="https://pic.imgdb.cn/item/631a5c7216f2c2beb1f0f560.jpg" style="zoom:80%;" />
+
+<p>如图所示，这个文件需要14个数据块存储它的内容，因此，分配链表包含14个块的编号。但是文件的inode只包含一个含有13个项的分配链表。那么应该如何存放呢？</p>
+<p>解决方案：将分配链表的前10个编号放到inode中，将最后4个编号放到一个数据块中：</p>
+<ul>
+<li>具体来说，就是该inode的链表包含分配13个块编号的空间，链表里的前10个项中的块编号指向的是文件的实际数据。</li>
+<li>如果分配链表有多余10个的项，则剩下的块编号不是存储在inode，而是存储在数据区。</li>
+<li>链表的第11项存储了存放多余编号的数据块的编号</li>
+<li>如果仍然不够，链表的第12项（二级间接块）存放那个存储着第2、3、4及后继额外块的编号的块的编号</li>
+<li>还是不够，使用第13项（三级间接块），加深一层递归</li>
+<li>此时文件大小达到了极限，还要更大的空间就需要一个拥有更大的磁盘块构成的文件系统了。</li>
+</ul>
+<p><strong>Unix文件系统的改进</strong></p>
+<p>不同版本的Unix使用前述文件系统模型的不同版本。这种方法很简洁，但存在一些问题：</p>
+<ul>
+<li>超级块如果损坏了，则整个文件系统的结构信息就没有了。因此新版本的Unix在文件系统中备份了这个块的副本</li>
+<li>分块问题。由于文件的创建和删除，自由块将遍布磁盘。一种方案是在文件系统中创建被称为柱面组（cylinder group）的微文件系统</li>
+</ul>
+<h3 id="理解目录"><a href="#理解目录" class="headerlink" title="理解目录"></a>理解目录</h3><p><u>“x文件在目录a中”</u>的含义：</p>
+<p>从系统角度看，目录a中有一个指向 文件x对应的i-节点号的链接（xLink），这个链接附加的文件名为x</p>
+<p><u>“目录demodir包含子目录a”</u>的含义：</p>
+<p>demodir包含一个指向子目录a对应的inode的链接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[zhangqi@localhost chap4]$ <span class="built_in">ls</span> -iaR demodir/</span><br><span class="line">demodir/:</span><br><span class="line">37405773 .  17507719 ..  51681516 a  51681478 c  37405778 copy.of.x  37405777 x</span><br><span class="line"></span><br><span class="line">demodir/a:</span><br><span class="line">51681516 .  37405773 ..  51681517 x  51681518 y</span><br><span class="line"></span><br><span class="line">demodir/c:</span><br><span class="line">51681478 .  37405773 ..  17507718 d1  37405776 d2</span><br><span class="line"></span><br><span class="line">demodir/c/d1:</span><br><span class="line">17507718 .  51681478 ..  51681517 xlink</span><br><span class="line"></span><br><span class="line">demodir/c/d2:</span><br><span class="line">37405776 .  51681478 ..  37405775 xcopy</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><u>“目录a有一个父目录demodir”</u>的含义：</p>
+<p>目录a中有一个 <code>..</code>的名字，为父目录的保留名字</p>
+<p><u>多重链接及链接数</u></p>
+<p>在demodir目录树中，inode 51681517有两个链接，一个在目录a中，称为x，另一个在目录d1中，称为xlink。那么哪个是原始文件，那个是指向它的链接呢？</p>
+<p>在Unix的目录结构中，这两个链接的状态完全相同；它们被称为指向文件的硬链接。</p>
+<p>文件是一个inode和一些数据块的结合；链接是对inode的引用。可以对一个文件创建任意多的链接</p>
+<p>内核记录了一个文件的链接数，就inode 51681517来说，链接数至少是2。因为在文件系统的其他部分或许还存在着这个文件的其他链接。</p>
+<p>链接数被记录在inode中，同时也是系统调用stat返回值stat结构中的一个成员</p>
+<h4 id="与目录树相关的命令和系统调用"><a href="#与目录树相关的命令和系统调用" class="headerlink" title="与目录树相关的命令和系统调用"></a>与目录树相关的命令和系统调用</h4><p><strong>mkdir</strong></p>
+<p>用于创建新的目录。它接受命令行上的一个或多个目录名，使用mkdir(2)系统调用.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">mkdir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">mode_t</span> mode)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>实际上mkdir创建了一个新的目录节点并把它链接至文件系统树：</p>
+<ul>
+<li>mkdir创建了这个目录的inode</li>
+<li>分配了一个磁盘块用以存储它的内容</li>
+<li>在目录中设置了两个入口： <code>.</code>和 <code>..</code>并正确配置了它们的 i-节点号</li>
+<li>在它的父目录中增加一个该节点的链接</li>
+</ul>
+<p><strong>rmdir</strong></p>
+<p>用于删除一个目录，使用rmdir(2)系统调用</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">rmdir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>rmdir从目录树中删除一个目录节点。这个目录必须是空的。即除了 <code>.</code>和 <code>..</code>的入口，这个目录不能包含其他任何的文件和子目录。同时在父目录中删除这个目录的链接，如果这个目录本身并未被其他进程占用，它的inode和数据块将被释放</p>
+<p><strong>rm</strong></p>
+<p>用来从一个目录文件中删除一条记录，接受命令行上一个或多个文件名，使用unlink(2)系统调用</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">unlink</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>unlink用于删除目录文件中的一个记录，减少相应inode的链接数。如果该inode的链接数减为0，数据块和inode将被释放（和C++中shared_ptr的设计思想很像，妙）。unlink不能用于删除目录</p>
+<p><strong>ln</strong></p>
+<p>用来创建一个文件的链接，使用系统调用link(2)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">link</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *oldpath, <span class="type">const</span> <span class="type">char</span> *newpath)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>link不能用来生成目录的新链接</p>
+<p><strong>mv</strong></p>
+<p>用来改变文件和目录的名字或位置。很多情况下mv仅仅使用系统调用rename</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">rename</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *oldpath, <span class="type">const</span> <span class="type">char</span> *newpath)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>当入参位于同一个目录时，即实现了重命名</p>
+<p>当入参位于不同的目录时，即实现了移动，由于实际上目录中存放的是链接，因此就是把链接从一个目录移动到另一个目录：</p>
+<ul>
+<li>复制链接至新的名字&#x2F;位置（调用link()）</li>
+<li>删除原来的链接（调用unlink()）</li>
+</ul>
+<p>实际上过去没有rename这个系统调用，而是结合link和unlink使用，新增的目的是：</p>
+<ul>
+<li>rename使重命名或重定位一个目录变得更加安全</li>
+<li>可以支持非Unix系统。将通用方法rename添加至内核隐藏了实现的细节，使相同的代码能够在各种文件系统上运行</li>
+</ul>
+<p><strong>cd</strong></p>
+<p>用来改变进程的当前目录。cd对进程产生影响，但是并不影响目录。</p>
+<p>cd使用系统调用chdir()</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">chdir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *path)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>Unix上的每个运行程序都有一个当前目录，chdir系统调用改变进程的当前目录。在系统内部，进程有一个存放当前目录 i-节点号的变量。从一个目录进入另一个目录只是改变那个变量的值</p>
+<h3 id="编写pwd"><a href="#编写pwd" class="headerlink" title="编写pwd"></a>编写pwd</h3><p>命令pwd用来显式到达当前目录的路径</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zhangqi@localhost chap4]$ <span class="built_in">pwd</span></span><br><span class="line">/home/zhangqi/ZZQ/test/chap4</span><br></pre></td></tr></table></figure>
+
+<p>这个路径并不位于当前的目录中，当前目录称呼其本身为<code>.</code>  ，并且有一个 i-节点号。</p>
+<p>因此要获得完整的路径名，要追踪链接，读取目录，一个目录接着一个目录地沿着树向上追踪，每步查看 <code>.</code>的节点号（自身的节点号），然后<u>在父目录中查找该 inode的名字</u>，直到到达树的顶端。</p>
+<p>伪代码：</p>
+<p>while(没有到达树的顶端){</p>
+<p>​        得到 <code>.</code>的i-节点号，称其为n（使用stat）</p>
+<p>​        chdir.. （使用chdir）</p>
+<p>​        找到 i-节点号 n链接的名字（使用opendir、readdir 、closedir）</p>
+<p>}</p>
+<p>如何判断是否达到树的顶端：判断直到一个目录的 <code>.</code>和 <code>..</code>的 i-节点号相同时</p>
+<p>如何以证券顺序显示目录名字：建立一个循环，使用strcat或sprintf建立目录名字的字符串序列。通过一个递归的程序逐步到达树的顶端来一个接一个地显示目录名，从而避免了字符串的管理</p>
+<p><strong>pwd的实现</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// spwd.c: a simplified version of pwd</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// starts in current directory and recursively</span></span><br><span class="line"><span class="comment">// climbs up to root of filesystem, prints top part</span></span><br><span class="line"><span class="comment">// then prints current part</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// uses readdir() to get info about each thing</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;dirent.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">ino_t</span> <span class="title function_">get_ino</span><span class="params">(<span class="type">char</span> *dir)</span>;</span><br><span class="line"><span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">printpath</span><span class="params">(<span class="type">ino_t</span> this_inode)</span>;</span><br><span class="line"><span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">inode_num_to_name</span><span class="params">(<span class="type">ino_t</span> this_ino, <span class="type">char</span> this_inode_name[BUFSIZ])</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">  <span class="type">int</span> ino = get_ino(<span class="string">&quot;.&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> (ino == <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;/\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">  &#125;</span><br><span class="line">  printpath(ino);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// prints path leadin down to an object with this inode</span></span><br><span class="line"><span class="comment">// kindof recursive</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">printpath</span><span class="params">(<span class="type">ino_t</span> this_ino)</span> &#123;</span><br><span class="line">  <span class="type">char</span> this_inode_name[BUFSIZ];</span><br><span class="line">  <span class="type">ino_t</span> father_inode_num = get_ino(<span class="string">&quot;..&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> (father_inode_num != this_ino) &#123;</span><br><span class="line">    inode_num_to_name(this_ino, this_inode_name);</span><br><span class="line">    chdir(<span class="string">&quot;..&quot;</span>);</span><br><span class="line">    printpath(father_inode_num);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;/%s&quot;</span>, this_inode_name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// returns inode number of the file</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">ino_t</span> <span class="title function_">get_ino</span><span class="params">(<span class="type">char</span> *dir)</span> &#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">stat</span> <span class="title">info</span>;</span></span><br><span class="line">  <span class="keyword">if</span> (stat(dir, &amp;info) == <span class="number">-1</span>) &#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;Cannot stat &quot;</span>);</span><br><span class="line">    perror(dir);</span><br><span class="line">    <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> info.st_ino;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// looks through current directory for a file with this inode</span></span><br><span class="line"><span class="comment">// number and copies its name into namebuf</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">inode_num_to_name</span><span class="params">(<span class="type">ino_t</span> this_ino, <span class="type">char</span> this_inode_name[])</span> &#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">dirent</span> *<span class="title">dirent_p</span>;</span></span><br><span class="line">  DIR *dir_p = opendir(<span class="string">&quot;..&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> (dir_p == <span class="literal">NULL</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;..&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// search directory for a file with specified inum</span></span><br><span class="line">  <span class="keyword">while</span> ((dirent_p = readdir(dir_p)) != <span class="literal">NULL</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (dirent_p-&gt;d_ino == this_ino) &#123;</span><br><span class="line">      <span class="built_in">strcpy</span>(this_inode_name, dirent_p-&gt;d_name);</span><br><span class="line">      closedir(dir_p);</span><br><span class="line">      <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;error looking from inum %ld\n&quot;</span>, this_ino);</span><br><span class="line">  <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="连接控制：学习stty"><a href="#连接控制：学习stty" class="headerlink" title="连接控制：学习stty"></a>连接控制：学习stty</h2><p>计算机除了文件和目录相关的程序，还有其他的数据来源，如调制解调器、打印机、扫描仪、鼠标、扬声器、照相机和终端等这样的设备。</p>
+<p>设备的读写方法：对Unix来说，声卡，终端，鼠标和磁盘文件是同一种对象。在Unix系统中，每个设备都被当做一个文件。每个设备都有一个文件名，一个i-节点号、一个文件所有者、一个权限位的集合和最近修改时间。</p>
+<p>和文件有关的所有内容都将被运用于终端和其他设备</p>
+<p><strong>设备具有文件名</strong></p>
+<p>通常表示设备的文件存放在目录&#x2F;dev中（devices），但是可以在任何目录中创建设备文件。</p>
+<p>查看我的机器上的&#x2F;dev目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> -C /dev | <span class="built_in">head</span> -5</span><br><span class="line">agpgart		 kmsg		     rtc       tty2   tty44  ttyS2</span><br><span class="line">autofs		 <span class="built_in">log</span>		     rtc0      tty20  tty45  ttyS3</span><br><span class="line">block		 loop0		     sda       tty21  tty46  uhid</span><br><span class="line">bsg		 loop1		     sda1      tty22  tty47  uinput</span><br><span class="line">btrfs-control	 loop2		     sda2      tty23  tty48  urandom</span><br></pre></td></tr></table></figure>
+
+<p><strong>相关系统调用</strong></p>
+<p>设备不仅具有文件名，还支持所有与文件相关的系统调用：open、read、write、lseek、close和stat</p>
+<p>实际上Unix没有其他的方法用来和设备通信。</p>
+<p><strong>设备文件的属性</strong></p>
+<p>（这部分没有太理解，暂时简单记录并略过）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> -li /dev/pts/1</span><br><span class="line">4 crw--w----. 1 zhangqi <span class="built_in">tty</span> 136, 1 Sep 10  2022 /dev/pts/1</span><br></pre></td></tr></table></figure>
+
+<p>设备文件具有磁盘文件的大部分属性。如上面ls的输出内容表明&#x2F;dev&#x2F;pts&#x2F;1 拥有inode 4，权限位为rw–w—-，1个链接，文件所有者zhangqi和组tty，最近修改时间为Sep 10 2022。文件类型为“c”，表示这个文件实际上是以字符为单位进行传送的设备</p>
+<p>常用的磁盘文件中的字节数就是文件的大小。但设备文件是链接而不是容器。键盘和鼠标不存储击键数和点击数。</p>
+<p>设备文件的inode存储的是指向内核子程序的指针，而不是文件的大小和存储列表。</p>
+<p>内核中传输设备数据的子程序被称为设备驱动程序。</p>
+<p>在&#x2F;dev&#x2F;pts&#x2F;1中，参数是1。136和1这两个数被称为设备的主设备号和从设备号：</p>
+<ul>
+<li>主设备号确定处理该设备实际的子程序</li>
+<li>从设备号被作为参数传输到该子程序</li>
+</ul>
+<p><u>设备文件的读写执行权限：</u></p>
+<p>当文件实际上表示设备时</p>
+<ul>
+<li>向文件写入数据就是把数据发送到设备，权限写意味着允许发送数据</li>
+<li>读文件就是从文件获得数据</li>
+</ul>
+<p><strong>Unix文件系统的inode和数据块是如何支持设备文件的概念的：</strong></p>
+<img src="https://pic.imgdb.cn/item/631b7f3416f2c2beb1389f1d.jpg" style="zoom:80%;" />
+
+<ul>
+<li>目录并不能区分哪些文件名代表磁盘文件，哪些文件名代表设备</li>
+<li>文件类型的区别体现在inode上：<ul>
+<li>每个inode的类型被记录在结构stat的成员变量st_mode的类型区域中</li>
+<li>磁盘文件的inode包含指向数据块的指针。设备文件的inode包含指向内核子程序表的指针</li>
+<li>主设备号用于告知从设备读取数据的那部分代码的位置</li>
+</ul>
+</li>
+<li>考虑read的工作流程（其他如open、write、lseek和close等都是类似的）：<ul>
+<li>内核首先找到文件描述符fd的inode，该inode用于告诉内核文件的类型</li>
+<li>如果文件是磁盘文件，那么内核通过访问块分配表来读取数据</li>
+<li>如果文件是设备文件，那么内核通过调用该设备驱动程序的read部分来读取数据</li>
+</ul>
+</li>
+</ul>
+<p><strong>设备和文件的不同之处</strong></p>
+<img src="https://pic.imgdb.cn/item/631b812616f2c2beb13aa6ff.jpg" style="zoom:80%;" />
+
+<p>系统通过调用open创建文件和设备与进程的连接，但是他们有着不同的性质。<br><strong>磁盘连接</strong>的两个主要属性：</p>
+<ul>
+<li>缓冲：磁盘文件有缓冲区，可以通过fcntl()关闭</li>
+<li>自动添加模式：即当文件描述符的O_APPEND打开后，每个对write的调用自动调用lseek将内容添加到文件末尾。</li>
+</ul>
+<p><strong>终端连接</strong>：<br>具有回显，波特率， 编辑和换行会话。</p>
+<p><strong>相关系统调用</strong><br>fcntl：控制文件描述符<br>ioctl：控制一个设备<br>tcsetattr:设置tty驱动程序的属性<br>tcgetattr:读取tty驱动程序的属性</p>
+<p><strong>终端</strong><br>终端是人们用来和unix进程进行通信的设备。终端拥有一个可以让进程读取字符的键盘和可让进程发送字符的显示器。<br>进程与终端间的数据传输和数据处理由<u>终端驱动程序</u>负责，终端驱动程序是内核的一部分，该部分代码提供缓冲，编辑和数据转换</p>
+<img src="https://pic.imgdb.cn/item/631b843116f2c2beb13d11fd.jpg" style="zoom:80%;" />
+
+<p><strong>stty命令</strong></p>
+<p>stty命令让用户读取和修改终端驱动程序的设置</p>
+<p>使用stty显示驱动程序设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">stty</span></span><br><span class="line">speed 38400 baud; line = 0;</span><br><span class="line">eol = M-^?; eol2 = M-^?; swtch = M-^?;</span><br><span class="line">ixany iutf8</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用stty改变驱动程序属性</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">stty</span> erase X     <span class="comment">#将删除键改为X</span></span><br><span class="line">$ <span class="built_in">stty</span> - <span class="built_in">echo</span>      <span class="comment">#关闭按键显示，即输入的字符不显示在屏幕上</span></span><br><span class="line">$ <span class="built_in">stty</span> erase @ <span class="built_in">echo</span> <span class="comment">#复合命令：将删除键改为@，并打开按键显示</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>编写终端驱动程序</strong></p>
+<p>tty驱动程序包含很多对传入的数据所进行的操作。这些操作分为4种：</p>
+<ul>
+<li>输入：如何处理从终端来的字符。包括将小写转换为大写，去除最高位及将回车符转换为换行符</li>
+<li>输出：如何处理流向终端的字符。用若干个空格符代替制表符，将换行符转换为回车符及将小写字母转换为大写字母</li>
+<li>控制：字符如何被表示——位的个数、位的奇偶性、停止位等</li>
+<li>本地：如何处理来自驱动程序内部的字符。包括回显字符给用户及缓冲输入直到用户按回车键</li>
+</ul>
+<h2 id="为用户编程：终端控制和信号"><a href="#为用户编程：终端控制和信号" class="headerlink" title="为用户编程：终端控制和信号"></a>为用户编程：终端控制和信号</h2><p><strong>软件工具与针对特定设备编写的程序</strong></p>
+<p>软件工具：对磁盘文件和设备文件不加以区分的程序（Unix中有好几百个，如who、ls、sort等）</p>
+<ul>
+<li>从标准输入stdin或文件读取字节，进行一些处理，然后将包含结果的字节流写到标准输出stdout</li>
+<li>工具发送错误消息到标准错误输出，它们也被当作简单的字节流来处理。</li>
+<li>这些文件描述符能够连接到文件、终端、鼠标、光电管、打印机等</li>
+<li>工具对所处理的数据的源和目的地不做任何假设</li>
+<li>其他很多程序也能从命令行所指定的文件中读取数据</li>
+</ul>
+<img src="https://pic.imgdb.cn/item/631b932c16f2c2beb1479ce0.jpg" style="zoom:80%;" />
  
       <!-- reward -->
       

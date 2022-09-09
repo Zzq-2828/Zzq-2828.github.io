@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">23.7k</span>
+            <span class="post-count">25k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">86 分钟</span>
+            <span class="post-count">91 分钟</span>
         </span>
     </span>
 </div>
@@ -146,7 +146,10 @@
 <h3 id="常用关键字"><a href="#常用关键字" class="headerlink" title="常用关键字"></a>常用关键字</h3><h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><p>C语言中：（作用域模块内的变量与函数）</p>
 <ol>
 <li>在函数体内，一个<strong>被声明为静态的变量</strong>在这一函数被调用过程中维持其值不变（该变量存放在静态变量区）。</li>
-<li>在模块内（但在函数体外），一个被声明为静态的变量<u>可以被模块内所有函数访问</u>，但不能被模块外其它函数访问。它是一个本地的全局变量。</li>
+<li>在模块内（但在函数体外），一个被声明为静态的变量<u>可以被模块内所有函数访问</u>，但不能被模块外其它函数访问。它是一个本地的全局变量。<ul>
+<li>注意全局变量：全局变量虽然属于静态存储方式，但并不是静态变量。<u>全局变量的作用域是整个源程序</u>，当一个源程序由多个源文件组成时，全局变量在各个源文件中都是有效的。</li>
+</ul>
+</li>
 <li>在模块内，一个<strong>被声明为静态的函数</strong>只可被<u>这一模块内的其它函数</u>调用。那就是，这个函数被限制在声明它的模块的本地范围内使用。</li>
 </ol>
 <p>C++中：(除了模块内的变量与函数，多出了在类中使用的static成员变量和static成员函数)</p>
@@ -154,11 +157,15 @@
 <li>设置变量的存储域，函数体内static变量的作用范围为该函数体，不同于auto变量，该变量的内存只被分配一次，因此其值在下次调用时仍维持上次的值；（同C）</li>
 <li>限制变量的作用域，在模块内的<u>static全局变量</u>可以被模块内所用函数访问，但不能被模块外其它函数访问；（同C）</li>
 <li>限制函数的作用域，在模块内的<u>static函数</u>只可被这一模块内的其它函数调用，这个函数的使用范围被限制在声明它的模块内；（同C）</li>
-<li>在类中的static成员变量意味着它为该类的所有实例所共享，也就是说当某个类的实例修改了该静态成员变量，其修改值为该类的其它所有实例所见；</li>
+<li>在<u>类中的static成员变量意味着它为该类的所有实例所共享</u>，也就是说当某个类的实例修改了该静态成员变量，其修改值为该类的其它所有实例所见；</li>
 <li>在<strong>类中的static成员函数属于整个类所拥有</strong>，这个函数<strong>不接收this指针</strong>，因而<strong>只能访问类的static成员变量</strong>。</li>
 </ol>
-<h4 id="override"><a href="#override" class="headerlink" title="override"></a>override</h4><p>C++11新标准允许派生类显式地注明它将使用哪个成员函数改写基类的虚函数，具体措施是<strong>在该函数的形参列表制后增加一个override关键字</strong>。</p>
-<p>如果添加了override关键字的函数并没有覆盖基类中的对应版本，则编译器会报错。（让错误更早地暴露出来的原则）</p>
+<h4 id="override"><a href="#override" class="headerlink" title="override"></a>override</h4><ul>
+<li><p>C++11新标准允许派生类显式地注明它将使用哪个成员函数改写基类的虚函数，具体措施是<strong>在该函数的形参列表制后增加一个override关键字</strong>。</p>
+</li>
+<li><p>如果添加了override关键字的函数并没有覆盖基类中的对应版本，则编译器会报错。（让错误更早地暴露出来的原则）</p>
+</li>
+</ul>
 <h4 id="final"><a href="#final" class="headerlink" title="final"></a>final</h4><ul>
 <li>为了防止继承的发生：有时我们会定义一种类，并且不希望其他类继承它，或者不想考虑它是否适合作为一个基类。为了实现这一目的，C++11新标准提供了一种<strong>防止继承发生</strong>的方法，即<u>在类名后跟一个关键字<strong>final</strong></u>。</li>
 <li>另外，我们也可以通过<u>将一个虚函数声明为final</u>来禁止一个虚函数被进一步重载。如果一个派生类试图重载一个final函数，编译器就会报错</li>
@@ -216,8 +223,8 @@
 </li>
 </ul>
 <h4 id="顶层const和底层const"><a href="#顶层const和底层const" class="headerlink" title="顶层const和底层const"></a>顶层const和底层const</h4><ul>
-<li>顶层const表示指针本身是个常量（<code>int *const p</code>）</li>
-<li>底层const表示指针所指的对象是一个常量（<code>const int *p</code>）（注意这只是要求不能通过该指针来改变对象的值，而没有规定对象的值不能通过其他途径改变）。</li>
+<li>顶层const表示指针本身是个常量（<code>int *const p</code>）（向右向左看原则：p是一个常量指针，指向int）</li>
+<li>底层const表示指针所指的对象是一个常量（<code>const int *p</code>）（注意这只是要求不能通过该指针来改变对象的值，而没有规定对象的值不能通过其他途径改变）（p是一个指针，指向const int）。</li>
 </ul>
 <p>更一般的：</p>
 <ul>
@@ -284,7 +291,7 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> &amp;&amp;ref_a_right = <span class="number">5</span>; <span class="comment">// ok</span></span><br><span class="line"> </span><br><span class="line"><span class="type">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> &amp;&amp;ref_a_left = a; <span class="comment">// 编译不过，右值引用不可以指向左值</span></span><br><span class="line"> </span><br><span class="line">ref_a_right = <span class="number">6</span>; <span class="comment">// 右值引用的用途：可以修改右值</span></span><br></pre></td></tr></table></figure>
 
 <p>返回非引用类型的函数，连同算术、关系、位以及后置递增&#x2F;递减运算符，都生成右值。不能将一个左值引用绑定到这类表达式上，但可以将一个const的左值引用或者一个右值引用绑定到这类表达式上。</p>
-<p>由于右值引用只能绑定到临时对象，可知：</p>
+<p><u>由于右值引用只能绑定到临时对象</u>，可知：</p>
 <ul>
 <li>所引用的对象将要被销毁</li>
 <li>该对象没有其它用户。这两个特性意味着，使用右值引用的代码可以自由地接管所引用的对象的资源。右值引用指向将要销毁的对象。因此，我们可以从绑定到右值引用的对象”窃取”状态。</li>
@@ -353,13 +360,21 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">std::unique_ptr&lt;A&gt; ptr_a = std::<span class="built_in">make_unique</span>&lt;A&gt;();</span><br><span class="line"></span><br><span class="line">std::unique_ptr&lt;A&gt; ptr_b = std::<span class="built_in">move</span>(ptr_a); <span class="comment">// unique_ptr只有‘移动赋值重载函数‘，参数是&amp;&amp; ，只能接右值，因此必须用std::move转换类型</span></span><br><span class="line"></span><br><span class="line">std::unique_ptr&lt;A&gt; ptr_b = ptr_a; <span class="comment">// 编译不通过</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>std::move本身只做类型转换，对性能无影响。</strong> <strong>我们可以在自己的类中实现移动语义，避免深拷贝，充分利用右值引用和std::move的语言特性。</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">moveable_objecta = moveable_objectb; </span><br><span class="line">改为： </span><br><span class="line">moveable_objecta = std::<span class="built_in">move</span>(moveable_objectb);</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">moveable_objecta = moveable_objectb; </span><br><span class="line"><span class="comment">//改为： </span></span><br><span class="line">moveable_objecta = std::<span class="built_in">move</span>(moveable_objectb);</span><br></pre></td></tr></table></figure>
 
 <p>还有些STL类是<code>move-only</code>的，比如<code>unique_ptr</code>，这种类只有移动构造函数，因此只能移动(转移内部对象所有权，或者叫浅拷贝)，不能拷贝(深拷贝):</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">std::unique_ptr&lt;A&gt; ptr_a = std::<span class="built_in">make_unique</span>&lt;A&gt;();</span><br><span class="line"></span><br><span class="line">std::unique_ptr&lt;A&gt; ptr_b = std::<span class="built_in">move</span>(ptr_a); <span class="comment">// unique_ptr只有‘移动赋值重载函数‘，参数是&amp;&amp; ，只能接右值，因此必须用std::move转换类型</span></span><br><span class="line"></span><br><span class="line">std::unique_ptr&lt;A&gt; ptr_b = ptr_a; <span class="comment">// 编译不通过</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>std::move本身只做类型转换，对性能无影响。</strong> <strong>我们可以在自己的类中实现移动语义，避免深拷贝，充分利用右值引用和std::move的语言特性。</strong></p>
-<h4 id="完美转发std-forward"><a href="#完美转发std-forward" class="headerlink" title="完美转发std::forward"></a>完美转发std::forward</h4><p>和<code>std::move</code>一样，它的兄弟<code>std::forward</code>也充满了迷惑性，虽然名字含义是转发，但他并不会做转发，同样也是做类型转换.</p>
+<h4 id="完美转发std-forward"><a href="#完美转发std-forward" class="headerlink" title="完美转发std::forward"></a>完美转发std::forward</h4><ul>
+<li>完美转发（perfect forwarding）问题是指<u>函数模板在向其他函数传递参数时该如何保留该参数的左右值属性的问题</u>。<ul>
+<li>也就是说函数模板在向其他函数传递自身形参时，如果相应实参是左值，它就应该被转发为左值；同样如果相应实参是右值，它就应该被转发为右值。</li>
+<li>这样做是为了保留在其他函数针对转发而来的参数的左右值属性进行不同处理（比如参数为左值时实施拷贝语义；参数为右值时实施移动语义）的可能性。</li>
+<li>如果将自身参数不分左右值一律转发为左值，其他函数就只能将转发而来的参数视为左值，从而失去针对该参数的左右值属性进行不同处理的可能性。</li>
+</ul>
+</li>
+</ul>
+<p>和<code>std::move</code>一样，它的兄弟<code>std::forward</code>也充满了迷惑性，虽然名字含义是转发，但他并不会做转发，同样也是做类型转换.</p>
 <p>与move相比，forward更强大，move只能转出来右值，forward都可以。</p>
 <blockquote>
 <p>std::forward<T>(u)有两个参数：T与 u。 a. 当T为左值引用类型时，u将被转换为T类型的左值； b. 否则u将被转换为T类型右值。</p>
@@ -377,7 +392,7 @@
 <p>C++11之前，对象的拷贝控制由三个函数决定：<strong>拷贝构造函数</strong>、<strong>拷贝赋值运算符</strong>和<strong>析构函数</strong>。C++11之后，新增加了两个函数：<strong>移动构造函数</strong>和<strong>移动赋值运算符。</strong></p>
 </li>
 <li><p><strong>传入的参数类型区别</strong></p>
-<p>移动构造函数传入的参数是一个右值 用&amp;&amp;标出。一般来说左值可以通过使用std:move方法强制转换为右值。</p>
+<p>移动构造函数传入的参数是一个右值用&amp;&amp;标出。一般来说左值可以通过使用std:move方法强制转换为右值。</p>
 </li>
 <li><p><strong>效率区别</strong></p>
 <p>对于拷贝构造函数：拷贝构造函数是先将传入的参数对象进行一次深拷贝，再传给新对象。这就会有一次拷贝对象的开销，并且进行了深拷贝，就需要给对象分配地址空间。</p>
@@ -404,7 +419,7 @@
 <p>当一个类的对象离开作用域时，<strong>析构函数将被调用(系统自动调用)<strong>。析构函数的名字和类名一样，不过要在前面加上 <code>~</code> 。对一个类来说，</strong>只能允许一个析构函数</strong>，析构函数<strong>不能有参数，并且也没有返回值</strong>。析构函数的作用是完成一个清理工作，如释放从堆中分配的内存。</p>
 <p>一个类中可以有多个构造函数，但析构函数只能有一个。<u>对象被析构的顺序，与其建立时的顺序相反，即后构造的对象先析构</u>。</p>
 <p><strong>类中成员的初始化顺序</strong>：</p>
-<p>注意<strong>成员的初始化顺序与它们在类定义中的出现顺序一致</strong>，因此最好令构造函数初始值的顺序与成员声明的顺序保持一致，并且尽量避免使用某些成员初始化其他成员</p>
+<p>注意<strong>成员的初始化顺序与它们在类定义中的出现顺序一致</strong>(而不是构造函数初始值的顺序)，因此最好令构造函数初始值的顺序与成员声明的顺序保持一致，并且尽量避免使用某些成员初始化其他成员</p>
 <p>在继承体系中的初始化顺序：</p>
 <ol>
 <li>基类的静态变量或全局变量</li>
@@ -418,7 +433,7 @@
 <li><p>静态建立，如A a；</p>
 <p>静态建立一个类对象，是由编译器为对象在栈空间中分配内存，通过<u>直接移动栈顶指针挪出适当的空间</u>，然后在这片内存空间上调用构造函数形成一个栈对象。</p>
 </li>
-<li><p>动态建立，如<code>A* p=new A(), Ap=(A)malloc();</code></p>
+<li><p>动态建立，如<code>A* p=new A(), Ap=(A)malloc();</code>（注意必须带*）</p>
 <p>动态建立类对象，是使用new运算符将对象建立在堆空间中，<u>在栈中只保留了指向该对象的指针</u>。栈是由编译器自动分配释放 ，存放函数的参数值，局部变量的值，对象的引用地址等。其操作方式类似于数据结构中的栈，通常都是被调用时处于存储空间中，调用完毕立即释放。</p>
 </li>
 </ol>
@@ -457,8 +472,6 @@
 
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">编译并运行：</span></span><br><span class="line">g++ person.cpp -o person</span><br><span class="line">./person </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">运行结果：</span></span><br><span class="line">Init a person!</span><br><span class="line">Destory a person!</span><br></pre></td></tr></table></figure>
 
-
-
 <p>从person class可以看出，当我们在main函数中声明一个局部对象的时候，会自动调用构造函数进行对象的初始化，当整个main函数执行完成后，自动调用析构函数来销毁对象，整个过程无需人工介入，由操作系统自动完成；于是，很自然联想到，当我们在使用资源的时候，在构造函数中进行初始化，在析构函数中进行销毁。</p>
 <p>整个RAII过程总结四个步骤：</p>
 <ol>
@@ -476,11 +489,12 @@
 </li>
 </ul>
 <p><strong>实现原理：</strong></p>
-<p>（1）当类中存在虚函数时，编译器会在类中自动生成一个虚函数表</p>
+<p>（1）当类中存在虚函数时，编译器会在类中自动生成一个虚函数表。</p>
 <p>（2）虚函数表是一个存储类成员函数指针的数据结构</p>
 <p>（3）虚函数表由编译器自动生成和维护</p>
 <p>（4）virtual 修饰的成员函数会被编译器放入虚函数表中</p>
 <p>（5）存在虚函数时，<strong>编译器会为对象自动生成一个指向虚函数表的指针</strong>（通常称之为 vptr 指针）</p>
+<p> 注意定义一个函数为虚函数，不代表函数为不被实现的函数。 定义他为虚函数是为了允许用基类的指针来调用子类的这个函数（实现多态）</p>
 <p><strong>证明存在vptr指针</strong>：</p>
 <p><strong>存在虚函数的类的对象，大小大了4个字节</strong>，这正好是一个指针对象的大小（指针对象的大小可能会根据运行环境而改变，32位的系统指针的大小是4个字节），这说明编译器确实给我们添加了这么一个指针对象 vptr。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Parent1</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">fun</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;base class&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Parent2</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;base class2&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Parent1 parent1;</span><br><span class="line">    Parent2 parent2; </span><br><span class="line">    cout &lt;&lt; <span class="built_in">sizeof</span>(parent1) &lt;&lt; endl;    <span class="comment">//大小为8</span></span><br><span class="line">    cout &lt;&lt; <span class="built_in">sizeof</span>(parent2) &lt;&lt; endl;    <span class="comment">//大小为4</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -562,7 +576,7 @@
 <li><p>注意C++内存模型一般分为五个区域：栈区、堆区、函数区（存放函数体等二进制代码）、全局静态区、常量区</p>
 <ul>
 <li>C++中虚函数表位于只读数据段（.rodata），也就是C++内存模型中的常量区；而虚函数则位于代码段（.text），也就是C++内存模型中的代码区。</li>
-<li>被放在这里也还是比较容易理解的，虚函数表由于一旦产生就具有不变性，所以编译器就会经量把它放到稳定（或者说是只读）的内存区。</li>
+<li>被放在这里也还是比较容易理解的，虚函数表由于一旦产生就具有不变性，所以编译器就会尽量把它放到稳定（或者说是只读）的内存区。</li>
 <li>另外通过这个性质我们可以推断得出<u>虚函数表是属于类的，而不属于类对象</u>。在编译的时候确定，存放在只读数据段，每一个实例化对象都有一个虚函数表的指针，虚函数表指针属于类对象。</li>
 </ul>
 </li>
@@ -572,10 +586,22 @@
 <p>经过VS2017，x86测试：</p>
 <p><img src="https://img2018.cnblogs.com/blog/1600805/201905/1600805-20190525232659614-1181875570.png"></p>
 <p><img src="https://img2018.cnblogs.com/blog/1600805/201905/1600805-20190526142351167-788501480.png" alt="1558844330501"></p>
+<p>（注意linux centos下会报访问内存区域错误：）</p>
+<img src="C:\Users\win10\AppData\Roaming\Typora\typora-user-images\image-20220908025810377.png" alt="image-20220908025810377" style="zoom:80%;" />
+
+<p>Linux下，直接用下面的命令即可将<code>xxx.cpp</code>的内存布局导出到一个生成的</p>
+<p><code>xxx.cpp.002t.class</code>文件中：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -fdump-<span class="keyword">class</span>-hierarchy xxx.cpp</span><br></pre></td></tr></table></figure>
+
+<p>用 <code>:/xxx</code>搜索关键字找到相应类的位置，可以查看虚函数表结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Vtable for Parent1</span><br><span class="line">Parent1::_ZTV7Parent1: 5u entries</span><br><span class="line">0     (int (*)(...))0</span><br><span class="line">8     (int (*)(...))(&amp; _ZTI7Parent1)</span><br><span class="line">16    (int (*)(...))Parent1::func1</span><br><span class="line">24    (int (*)(...))Parent1::func2</span><br><span class="line">32    (int (*)(...))Parent1::func3</span><br><span class="line"></span><br><span class="line">Class Parent1</span><br><span class="line">   size=12 align=4</span><br><span class="line">   base size=12 base align=4</span><br><span class="line">Parent1 (0x0x7fd4f8b4dd80) 0</span><br><span class="line">    vptr=((&amp; Parent1::_ZTV7Parent1) + 16u)</span><br></pre></td></tr></table></figure>
+
+
+
 <p>我们即成功地通过实例对象的地址，得到了对象所有的类函数。</p>
 <img src="https://pic.imgdb.cn/item/630b694e16f2c2beb1847978.jpg" style="zoom:80%;" />
 
-<p>main定义Base类对象t，把&amp;b转成<code>int *</code>，取得虚函数表的地址vtptr就是：<code>(int*)(&amp;t)</code>，然后再解引用并强转成<code>int *</code>得到第一个虚函数的地址，也就是Base::f()即<code>(int*)(*((int*)&amp;t))</code>，那么，第二个虚函数g()的地址就是<code>(int*)(*((int*)&amp;t)) + 1</code>，依次类推。</p>
+<p>main定义Base类对象t，把&amp;t转成<code>int *</code>，取得虚函数表的地址vtptr就是：<code>(int*)(&amp;t)</code>，然后再解引用并强转成<code>int *</code>得到第一个虚函数的地址，也就是Base::f()即<code>(int*)(*((int*)&amp;t))</code>，那么，第二个虚函数g()的地址就是<code>(int*)(*((int*)&amp;t)) + 1</code>，依次类推。</p>
 <p><strong>单继承体系下：</strong></p>
 <ul>
 <li>派生类未覆盖基类虚函数的情况下：<ul>
@@ -608,7 +634,7 @@
 <p><strong>虚函数表的安全性问题</strong>：</p>
 <ul>
 <li>通过父类型的指针可以访问子类自己的虚函数<ul>
-<li>在运行时，我们可以通过指针的方式访问虚函数表来达到违反C++语义的行为。（何妄图使用父类指针想调用子类中的<u>未覆盖父类的成员函数</u>的行为都会被编译器视为非法）</li>
+<li>在运行时，我们可以通过指针的方式访问虚函数表来达到违反C++语义的行为。（和妄图使用父类指针想调用子类中的<u>未覆盖父类的成员函数</u>的行为都会被编译器视为非法）</li>
 </ul>
 </li>
 <li>访问non-public的虚函数<ul>
@@ -639,7 +665,7 @@
 <h4 id="抽象基类和纯虚函数"><a href="#抽象基类和纯虚函数" class="headerlink" title="抽象基类和纯虚函数"></a>抽象基类和纯虚函数</h4><p>主要目的是为了实现一种接口的效果。</p>
 <p>抽象类是一种特殊的类，它是为了抽象和设计的目的为建立的，它处于继承层次结构的较上层。</p>
 <ul>
-<li><p>抽象类的<strong>定义</strong>：带有纯虚函数的类为抽象类。</p>
+<li><p>抽象类的<strong>定义</strong>：<u>带有纯虚函数的类为抽象类</u>。（子类必须实现所有的纯虚函数，否则也为抽象类，无法被实例化）</p>
 </li>
 <li><p>抽象类的<strong>作用</strong>：</p>
 <ul>
@@ -650,7 +676,7 @@
 <li><p>使用场景：</p>
 <p>一句话，<strong>在既需要统一的接口，又需要实例变量或缺省的方法的情况下</strong>，就可以使用它。最常见的有：</p>
 <ul>
-<li>定义了一组接口，但又不想强迫每个实现类都必须实现所有的接口。可以用abstract class定义一组方法体，甚至可以是空方法体，然后由子类选择自己所感兴趣的方法来覆盖。</li>
+<li>定义了一组接口，但又不想强迫每个实现类都必须实现所有的接口。可以用abstract class定义一组共用的方法体，甚至可以是空方法体，然后由子类选择自己所感兴趣的方法来覆盖。</li>
 <li>某些场合下，只靠纯粹的接口不能满足类与类之间的协调，还必需类中表示状态的变量来区别不同的关系。abstract的中介作用可以很好地满足这一点。</li>
 <li>规范了一组相互协调的方法，其中一些方法是共同的，与状态无关的，可以共享的，无需子类分别实现；而另一些方法却需要各个子类根据自己特定的状态来实现特定的功能</li>
 </ul>
@@ -677,13 +703,13 @@
 <li><p>当派生类从多个基类派生，而这些基类又从同一个基类派生，则在访问此共同基类（祖父类）中的成员时，将产生另一种不确定性——路径二义性。（菱形继承）（同时还会导致内存浪费，祖父类的成员被拷贝两份）</p>
 </li>
 </ol>
-<h4 id="菱形继承二义性的解决方法"><a href="#菱形继承二义性的解决方法" class="headerlink" title="菱形继承二义性的解决方法"></a>菱形继承二义性的解决方法</h4><p> 解决方法：</p>
+<h4 id="菱形继承二义性的解决方法-—-虚继承"><a href="#菱形继承二义性的解决方法-—-虚继承" class="headerlink" title="菱形继承二义性的解决方法  — 虚继承"></a>菱形继承二义性的解决方法  — 虚继承</h4><p> 解决方法：</p>
 <ol>
 <li><p>使用作用域限定符，指明访问的是哪一个基类的成员。注意：不能是Grandpa作用域下限定，因为Son直接基类的基类才是Grandpa，纵使指明了访问Grandpa的成员的话，对于Son来说，还是模糊的，还是具有二义性。</p>
 </li>
 <li><p>在类中定义同名成员，覆盖掉父类中的相关成员。</p>
 </li>
-<li><p>虚继承、使用虚基类：（作用是在间接继承共同基类时只保留一份基类成员）</p>
+<li><p><u>虚继承、使用虚基类</u>：（作用是在间接继承共同基类时只保留一份基类成员）</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span><span class="comment">//A基类</span></span><br><span class="line">&#123;...&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类B是类A的公用派生类，类A是类B的虚基类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>: <span class="keyword">virtual</span> <span class="keyword">public</span> A</span><br><span class="line">&#123;...&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类C是类A的公用派生类，类A是类C的虚基类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>: <span class="keyword">virtual</span> <span class="keyword">public</span> A</span><br><span class="line">&#123;...&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>虚基类不是在声明基类时声明的，而是在声明派生类时，指定继承方式时声明的</p>
@@ -691,13 +717,35 @@
 </li>
 </ol>
 <p><strong>虚基类的初始化</strong>：</p>
-<p>虚基类的初始化是由最后的派生类中负则初始化的，在最后的派生类中不仅要对直接基类进行初始化，还要负责对虚基类初始化</p>
+<p>虚基类的初始化是<u>由最后的派生类中负责初始化的</u>，在最后的派生类中不仅要对直接基类进行初始化，还要负责对虚基类初始化</p>
 <p><strong>虚基类的构造次数</strong>：</p>
 <p>由于C++编译系统只执行最后的派生类对基类的构造函数调用，而忽略其他派生类对虚基类的调用。从而避免对基类数据成员的重复初始化，因此，虚基类只会构造一次。</p>
+<p><strong>实现原理</strong></p>
+<p>虚继承底层实现原理与编译器相关，一般通过虚基类指针和虚基类表实现：</p>
+<ul>
+<li>每个虚继承的子类都有一个虚基类指针（占用一个指针的存储空间，4字节）和虚基类表（不占用类对象的存储空间）（需要强调的是，虚基类依旧会在子类里面存在拷贝，只是仅仅最多存在一份而已，并不是不在子类里面了）</li>
+<li>当虚继承的子类被当做父类继承时，虚基类指针也会被继承。</li>
+</ul>
+<p>实际上，vbptr指的是虚基类表指针（virtual base table pointer）：</p>
+<ul>
+<li><p>该指针指向了一个虚基类表（virtual table），<u>虚表中记录了虚基类与本类的偏移地址</u></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> a=<span class="number">1</span>;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">func1</span><span class="params">()</span></span>&#123;</span><br><span class="line">                cout&lt;&lt;<span class="string">&quot;func1&quot;</span>&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">func2</span><span class="params">()</span></span>&#123;</span><br><span class="line">                cout&lt;&lt;<span class="string">&quot;func2&quot;</span>&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Son</span>:<span class="keyword">virtual</span> <span class="keyword">public</span> Base&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="type">int</span> b=<span class="number">2</span>;</span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">func1</span><span class="params">()</span><span class="keyword">override</span></span>&#123;</span><br><span class="line">              cout&lt;&lt;<span class="string">&quot;son&#x27;s func1&quot;</span>&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VTT for Son</span><br><span class="line">Son::_ZTT3Son: 2u entries</span><br><span class="line">0     ((&amp; Son::_ZTV3Son) + 24u)</span><br><span class="line">8     ((&amp; Son::_ZTV3Son) + 56u)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过偏移地址，这样就找到了虚基类成员，而虚继承也不用像普通多继承那样维持着公共基类（虚基类）的两份同样的拷贝，节省了存储空间。</p>
+</li>
+</ul>
+<p>在这里我们可以对比虚函数的实现原理：</p>
+<ul>
+<li>他们有相似之处，都利用了虚指针（均占用类的存储空间）和虚表（均不占用类的存储空间）。</li>
+<li>虚基类依旧存在继承类中，只占用存储空间；虚函数不占用存储空间。</li>
+<li>虚基类表存储的是虚基类相对直接继承类的偏移；而虚函数表存储的是虚函数地址。</li>
+</ul>
 <h3 id="动态内存"><a href="#动态内存" class="headerlink" title="动态内存"></a>动态内存</h3><h4 id="类的对象存储空间？"><a href="#类的对象存储空间？" class="headerlink" title="类的对象存储空间？"></a>类的对象存储空间？</h4><ul>
 <li>非静态成员的数据类型大小之和。</li>
-<li>编译器加入的额外成员变量（如指向虚函数表的指针）。</li>
-<li>为了边缘对齐优化加入的padding。</li>
+<li>编译器加入的额外成员变量（如指向虚函数表、虚基类表的指针）。</li>
+<li>为了边缘对齐优化加入的padding（如按4字节、8字节等进行对其，C&#x2F;C++可用 <code>#pragma pack(n)</code>进行设置，其中n为对齐字节）。</li>
 <li>成员函数不占用对象的内存。这是因为所有的函数都是存放在代码区的，不管是全局函数，还是成员函数。</li>
 </ul>
 <p>空类(无非静态数据成员)的对象的size为1, 当作为基类时, size为0</p>
@@ -712,28 +760,42 @@
 <p><strong>代码区</strong>：存放函数体的二进制代码</p>
 <h4 id="堆和栈的区别"><a href="#堆和栈的区别" class="headerlink" title="堆和栈的区别"></a>堆和栈的区别</h4><p><strong>主要区别有以下几点</strong>：</p>
 <ul>
-<li><strong>管理方式</strong>：<ul>
+<li><p><strong>管理方式</strong>：</p>
+<ul>
 <li>对于栈，是由编译器自动管理，无需我们手动控制</li>
 <li>对于堆，释放工作由程序员控制，因此管理不当容易出现内存泄漏</li>
 </ul>
 </li>
-<li><strong>空间大小</strong>：一般来讲在32位系统下<ul>
-<li>堆内存可以达到4G的空间</li>
-<li>栈内存空间大小一般是几M</li>
+<li><p><strong>空间大小</strong>：一般来讲在32位系统下</p>
+<ul>
+<li><p>堆内存可以达到4G的空间</p>
+</li>
+<li><p>栈内存空间大小一般是几M（我的系统上是8M）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zhangqi@localhost testCpp]$ <span class="built_in">ulimit</span> -s</span><br><span class="line">8192</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><strong>碎片问题</strong>：<ul>
+<li><p><strong>碎片问题</strong>：</p>
+<ul>
 <li>对于堆来说，频繁的new&#x2F;delete会造成内存空间的不连续，从而造成大量碎片使程序效率降低</li>
 <li>而对于栈来说，由于始终是先进后出，不可能有一个内存块从栈中间弹出，因此不存在碎片问题。</li>
 </ul>
 </li>
-<li><strong>生长方向</strong>：<ul>
-<li>对于堆来说，生长方向是向上的，也就是向着内存地址增加的方向</li>
-<li>对于栈来讲，生长方向是向下的，向着内存地址减小的方向增长（先进入的对象放在栈底，地址最大）。</li>
+<li><p><strong>生长方向</strong>：</p>
+<ul>
+<li><p>对于堆来说，生长方向是向上的，也就是从低地址开始向着内存地址增加的方向</p>
+</li>
+<li><p>对于栈来讲，生长方向是向下的，从高地址向着内存地址减小的方向增长（先进入的对象放在栈底，地址最大）。</p>
+</li>
+<li><p>注意经过实验，windows X86系统进程中堆栈都向下增长的（没有完全搞懂，可以看一下<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/36103513">这篇文章</a>）</p>
+</li>
+<li><p>linux下证实是如此的：</p>
+<img src="C:\Users\win10\AppData\Roaming\Typora\typora-user-images\image-20220907094513848.png" alt="image-20220907094513848" style="zoom:67%;" /></li>
 </ul>
 </li>
-<li><strong>分配方式</strong>：堆都是动态分配的，没有静态分配的堆。栈可以静态分配也可以动态分配，静态分配是由编译器完成的，如局部变量的分配，动态分配由alloca函数进行分配。</li>
-<li><strong>分配效率</strong>：栈是机器系统提供的数据结构，计算机会在底层对栈提供支持：分配专门的寄存器存放栈的地址，压栈出栈都有专门的指令执行，这就决定了栈的效率比较高。堆则是C&#x2F;C++函数库提供的，它的机制是很复杂的，例如为了分配一块内存，库函数会按照一定的算法（具体的算法可以参考数据结构&#x2F;操作系统）在堆内存中搜索可用的足够大小的空间，如果没有足够大小的空间（可能是由于内存碎片太多），就有可能调用系统功能去增加程序数据段的内存空间，这样就有机会分到足够大小的内存，然后进行返回。显然，堆的效率比栈要低得多。</li>
+<li><p><strong>分配方式</strong>：堆都是动态分配的，没有静态分配的堆。栈可以静态分配也可以动态分配，静态分配是由编译器完成的，如局部变量的分配，动态分配由alloca()函数进行分配。</p>
+</li>
+<li><p><strong>分配效率</strong>：栈是机器系统提供的数据结构，计算机会在底层对栈提供支持：分配专门的寄存器存放栈的地址，压栈出栈都有专门的指令执行，这就决定了栈的效率比较高。堆则是C&#x2F;C++函数库提供的，它的机制是很复杂的，例如为了分配一块内存，库函数会按照一定的算法（具体的算法可以参考数据结构&#x2F;操作系统）在堆内存中搜索可用的足够大小的空间，如果没有足够大小的空间（可能是由于内存碎片太多），就有可能调用系统功能去增加程序数据段的内存空间，这样就有机会分到足够大小的内存，然后进行返回。显然，堆的效率比栈要低得多。</p>
+</li>
 </ul>
 <h4 id="内存池"><a href="#内存池" class="headerlink" title="内存池"></a>内存池</h4><p>内存池（Memory Pool） 是一种<strong>内存分配</strong>方式。</p>
 <p>通常我们习惯直接使用new、malloc 等申请内存，这样做的缺点在于：</p>
@@ -810,7 +872,7 @@
 <h4 id="内存问题"><a href="#内存问题" class="headerlink" title="内存问题"></a>内存问题</h4><p>C++ 里可能出现的内存问题大致有这么几个方面：</p>
 <ul>
 <li>缓冲区溢出（buffer overrun）。<ul>
-<li>用 std::vector<char>&#x2F;std::string 或自己编写 Buffer class 来管理缓冲区，自动记住用缓冲区的长度，并通过成员函数而不是裸指针来修改缓冲区。</li>
+<li>用 std::vector&lt;char&gt; , std::string 或自己编写 Buffer class 来管理缓冲区，自动记住用缓冲区的长度，并通过成员函数而不是裸指针来修改缓冲区。</li>
 </ul>
 </li>
 <li>空悬指针&#x2F;野指针。<ul>
@@ -865,7 +927,7 @@
 <h4 id="野指针"><a href="#野指针" class="headerlink" title="野指针"></a>野指针</h4><p>“野指针”不是NULL指针，是指向“垃圾”内存的指针。人们一般不会错用NULL指针，因为用if语句很容易判断。但是“野指针”是很危险的，if语句对它不起作用。野指针的成因主要有两种：</p>
 <ul>
 <li><u>指针变量没有被初始化</u>。任何指针变量刚被创建时不会自动成为NULL指针，它的缺省值是随机的，它会乱指一气。所以，指针变量在创建的同时应当被初始化，要么将指针设置为NULL，要么让它指向合法的内存。</li>
-<li><u>指针p被free或者delete之后，没有置为NULL，让人误以为p是个合法的指针</u>。（此时又叫空悬指针）别看free和delete的名字恶狠狠的（尤其是delete），它们<u>只是把指针所指的内存给释放掉</u>，但并没有把指针本身干掉。通常会用语句if (p !&#x3D; NULL)进行防错处理。很遗憾，此时if语句起不到防错作用，因为即便p不是NULL指针，它也不指向合法的内存块。</li>
+<li><u>指针p被free或者delete之后，没有置为NULL，让人误以为p是个合法的指针</u>。（此时又叫空悬指针）<u>free和delete只是把指针所指的内存给释放掉</u>，但并没有把指针本身干掉。通常会用语句if (p !&#x3D; NULL)进行防错处理。很遗憾，此时if语句起不到防错作用，因为即便p不是NULL指针，它也不指向合法的内存块。</li>
 </ul>
 <h3 id="STL相关"><a href="#STL相关" class="headerlink" title="STL相关"></a>STL相关</h3><h4 id="clear-是否调用析构函数"><a href="#clear-是否调用析构函数" class="headerlink" title="clear()是否调用析构函数"></a>clear()是否调用析构函数</h4><p>vector和list的clear()函数是否会调用析构函数？</p>
 <ul>
@@ -875,15 +937,13 @@
 <h4 id="STL迭代器如何实现"><a href="#STL迭代器如何实现" class="headerlink" title="STL迭代器如何实现"></a>STL迭代器如何实现</h4><ul>
 <li>迭代器是一种抽象的设计理念，通过迭代器可以在不了解容器内部原理的情况下遍历容器，除此之外，STL中迭代器一个最重要的作用就是作为容器与STL算法的粘合剂。</li>
 <li>迭代器的作用就是提供一个遍历容器内部所有元素的接口，因此迭代器内部必须保存一个与容器相关联的指针，然后重载各种运算操作来遍历，其中最重要的是*运算符与-&gt;运算符，以及++、–等可能需要重载的运算符重载。这和C++中的智能指针很像，智能指针也是将一个指针封装，然后通过引用计数或是其他方法完成自动释放内存的功能。</li>
-<li>最常用的迭代器的相应型别有五种：value type、difference type、pointer、reference、iterator catagoly;</li>
+<li>最常用的迭代器的相应型别有五种：value type、difference type、pointer、reference、iterator category;</li>
 </ul>
 <h4 id="迭代器：-it、it-哪个好，为什么"><a href="#迭代器：-it、it-哪个好，为什么" class="headerlink" title="迭代器：++it、it++哪个好，为什么"></a>迭代器：++it、it++哪个好，为什么</h4><p>前置返回一个引用，后置返回一个对象</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ++i实现代码为：</span></span><br><span class="line"><span class="type">int</span>&amp; <span class="keyword">operator</span>++()</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">  *<span class="keyword">this</span> += <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
 
-<ol>
-<li>前置不会产生临时对象，后置必须产生临时对象，临时对象会导致效率降低</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//i++实现代码为：                 </span></span><br><span class="line"><span class="type">int</span> <span class="keyword">operator</span>++(<span class="type">int</span>)                 </span><br><span class="line">&#123;</span><br><span class="line"><span class="type">int</span> temp = *<span class="keyword">this</span>;                   </span><br><span class="line"></span><br><span class="line">   ++*<span class="keyword">this</span>;                       </span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> temp;                  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>前置不会产生临时对象，后置会产生临时对象，临时对象会导致效率降低</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//i++实现代码为：                 </span></span><br><span class="line"><span class="type">int</span> <span class="keyword">operator</span>++(<span class="type">int</span>)                 </span><br><span class="line">&#123;</span><br><span class="line">   <span class="type">int</span> temp = *<span class="keyword">this</span>;                   </span><br><span class="line"></span><br><span class="line">   ++*<span class="keyword">this</span>;                       </span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> temp;                  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
 
 <h4 id="STL中的allocator、deallocator"><a href="#STL中的allocator、deallocator" class="headerlink" title="STL中的allocator、deallocator"></a>STL中的allocator、deallocator</h4><ol>
 <li>第一级配置器直接使用malloc()、free()和relloc()，第二级配置器视情况采用不同的策略：<ul>
@@ -913,7 +973,7 @@
 <p>C++11新标准引入了auto类型说明符，用它就能让编译器替我们去分析表达式所属的类型。和原来那些只对应某种特定的类型说明符(例如 int)不同，</p>
 <p><u>auto 让编译器通过初始值来进行类型推演。从而获得定义变量的类型，所以说 auto 定义的变量必须有初始值。</u></p>
 <p>举个例子：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//普通；类型</span></span><br><span class="line"><span class="type">int</span> a = <span class="number">1</span>, b = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">auto</span> c = a + b;<span class="comment">// c为int型</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//const类型</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> i = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">auto</span> j = i; <span class="comment">// 变量i是顶层const, 会被忽略, 所以j的类型是int</span></span><br><span class="line"><span class="keyword">auto</span> k = &amp;i; <span class="comment">// 变量i是一个常量, 对常量取地址是一种底层const, 所以b的类型是const int*</span></span><br><span class="line"><span class="type">const</span> <span class="keyword">auto</span> l = i; <span class="comment">//如果希望推断出的类型是顶层const的, 那么就需要在auto前面加上cosnt</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//引用和指针类型</span></span><br><span class="line"><span class="type">int</span> x = <span class="number">2</span>;</span><br><span class="line"><span class="type">int</span>&amp; y = x;</span><br><span class="line"><span class="keyword">auto</span> z = y; <span class="comment">//z是int型不是int&amp; 型</span></span><br><span class="line"><span class="keyword">auto</span>&amp; p1 = y; <span class="comment">//p1是int&amp;型</span></span><br><span class="line"><span class="keyword">auto</span> p2 = &amp;x; <span class="comment">//p2是指针类型int*</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//普通；类型</span></span><br><span class="line"><span class="type">int</span> a = <span class="number">1</span>, b = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">auto</span> c = a + b;<span class="comment">// c为int型</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//const类型</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> i = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">auto</span> j = i; <span class="comment">// 变量i是顶层const, 会被忽略, 所以j的类型是int</span></span><br><span class="line"><span class="keyword">auto</span> k = &amp;i; <span class="comment">// 变量i是一个常量, 对常量取地址是一种底层const, 所以b的类型是const int*</span></span><br><span class="line"><span class="type">const</span> <span class="keyword">auto</span> l = i; <span class="comment">//如果希望推断出的类型是顶层const的, 那么就需要在auto前面加上const</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//引用和指针类型</span></span><br><span class="line"><span class="type">int</span> x = <span class="number">2</span>;</span><br><span class="line"><span class="type">int</span>&amp; y = x;</span><br><span class="line"><span class="keyword">auto</span> z = y; <span class="comment">//z是int型不是int&amp; 型</span></span><br><span class="line"><span class="keyword">auto</span>&amp; p1 = y; <span class="comment">//p1是int&amp;型</span></span><br><span class="line"><span class="keyword">auto</span> p2 = &amp;x; <span class="comment">//p2是指针类型int*</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>decltype</strong></p>
 <p>有的时候我们还会遇到这种情况，<strong>我们希望从表达式中推断出要定义变量的类型，但却不想用表达式的值去初始化变量。</strong>还有可能是函数的返回类型为某表达式的值类型。在这些时候auto显得就无力了，所以C++11又引入了第二种类型说明符decltype，<strong>它的作用是选择并返回操作数的数据类型。</strong></p>
@@ -925,7 +985,7 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> e = <span class="number">4</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* f = &amp;e; <span class="comment">// f是底层const</span></span><br><span class="line"><span class="keyword">decltype</span>(<span class="keyword">auto</span>) j = f;<span class="comment">//j的类型是const int* 并且指向的是e</span></span><br><span class="line"> </span><br></pre></td></tr></table></figure>
 
 <h4 id="NULL和nullptr"><a href="#NULL和nullptr" class="headerlink" title="NULL和nullptr"></a>NULL和nullptr</h4><p>NULL来自C语言，一般由宏定义实现，而 nullptr 则是C++11的新增关键字。<strong>在C语言中，NULL被定义为(void*)0,而在C++语言中，NULL则被定义为整数0</strong>。编译器一般对其实际定义如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NULL 0</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NULL ((void *)0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NULL 0</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NULL ((void *)0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
 
 <p>在C++中指针必须有明确的类型定义。但是将NULL定义为0带来的另一个问题是无法与整数的0区分。因为C++中允许有函数重载，所以可以试想如下函数定义情况：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(<span class="type">char</span>* p)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;char*&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(<span class="type">int</span> p)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;int&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">fun</span>(<span class="literal">NULL</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//输出结果：int</span></span><br></pre></td></tr></table></figure>
@@ -969,6 +1029,10 @@
 <p>auto_ptr不支持拷贝和赋值操作，不能用在STL标准容器中。STL容器中的元素经常要支持拷贝、赋值操作，在这过程中auto_ptr会传递所有权，所以不能在STL中使用。</p>
 <p><strong>智能指针shared_ptr代码实现：</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SharedPtr</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">SharedPtr</span>(T* ptr = <span class="literal">NULL</span>):_ptr(ptr), _pcount(<span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">1</span>))</span><br><span class="line">	&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">SharedPtr</span>(<span class="type">const</span> SharedPtr&amp; s):_ptr(s._ptr), _pcount(s._pcount)&#123;</span><br><span class="line">		(*_pcount)++;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	SharedPtr&lt;T&gt;&amp; <span class="keyword">operator</span>=(<span class="type">const</span> SharedPtr&amp; s)&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span> != &amp;s)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (--(*(<span class="keyword">this</span>-&gt;_pcount)) == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">delete</span> <span class="keyword">this</span>-&gt;_ptr;</span><br><span class="line">				<span class="keyword">delete</span> <span class="keyword">this</span>-&gt;_pcount;</span><br><span class="line">			&#125;</span><br><span class="line">			_ptr = s._ptr;</span><br><span class="line">			_pcount = s._pcount;</span><br><span class="line">			*(_pcount)++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	T&amp; <span class="keyword">operator</span>*()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> *(<span class="keyword">this</span>-&gt;_ptr);</span><br><span class="line">	&#125;</span><br><span class="line">	T* <span class="keyword">operator</span>-&gt;()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>-&gt;_ptr;</span><br><span class="line">	&#125;</span><br><span class="line">	~<span class="built_in">SharedPtr</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		--(*(<span class="keyword">this</span>-&gt;_pcount));</span><br><span class="line">		<span class="keyword">if</span> (*(<span class="keyword">this</span>-&gt;_pcount) == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">delete</span> _ptr;</span><br><span class="line">			_ptr = <span class="literal">NULL</span>;</span><br><span class="line">			<span class="keyword">delete</span> _pcount;</span><br><span class="line">			_pcount = <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	T* _ptr;</span><br><span class="line">	<span class="type">int</span>* _pcount;<span class="comment">//指向引用计数的指针</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>shared_ptr的基本用法</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdafx.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;future&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;thread&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Person</span>(<span class="type">int</span> v) &#123;</span><br><span class="line">        value = v;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Cons&quot;</span> &lt;&lt;value&lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="built_in">Person</span>() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Des&quot;</span> &lt;&lt;value&lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> value;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">std::shared_ptr&lt;Person&gt; <span class="title">p1</span><span class="params">(<span class="keyword">new</span> Person(<span class="number">1</span>))</span></span>;<span class="comment">// Person(1)的引用计数为1</span></span><br><span class="line"></span><br><span class="line">    std::shared_ptr&lt;Person&gt; p2 = std::<span class="built_in">make_shared</span>&lt;Person&gt;(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    p1.<span class="built_in">reset</span>(<span class="keyword">new</span> <span class="built_in">Person</span>(<span class="number">3</span>));<span class="comment">// 首先生成新对象，然后引用计数减1，引用计数为0，故析构Person(1)</span></span><br><span class="line">                            <span class="comment">// 最后将新对象的指针交给智能指针</span></span><br><span class="line"></span><br><span class="line">    std::shared_ptr&lt;Person&gt; p3 = p1;<span class="comment">//现在p1和p3同时指向Person(3)，Person(3)的引用计数为2</span></span><br><span class="line"></span><br><span class="line">    p1.<span class="built_in">reset</span>();<span class="comment">//Person(3)的引用计数为1</span></span><br><span class="line">    p3.<span class="built_in">reset</span>();<span class="comment">//Person(3)的引用计数为0，析构Person(3)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
  
       <!-- reward -->
       

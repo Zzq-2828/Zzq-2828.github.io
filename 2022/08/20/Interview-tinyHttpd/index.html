@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-Interview-tinyHttpd"
+  id="post-Interview-TinyHttpd"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -75,7 +75,7 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2022/08/20/Interview-tinyHttpd/" class="article-date">
+      <a href="/2022/08/20/Interview-TinyHttpd/" class="article-date">
   <time datetime="2022-08-19T21:04:32.000Z" itemprop="datePublished">2022-08-20</time>
 </a> 
   <div class="article-category">
@@ -250,10 +250,10 @@
 </li>
 </ul>
 <p>我的理解就是：<br>domain 网络层相关协议 type 信息传送方式 protocol 运输层相关协议，如果前两个都确定了，系统就可以自动选择协议了。</p>
-<h5 id="bind-绑定实际地址"><a href="#bind-绑定实际地址" class="headerlink" title="bind()绑定实际地址"></a>bind()绑定实际地址</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">bind</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="keyword">struct</span> sockaddr *addr, <span class="type">socklen_t</span></span></span><br><span class="line"><span class="params">addrlen)</span>; </span><br><span class="line"><span class="comment">//返回值：成功则为0，失败为-1</span></span><br></pre></td></tr></table></figure>
+<h5 id="bind-绑定实际地址"><a href="#bind-绑定实际地址" class="headerlink" title="bind()绑定实际地址"></a>bind()绑定实际地址</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">bind</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="keyword">struct</span> sockaddr *addr, <span class="type">socklen_t</span> addrlen)</span>; </span><br><span class="line"><span class="comment">//返回值：成功则为0，失败为-1</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>sockfd</strong> 一般服务端才需要绑定，客户端由系统内核解决<br><strong>addr</strong> 所有协议都有一个公共的结构叫做<code>const struct sockaddr</code>,不同协议对应不同的具体结构，结构如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span> &#123;</span>  </span><br><span class="line">     <span class="type">sa_family_t</span> sin_family;<span class="comment">//地址族</span></span><br><span class="line">　　  <span class="type">char</span> sa_data[<span class="number">14</span>]; <span class="comment">//14字节，包含套接字中的目标地址和端口信息               </span></span><br><span class="line">　　 &#125;; </span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span> &#123;</span>  </span><br><span class="line">    <span class="type">sa_family_t</span> sin_family;<span class="comment">//地址族</span></span><br><span class="line">    <span class="type">char</span> sa_data[<span class="number">14</span>]; <span class="comment">//14字节，包含套接字中的目标地址和端口信息               </span></span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
 
 <p>可以看出，我们端口和目标地址放在同一数组中，不太容易使用。对于不同的协议，我们会通过另一种特定的结构体的来完成初始化，再通过强制类型转换，来使用bind函数。</p>
 <p>强制转换第二个地址参数为const sockaddr *</p>
@@ -296,7 +296,7 @@
 </ul>
 <p>如果accpet成功，那么其返回值是由内核自动生成的一个全新的描述字，代表与返回客户的TCP连接。后面的读写操作都是根据这个返回值来完成的。</p>
 <h5 id="read和write函数，读写"><a href="#read和write函数，读写" class="headerlink" title="read和write函数，读写"></a>read和write函数，读写</h5><p>这不是属于socket的API，但是socket总是伴随着以下函数：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ssize_t</span> <span class="title function_">read</span><span class="params">(<span class="type">int</span> fd, <span class="type">void</span> *buf, <span class="type">size_t</span> count)</span>;</span><br><span class="line">       <span class="type">ssize_t</span> <span class="title function_">write</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">void</span> *buf, <span class="type">size_t</span> count)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">send</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="type">void</span> *buf, <span class="type">size_t</span> len, <span class="type">int</span> flags)</span>;</span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">recv</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">void</span> *buf, <span class="type">size_t</span> len, <span class="type">int</span> flags)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">sendto</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="type">void</span> *buf, <span class="type">size_t</span> len, <span class="type">int</span> flags,</span></span><br><span class="line"><span class="params">              <span class="type">const</span> <span class="keyword">struct</span> sockaddr *dest_addr, <span class="type">socklen_t</span> addrlen)</span>;</span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">recvfrom</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">void</span> *buf, <span class="type">size_t</span> len, <span class="type">int</span> flags,</span></span><br><span class="line"><span class="params">                <span class="keyword">struct</span> sockaddr *src_addr, <span class="type">socklen_t</span> *addrlen)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">sendmsg</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="keyword">struct</span> msghdr *msg, <span class="type">int</span> flags)</span>;</span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">recvmsg</span><span class="params">(<span class="type">int</span> sockfd, <span class="keyword">struct</span> msghdr *msg, <span class="type">int</span> flags)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ssize_t</span> <span class="title function_">read</span><span class="params">(<span class="type">int</span> fd, <span class="type">void</span> *buf, <span class="type">size_t</span> count)</span>;</span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">write</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">void</span> *buf, <span class="type">size_t</span> count)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">send</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="type">void</span> *buf, <span class="type">size_t</span> len, <span class="type">int</span> flags)</span>;</span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">recv</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">void</span> *buf, <span class="type">size_t</span> len, <span class="type">int</span> flags)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">sendto</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="type">void</span> *buf, <span class="type">size_t</span> len, <span class="type">int</span> flags,</span></span><br><span class="line"><span class="params">              <span class="type">const</span> <span class="keyword">struct</span> sockaddr *dest_addr, <span class="type">socklen_t</span> addrlen)</span>;</span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">recvfrom</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">void</span> *buf, <span class="type">size_t</span> len, <span class="type">int</span> flags,</span></span><br><span class="line"><span class="params">                <span class="keyword">struct</span> sockaddr *src_addr, <span class="type">socklen_t</span> *addrlen)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">sendmsg</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="keyword">struct</span> msghdr *msg, <span class="type">int</span> flags)</span>;</span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">recvmsg</span><span class="params">(<span class="type">int</span> sockfd, <span class="keyword">struct</span> msghdr *msg, <span class="type">int</span> flags)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>read函数是负责从fd中读取内容：</p>
 <ul>
@@ -364,7 +364,7 @@
 <p>第 52 行相应的函数定义</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* void accept_request(int client) */</span></span><br><span class="line"><span class="type">void</span> *<span class="title function_">accept_request</span><span class="params">(<span class="type">void</span> * tclient)</span></span><br></pre></td></tr></table></figure>
 
-<p>第 131 行添加返回值</p>
+<p>两个返回值添加<strong>NULL</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
 
 <p>第 503 行</p>
@@ -612,7 +612,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/08/20/Interview-tinyHttpd/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/08/20/Interview-TinyHttpd/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -635,7 +635,7 @@
       </a>
     
     
-      <a href="/2022/08/20/env-C-C-in-Mac/" class="article-nav-link">
+      <a href="/2022/08/20/env-C++-in-Mac/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
         <div class="article-nav-title">在Mac VSCode配置C/C++环境</div>
       </a>

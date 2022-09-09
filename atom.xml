@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-08-31T19:30:41.324Z</updated>
+  <updated>2022-09-09T19:24:46.879Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.zzzzzq.com/2022/08/30/UNIX/"/>
     <id>https://www.zzzzzq.com/2022/08/30/UNIX/</id>
     <published>2022-08-29T18:33:50.000Z</published>
-    <updated>2022-08-31T19:30:41.324Z</updated>
+    <updated>2022-09-09T19:24:46.879Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文主要记录了阅读《UNIX&amp;#x2F;Linux编程实践教程》过程中的学习笔记&lt;/p&gt;</summary>
@@ -59,7 +59,7 @@
     <link href="https://www.zzzzzq.com/2022/08/27/Interview-Cpp/"/>
     <id>https://www.zzzzzq.com/2022/08/27/Interview-Cpp/</id>
     <published>2022-08-27T13:54:12.000Z</published>
-    <updated>2022-08-29T21:52:05.138Z</updated>
+    <updated>2022-09-07T23:33:29.379Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文对C++语言方面的一些基础知识做了一些梳理和总结&lt;/p&gt;</summary>
@@ -151,10 +151,10 @@
   
   <entry>
     <title>HTTP、Socket以及TinyHttpd Server学习</title>
-    <link href="https://www.zzzzzq.com/2022/08/20/Interview-tinyHttpd/"/>
-    <id>https://www.zzzzzq.com/2022/08/20/Interview-tinyHttpd/</id>
+    <link href="https://www.zzzzzq.com/2022/08/20/Interview-TinyHttpd/"/>
+    <id>https://www.zzzzzq.com/2022/08/20/Interview-TinyHttpd/</id>
     <published>2022-08-19T21:04:32.000Z</published>
-    <updated>2022-08-30T09:12:26.455Z</updated>
+    <updated>2022-09-08T11:54:16.164Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文记录了tinyHttpd的代码学习过程。Tinyhttpd算是一个微型的web服务器，浏览器与Web服务器之间的通信采用的是Http，所以以HTTP协议作为切入点&lt;/p&gt;</summary>
@@ -170,10 +170,10 @@
   
   <entry>
     <title>在Mac VSCode配置C/C++环境</title>
-    <link href="https://www.zzzzzq.com/2022/08/20/env-C-C-in-Mac/"/>
-    <id>https://www.zzzzzq.com/2022/08/20/env-C-C-in-Mac/</id>
+    <link href="https://www.zzzzzq.com/2022/08/20/env-C++-in-Mac/"/>
+    <id>https://www.zzzzzq.com/2022/08/20/env-C++-in-Mac/</id>
     <published>2022-08-19T20:03:39.000Z</published>
-    <updated>2022-08-19T20:31:47.874Z</updated>
+    <updated>2022-09-05T19:18:57.661Z</updated>
     
     
     <summary type="html">&lt;p&gt;网络编程的学习在Linux系统上比较方便（为了学习和运行tinyHttpd代码）。在MacOs上使用VSCode会比较方便，但是环境搭建的过程中还是遇到不少问题。本文对一些流程和问题加以记录。&lt;/p&gt;</summary>
@@ -287,7 +287,7 @@
     <link href="https://www.zzzzzq.com/2022/08/12/Interview-Questions04/"/>
     <id>https://www.zzzzzq.com/2022/08/12/Interview-Questions04/</id>
     <published>2022-08-12T14:07:21.000Z</published>
-    <updated>2022-09-01T10:23:09.199Z</updated>
+    <updated>2022-09-02T15:01:48.108Z</updated>
     
     
     <summary type="html">&lt;p&gt;概述：本文根据&lt;a href=&quot;https://codetop.cc/home&quot;&gt;CodeTop&lt;/a&gt;记录了热门的一些算法问题&lt;/p&gt;</summary>
@@ -392,7 +392,7 @@
     <link href="https://www.zzzzzq.com/2022/06/22/Interview-Network/"/>
     <id>https://www.zzzzzq.com/2022/06/22/Interview-Network/</id>
     <published>2022-06-21T16:23:46.000Z</published>
-    <updated>2022-08-21T23:35:09.917Z</updated>
+    <updated>2022-09-03T13:21:14.156Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文对计算机网络的基础知识做了一些梳理和总结（主要针对面试中常见的一些问题）&lt;/p&gt;</summary>
