@@ -6,7 +6,7 @@
   <link href="https://www.zzzzzq.com/atom.xml" rel="self"/>
   
   <link href="https://www.zzzzzq.com/"/>
-  <updated>2022-09-09T19:24:46.879Z</updated>
+  <updated>2022-09-19T13:55:19.686Z</updated>
   <id>https://www.zzzzzq.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.zzzzzq.com/2022/08/30/UNIX/"/>
     <id>https://www.zzzzzq.com/2022/08/30/UNIX/</id>
     <published>2022-08-29T18:33:50.000Z</published>
-    <updated>2022-09-09T19:24:46.879Z</updated>
+    <updated>2022-09-19T13:55:19.686Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文主要记录了阅读《UNIX&amp;#x2F;Linux编程实践教程》过程中的学习笔记&lt;/p&gt;</summary>
@@ -78,7 +78,7 @@
     <link href="https://www.zzzzzq.com/2022/08/26/Interview-Projects/"/>
     <id>https://www.zzzzzq.com/2022/08/26/Interview-Projects/</id>
     <published>2022-08-25T17:48:41.000Z</published>
-    <updated>2022-08-26T22:21:06.012Z</updated>
+    <updated>2022-09-19T15:58:29.675Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文对个人从本科至今所做的项目进行一次系统的梳理总结&lt;/p&gt;</summary>
@@ -135,7 +135,7 @@
     <link href="https://www.zzzzzq.com/2022/08/22/Interview-DataBase/"/>
     <id>https://www.zzzzzq.com/2022/08/22/Interview-DataBase/</id>
     <published>2022-08-21T23:35:01.000Z</published>
-    <updated>2022-08-22T09:48:12.684Z</updated>
+    <updated>2022-09-20T12:53:45.443Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文对数据库以及MySQL的基础知识做了一些梳理和总结&lt;/p&gt;</summary>
@@ -154,7 +154,7 @@
     <link href="https://www.zzzzzq.com/2022/08/20/Interview-TinyHttpd/"/>
     <id>https://www.zzzzzq.com/2022/08/20/Interview-TinyHttpd/</id>
     <published>2022-08-19T21:04:32.000Z</published>
-    <updated>2022-09-08T11:54:16.164Z</updated>
+    <updated>2022-09-19T06:53:03.774Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文记录了tinyHttpd的代码学习过程。Tinyhttpd算是一个微型的web服务器，浏览器与Web服务器之间的通信采用的是Http，所以以HTTP协议作为切入点&lt;/p&gt;</summary>
@@ -392,7 +392,7 @@
     <link href="https://www.zzzzzq.com/2022/06/22/Interview-Network/"/>
     <id>https://www.zzzzzq.com/2022/06/22/Interview-Network/</id>
     <published>2022-06-21T16:23:46.000Z</published>
-    <updated>2022-09-03T13:21:14.156Z</updated>
+    <updated>2022-09-19T19:23:34.345Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文对计算机网络的基础知识做了一些梳理和总结（主要针对面试中常见的一些问题）&lt;/p&gt;</summary>
