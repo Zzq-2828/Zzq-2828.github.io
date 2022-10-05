@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1k</span>
+            <span class="post-count">5.4k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">3 分钟</span>
+            <span class="post-count">21 分钟</span>
         </span>
     </span>
 </div>
@@ -116,7 +116,14 @@
 
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>muduo是陈硕大神个人开发的C++的TCP网络编程库。muduo基于Reactor模式实现。Reactor模式也是目前大多数Linux端高性能网络编程框架和网络应用所选择的主要架构，例如内存数据库Redis和Java的Netty库等。</p>
 <p>muduo 是一个基于非阻塞 IO 和事件驱动的现代 C++ 网络库，原生支持 one loop per thread 这种 IO 模型</p>
-<h2 id="C-多线程系统编程"><a href="#C-多线程系统编程" class="headerlink" title="C++多线程系统编程"></a>C++多线程系统编程</h2><p>编写线程安全的类不是难事，用同步原语（synchronization primitives）保护内部状态即可。但是对象的生与死不能由对象自身拥有的 mutex（互斥器）来保护。如何避免对象析构时可能存在的 race condition（竞态条件）是 C++ 多线程编程面临的基本问题，可以借助 Boost 库中的 shared_ptr 和 weak_ptr 完美解决。这也是实现线程安全的 Observer 模式的必备技术。</p>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>C++11环境配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment">#</span></span><br><span class="line"></span><br><span class="line">下载gcc最新版</span><br><span class="line"></span><br><span class="line">[root@localhost ~]<span class="comment"># wget http://ftp.gnu.org/gnu/gcc/gcc-4.8.1/gcc-4.8.1.tar.gz</span></span><br><span class="line">然后解压到文件夹</span><br><span class="line">[root@localhost ~]<span class="comment"># tar -zxvf gcc-4.8.1.tar.gz</span></span><br><span class="line">[root@localhost ~]<span class="comment"># cd /root/gcc-4.8.1</span></span><br><span class="line">[root@localhost ~]<span class="comment"># ./contrib/download_prerequisites</span></span><br><span class="line">[root@localhost contrib]<span class="comment"># cd ..</span></span><br><span class="line">[root@localhost ~]<span class="comment">#mkdir build_gcc_4.8.1</span></span><br><span class="line">[root@localhost build_gcc_4.8.1]<span class="comment"># cd build_gcc_4.8.1</span></span><br><span class="line">[root@localhost build_gcc_4.8.1]<span class="comment"># ../gcc-4.8.1/configure --enable-checking=release --enable-languages=c,c++ --disable-multilib  </span></span><br><span class="line">[root@localhost build_gcc_4.8.1]<span class="comment"># make -j</span></span><br><span class="line">[root@localhost build_gcc_4.8.1]<span class="comment"># make install</span></span><br><span class="line">[root@localhost build_gcc_4.8.1]<span class="comment"># ls /usr/local/bin | grep gcc</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@localhost build_gcc_4.8.1]<span class="comment"># /usr/sbin/update-alternatives --install /usr/bin/gcc gcc /usr/local/bin/i686-pc-linux-gnu-gcc-4.8.1 40</span></span><br><span class="line"></span><br><span class="line">[root@localhost build_gcc_4.8.1]<span class="comment"># gcc --version</span></span><br><span class="line">gcc (GCC) 4.8.1</span><br><span class="line">Copyright © 2013 Free Software Foundation, Inc.</span><br><span class="line">本程序是自由软件；请参看源代码的版权声明。本软件没有任何担保；</span><br><span class="line">包括没有适销性和某一专用目的下的适用性担保。</span><br><span class="line"></span><br><span class="line">[root@localhost build_gcc_4.8.1]<span class="comment"># /usr/sbin/update-alternatives --install /usr/bin/g++ g++ /usr/local/bin/g++ 40</span></span><br><span class="line"></span><br><span class="line">[root@localhost build_gcc_4.8.1]<span class="comment"># g++ --version</span></span><br><span class="line">g++ (GCC) 4.8.1</span><br><span class="line">Copyright © 2013 Free Software Foundation, Inc.</span><br><span class="line">本程序是自由软件；请参看源代码的版权声明。本软件没有任何担保；</span><br><span class="line">包括没有适销性和某一专用目的下的适用性担保。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ testCpp11.cpp -std=c++0x</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="C-多线程系统编程"><a href="#C-多线程系统编程" class="headerlink" title="C++多线程系统编程"></a>C++多线程系统编程</h2><p>编写线程安全的类不是难事，用同步原语（synchronization primitives）保护内部状态即可。但是对象的生与死不能由对象自身拥有的 mutex（互斥器）来保护。<u>如何避免对象析构时可能存在的 race condition（竞态条件）是 C++ 多线程编程面临的基本问题</u>，可以借助 Boost 库中的 shared_ptr 和 weak_ptr 完美解决。这也是实现线程安全的 Observer 模式的必备技术。</p>
 <p>C++ 要求程序员自己管理对象的生命期，这在多线程环境下显得尤为困难。当一个对象能被多个线程同时看到时，那么对象的销毁时机就会变得模糊不清，可能出现多种竞态条件（race condition）：</p>
 <ul>
 <li>在即将析构一个对象时，从何而知此刻是否有别的线程正在执行该对象的成员函数？</li>
@@ -136,11 +143,59 @@
 <ul>
 <li><p>MutexLock 封装临界区（critical section），这是一个简单的资源类，用 RAII 手法封装互斥器的创建与销毁。</p>
 </li>
-<li><p>MutexLockGuard 封装临界区的进入和退出，即加锁和解锁。MutexLockGuard 一</p>
-<p>般是个栈上对象，它的作用域刚好等于临界区域。</p>
+<li><p>MutexLockGuard 封装临界区的进入和退出，即加锁和解锁。MutexLockGuard 一般是个栈上对象，它的作用域刚好等于临界区域。</p>
 </li>
 </ul>
 <p>这两个 class 都不允许拷贝构造和赋值</p>
+<h3 id="线程安全的对象生命期管理"><a href="#线程安全的对象生命期管理" class="headerlink" title="线程安全的对象生命期管理"></a>线程安全的对象生命期管理</h3><p><strong>对象的创建</strong></p>
+<p>对象构造要做到线程安全，只需要保证在构造期间不要泄露this指针，即：</p>
+<ul>
+<li>不要再构造函数中注册任何回调</li>
+<li>不要在构造函数中把this传给跨线程的对象。</li>
+<li>即便在构造函数的最后一行也不行</li>
+</ul>
+<p>因为构造函数执行期间对象还没有完成初始化，如果this被泄露（escape）给了其他对象（其自身创建的子对象除外），那么别的线程有可能访问这个半成品对象，造成难以预料的后果</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不要这么做（Don&#x27;t do this.）</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span> : <span class="keyword">public</span> Observer </span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Foo</span>(Observable* s)</span><br><span class="line">    &#123;</span><br><span class="line">        s-&gt;<span class="built_in">register_</span>(<span class="keyword">this</span>); <span class="comment">// 错误，非线程安全</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">update</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 要这么做（Do this.）</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span> : <span class="keyword">public</span> Observer</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Foo</span>();</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">update</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">// 另外定义一个函数，在构造之后执行回调函数的注册工作</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">observe</span><span class="params">(Observable* s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        s-&gt;<span class="built_in">register_</span>(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Foo* pFoo = <span class="keyword">new</span> Foo;</span><br><span class="line">Observable* s = <span class="built_in">getSubject</span>();</span><br><span class="line">pFoo-&gt;<span class="built_in">observe</span>(s); <span class="comment">// 二段式构造，或者直接写 s-&gt;register_(pFoo);</span></span><br></pre></td></tr></table></figure>
+
+<p>这也说明，二段式构造——即构造函数 +initialize()——有时会是好办法，这虽然不符合 C++ 教条，但是多线程下别无选择。另外，既然允许二段式构造，那么构造函数不必主动抛异常，调用方靠 initialize() 的返回值来判断对象是否构造成功，这能简化错误处理。</p>
+<p>即使构造函数的最后一行也不要泄露 this，因为 Foo 有可能是个基类，基类先于派生类构造，执行完 Foo::Foo() 的最后一行代码还会继续执行派生类的构造函数，这时 most-derived class 的对象还处于构造中，仍然不安全。</p>
+<p>相对来说，对象的构造做到线程安全还是比较容易的，毕竟曝光少，回头率为零。而析构的线程安全就不那么简单。</p>
+<p><strong>销毁太难</strong></p>
+<p>对象析构，这在单线程里不构成问题，最多需要注意避免空悬指针和野指针。而在多线程程序中，存在了太多的竞态条件。对一般成员函数而言，做到线程安全的办法是让它们顺次执行，而不要并发执行（关键是不要同时读写共享状态），也就是让每个成员函数的临界区不重叠。这是显而易见的，不过有一个隐含条件或许不是每个人都能立刻想到：<u>成员函数用来保护临界区的互斥器本身必须是有效的。而析构函数破坏了这一假设，它会把 mutex 成员变量销毁掉。</u></p>
+<p><strong>C++ 里可能出现的内存问题大致有这么几个方面：</strong></p>
+<ol>
+<li><p>缓冲区溢出（buffer overrun）。</p>
+</li>
+<li><p>空悬指针&#x2F;野指针。</p>
+</li>
+<li><p>重复释放（double delete）。</p>
+</li>
+<li><p>内存泄漏（memory leak）。</p>
+</li>
+<li><p>不配对的 new[]&#x2F;delete。</p>
+</li>
+<li><p>内存碎片（memory fragmentation）。</p>
+</li>
+</ol>
+<p>正确使用智能指针能很轻易地解决前面 5 个问题，解决第 6 个问题需要别的思</p>
+<p>路：</p>
+<ol>
+<li><p>缓冲区溢出：用 std::vector<char>&#x2F;std::string 或自己编写 Buffer class 来管理缓冲区，自动记住用缓冲区的长度，并通过成员函数而不是裸指针来修改缓冲区。</p>
+</li>
+<li><p>空悬指针&#x2F;野指针：用 shared_ptr&#x2F;weak_ptr，这正是本章的主题。</p>
+</li>
+<li><p>重复释放：用unique_ptr，只在对象析构的时候释放一次。</p>
+</li>
+<li><p>内存泄漏：用 unique_ptr，对象析构的时候自动释放内存。</p>
+</li>
+<li><p>不配对的 new[]&#x2F;delete：把 new[] 统统替换为 std::vector。</p>
+</li>
+</ol>
+<p>更安全的observer：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Observer</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">observe</span><span class="params">(Observable* s)</span> </span>&#123;</span><br><span class="line">        s-&gt;<span class="built_in">register_</span>(<span class="keyword">this</span>);</span><br><span class="line">        subject_ = s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Observer</span>() &#123;</span><br><span class="line">        subject_-&gt;<span class="built_in">unregister</span>(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Observable* subject_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Observable</span> <span class="comment">// not 100% thread safe!</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">register_</span><span class="params">(weak_ptr&lt;Observer&gt; x)</span></span>; <span class="comment">// 参数类型可用 const weak_ptr&lt;Observer&gt;&amp;</span></span><br><span class="line">    <span class="comment">// void unregister(weak_ptr&lt;Observer&gt; x); // 不需要它</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">notifyObservers</span><span class="params">()</span></span>;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">mutable</span> MutexLock mutex_;</span><br><span class="line">    std::vector&lt;weak_ptr&lt;Observer&gt; &gt; observers_;</span><br><span class="line">    <span class="keyword">typedef</span> std::vector&lt;weak_ptr&lt;Observer&gt; &gt;::iterator Iterator;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Observable::notifyObservers</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">MutexLockGuard <span class="title">lock</span><span class="params">(mutex_)</span></span>;</span><br><span class="line">    Iterator it = observers_.<span class="built_in">begin</span>(); </span><br><span class="line">    <span class="keyword">while</span> (it != observers_.<span class="built_in">end</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function">shared_ptr&lt;Observer&gt; <span class="title">obj</span><span class="params">(it-&gt;lock())</span></span>; <span class="comment">// 尝试提升，这一步是线程安全的</span></span><br><span class="line">        <span class="keyword">if</span> (obj)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 提升成功，现在引用计数值至少为 2 （想想为什么？）</span></span><br><span class="line">            obj-&gt;<span class="built_in">update</span>(); <span class="comment">// 没有竞态条件，因为 obj 在栈上，对象不可能在本作用域内销毁</span></span><br><span class="line">            ++it;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 对象已经销毁，从容器中拿掉 weak_ptr</span></span><br><span class="line">            it = observers_.<span class="built_in">erase</span>(it);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="Muduo网络库简介"><a href="#Muduo网络库简介" class="headerlink" title="Muduo网络库简介"></a>Muduo网络库简介</h2><p>安装依赖并且编译：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Install required packages:</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Debian, Ubuntu, etc.</span></span><br><span class="line"><span class="meta prompt_">  $ </span><span class="language-bash">sudo apt install g++ cmake make libboost-dev</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">CentOS</span></span><br><span class="line"><span class="meta prompt_">  $ </span><span class="language-bash">sudo yum install gcc-c++ cmake make boost-devel</span></span><br><span class="line"></span><br><span class="line">See .travis.yml for additional packages for building more examples.</span><br><span class="line"></span><br><span class="line">To build, run:</span><br><span class="line">  .build.sh</span><br></pre></td></tr></table></figure>
 
@@ -153,9 +208,13 @@
 <img src="https://pic.imgdb.cn/item/630d479816f2c2beb1a370d6.jpg" style="zoom:80%;" />
 
 <p><strong>网络核心库</strong></p>
-<p>muduo 是基于 Reactor 模式的网络库，其核心是个事件循环 EventLoop，用于响应计时器和 IO 事件。muduo 采用基于对象（object-based）而非面向对象（object oriented）的设计风格，其事件回调接口多以 boost::function + boost::bind 表达，用户在使用 muduo 的时候不需要继承其中的 class。</p>
+<p>muduo 是基于 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/347779760">Reactor 模式</a>的网络库，其核心是个事件循环 EventLoop，用于响应计时器和 IO 事件。muduo 采用基于对象（object-based）而非面向对象（object oriented）的设计风格，其事件回调接口多以 boost::function + boost::bind 表达，用户在使用 muduo 的时候不需要继承其中的 class。</p>
 <p>网络库核心位于 muduo&#x2F;net 和 muduo&#x2F;net&#x2F;poller，一共不到 4300 行代码，以下灰底表示用户不可见的内部类：</p>
 <img src="https://pic.imgdb.cn/item/630d486e16f2c2beb1a3bfea.jpg" style="zoom:80%;" />
+
+<img src="https://pic1.imgdb.cn/item/63350e7116f2c2beb1fb4be3.jpg" style="zoom:67%;" />
+
+
 
 <p><strong>网络附属库</strong></p>
 <p>网络库有一些附属模块，它们不是核心内容，在使用的时候需要链接相应的库，例如 -lmuduo_http、-lmuduo_inspect 等等。HttpServer 和 Inspector 暴露出一个http 界面，用于监控进程的状态</p>
@@ -164,8 +223,109 @@
 
 
 
+<p>muduo 头文件中使用了<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wkfvawl/p/10801725.html">前向声明</a>（forward declaration），大大简化了头文件之间的依赖关系。例如 Acceptor.h、Channel.h、Connector.h、TcpConnection.h 都前向声明了EventLoop class，从而避免包含 EventLoop.h。另外，TcpClient.h 前向声明了 Connectorclass，从而避免将内部类暴露给用户，类似的做法还有 TcpServer.h 用到的 Acceptor 和EventLoopThreadPool、EventLoop.h 用到的 Poller 和 TimerQueue、TcpConnection.h 用到的 Channel 和 Socket 等等。</p>
+<p><strong>公开接口</strong></p>
+<ul>
+<li>Buffer 仿 Netty ChannelBuffer 的 buffer class，数据的读写通过 buffer 进行。用户代码不需要调用 read(2)&#x2F;write(2)，只需要处理收到的数据和准备好要发送的数据</li>
+<li>InetAddress 封装 IPv4 地址（end point），注意，它不能解析域名，只认 IP 地址。因为直接用 gethostbyname(3) 解析域名会阻塞 IO 线程。</li>
+<li>EventLoop 事件循环（反应器 Reactor），每个线程只能有一个 EventLoop 实体，它负责 IO 和定时器事件的分派。它用 eventfd(2) 来异步唤醒，这有别于传统的用一对 pipe(2) 的办法。它用 TimerQueue 作为计时器管理，用 Poller 作为IO multiplexing。 </li>
+<li>EventLoopThread 启动一个线程，在其中运行 EventLoop::loop()。 </li>
+<li>TcpConnection 整个网络库的核心，封装一次 TCP 连接，注意它不能发起连接。</li>
+<li>TcpClient 用于编写网络客户端，能发起连接，并且有重试功能。</li>
+<li>TcpServer 用于编写网络服务器，接受客户的连接。</li>
+</ul>
+<p>在这些类中，TcpConnection 的生命期依靠 shared_ptr 管理（即用户和库共同控制）。Buffer 的生命期由 TcpConnection 控制。</p>
+<p>其余类的生命期由用户控制。Buffer和 InetAddress 具有值语义，可以拷贝；其他 class 都是对象语义，不可以拷贝。</p>
+<p><strong>内部实现</strong></p>
+<ul>
+<li>Channel 是 selectable IO channel，负责注册与响应 IO 事件，注意它不拥有 file descriptor。它是Acceptor、Connector、EventLoop、TimerQueue、TcpConnection的成员，生命期由后者控制。</li>
+<li>Socket 是一个 RAII handle，封装一个 file descriptor，并在析构时关闭 fd。它是Acceptor、TcpConnection 的成员，生命期由后者控制。EventLoop、TimerQueue也拥有 fd，但是不封装为 Socket class。 </li>
+<li>SocketsOps 封装各种 Sockets 系统调用。</li>
+<li>Poller 是 PollPoller 和 EPollPoller 的基类，采用“电平触发”的语意。它是EventLoop 的成员，生命期由后者控制。</li>
+<li>PollPoller 和 EPollPoller 封装 poll(2) 和 epoll(4) 两种 IO multiplexing 后端。poll 的存在价值是便于调试，因为 poll(2) 调用是上下文无关的，用strace(1) 很容易知道库的行为是否正确。</li>
+<li>Connector 用于发起 TCP 连接，它是 TcpClient 的成员，生命期由后者控制。</li>
+<li>Acceptor 用于接受 TCP 连接，它是 TcpServer 的成员，生命期由后者控制。</li>
+<li>TimerQueue 用 timerfd 实现定时，这有别于传统的设置 poll&#x2F;epoll_wait 的等待时长的办法。TimerQueue 用 std::map 来管理 Timer，常用操作的复杂度是<em>O</em>(log <em>N</em>)，<em>N</em> 为定时器数目。它是 EventLoop 的成员，生命期由后者控制。</li>
+<li>EventLoopThreadPool 用于创建 IO 线程池，用于把 TcpConnection 分派到某个EventLoop 线程上。它是 TcpServer 的成员，生命期由后者控制。</li>
+</ul>
 <p><strong>简化类图</strong></p>
 <img src="https://pic.imgdb.cn/item/630d4acd16f2c2beb1a496e0.jpg" style="zoom:80%;" />
+
+<p><strong>线程模型</strong></p>
+<p>muduo 的线程模型符合one loop per thread + thread pool 模型。每个线程最多有一个 EventLoop，每个 TcpConnection 必须归某个 EventLoop 管理，所有的 IO 会转移到这个线程。</p>
+<p>换句话说，一个 file descriptor 只能由一个线程读写。TcpConnection 所在的线程由其所属的 EventLoop 决定，这样我们可以很方便地把不同的 TCP 连接放到不同的线程去，也可以把一些 TCP 连接放到一个线程里。</p>
+<p>TcpConnection 和 EventLoop 是线程安全的，可以跨线程调用。</p>
+<p>TcpServer 直接支持多线程，它有两种模式：</p>
+<ul>
+<li>单线程，accept(2) 与 TcpConnection 用同一个线程做 IO。 </li>
+<li>多线程，accept(2) 与 EventLoop 在同一个线程，另外创建一个 EventLoop ThreadPool，新到的连接会按 round-robin 方式分配到线程池中</li>
+</ul>
+<h2 id="muduo网络库的使用"><a href="#muduo网络库的使用" class="headerlink" title="muduo网络库的使用"></a>muduo网络库的使用</h2><p>muduo 只支持 Linux 2.6.x 下的并发非阻塞 TCP 网络编程，它的核心是每个 IO线程一个事件循环，把 IO 事件分发到回调函数上。</p>
+<p><strong>TCP 网络编程本质</strong></p>
+<p>基于事件的非阻塞网络编程是编写高性能并发网络服务程序的主流模式，头一次使用这种方式编程通常需要转换思维模式。</p>
+<p>把原来：</p>
+<ul>
+<li>主动调用 recv(2) 来接收数据</li>
+<li>主动调用 accept(2) 来接受新连接</li>
+<li>主动调用 send(2) 来发送数据”</li>
+</ul>
+<p>的思路换成</p>
+<ul>
+<li>注册一个收数据的回调，网络库收到数据会调用我，直接把数据提供给我，供我消费。</li>
+<li>注册一个接受连接的回调，网络库接受了新连接会回调我，直接把新的连接对象传给我，供我使用。</li>
+<li>需要发送数据的时候，只管往连接中写，网络库会负责无阻塞地发送</li>
+</ul>
+<p>TCP 网络编程最本质的是处理三个半事件：</p>
+<ul>
+<li>连接的建立，包括服务端接受（accept）新连接和客户端成功发起（connect）连接。TCP 连接一旦建立，客户端和服务端是平等的，可以各自收发数据。</li>
+<li>连接的断开，包括主动断开（close、shutdown）和被动断开（read(2) 返回 0）</li>
+<li>消息到达，文件描述符可读。这是最为重要的一个事件，对它的处理方式决定了网络编程的风格（阻塞还是非阻塞，如何处理分包，应用层的缓冲如何设计，等等）。</li>
+<li>消息发送完毕，这算半个。对于低流量的服务，可以不必关心这个事件；另外，这里的“发送完毕”是指将数据写入操作系统的缓冲区，将由 TCP 协议栈负责数据的发送与重传，不代表对方已经收到数据。</li>
+</ul>
+<p>这其中有很多难点，也有很多细节需要注意：</p>
+<ul>
+<li>如果要主动关闭连接，如何保证对方已经收到全部数据？</li>
+<li>如果应用层有缓冲（这在非阻塞网络编程中是必需的，见下文），那么如何保证先发送完缓冲区中的数据，然后再断开连接？直接调用 close(2) 恐怕是不行的。</li>
+<li>如果主动发起连接，但是对方主动拒绝，如何定期（带 back-off 地）重试？</li>
+<li>非阻塞网络编程该用边沿触发（edge trigger）还是电平触发（level trigger）？<ul>
+<li>如果是电平触发，那么什么时候关注 EPOLLOUT 事件？会不会造成 busy-loop？</li>
+<li>如果是边沿触发，如何防止漏读造成的饥饿？epoll(4) 一定比 poll(2) 快吗？</li>
+</ul>
+</li>
+<li>在非阻塞网络编程中，为什么要使用应用层发送缓冲区？<ul>
+<li>假设应用程序需要发送40kB 数据，但是操作系统的 TCP 发送缓冲区只有 25kB 剩余空间，那么剩下的 15kB数据怎么办？</li>
+<li>如果等待 OS 缓冲区可用，会阻塞当前线程，因为不知道对方什么时候收到并读取数据。因此网络库应该把这 15kB 数据缓存起来，放到这个 TCP 链接的应用层发送缓冲区中，等 socket 变得可写的时候立刻发送数据，这样“发送”操作不会阻塞。</li>
+<li>如果应用程序随后又要发送 50kB 数据，而此时发送缓冲区中尚有未发送的数据（若干 kB），那么网络库应该将这 50kB 数据追加到发送缓冲区的末尾，而不能立刻尝试 write()，因为这样有可能打乱数据的顺序。</li>
+</ul>
+</li>
+<li>在非阻塞网络编程中，为什么要使用应用层接收缓冲区？<ul>
+<li>假如一次读到的数据不够一个完整的数据包，那么这些已经读到的数据是不是应该先暂存在某个地方，等剩余的数据收到之后再一并处理</li>
+</ul>
+</li>
+<li>在非阻塞网络编程中，如何设计并使用缓冲区？<ul>
+<li>一方面我们希望减少系统调用，一次读的数据越多越划算，那么似乎应该准备一个大的缓冲区。</li>
+<li>另一方面，我们希望减少内存占用。如果有 10000 个并发连接，每个连接一建立就分配各 50kB 的读写缓冲区 (s) 的话，将占用 1GB 内存，而大多数时候这些缓冲区的使用率很低。muduo用 readv(2) 结合栈上空间巧妙地解决了这个问题。</li>
+</ul>
+</li>
+<li>如果使用发送缓冲区，万一接收方处理缓慢，数据会不会一直堆积在发送方，造成内存暴涨？如何做应用层的流量控制？</li>
+<li>如何设计并实现定时器？并使之与网络 IO 共用一个线程，以避免锁。</li>
+</ul>
+<h3 id="echo服务的实现"><a href="#echo服务的实现" class="headerlink" title="echo服务的实现"></a>echo服务的实现</h3><p>muduo 的使用非常简单，不需要从指定的类派生，也不用覆写虚函数，只需要注册几个回调函数去处理前面提到的三个半事件就行了。</p>
+<p>以经典的 echo 回显服务为例（echo服务是一种非常有用的用于调试和检测的工具。该协议接收到什么原样发回，类似于日常生活中的“回声”）：</p>
+<p><strong>定义EchoServer class，不需要派生自任何基类</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;muduo/net/TcpServer.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// RFC 862</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">EchoServer</span></span><br><span class="line">&#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">EchoServer</span>(muduo::net::EventLoop* loop,</span><br><span class="line">             <span class="type">const</span> muduo::net::InetAddress&amp; listenAddr);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">start</span><span class="params">()</span></span>;  <span class="comment">// calls server_.start();</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">onConnection</span><span class="params">(<span class="type">const</span> muduo::net::TcpConnectionPtr&amp; conn)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">onMessage</span><span class="params">(<span class="type">const</span> muduo::net::TcpConnectionPtr&amp; conn,</span></span></span><br><span class="line"><span class="params"><span class="function">                 muduo::net::Buffer* buf,</span></span></span><br><span class="line"><span class="params"><span class="function">                 muduo::Timestamp time)</span></span>;</span><br><span class="line"></span><br><span class="line">  muduo::net::TcpServer server_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在构造函数里注册回调函数；实现EchoServer::onConnection()和EchoServer::onMessage()</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;examples/simple/echo/echo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;muduo/base/Logging.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> std::placeholders::_1;</span><br><span class="line"><span class="keyword">using</span> std::placeholders::_2;</span><br><span class="line"><span class="keyword">using</span> std::placeholders::_3;</span><br><span class="line"></span><br><span class="line"><span class="comment">// using namespace muduo;</span></span><br><span class="line"><span class="comment">// using namespace muduo::net;</span></span><br><span class="line"></span><br><span class="line">EchoServer::<span class="built_in">EchoServer</span>(muduo::net::EventLoop* loop,</span><br><span class="line">                       <span class="type">const</span> muduo::net::InetAddress&amp; listenAddr)</span><br><span class="line">  : <span class="built_in">server_</span>(loop, listenAddr, <span class="string">&quot;EchoServer&quot;</span>)</span><br><span class="line">&#123;</span><br><span class="line">  server_.<span class="built_in">setConnectionCallback</span>(</span><br><span class="line">      std::<span class="built_in">bind</span>(&amp;EchoServer::onConnection, <span class="keyword">this</span>, _1));</span><br><span class="line">  server_.<span class="built_in">setMessageCallback</span>(</span><br><span class="line">      std::<span class="built_in">bind</span>(&amp;EchoServer::onMessage, <span class="keyword">this</span>, _1, _2, _3));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">EchoServer::start</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  server_.<span class="built_in">start</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">EchoServer::onConnection</span><span class="params">(<span class="type">const</span> muduo::net::TcpConnectionPtr&amp; conn)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  LOG_INFO &lt;&lt; <span class="string">&quot;EchoServer - &quot;</span> &lt;&lt; conn-&gt;<span class="built_in">peerAddress</span>().<span class="built_in">toIpPort</span>() &lt;&lt; <span class="string">&quot; -&gt; &quot;</span></span><br><span class="line">           &lt;&lt; conn-&gt;<span class="built_in">localAddress</span>().<span class="built_in">toIpPort</span>() &lt;&lt; <span class="string">&quot; is &quot;</span></span><br><span class="line">           &lt;&lt; (conn-&gt;<span class="built_in">connected</span>() ? <span class="string">&quot;UP&quot;</span> : <span class="string">&quot;DOWN&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">EchoServer::onMessage</span><span class="params">(<span class="type">const</span> muduo::net::TcpConnectionPtr&amp; conn,</span></span></span><br><span class="line"><span class="params"><span class="function">                           muduo::net::Buffer* buf,</span></span></span><br><span class="line"><span class="params"><span class="function">                           muduo::Timestamp time)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="function">muduo::string <span class="title">msg</span><span class="params">(buf-&gt;retrieveAllAsString())</span></span>;</span><br><span class="line">  LOG_INFO &lt;&lt; conn-&gt;<span class="built_in">name</span>() &lt;&lt; <span class="string">&quot; echo &quot;</span> &lt;&lt; msg.<span class="built_in">size</span>() &lt;&lt; <span class="string">&quot; bytes, &quot;</span></span><br><span class="line">           &lt;&lt; <span class="string">&quot;data received at &quot;</span> &lt;&lt; time.<span class="built_in">toString</span>();</span><br><span class="line">  conn-&gt;<span class="built_in">send</span>(msg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这两个函数体现了“基于事件编程”的典型做法，即程序主体是被动等待事件发生，事件发生之后网络库会调用（回调）事先注册的事件处理函数（event handler）。</p>
+<ul>
+<li>在 onConnection() 函数中，conn 参数是 TcpConnection 对象的 shared_ptr，TcpConnection::connected() 返回一个 bool 值，表明目前连接是建立还是断开，TcpConnection 的 peerAddress() 和 localAddress() 成员函数分别返回对方和本地的地址（以 InetAddress 对象表示的 IP 和 port）。</li>
+<li>在 onMessage() 函数中，conn 参数是收到数据的那个 TCP 连接；buf 是已经收到的数据，buf 的数据会累积，直到用户从中取走（retrieve）数据。注意 buf是指针，表明用户代码可以修改（消费）buffer；time 是收到数据的确切时间，即epoll_wait(2) 返回的时间，注意这个时间通常比 read(2) 发生的时间略早，可以用于正确测量程序的消息处理延迟。另外，Timestamp 对象采用 pass-by-value，而不是pass-by-(const)reference，这是有意的，因为在 x86-64 上可以直接通过寄存器传参。</li>
+</ul>
+<p>在main()里用EventLoop让整个程序跑起来</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;examples/simple/echo/echo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;muduo/base/Logging.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;muduo/net/EventLoop.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// using namespace muduo;</span></span><br><span class="line"><span class="comment">// using namespace muduo::net;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  LOG_INFO &lt;&lt; <span class="string">&quot;pid = &quot;</span> &lt;&lt; <span class="built_in">getpid</span>();</span><br><span class="line">  muduo::net::EventLoop loop;</span><br><span class="line">  muduo::<span class="function">net::InetAddress <span class="title">listenAddr</span><span class="params">(<span class="number">2007</span>)</span></span>;</span><br><span class="line">  <span class="function">EchoServer <span class="title">server</span><span class="params">(&amp;loop, listenAddr)</span></span>;</span><br><span class="line">  server.<span class="built_in">start</span>();</span><br><span class="line">  loop.<span class="built_in">loop</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
  
       <!-- reward -->
       

@@ -116,7 +116,8 @@
 
 <h2 id="集合概述"><a href="#集合概述" class="headerlink" title="集合概述"></a>集合概述</h2><h3 id="Java-集合概览"><a href="#Java-集合概览" class="headerlink" title="Java 集合概览"></a>Java 集合概览</h3><p>Java 集合， 也叫作容器，主要是由两大接口派生而来：一个是 <code>Collection</code>接口，主要用于存放单一元素；另一个是 <code>Map</code> 接口，主要用于存放键值对。对于<code>Collection</code> 接口，下面又有三个主要的子接口：<code>List</code>、<code>Set</code> 和 <code>Queue</code>。</p>
 <p>Java 集合框架如下图所示：</p>
-<p><img src="https://javaguide.cn/assets/java-collection-hierarchy.77b66a51.png" alt="img"></p>
+<img src="https://pic.imgdb.cn/item/632a8c7c16f2c2beb1a9a784.jpg" style="zoom:80%;" />
+
 <p>注：图中只列举了主要的继承派生关系，并没有列举所有关系。比方省略了<code>AbstractList</code>, <code>NavigableSet</code>等抽象类以及其他的一些辅助类，如想深入了解，可自行查看源码。</p>
 <h3 id="说说-List-Set-Queue-Map-四者的区别？"><a href="#说说-List-Set-Queue-Map-四者的区别？" class="headerlink" title="说说 List, Set, Queue, Map 四者的区别？"></a>说说 List, Set, Queue, Map 四者的区别？</h3><ul>
 <li><code>List</code>(对付顺序的好帮手): 存储的元素是有序的、可重复的。</li>
@@ -147,7 +148,7 @@
 <li><code>TreeMap</code>： 红黑树（自平衡的排序二叉树）</li>
 </ul>
 <h3 id="如何选用集合"><a href="#如何选用集合" class="headerlink" title="如何选用集合?"></a>如何选用集合?</h3><p>主要根据集合的特点来选用，比如我们需要根据键值获取到元素值时就选用 <code>Map</code> 接口下的集合，需要排序时选择 <code>TreeMap</code>,不需要排序时就选择 <code>HashMap</code>,需要保证线程安全就选用 <code>ConcurrentHashMap</code>。</p>
-<p>当我们只需要存放元素值时，就选择实现<code>Collection</code> 接口的集合，需要保证元素唯一时选择实现 <code>Set</code> 接口的集合比如 <code>TreeSet</code> 或 <code>HashSet</code>，不需要就选择实现 <code>List</code> 接口的比如 <code>ArrayList</code> 或 <code>LinkedList</code>，然后再根据实现这些接口的集合的特点来选用。</p>
+<p>当我们只需要存放元素值时，就选择实现<code>Collections</code> 接口的集合，需要保证元素唯一时选择实现 <code>Set</code> 接口的集合比如 <code>TreeSet</code> 或 <code>HashSet</code>，不需要就选择实现 <code>List</code> 接口的比如 <code>ArrayList</code> 或 <code>LinkedList</code>，然后再根据实现这些接口的集合的特点来选用。</p>
 <h2 id="Collection-子接口之-List"><a href="#Collection-子接口之-List" class="headerlink" title="Collection 子接口之 List"></a>Collection 子接口之 List</h2><h3 id="ArrayList-和-Vector-的区别"><a href="#ArrayList-和-Vector-的区别" class="headerlink" title="ArrayList 和 Vector 的区别?"></a>ArrayList 和 Vector 的区别?</h3><ul>
 <li><code>ArrayList</code> 是 <code>List</code> 的主要实现类，底层使用 <code>Object[ ]</code>存储，适用于频繁的查找工作，线程不安全 ；</li>
 <li><code>Vector</code> 是 <code>List</code> 的古老实现类，底层使用<code>Object[ ]</code> 存储，线程安全的。</li>
@@ -161,7 +162,7 @@
 </ul>
 </li>
 <li><strong>是否支持快速随机访问：</strong> <code>LinkedList</code> 不支持高效的随机元素访问，而 <code>ArrayList</code> 支持。快速随机访问就是通过元素的序号快速获取元素对象(对应于<code>get(int index)</code>方法)。</li>
-<li><strong>内存空间占用：</strong> <code>ArrayList</code> 的空 间浪费主要体现在在 list 列表的结尾会预留一定的容量空间，而 LinkedList 的空间花费则体现在它的每一个元素都需要消耗比 ArrayList 更多的空间（因为要存放直接后继和直接前驱以及数据）。</li>
+<li><strong>内存空间占用：</strong> <code>ArrayList</code> 的空间浪费主要体现在在 list 列表的结尾会预留一定的容量空间，而 LinkedList 的空间花费则体现在它的每一个元素都需要消耗比 ArrayList 更多的空间（因为要存放直接后继和直接前驱以及数据）。</li>
 </ol>
 <p>我们在项目中一般是不会使用到 <code>LinkedList</code> 的，需要用到 <code>LinkedList</code> 的场景几乎都可以使用 <code>ArrayList</code> 来代替，并且，性能通常会更好！就连 <code>LinkedList</code> 的作者约书亚 · 布洛克（Josh Bloch）自己都说从来不会使用 <code>LinkedList</code> 。</p>
 <p>另外，不要下意识地认为 <code>LinkedList</code> 作为链表就最适合元素增删的场景。我在上面也说了，<code>LinkedList</code> 仅仅在头尾插入或者删除元素的时候时间复杂度近似 O(1)，其他情况增删元素的时间复杂度都是 O(n) 。</p>

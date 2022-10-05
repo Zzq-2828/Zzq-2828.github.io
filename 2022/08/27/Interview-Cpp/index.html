@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">25k</span>
+            <span class="post-count">29.7k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">91 分钟</span>
+            <span class="post-count">109 分钟</span>
         </span>
     </span>
 </div>
@@ -183,6 +183,22 @@
 <li>在成员函数中使用const_cast去掉this指针的const属性</li>
 <li>使用mutable修饰成员变量。（被mutable修饰的变量，将永远处于可变的状态，即使在一个const函数中）</li>
 </ul>
+<h4 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h4><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62060524">参考文章</a></p>
+<p>volatile 关键字是一种类型修饰符，用它声明的类型变量表示可以被某些编译器未知的因素更改。比如：操作系统、硬件或者其它线程等。<u>遇到这个关键字声明的变量，编译器对访问该变量的代码就不再进行优化，从而可以提供对特殊地址的稳定访问</u>。</p>
+<p>（对于编译器优化的个人理解，例如在循环中，编译器往往会对指令进行优化重排，而不是单纯按照代码中所写的顺序，这与一条指令涉及到的对寄存器的读写等等相关）</p>
+<p>当要求使用 volatile 声明的变量的值的时候，系统总是重新从它所在的内存读取数据，即使它前面的指令刚刚从该处读取过数据。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="type">int</span> i=<span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> a = i;</span><br><span class="line"><span class="type">int</span> b = i; </span><br></pre></td></tr></table></figure>
+
+<p>volatile 指出 i 是随时可能发生变化的，每次使用它的时候必须从 i的地址中读取，因而编译器生成的汇编代码会重新从i的地址读取数据放在 b 中。而优化做法是，由于编译器发现两次从 i读数据的代码之间的代码没有对 i 进行过操作，它会自动把上次读的数据放在 b 中。而不是重新从 i 里面读。这样以来，如果 i是一个寄存器变量或者表示一个端口数据就容易出错，所以说 volatile 可以保证对特殊地址的稳定访问。</p>
+<p>一般说来，volatile用在如下的几个地方：</p>
+<ol>
+<li><p>中断服务程序中修改的供其它程序检测的变量需要加volatile；</p>
+</li>
+<li><p>多任务环境下各任务间共享的标志应该加volatile；</p>
+</li>
+<li><p>存储器映射的硬件寄存器通常也要加volatile说明，因为每次对它的读写都可能由不同意义；</p>
+</li>
+</ol>
 <h3 id="函数、指针、引用"><a href="#函数、指针、引用" class="headerlink" title="函数、指针、引用"></a>函数、指针、引用</h3><h4 id="C中的指针函数与函数指针"><a href="#C中的指针函数与函数指针" class="headerlink" title="C中的指针函数与函数指针"></a>C中的指针函数与函数指针</h4><p>指针函数与函数指针表示方法的不同，千万不要混淆。最简单的辨别方式就是<strong>看函数名前面的指针*号有没有被括号（）包含</strong>，如果被包含就是函数指针，反之则是指针函数。</p>
 <p>主要的区别是一个是指针变量，一个是函数。在使用时必须要搞清楚才能正确使用。</p>
 <ul>
@@ -210,7 +226,7 @@
 <p>他们的输出为：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">run <span class="keyword">in</span> the <span class="title class_">Bird</span>!!</span><br><span class="line">run <span class="keyword">in</span> the fBird!!</span><br></pre></td></tr></table></figure>
 
-<p>因为无论是fBird还是Bird，他们在内存中只有一个变量，就是那个函数指针，而<code>void\*</code>表示任何类型的指针，当我们将它强制转换成<code>struct Bird*</code>类型时，p-&gt;print指向的自然就是传入实参的print地址。</p>
+<p>因为无论是fBird还是Bird，他们在内存中只有一个变量，就是那个函数指针，而<code>void*</code>表示任何类型的指针，当我们将它强制转换成<code>struct Bird*</code>类型时，p-&gt;print指向的自然就是传入实参的print地址。</p>
 <h4 id="指针数组与数组指针"><a href="#指针数组与数组指针" class="headerlink" title="指针数组与数组指针"></a>指针数组与数组指针</h4><p><strong>指针数组</strong>：指针数组可以说成是”指针的数组”，首先这个变量是一个数组，其次，”指针”修饰这个数组，意思是说这个数组的所有元素都是指针类型，在32位系统中，指针占四个字节。</p>
 <p><strong>数组指针</strong>：数组指针可以说成是”数组的指针”，首先这个变量是一个指针，其次，”数组”修饰这个指针，意思是说这个指针存放着一个数组的首地址，或者说这个指针指向一个数组的首地址。（注意<strong>定义了数组指针，该指针指向这个数组的首地址，必须给指针指定一个地址</strong>）</p>
 <p>根据上面的解释，可以了解到指针数组和数组指针的区别，因为二者根本就是不同类型的变量。</p>
@@ -353,7 +369,7 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 例2：std::vector和std::string的实际例子</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::string str1 = <span class="string">&quot;aacasxs&quot;</span>;</span><br><span class="line">    std::vector&lt;std::string&gt; vec;</span><br><span class="line">     </span><br><span class="line">    vec.<span class="built_in">push_back</span>(str1); <span class="comment">// 传统方法，copy</span></span><br><span class="line">    vec.<span class="built_in">push_back</span>(std::<span class="built_in">move</span>(str1)); <span class="comment">// 调用移动语义的push_back方法，避免拷贝，str1会失去原有值，变成空字符串</span></span><br><span class="line">    vec.<span class="built_in">emplace_back</span>(std::<span class="built_in">move</span>(str1)); <span class="comment">// emplace_back效果相同，str1会失去原有值</span></span><br><span class="line">    vec.<span class="built_in">emplace_back</span>(<span class="string">&quot;axcsddcas&quot;</span>); <span class="comment">// 当然可以直接接右值</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// std::vector方法定义</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">push_back</span> <span class="params">(<span class="type">const</span> value_type&amp; val)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">push_back</span> <span class="params">(value_type&amp;&amp; val)</span></span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">emplace_back</span> <span class="params">(Args&amp;&amp;... args)</span></span>;</span><br></pre></td></tr></table></figure>
 
 <p>在vector和string这个场景，加个<code>std::move</code>会调用到移动语义函数，避免了深拷贝。</p>
-<p>除非设计不允许移动，STL类大都支持移动语义函数，即<code>可移动的</code>。 另外，编译器会<strong>默认</strong>在用户自定义的<code>class</code>和<code>struct</code>中生成移动语义函数，但前提是用户没有主动定义该类的<code>拷贝构造</code>等函数(具体规则自行百度哈)。 <strong>因此，可移动对象在&lt;需要拷贝且被拷贝者之后不再被需要&gt;的场景，建议使用</strong><code>std::move</code><strong>触发移动语义，提升性能。</strong></p>
+<p>除非设计不允许移动，STL类大都支持移动语义函数，即<code>可移动的</code>。 另外，编译器会<strong>默认</strong>在用户自定义的<code>class</code>和<code>struct</code>中生成移动语义函数，但前提是用户没有主动定义该类的<code>拷贝构造</code>等函数。 <strong>因此，可移动对象在&lt;需要拷贝且被拷贝者之后不再被需要&gt;的场景，建议使用<code>std::move</code>触发移动语义，提升性能。</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">moveable_objecta = moveable_objectb; </span><br><span class="line"><span class="comment">//改为： </span></span><br><span class="line">moveable_objecta = std::<span class="built_in">move</span>(moveable_objectb);</span><br></pre></td></tr></table></figure>
 
 <p>还有些STL类是<code>move-only</code>的，比如<code>unique_ptr</code>，这种类只有移动构造函数，因此只能移动(转移内部对象所有权，或者叫浅拷贝)，不能拷贝(深拷贝):</p>
@@ -501,6 +517,9 @@
 
 <p>（注意如果类中没有 int a（即为一个空类），类的大小为1个字节，这是为了让对象的实例能够相互区别（如果没有这一个字节的占位，那么空类不能被实例化了，因为实例化的过程就是在内存中分配一块地址））</p>
 <p>可以通过类对象的大小来判断是否类中包含虚函数</p>
+<h4 id="重载和重写的区别"><a href="#重载和重写的区别" class="headerlink" title="重载和重写的区别"></a>重载和重写的区别</h4><p>重载：函数名相同，函数的参数个数、参数类型或参数顺序三者中必须至少有一种不同。函数返回值的类型可以相同，也可以不相同。发生在一个类内部，不能跨作用域。</p>
+<p>重定义：也叫做隐藏，子类重新定义父类中有相同名称的<u>非虚函数</u> ( 参数列表可以不同 ) ，指派生类的函数屏蔽了与其同名的基类函数。可以理解成发生在继承中的重载。</p>
+<p>重写：也叫做覆盖，一般发生在子类和父类继承关系之间。子类重新定义父类中有相同名称和参数的虚函数。(override)</p>
 <h4 id="构造和析构函数中的virtual"><a href="#构造和析构函数中的virtual" class="headerlink" title="构造和析构函数中的virtual"></a>构造和析构函数中的virtual</h4><p><strong>注意不能在构造和析构过程中调用virtual函数</strong>：（effective C++ rule 9）</p>
 <p>（语法上没问题，但是实际效果和想象的不同，不能达到多态的效果）</p>
 <ul>
@@ -682,8 +701,7 @@
 </ul>
 </li>
 </ul>
-<p>不能定义为虚函数的函数</p>
-<p>本质上就是指<strong>哪些类型的函数不能被动态绑定</strong>：</p>
+<h4 id="不能定义为虚函数的函数"><a href="#不能定义为虚函数的函数" class="headerlink" title="不能定义为虚函数的函数"></a>不能定义为虚函数的函数</h4><p>本质上就是指<strong>哪些类型的函数不能被动态绑定</strong>：</p>
 <ul>
 <li>普通函数（非成员函数）：都是在编译期绑定的</li>
 <li>构造函数</li>
@@ -693,14 +711,14 @@
 </ul>
 <h3 id="多重继承"><a href="#多重继承" class="headerlink" title="多重继承"></a>多重继承</h3><h4 id="二义性问题"><a href="#二义性问题" class="headerlink" title="二义性问题"></a>二义性问题</h4><p>在C++中，派生类继承基类，对基类成员的访问应该是确定的、唯一的，但是常常会有以下情况导致访问不一致，产生二义性。</p>
 <ol>
-<li><p>在继承时，基类之间、或基类与派生类之间发生成员同名时，将出现对成员访问的不确定性——同名二义性。（倒三角继承）</p>
+<li><p>在继承时，基类之间、或基类与派生类之间发生成员同名时，将出现对成员访问的不确定性——<u>同名二义性。（倒三角继承）</u></p>
 <p>解决方法：</p>
 <ol>
 <li>利用作用域限定符（::），用来限定子类调用的是哪个父类的成员</li>
 <li>在类中定义同名成员，覆盖掉父类中的相关成员</li>
 </ol>
 </li>
-<li><p>当派生类从多个基类派生，而这些基类又从同一个基类派生，则在访问此共同基类（祖父类）中的成员时，将产生另一种不确定性——路径二义性。（菱形继承）（同时还会导致内存浪费，祖父类的成员被拷贝两份）</p>
+<li><p>当派生类从多个基类派生，而这些基类又从同一个基类派生，则在访问此共同基类（祖父类）中的成员时，将产生另一种不确定性——<u>路径二义性。（菱形继承）</u>（同时还会导致内存浪费，祖父类的成员被拷贝两份）</p>
 </li>
 </ol>
 <h4 id="菱形继承二义性的解决方法-—-虚继承"><a href="#菱形继承二义性的解决方法-—-虚继承" class="headerlink" title="菱形继承二义性的解决方法  — 虚继承"></a>菱形继承二义性的解决方法  — 虚继承</h4><p> 解决方法：</p>
@@ -749,6 +767,14 @@
 <li>成员函数不占用对象的内存。这是因为所有的函数都是存放在代码区的，不管是全局函数，还是成员函数。</li>
 </ul>
 <p>空类(无非静态数据成员)的对象的size为1, 当作为基类时, size为0</p>
+<p><strong>内存对齐为何有效</strong></p>
+<p>内存对齐是按2^n为单位进行对齐</p>
+<p>CPU访问内存时，并不是逐个字节访问，而是以字长（word size）为单位访问。比如32位的CPU，字长为4字节，那么CPU访问内存的单位也是4字节。</p>
+<p>这么设计的目的，是减少CPU访问内存的次数，加大CPU访问内存的吞吐量。比如同样读取8个字节的数据，一次读取4个字节那么只需要读取2次。</p>
+<h4 id="能否用memset初始化一个类"><a href="#能否用memset初始化一个类" class="headerlink" title="能否用memset初始化一个类"></a>能否用memset初始化一个类</h4><p>语法上可行！实际不要这样用！</p>
+<p>memset 某个结构（或其它的数据类型）在C语言中是很常见的代码，其目的是对结构（或其它的数据类型）进行初始化，通常都是将变量置为NULL或者0。</p>
+<p>在C++ 中，针对类对象除了用构造函数初始化对象外，也可以使用memset来进行初始化操作（确实有这种情况，不得已而为之）。但是一定要注意以下所说的这种情况：如果类包含虚函数，则不能用 memset 来初始化类对象。</p>
+<p>因为每个包含虚函数的类对象都有一个指针指向虚函数表（vtbl）。这个指针被用于解决运行时以及动态类型强制转换时虚函数的调用问题。该指针是被隐藏的，对程序员来说，这个指针也是不可存取的。当进行memset操作时，这个指针的值也要被overwrite，这样一来，只要一调用虚函数，程序便崩溃。这在很多由C转向C++的程序员来说，很容易犯这个错误，而且这个错误很难查。<br>为了避免这种情况，记住对于有虚拟函数的类对象，决不能使用 memset 来进行初始化操作。而是要用缺省的构造函数或其它的 init 例程来初始化成员变量。</p>
 <h4 id="C-的内存分区"><a href="#C-的内存分区" class="headerlink" title="C++的内存分区"></a>C++的内存分区</h4><p>C++中的内存分区，分别是堆、栈、自由存储区、全局&#x2F;静态存储区、常量存储区和代码区。如下图所示</p>
 <img src="https://pic.imgdb.cn/item/630b81e916f2c2beb198223f.jpg" style="zoom: 67%;" />
 
@@ -797,6 +823,34 @@
 <li><p><strong>分配效率</strong>：栈是机器系统提供的数据结构，计算机会在底层对栈提供支持：分配专门的寄存器存放栈的地址，压栈出栈都有专门的指令执行，这就决定了栈的效率比较高。堆则是C&#x2F;C++函数库提供的，它的机制是很复杂的，例如为了分配一块内存，库函数会按照一定的算法（具体的算法可以参考数据结构&#x2F;操作系统）在堆内存中搜索可用的足够大小的空间，如果没有足够大小的空间（可能是由于内存碎片太多），就有可能调用系统功能去增加程序数据段的内存空间，这样就有机会分到足够大小的内存，然后进行返回。显然，堆的效率比栈要低得多。</p>
 </li>
 </ul>
+<h4 id="malloc底层实现及原理"><a href="#malloc底层实现及原理" class="headerlink" title="malloc底层实现及原理"></a>malloc底层实现及原理</h4><p><strong>首先看内存空间分布</strong></p>
+<img src="C:\Users\win10\AppData\Roaming\Typora\typora-user-images\image-20220922075452731.png" alt="image-20220922075452731" style="zoom:80%;" />
+
+<ul>
+<li><p>32位系统，寻址空间是4G，linux系统下0-3G是用户模式，3-4G是内核模式。而在用户模式下又分为代码段、数据段、.bss段、堆、栈。各个segment所含内容在图中有具体说明。</p>
+</li>
+<li><p>bss段：存放未初始化的全局变量和局部静态变量。</p>
+</li>
+<li><p>数据段：存放已经初始化的全局变量和局部静态变量。</p>
+</li>
+<li><p>栈段：存放局部变量。</p>
+</li>
+</ul>
+<p>可以看到heap段位于bss下方，而其中有个重要的标志：program break。Linux维护一个break指针，这个指针指向堆空间的某个地址。从堆起始地址到break之间的地址空间为映射好的，可以供进程访问；而从break往上，是未映射的地址空间，如果访问这段空间则程序会报错。我们用malloc进行内存分配就是从break往上进行的。</p>
+<p>进程所面对的虚拟内存地址空间，只有按页映射到物理内存地址，才能真正使用。受物理存储容量限制，整个堆虚拟内存空间不可能全部映射到实际的物理内存。</p>
+<p>Linux对堆的管理示意如下：</p>
+<img src="https://pic.imgdb.cn/item/632ba99c16f2c2beb1bb138a.jpg" style="zoom:80%;" />
+
+<p>获取了break地址，也就是内存申请的初始地址，下面是malloc的整体实现方案：</p>
+<ul>
+<li>malloc 函数的实质是它有一个将可用的内存块连接为一个长长的列表的所谓空闲链表。</li>
+<li>调用 malloc() 函数时，它沿着链表寻找一个大到足以满足用户请求所需要的内存块。 </li>
+<li>然后，将该内存块一分为二（一块的大小与用户申请的大小相等，另一块的大小就是剩下来的字节）。 </li>
+<li>接下来，将分配给用户的那块内存存储区域传给用户，并将剩下的那块（如果有的话）返回到连接表上。 </li>
+<li>调用 free 函数时，首先搜索空闲链表，找到可以插入被释放块的合适位置。如果与被释放块相邻的任一边是一个空闲块，则将这两个块合为一个更大的块，以减少内存碎片</li>
+<li>到最后，空闲链会被切成很多的小内存片段，如果这时用户申请一个大的内存片段， 那么空闲链表上可能没有可以满足用户要求的片段了。于是，malloc() 函数请求延时，并开始在空闲链表上检查各内存片段，对它们进行内存整理，将相邻的小空闲块合并成较大的内存块。</li>
+</ul>
+<p>因为brk、sbrk、mmap都属于<strong>系统调用</strong>，若每次申请内存，都调用这三个，那么每次都会产生系统调用，影响性能；其次，这样申请的内存容易产生碎片，因为堆是从低地址到高地址，如果高地址的内存没有被释放，低地址的内存就不能被回收。<br> 所以malloc采用的是<strong>内存池的管理方式（ptmalloc）</strong>，Ptmalloc 采用<strong>边界标记法</strong>将内存划分成很多<strong>块</strong>，从而对内存的分配与回收进行管理。为了内存分配函数malloc的高效性，ptmalloc会<strong>预先</strong>向操作系统申请一块内存供用户使用，当我们申请和释放内存的时候，ptmalloc会将这些内存管理起来，并通过一些策略来<strong>判断是否将其回收给操作系统</strong>。这样做的最大好处就是，使用户<strong>申请和释放内存</strong>的时候更加<strong>高效</strong>，避免产生过多的<strong>内存碎片</strong>。</p>
 <h4 id="内存池"><a href="#内存池" class="headerlink" title="内存池"></a>内存池</h4><p>内存池（Memory Pool） 是一种<strong>内存分配</strong>方式。</p>
 <p>通常我们习惯直接使用new、malloc 等申请内存，这样做的缺点在于：</p>
 <ul>
@@ -808,6 +862,7 @@
 <li>这样做的一个显著优点是尽量避免了内存碎片，使得内存分配效率得到提升。</li>
 </ul>
 <p><strong>《STL源码剖析》中的内存池实现机制</strong>：</p>
+<p>每次配置一大块内存，并维护对应的自由链表free-list，内存分配和回收都方法哦free-lists中。</p>
 <p><strong>allocate 包装 malloc，deallocate包装free</strong></p>
 <p>一般是一次20*2个的申请，先用一半，留着一半，为什么也没个说法，侯捷在STL那边书里说好像是C++委员会成员认为20是个比较好的数字，既不大也不小。</p>
 <ol>
@@ -831,7 +886,7 @@
 </li>
 <li><p>new操作符在分配失败的时候会抛出bad_alloc异常，malloc在分配内存失败时返回NULL</p>
 </li>
-<li><p>new操作符从自由存储区（默认为堆，和C相同，可以通过重载操作符来改用其他内存来实现自由存储）（free store）上位对象动态分配内存空间，允许重载new&#x2F;delete操作符。malloc函数从堆上动态分配内存，malloc不允许被重载。</p>
+<li><p><u>new操作符从自由存储区（默认为堆，和C相同，可以通过重载操作符来改用其他内存来实现自由存储）</u>（free store）上位对象动态分配内存空间，允许重载new&#x2F;delete操作符。malloc函数从堆上动态分配内存，malloc不允许被重载。</p>
 </li>
 <li><p>new会先调用operator new函数，申请足够的内存（通常底层由malloc实现）。然后调用类型的构造函数，初始化成员变量，最后返回自定义类型的指针。</p>
 </li>
@@ -857,7 +912,7 @@
 <p>另外：</p>
 <ul>
 <li>使用malloc分配内存时候根据参数指定的大小，分配一块内存，然后返回这块内存的起始位置给调用者，这就是调用者拿到的所谓的指针。</li>
-<li><strong>起始这个指针并不是真正的起始位置</strong>，真正的指针在malloc返回指针 p 的前面，内存分配器<strong>在 p 的前面用两个字节的空间来存放分配的内存大小信息</strong>。</li>
+<li><strong>其实这个指针并不是真正的起始位置</strong>，真正的指针在malloc返回指针 p 的前面，内存分配器<strong>在 p 的前面用两个字节的空间来存放分配的内存大小信息</strong>。</li>
 </ul>
 <p><strong>是否可以混用</strong>：</p>
 <ul>
@@ -869,6 +924,44 @@
 </ul>
 </li>
 </ul>
+<p><strong>new []&#x2F;delete []</strong></p>
+<p>用new分配一个数组之后，之后用delete[]释放掉，那这个delete怎么知道应该释放多大一片内存呢？</p>
+<ul>
+<li><code>new int[10]</code>时，malloc本应该申请10个A类型大小的空间,也就是40个字节，但是此时malloc实际上申请了44个字节，new返回的指针是malloc返回的指针向后偏移4个字节的地址。</li>
+<li>这4个字节存放着所申请自定义元素的个数。</li>
+</ul>
+<p><strong>delete[]的原理</strong>:：</p>
+<ul>
+<li>delete[]会把new[]所返回的指针<u>向前偏移4个字节的地址返回给free</u>，因此free就能正确的释放掉整片空间。</li>
+<li>多出来4个字节保存着自定义元素的个数的作用:<ul>
+<li>一个对象在释放空间前<u>需要调用析构函数来完成一些资源的清理工作</u>。那么问题来了,delete[] 没有像new A[10]传参进去,delete[]怎么知道调用多少次析构。</li>
+<li>其实<u>多出来的4个字节存的元素个数,就是用来让delete[]知道调用多少次析构函数的</u>。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">【注】对于没有自定义析构器的class或者struct，在delete时不需要调用其析构器，</span><br><span class="line">所以可以将整块数组当成一个整体来处理，也就可以使用delete直接释放这一整块内存空间。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">【注】而对于自定义了析构器的class或者struct，在delete时需要逐个调用其析构器，</span><br><span class="line">所以需要有标识位记录数组大小，然后通过数组大小来逐个调用其析构器，再释放内存。</span><br></pre></td></tr></table></figure>
+
+<h4 id="重载new-x2F-delete"><a href="#重载new-x2F-delete" class="headerlink" title="重载new&#x2F;delete"></a>重载new&#x2F;delete</h4><p>因为<code>new</code>是关键字，我们本应该无法修改<code>new</code>分配内存的方式。由于<code>new</code>在分配内存时，调用<code>operator new</code>。所以重载<code>operator new</code>就可以修改分配内存的方式了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">(std::<span class="type">size_t</span> size)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;operator new&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">        <span class="keyword">return</span> std::<span class="built_in">malloc</span>(size);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Foo* m = <span class="keyword">new</span> Foo;</span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">sizeof</span>(m) &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">delete</span> m;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>operator new</code>返回值必须是<code>void*</code>。第一个参数必须是<code>size_t</code>，还可加其它参数，下文讨论。</p>
+<p><code>operator new</code>重载可以放在全局中，也可以放到类内部。当编译器发现有<code>new</code>关键字，就会现在类和其基类中寻找<code>operator new</code>，找不到就在全局中找，再找不到就用默认的。</p>
+<p>在类中的<code>operator new</code>默认就是<code>static</code>。所以加<code>static</code>可以，不加也是全局，可以正常使用。</p>
+<p><strong><code>operator new</code> 加入其它形参</strong></p>
+<p>上文说到<code>operator new</code>第一个参数必须是<code>size_t</code>并且可以重载加入其它形参。</p>
+<p>这就引出<code>placement new</code>。原型是这样：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">(std::<span class="type">size_t</span> size, <span class="type">void</span>* ptr)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;placement new&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">        <span class="keyword">return</span> ptr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Foo* m = <span class="keyword">new</span> Foo;</span><br><span class="line">    Foo* m2 = <span class="built_in">new</span>(m) Foo;</span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">sizeof</span>(m) &lt;&lt; std::endl;</span><br><span class="line">    <span class="comment">// delete m2;</span></span><br><span class="line">    <span class="keyword">delete</span> m;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>placement new</code>就是<code>operator new</code>重载的一种形式。上文说到，<code>operator new</code>的主要作用就是分配空间，初始化对象的工作是<code>new</code>关键字的。</p>
+<p>经过这样重载，<code>placement new</code>完全没有分配新的空间，而是把<code>ptr</code>的地址传了出去。由于调用构造函数的工作是<code>new</code>关键字，所以<code>placement new</code>不影响对象初始化。</p>
+<p><code>placement new</code>由于不需要申请新内存和释放旧内存。所以在内存池中，意外的便捷。</p>
+<p>在上面代码中，我将<code>delete m2</code>注释掉了。在看到这里的时候，应该明白若不注释将会发生什么。</p>
+<p><code>operator new</code>还可以有其它的形参，并且有很大的自由度。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">(std::<span class="type">size_t</span> size, <span class="type">int</span> num)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;operator new&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;num is &quot;</span> &lt;&lt; num &lt;&lt; std::endl;</span><br><span class="line">        <span class="keyword">return</span> std::<span class="built_in">malloc</span>(size);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Foo* m = <span class="built_in">new</span>(<span class="number">100</span>) Foo;</span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">sizeof</span>(m) &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">delete</span> m;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如这个例子。参数的个数没有限制的，往后面加即可。</p>
 <h4 id="内存问题"><a href="#内存问题" class="headerlink" title="内存问题"></a>内存问题</h4><p>C++ 里可能出现的内存问题大致有这么几个方面：</p>
 <ul>
 <li>缓冲区溢出（buffer overrun）。<ul>
@@ -893,7 +986,17 @@
 </li>
 <li>内存碎片（memory fragmentation）。</li>
 </ul>
-<h4 id="内存泄漏相关："><a href="#内存泄漏相关：" class="headerlink" title="内存泄漏相关："></a>内存泄漏相关：</h4><p><strong>概念</strong></p>
+<p><strong>重载<code>operator delete</code></strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="type">void</span>* ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;operator delete&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    std::<span class="built_in">free</span>(ptr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>delete</code>与<code>new</code>类似，只不过返回值必须为<code>void</code>。</p>
+<p>值得多提一嘴的是，虽然<code>operator delete</code>重载和<code>operator new</code>相同，但一般不会重载<code>operator delete</code>。</p>
+<p>根本原因是重载后的<code>delete</code>不可手动调用。例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="type">void</span>* ptr， <span class="type">int</span> num)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;operator delete&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    std::<span class="built_in">free</span>(ptr);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">delete</span>(<span class="number">10</span>) p;    <span class="comment">// 不合法的</span></span><br></pre></td></tr></table></figure>
+
+<p>这样调用是不合法的。</p>
+<p>这种重载的意义是和重载<code>operator new</code>配套。只有<code>operator new</code>报异常了，就会调用对应的<code>operator delete</code>。若没有对应的<code>operator delete</code>，则无法释放内存。</p>
+<h4 id="内存泄漏相关"><a href="#内存泄漏相关" class="headerlink" title="内存泄漏相关"></a>内存泄漏相关</h4><p><strong>概念</strong></p>
 <ul>
 <li>内存泄漏是指由于疏忽或错误造成了<u>程序未能释放掉不再使用的内存</u>的情况。</li>
 <li>内存泄漏并非指内存在物理上消失，而是应用程序分配某段内存后，由于设计错误，<u>失去了对该段内存的控制</u>；</li>
@@ -932,7 +1035,7 @@
 <h3 id="STL相关"><a href="#STL相关" class="headerlink" title="STL相关"></a>STL相关</h3><h4 id="clear-是否调用析构函数"><a href="#clear-是否调用析构函数" class="headerlink" title="clear()是否调用析构函数"></a>clear()是否调用析构函数</h4><p>vector和list的clear()函数是否会调用析构函数？</p>
 <ul>
 <li>如果<u>vector中存储了对象的指针</u>，调用clear后，并不会调用这些指针所指对象析构函数，因此要在clear之前调用delete（否则会有内存泄漏的风险）；</li>
-<li>如果<u>vector存储的是对象</u>，调用clear后，自建类型的对象(int之类的)直接删除，若是外部类型，则调用析构函数。</li>
+<li>如果<u>vector存储的是对象</u>，调用clear后，自建类型的对象(int之类的)直接删除，若是外部类型，则调用析构函数（destroy）。</li>
 </ul>
 <h4 id="STL迭代器如何实现"><a href="#STL迭代器如何实现" class="headerlink" title="STL迭代器如何实现"></a>STL迭代器如何实现</h4><ul>
 <li>迭代器是一种抽象的设计理念，通过迭代器可以在不了解容器内部原理的情况下遍历容器，除此之外，STL中迭代器一个最重要的作用就是作为容器与STL算法的粘合剂。</li>
@@ -940,12 +1043,13 @@
 <li>最常用的迭代器的相应型别有五种：value type、difference type、pointer、reference、iterator category;</li>
 </ul>
 <h4 id="迭代器：-it、it-哪个好，为什么"><a href="#迭代器：-it、it-哪个好，为什么" class="headerlink" title="迭代器：++it、it++哪个好，为什么"></a>迭代器：++it、it++哪个好，为什么</h4><p>前置返回一个引用，后置返回一个对象</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ++i实现代码为：</span></span><br><span class="line"><span class="type">int</span>&amp; <span class="keyword">operator</span>++()</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">  *<span class="keyword">this</span> += <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ++i实现代码为：</span></span><br><span class="line"><span class="type">int</span>&amp; <span class="keyword">operator</span>++()&#123;</span><br><span class="line">  *<span class="keyword">this</span> += <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
 
 <p>前置不会产生临时对象，后置会产生临时对象，临时对象会导致效率降低</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//i++实现代码为：                 </span></span><br><span class="line"><span class="type">int</span> <span class="keyword">operator</span>++(<span class="type">int</span>)                 </span><br><span class="line">&#123;</span><br><span class="line">   <span class="type">int</span> temp = *<span class="keyword">this</span>;                   </span><br><span class="line"></span><br><span class="line">   ++*<span class="keyword">this</span>;                       </span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> temp;                  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//i++实现代码为：                 </span></span><br><span class="line"><span class="type">int</span> <span class="keyword">operator</span>++(<span class="type">int</span>)                 &#123;</span><br><span class="line">   <span class="type">int</span> temp = *<span class="keyword">this</span>;                   </span><br><span class="line"></span><br><span class="line">   ++*<span class="keyword">this</span>;                       </span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> temp;                  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
 
-<h4 id="STL中的allocator、deallocator"><a href="#STL中的allocator、deallocator" class="headerlink" title="STL中的allocator、deallocator"></a>STL中的allocator、deallocator</h4><ol>
+<h4 id="STL中的allocator、deallocator"><a href="#STL中的allocator、deallocator" class="headerlink" title="STL中的allocator、deallocator"></a>STL中的allocator、deallocator</h4><p>当我们初始化容器时不传入allocator时，那就自动使用STL默认的allocator</p>
+<ol>
 <li>第一级配置器直接使用malloc()、free()和relloc()，第二级配置器视情况采用不同的策略：<ul>
 <li>当配置区块超过128bytes时，视之为足够大，便调用第一级配置器；</li>
 <li>当配置器区块小于128bytes时，为了降低额外负担，使用复杂的内存池整理方式，而不再用一级配置器；</li>
@@ -954,6 +1058,7 @@
 <li>第二级配置器主动将任何小额区块的内存需求量上调至8的倍数，并维护16个free-list，各自管理大小为8~128bytes的小额区块；</li>
 <li>空间配置函数allocate()，首先判断区块大小，大于128就直接调用第一级配置器，小于128时就检查对应的free-list。如果free-list之内有可用区块，就直接拿来用，如果没有可用区块，就将区块大小调整至8的倍数，然后调用refill()，为free-list重新分配空间；</li>
 <li>空间释放函数deallocate()，该函数首先判断区块大小，大于128bytes时，直接调用一级配置器，小于128bytes就找到对应的free-list然后释放内存。</li>
+<li>内存池中一共有16个free-lists，各自管理8,16,24,32,40……128bytes的小额区块</li>
 </ol>
 <h3 id="C-11新特性"><a href="#C-11新特性" class="headerlink" title="C++11新特性"></a>C++11新特性</h3><p>总结几个关键的：</p>
 <ul>
@@ -1028,11 +1133,50 @@
 <p>auto_ptr有拷贝语义，拷贝后源对象变得无效，这可能引发很严重的问题；而unique_ptr则无拷贝语义，但提供了移动语义，这样的错误不再可能发生，因为很明显必须使用std::move()进行转移。</p>
 <p>auto_ptr不支持拷贝和赋值操作，不能用在STL标准容器中。STL容器中的元素经常要支持拷贝、赋值操作，在这过程中auto_ptr会传递所有权，所以不能在STL中使用。</p>
 <p><strong>智能指针shared_ptr代码实现：</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SharedPtr</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">SharedPtr</span>(T* ptr = <span class="literal">NULL</span>):_ptr(ptr), _pcount(<span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">1</span>))</span><br><span class="line">	&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">SharedPtr</span>(<span class="type">const</span> SharedPtr&amp; s):_ptr(s._ptr), _pcount(s._pcount)&#123;</span><br><span class="line">		(*_pcount)++;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	SharedPtr&lt;T&gt;&amp; <span class="keyword">operator</span>=(<span class="type">const</span> SharedPtr&amp; s)&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span> != &amp;s)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (--(*(<span class="keyword">this</span>-&gt;_pcount)) == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">delete</span> <span class="keyword">this</span>-&gt;_ptr;</span><br><span class="line">				<span class="keyword">delete</span> <span class="keyword">this</span>-&gt;_pcount;</span><br><span class="line">			&#125;</span><br><span class="line">			_ptr = s._ptr;</span><br><span class="line">			_pcount = s._pcount;</span><br><span class="line">			*(_pcount)++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	T&amp; <span class="keyword">operator</span>*()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> *(<span class="keyword">this</span>-&gt;_ptr);</span><br><span class="line">	&#125;</span><br><span class="line">	T* <span class="keyword">operator</span>-&gt;()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>-&gt;_ptr;</span><br><span class="line">	&#125;</span><br><span class="line">	~<span class="built_in">SharedPtr</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		--(*(<span class="keyword">this</span>-&gt;_pcount));</span><br><span class="line">		<span class="keyword">if</span> (*(<span class="keyword">this</span>-&gt;_pcount) == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">delete</span> _ptr;</span><br><span class="line">			_ptr = <span class="literal">NULL</span>;</span><br><span class="line">			<span class="keyword">delete</span> _pcount;</span><br><span class="line">			_pcount = <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	T* _ptr;</span><br><span class="line">	<span class="type">int</span>* _pcount;<span class="comment">//指向引用计数的指针</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">sharedPtr</span>&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    T * ptr;</span><br><span class="line">    <span class="type">int</span> * count;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">sharedPtr</span>():<span class="built_in">ptr</span>(<span class="literal">nullptr</span>),<span class="built_in">count</span>(<span class="literal">nullptr</span>)&#123;&#125;</span><br><span class="line">    <span class="built_in">sharedPtr</span>(T* p):<span class="built_in">ptr</span>(p),<span class="built_in">count</span>(<span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">1</span>))&#123;&#125;</span><br><span class="line">    <span class="built_in">sharedPtr</span>(<span class="type">const</span> sharedPtr&amp; s): <span class="built_in">ptr</span>(s.ptr),<span class="built_in">count</span>(s.count)&#123;</span><br><span class="line">        ++(*count);</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="built_in">SharedPtr</span>()&#123;</span><br><span class="line">        <span class="keyword">if</span>(count == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">		--(*count);</span><br><span class="line">		<span class="keyword">if</span> (*count == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">delete</span> ptr;</span><br><span class="line">			ptr = <span class="literal">nullptr</span>;</span><br><span class="line">			<span class="keyword">delete</span> count;</span><br><span class="line">			count = <span class="literal">nullptr</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">    SharedPtr&lt;T&gt;&amp; <span class="keyword">operator</span>=(<span class="type">const</span> SharedPtr&amp; s)&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span> != &amp;s)&#123;</span><br><span class="line">			<span class="keyword">if</span> (--(*count) == <span class="number">0</span>)&#123;</span><br><span class="line">				<span class="keyword">delete</span> ptr;</span><br><span class="line">				<span class="keyword">delete</span> pcount;</span><br><span class="line">			&#125;</span><br><span class="line">			ptr = s.ptr;</span><br><span class="line">			count = s.count;</span><br><span class="line">			++(*count);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="built_in">sharedPtr</span>(<span class="type">const</span> sharedPtr&amp;&amp; dyingS): <span class="built_in">ptr</span>(<span class="literal">nullptr</span>),<span class="built_in">count</span>(<span class="literal">nullptr</span>)&#123;</span><br><span class="line">        dyingS.<span class="built_in">swap</span>(*<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    SharedPtr&lt;T&gt;&amp; <span class="keyword">operator</span>=(<span class="type">const</span> SharedPtr&amp;&amp; dyingS)&#123;</span><br><span class="line">        <span class="comment">//用移动构造函数创建出一个新的shared_ptr(此时dying_obj的内容被清除了)</span></span><br><span class="line">        <span class="comment">//再和this交换指针和引用计数</span></span><br><span class="line">        <span class="comment">//因为this的内容被交换到了当前的临时创建的my_shared_ptr里，原this指向的引用计数-1</span></span><br><span class="line">		<span class="built_in">sharedPtr</span>(std::<span class="built_in">move</span>(dyingS).<span class="built_in">swap</span>(*<span class="keyword">this</span>));</span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">swap</span><span class="params">(sharedPtr&amp; other)</span></span>&#123;</span><br><span class="line">        std::<span class="built_in">swap</span>(ptr,other.ptr);</span><br><span class="line">        std::<span class="built_in">swap</span>(count,other.count);</span><br><span class="line">    &#125;</span><br><span class="line">    T&amp; <span class="keyword">operator</span>*()&#123;</span><br><span class="line">		<span class="keyword">return</span> *ptr;</span><br><span class="line">	&#125;</span><br><span class="line">	T* <span class="keyword">operator</span>-&gt;()&#123;</span><br><span class="line">		<span class="keyword">return</span> ptr;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">get_count</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> *count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>shared_ptr的基本用法</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdafx.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;future&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;thread&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Person</span>(<span class="type">int</span> v) &#123;</span><br><span class="line">        value = v;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Cons&quot;</span> &lt;&lt;value&lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="built_in">Person</span>() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Des&quot;</span> &lt;&lt;value&lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> value;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">std::shared_ptr&lt;Person&gt; <span class="title">p1</span><span class="params">(<span class="keyword">new</span> Person(<span class="number">1</span>))</span></span>;<span class="comment">// Person(1)的引用计数为1</span></span><br><span class="line"></span><br><span class="line">    std::shared_ptr&lt;Person&gt; p2 = std::<span class="built_in">make_shared</span>&lt;Person&gt;(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    p1.<span class="built_in">reset</span>(<span class="keyword">new</span> <span class="built_in">Person</span>(<span class="number">3</span>));<span class="comment">// 首先生成新对象，然后引用计数减1，引用计数为0，故析构Person(1)</span></span><br><span class="line">                            <span class="comment">// 最后将新对象的指针交给智能指针</span></span><br><span class="line"></span><br><span class="line">    std::shared_ptr&lt;Person&gt; p3 = p1;<span class="comment">//现在p1和p3同时指向Person(3)，Person(3)的引用计数为2</span></span><br><span class="line"></span><br><span class="line">    p1.<span class="built_in">reset</span>();<span class="comment">//Person(3)的引用计数为1</span></span><br><span class="line">    p3.<span class="built_in">reset</span>();<span class="comment">//Person(3)的引用计数为0，析构Person(3)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过 shared_ptr 的构造函数，可以让 shared_ptr 对象托管一个 new 运算符返回的指针，写法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shared_ptr&lt;T&gt; <span class="title function_">ptr</span>(<span class="keyword">new</span> T); </span><br></pre></td></tr></table></figure>
 
+<p>此后，ptr 就可以像 T* 类型的指针一样使用，即 *ptr 就是用 new 动态分配的那个对象。</p>
+<p>多个 shared_ptr 对象可以共同托管一个指针 p，当所有曾经托管 p 的 shared_ptr 对象都解除了对其的托管时，就会执行<code>delete p</code>。</p>
+<p>例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdafx.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;future&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;thread&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Person</span>(<span class="type">int</span> v) &#123;</span><br><span class="line">        value = v;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Cons&quot;</span> &lt;&lt;value&lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="built_in">Person</span>() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Des&quot;</span> &lt;&lt;value&lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> value;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function">std::shared_ptr&lt;Person&gt; <span class="title">p1</span><span class="params">(<span class="keyword">new</span> Person(<span class="number">1</span>))</span></span>;<span class="comment">// Person(1)的引用计数为1</span></span><br><span class="line"></span><br><span class="line">    std::shared_ptr&lt;Person&gt; p2 = std::<span class="built_in">make_shared</span>&lt;Person&gt;(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    p1.<span class="built_in">reset</span>(<span class="keyword">new</span> <span class="built_in">Person</span>(<span class="number">3</span>));<span class="comment">// 首先生成新对象，然后引用计数减1，引用计数为0，故析构Person(1)</span></span><br><span class="line">                            <span class="comment">// 最后将新对象的指针交给智能指针</span></span><br><span class="line"></span><br><span class="line">    std::shared_ptr&lt;Person&gt; p3 = p1;<span class="comment">//现在p1和p3同时指向Person(3)，Person(3)的引用计数为2</span></span><br><span class="line"></span><br><span class="line">    p1.<span class="built_in">reset</span>();<span class="comment">//Person(3)的引用计数为1</span></span><br><span class="line">    p3.<span class="built_in">reset</span>();<span class="comment">//Person(3)的引用计数为0，析构Person(3)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="单例模式实现"><a href="#单例模式实现" class="headerlink" title="单例模式实现"></a>单例模式实现</h4><p><strong>懒汉式（第一次获取实例才创建），非线程安全实现</strong>（在执行过程中，可能会有多个线程同时进行 <code>instance == nullptr</code> 的判断，这种情况就也可能会创建出多个实例，违背单例模式初衷。）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="type">static</span> Singleton* <span class="title">getInstance</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(instance == <span class="literal">nullptr</span>) </span><br><span class="line">			instance = <span class="keyword">new</span> <span class="built_in">Singleton</span>();</span><br><span class="line">		<span class="keyword">return</span> instance;</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="type">static</span> Singleton* instance = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">Singleton</span>() &#123;&#125; = <span class="keyword">default</span>;</span><br><span class="line">	~<span class="built_in">Singleton</span>() &#123;&#125; = <span class="keyword">default</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//防止拷贝和赋值</span></span><br><span class="line">	<span class="built_in">Singleton</span>(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">	Singleton&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>懒汉式，线程安全实现</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;mutex&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="type">static</span> Singleton* <span class="title">getInstance</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(instance == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">			m.<span class="built_in">lock</span>();</span><br><span class="line">            <span class="keyword">if</span>(instance == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            	instance = <span class="keyword">new</span> <span class="built_in">Singleton</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        	m.<span class="built_in">unlock</span>();</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="keyword">return</span> instance;</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="type">static</span> Singleton* instance = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="type">static</span> std::mutex m;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">Singleton</span>() &#123;&#125; = <span class="keyword">default</span>;</span><br><span class="line">	~<span class="built_in">Singleton</span>() &#123;&#125; = <span class="keyword">default</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//防止拷贝和赋值</span></span><br><span class="line">	<span class="built_in">Singleton</span>(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">	Singleton&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>饿汉式（第一次获取实例前就已创建好）</strong></p>
+<p>故在性能需求较高时，应使用这种模式，避免频繁的锁争夺</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> Singleton* <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> Singleton* instance = <span class="keyword">new</span> <span class="built_in">Singleton</span>();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="C-程序编译过程"><a href="#C-程序编译过程" class="headerlink" title="C++程序编译过程"></a>C++程序编译过程</h4><p><strong>一步到位</strong><br>使用gcc命令可以一步将main.c源文件编译生成最终的可执行文件main_direct</p>
+<p><code>gcc main.c –o main_direct</code></p>
+<p><strong>分步执行</strong><br>gcc的编译流程通常认为包含以下四个步骤，实际上就是将上面的命令分成4步执行，这也是gcc命令实际的操作流程，生成的可执行文件main与上面单条命令生成的可执行文件main_direct是一模一样的</p>
+<ul>
+<li>预处理，生成预编译文件（.i文件）：<code>gcc –E main.c –o main.i</code><ul>
+<li>根据以字符#开头的命令，修改原始的程序</li>
+</ul>
+</li>
+<li>编译，生成汇编代码（.s文件）：<code>gcc –S main.i –o main.s</code></li>
+<li>汇编，生成目标文件（.o文件）：<code>gcc –c main.s –o main.o</code></li>
+<li>链接，生成可执行文件（executable文件）：<code>gcc main.o –o main</code></li>
+</ul>
+<p><strong>预处理阶段</strong>主要做以下几个方面的工作：</p>
+<ol>
+<li><u>文件包含</u>：#include 是 C 程序设计中最常用的预处理指令，格式有尖括号 #include &lt;xxx.h&gt; 和双引号 #include “xxx.h” 之分，分别表示从系统目录下查找和优先在当前目录查找，例如常用的 #include &lt;stdio.h&gt; 指令，就表示使用 stdio.h 文件中的全部内容，替换该行指令。</li>
+<li><u>添加行号和文件名标识</u>： 比如在文件main.i中就有类似 # 2 “main.c” 2 的内容，以便于编译时编译器产生调试用的行号信息及用于编译时产生编译错误或警告时能够显示行号。</li>
+<li><u>宏定义展开及处理</u>： 预处理阶段会将使用 #define A 100 定义的常量符号进行等价替换，文中所有的宏定义符号A都会被替换成100，还会将一些内置的宏展开，比如用于显示文件全路径的__FILE__，另外还可以使用 #undef 删除已经存在的宏，比如 #undef A 就是删除之前定义的宏符号A。</li>
+<li><u>条件编译处理</u>：如 #ifdef，#ifndef，#else，#elif，#endif等，这些条件编译指令的引入使得程序员可以通过定义不同的宏来决定编译程序对哪些代码进行处理，将那些不必要的代码过滤掉，防止文件重复包含等。</li>
+<li><u>清理注释内容</u>： &#x2F;&#x2F; xxx 和 &#x2F;*xxx*&#x2F; 所产生的的注释内容在预处理阶段都会被删除，因为这些注释对于编写程序的人来说是用来记录和梳理逻辑代码的，但是对编译程序来说几乎没有任何用处，所以会被删除，观察 main.i 文件也会发现之前的注释都被删掉了。</li>
+<li><u>特殊控制处理</u>：保留编译器需要使用 #pragma 编译器指令，另外还有用于输出指定的错误信息，通常来调试程序的 #error 指令。</li>
+</ol>
+<p><strong>编译</strong></p>
+<p>编译过程是整个程序构建的核心部分，也是最复杂的部分之一，其工作就是把预处理完生成的 .i 文件进行一系列的词法分析、语法分析、语义分析以及优化后产生相应的汇编代码文件，也就是 .s 文件，这个过程调用的处理程序一般是 cc 或者 ccl。汇编语言是非常有用的，因为它给不同高级语言的不同编译器提供了可选择的通用的输出语言，比如 C 和 Fortran 编译产生的输出文件都是汇编语言。</p>
  
       <!-- reward -->
       

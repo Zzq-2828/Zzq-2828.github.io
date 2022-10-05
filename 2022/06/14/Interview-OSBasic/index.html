@@ -298,10 +298,10 @@
 <img src="https://pic.imgdb.cn/item/62a8574c09475431296a5c0c.jpg" style="zoom: 80%;" /></li>
 </ul>
 <h4 id="进程间的通信方式"><a href="#进程间的通信方式" class="headerlink" title="进程间的通信方式"></a>进程间的通信方式</h4><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c1015f5ffa74">参考文章</a></p>
-<p>每个进程各自有不同的用户地址空间，任何一个进程的全局变量在另一个进程中都看不到，所以<u>进程之间要交换数据必须通过内核</u>，<u>在内核中开辟一块缓冲区</u>，进程1把数据从用户空间拷到内核缓冲区，进程2再从内核缓冲区把数据读走，内核提供的这种机制称为<strong>进程间通信（IPC，InterProcess Communication）</strong></p>
+<p>每个进程各自有不同的用户地址空间，任何一个进程的全局变量在另一个进程中都看不到，所以<u>进程之间要交换数据必须通过内核</u>，<u>在内核中开辟一块缓冲区</u>，进程1把数据从用户空间拷到内核缓冲区，进程2再从内核缓冲区把数据读走，内核提供的这种机制称为<u>进程间通信（IPC，InterProcess Communication）</u></p>
 <p>几种方式：</p>
 <ol>
-<li><strong>管道&#x2F;匿名管道(Pipes)</strong> ：用于<u>具有亲缘关系的父子进程间或者兄弟进程之间</u>的通信。半双工、数据只能一个方向流动</li>
+<li><strong>管道&#x2F;匿名管道(Pipes)</strong> ：用于<u>具有亲缘关系的父子进程间或者兄弟进程之间</u>的通信。半双工、数据只能一个方向流动。</li>
 <li><strong>有名管道(Names Pipes)</strong> : 匿名管道由于没有名字，只能用于亲缘关系的进程间通信。为了克服这个缺点，提出了有名管道。有名管道严格遵循**先进先出(first in first out)**。有名管道以磁盘文件的方式存在，可以实现本机任意两个进程通信。</li>
 <li><strong>信号(Signal)</strong> ：信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生；</li>
 <li><strong>消息队列(Message Queuing)</strong> ：<ul>

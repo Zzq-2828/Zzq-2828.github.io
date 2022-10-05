@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="朱章齐的个人技术网站" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>CS144 |  Keep Making Progress</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Keep Making Progress" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-CS144"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  CS144
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/10/04/CS144/" class="article-date">
+  <time datetime="2022-10-04T04:16:37.000Z" itemprop="datePublished">2022-10-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Web/">Web</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">18 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>本文介绍了对Stanford的经典计网课程<a target="_blank" rel="noopener" href="https://cs144.github.io/">CS144</a>的相关实验的学习和完成记录。</p>
+<span id="more"></span>
+
+<h2 id="环境测试"><a href="#环境测试" class="headerlink" title="环境测试"></a>环境测试</h2><p>注意这里我没办法在自己的centos7下顺利完成所有的环境搭建，估计是centos版本不够，导致很多默认的应用版本都没有达到要求。无奈选择购买一台阿里云服务器，使用centos8.5系统，顺利完成所有环境搭建。</p>
+<p>121.199.60.140</p>
+<p><strong>安装telnet</strong></p>
+<p>测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[zhangqi@localhost ~]$ telnet cs144.keithw.org http</span><br><span class="line">Trying 104.196.238.229...</span><br><span class="line">Connected to cs144.keithw.org.</span><br><span class="line">Escape character is <span class="string">&#x27;^]&#x27;</span>.</span><br></pre></td></tr></table></figure>
+
+<p>继续输入http request，结束后多输一个空行，表示请求输入完毕</p>
+<p>该请求等同于在浏览器输入 <code>http://cs144.keithw.org/hello</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET /hello HTTP/1.1 </span><br><span class="line">Host: cs144.keithw.org</span><br><span class="line">Connection: close</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看到http的返回</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Tue, 04 Oct 2022 05:42:33 GMT</span><br><span class="line">Server: Apache</span><br><span class="line">Last-Modified: Thu, 13 Dec 2018 15:45:29 GMT</span><br><span class="line">ETag: <span class="string">&quot;e-57ce93446cb64&quot;</span></span><br><span class="line">Accept-Ranges: bytes</span><br><span class="line">Content-Length: 14</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: text/plain</span><br><span class="line"></span><br><span class="line">Hello, CS144!</span><br><span class="line">Connection closed by foreign host.</span><br></pre></td></tr></table></figure>
+
+<p><strong>安装netcat</strong></p>
+<p>测试：(注意不同操作系统下使用的指令可能不一样)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[zhangqi@localhost ~]$ nc -v -l -p 9090</span><br><span class="line">Ncat: Version 7.50 ( https://nmap.org/ncat )</span><br><span class="line">Ncat: Listening on :::9090</span><br><span class="line">Ncat: Listening on 0.0.0.0:9090</span><br></pre></td></tr></table></figure>
+
+<p>打开另一个终端</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[zhangqi@localhost ~]$ telnet localhost 9090</span><br><span class="line">Trying ::1...</span><br><span class="line">Connected to localhost.</span><br><span class="line">Escape character is <span class="string">&#x27;^]&#x27;</span>.</span><br></pre></td></tr></table></figure>
+
+<p>在启动netcat的终端可以看到</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Ncat: Connection from ::1.</span><br><span class="line">Ncat: Connection from ::1:59256.</span><br></pre></td></tr></table></figure>
+
+<p>这时候在任一终端键入任一一些字符并敲回车，都会在另一头接收到同样的信息</p>
+<p>在netcat窗口Ctrl-C退出，telnet窗口也会立即退出</p>
+<p><strong>升级gcc和g++版本</strong></p>
+<p>centos7下参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jixiaohua/p/11732225.html">这篇文章</a></p>
+<p>另：<a target="_blank" rel="noopener" href="https://explause.com/?p=61">文章</a></p>
+<p>注意需要升级完需要删除build文件夹重新编译</p>
+<h2 id="Lab0-Warm-Up"><a href="#Lab0-Warm-Up" class="headerlink" title="Lab0. Warm Up"></a>Lab0. Warm Up</h2><p>clone代码仓库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/cs144/sponge</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> sponge</span><br><span class="line"><span class="built_in">mkdir</span> build</span><br><span class="line"><span class="built_in">cd</span> build</span><br><span class="line"></span><br><span class="line">cmake ..</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<h3 id="一些开发规范"><a href="#一些开发规范" class="headerlink" title="一些开发规范"></a>一些开发规范</h3><ul>
+<li>不要使用malloc&#x2F;free和new&#x2F;delete</li>
+<li>不要使用原始指针，实在有需要，使用智能指针</li>
+<li>不要使用模板、线程、锁和虚函数</li>
+<li>避免C风格的字符串即相关字符串函数（strlen，strcpy），而是使用std::string</li>
+<li>不要使用C风格的转型，而是使用C++的static_cast</li>
+<li>最好在函数中传递常量引用</li>
+<li>尽量设置每个变量为常量除非必要</li>
+<li>尽量设置每个方法为常量方法除非需要改变对象</li>
+<li>避免全局变量，尽量给每个变量最小的作用域</li>
+</ul>
+<h3 id="webget"><a href="#webget" class="headerlink" title="webget"></a>webget</h3><p>写一个名为webget的程序用于创建TCP流socket，连接到一个web服务器，并且抓取一个页面（就像前面使用telnet的示例一样）</p>
+<p>使用socket.h中的相关类</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;socket.hh&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;util.hh&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">get_URL</span><span class="params">(<span class="type">const</span> string &amp;host, <span class="type">const</span> string &amp;path)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Your code here.</span></span><br><span class="line"></span><br><span class="line">    TCPSocket sock;</span><br><span class="line">    <span class="type">const</span> string addr = <span class="built_in">Address</span>(host,<span class="string">&quot;http&quot;</span>);</span><br><span class="line">    sock.<span class="built_in">connect</span>(addr);</span><br><span class="line">    sock.<span class="built_in">write</span>(<span class="string">&quot;GET &quot;</span>+ path + <span class="string">&quot; HTTP/1.1\r\nHost: &quot;</span>+ host + <span class="string">&quot;\r\n\r\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    sock.<span class="built_in">shutdown</span>(SHUT_WR);</span><br><span class="line">    <span class="keyword">while</span>(!sock.<span class="built_in">eof</span>())&#123;</span><br><span class="line">        cout&lt;&lt;sock.<span class="built_in">read</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    sock.<span class="built_in">close</span>();</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (argc &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="built_in">abort</span>();  <span class="comment">// For sticklers: don&#x27;t try to access argv[0] if argc &lt;= 0.</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// The program takes two command-line arguments: the hostname and &quot;path&quot; part of the URL.</span></span><br><span class="line">        <span class="comment">// Print the usage message unless there are these two arguments (plus the program name</span></span><br><span class="line">        <span class="comment">// itself, so arg count = 3 in total).</span></span><br><span class="line">        <span class="keyword">if</span> (argc != <span class="number">3</span>) &#123;</span><br><span class="line">            cerr &lt;&lt; <span class="string">&quot;Usage: &quot;</span> &lt;&lt; argv[<span class="number">0</span>] &lt;&lt; <span class="string">&quot; HOST PATH\n&quot;</span>;</span><br><span class="line">            cerr &lt;&lt; <span class="string">&quot;\tExample: &quot;</span> &lt;&lt; argv[<span class="number">0</span>] &lt;&lt; <span class="string">&quot; stanford.edu /class/cs144\n&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Get the command-line arguments.</span></span><br><span class="line">        <span class="type">const</span> string host = argv[<span class="number">1</span>];</span><br><span class="line">        <span class="type">const</span> string path = argv[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Call the student-written function.</span></span><br><span class="line">        <span class="built_in">get_URL</span>(host, path);</span><br><span class="line">    &#125; <span class="built_in">catch</span> (<span class="type">const</span> exception &amp;e) &#123;</span><br><span class="line">        cerr &lt;&lt; e.<span class="built_in">what</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试程序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@iZbp1aamvzn845uqnj516qZ build]<span class="comment"># ./apps/webget cs144.keithw.org /hello</span></span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Tue, 04 Oct 2022 12:38:56 GMT</span><br><span class="line">Server: Apache</span><br><span class="line">Last-Modified: Thu, 13 Dec 2018 15:45:29 GMT</span><br><span class="line">ETag: <span class="string">&quot;e-57ce93446cb64&quot;</span></span><br><span class="line">Accept-Ranges: bytes</span><br><span class="line">Content-Length: 14</span><br><span class="line">Content-Type: text/plain</span><br><span class="line"></span><br><span class="line">Hello, CS144!</span><br></pre></td></tr></table></figure>
+
+
+
+<p>TCPSocket及其父类Socket的声明：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Socket</span> : <span class="keyword">public</span> FileDescriptor &#123;</span><br><span class="line">  <span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">//! Get the local or peer address the socket is connected to</span></span><br><span class="line">    <span class="function">Address <span class="title">get_address</span><span class="params">(<span class="type">const</span> std::string &amp;name_of_function,</span></span></span><br><span class="line"><span class="params"><span class="function">                        <span class="type">const</span> std::function&lt;<span class="type">int</span>(<span class="type">int</span>, sockaddr *, <span class="type">socklen_t</span> *)&gt; &amp;function)</span> <span class="type">const</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">protected</span>:</span><br><span class="line">    <span class="comment">//! Construct via [socket(2)](\ref man2::socket)</span></span><br><span class="line">    <span class="built_in">Socket</span>(<span class="type">const</span> <span class="type">int</span> domain, <span class="type">const</span> <span class="type">int</span> type);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//! Construct from a file descriptor.</span></span><br><span class="line">    <span class="built_in">Socket</span>(FileDescriptor &amp;&amp;fd, <span class="type">const</span> <span class="type">int</span> domain, <span class="type">const</span> <span class="type">int</span> type);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//! Wrapper around [setsockopt(2)](\ref man2::setsockopt)</span></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> option_type&gt;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">setsockopt</span><span class="params">(<span class="type">const</span> <span class="type">int</span> level, <span class="type">const</span> <span class="type">int</span> option, <span class="type">const</span> option_type &amp;option_value)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//! Bind a socket to a specified address with [bind(2)](\ref man2::bind), usually for listen/accept</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">bind</span><span class="params">(<span class="type">const</span> Address &amp;address)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//! Connect a socket to a specified peer address with [connect(2)](\ref man2::connect)</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">connect</span><span class="params">(<span class="type">const</span> Address &amp;address)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//! Shut down a socket via [shutdown(2)](\ref man2::shutdown)</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">shutdown</span><span class="params">(<span class="type">const</span> <span class="type">int</span> how)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//! Get local address of socket with [getsockname(2)](\ref man2::getsockname)</span></span><br><span class="line">    <span class="function">Address <span class="title">local_address</span><span class="params">()</span> <span class="type">const</span></span>;</span><br><span class="line">    <span class="comment">//! Get peer address of socket with [getpeername(2)](\ref man2::getpeername)</span></span><br><span class="line">    <span class="function">Address <span class="title">peer_address</span><span class="params">()</span> <span class="type">const</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//! Allow local address to be reused sooner via [SO_REUSEADDR](\ref man7::socket)</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">set_reuseaddr</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TCPSocket</span> : <span class="keyword">public</span> Socket &#123;</span><br><span class="line">  <span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">//! \brief Construct from FileDescriptor (used by accept())</span></span><br><span class="line">    <span class="comment">//! \param[in] fd is the FileDescriptor from which to construct</span></span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">TCPSocket</span><span class="params">(FileDescriptor &amp;&amp;fd)</span> : Socket(std::move(fd), AF_INET, SOCK_STREAM) &#123;</span>&#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//! Default: construct an unbound, unconnected TCP socket</span></span><br><span class="line">    <span class="built_in">TCPSocket</span>() : <span class="built_in">Socket</span>(AF_INET, SOCK_STREAM) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//! Mark a socket as listening for incoming connections</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">listen</span><span class="params">(<span class="type">const</span> <span class="type">int</span> backlog = <span class="number">16</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//! Accept a new incoming connection</span></span><br><span class="line">    <span class="function">TCPSocket <span class="title">accept</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="An-in-memory-reliable-byte-system"><a href="#An-in-memory-reliable-byte-system" class="headerlink" title="An in-memory reliable byte system"></a>An in-memory reliable byte system</h3><p>要求实现一个有序字节流类（in-order byte stream），使之支持读写、容量控制。这个字节流类似于一个带容量的队列，从一头读，从另一头写。当流中的数据达到容量上限时，便无法再写入新的数据。特别的，写操作被分为了peek和pop两步。peek为从头部开始读取指定数量的字节，pop为弹出指定数量的字节。</p>
+<p>使用 <code>std::deque</code>作为数据结构</p>
+<p>byte_stream.hh</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ByteStream</span> &#123;</span><br><span class="line">  <span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// Your code here -- add private members as necessary.</span></span><br><span class="line">    std::deque&lt;<span class="type">char</span>&gt; _buffer = &#123;&#125;;</span><br><span class="line">    <span class="type">size_t</span> _capacity = <span class="number">0</span>;</span><br><span class="line">    <span class="type">size_t</span> _read_count = <span class="number">0</span>;</span><br><span class="line">    <span class="type">size_t</span> _write_count = <span class="number">0</span>;</span><br><span class="line">    <span class="type">bool</span> _input_ended_flag = <span class="literal">false</span>;</span><br><span class="line">    <span class="type">bool</span> _error = <span class="literal">false</span>;  <span class="comment">//!&lt; Flag indicating that the stream suffered an error.</span></span><br><span class="line">    <span class="comment">//......</span></span><br></pre></td></tr></table></figure>
+
+<p>byte_stream.cc</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">ByteStream::<span class="built_in">ByteStream</span>(<span class="type">const</span> <span class="type">size_t</span> capacity) : _capacity(capacity) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">size_t</span> <span class="title">ByteStream::write</span><span class="params">(<span class="type">const</span> string &amp;data)</span> </span>&#123;</span><br><span class="line">    <span class="type">size_t</span> len = data.<span class="built_in">length</span>();</span><br><span class="line">    <span class="keyword">if</span> (len &gt; _capacity - _buffer.<span class="built_in">size</span>()) &#123;</span><br><span class="line">        len = _capacity - _buffer.<span class="built_in">size</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    _write_count += len;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        _buffer.<span class="built_in">push_back</span>(data[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//! \param[in] len bytes will be copied from the output side of the buffer</span></span><br><span class="line"><span class="function">string <span class="title">ByteStream::peek_output</span><span class="params">(<span class="type">const</span> <span class="type">size_t</span> len)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    <span class="type">size_t</span> length = len;</span><br><span class="line">    <span class="keyword">if</span> (length &gt; _buffer.<span class="built_in">size</span>()) &#123;</span><br><span class="line">        length = _buffer.<span class="built_in">size</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">string</span>().<span class="built_in">assign</span>(_buffer.<span class="built_in">begin</span>(), _buffer.<span class="built_in">begin</span>() + length);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//! \param[in] len bytes will be removed from the output side of the buffer</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">ByteStream::pop_output</span><span class="params">(<span class="type">const</span> <span class="type">size_t</span> len)</span> </span>&#123;</span><br><span class="line">    <span class="type">size_t</span> length = len;</span><br><span class="line">    <span class="keyword">if</span> (length &gt; _buffer.<span class="built_in">size</span>()) &#123;</span><br><span class="line">        length = _buffer.<span class="built_in">size</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    _read_count += length;</span><br><span class="line">    <span class="keyword">while</span> (length--) &#123;</span><br><span class="line">        _buffer.<span class="built_in">pop_front</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">ByteStream::end_input</span><span class="params">()</span> </span>&#123; _input_ended_flag = <span class="literal">true</span>; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">ByteStream::input_ended</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> _input_ended_flag; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">size_t</span> <span class="title">ByteStream::buffer_size</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> _buffer.<span class="built_in">size</span>(); &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">ByteStream::buffer_empty</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> _buffer.<span class="built_in">size</span>() == <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">ByteStream::eof</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> <span class="built_in">buffer_empty</span>() &amp;&amp; <span class="built_in">input_ended</span>(); &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">size_t</span> <span class="title">ByteStream::bytes_written</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> _write_count; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">size_t</span> <span class="title">ByteStream::bytes_read</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> _read_count; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">size_t</span> <span class="title">ByteStream::remaining_capacity</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> _capacity - _buffer.<span class="built_in">size</span>(); &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="调试方法论"><a href="#调试方法论" class="headerlink" title="调试方法论"></a>调试方法论</h3><p>如下，发现测试样例出错</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@iZbp1aamvzn845uqnj516qZ build]<span class="comment"># make check_lab0</span></span><br><span class="line">[100%] Testing Lab 0...</span><br><span class="line">Test project /root/sponge/build</span><br><span class="line">    Start 26: t_byte_stream_construction</span><br><span class="line">1/9 Test <span class="comment">#26: t_byte_stream_construction .......***Failed    0.00 sec</span></span><br><span class="line">Test Failure on expectation:</span><br><span class="line">	Expectation: buffer_empty: 1</span><br><span class="line"></span><br><span class="line">Failure message:</span><br><span class="line">	The ByteStream should have had buffer_empty equal to 1 but instead it was 0</span><br><span class="line"></span><br><span class="line">List of steps that executed successfully:</span><br><span class="line">	Initialized with (capacity=15)</span><br><span class="line">	Expectation: input_ended: 0</span><br><span class="line"></span><br><span class="line">Exception: The <span class="built_in">test</span> <span class="string">&quot;construction&quot;</span> failed</span><br></pre></td></tr></table></figure>
+
+<p>在sponge目录下全局搜索可发现，所有的测试样例对应的命令都在<code>spong/etc/tests.cmake</code>中定义，我们从中找到需要的部分</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@iZbp1aamvzn845uqnj516qZ sponge]<span class="comment"># grep -Rn t_byte_stream_construction</span></span><br><span class="line">etc/tests.cmake:34:add_test(NAME t_byte_stream_construction COMMAND byte_stream_construction)</span><br><span class="line">build/CTestTestfile.cmake:57:add_test(t_byte_stream_construction <span class="string">&quot;/root/sponge/build/tests/byte_stream_construction&quot;</span>)</span><br><span class="line">build/CTestTestfile.cmake:58:set_tests_properties(t_byte_stream_construction PROPERTIES  _BACKTRACE_TRIPLES <span class="string">&quot;/root/sponge/etc/tests.cmake;34;add_test;/root/sponge/etc/tests.cmake;0;;/root/sponge/CMakeLists.txt;27;include;/root/sponge/CMakeLists.txt;0;&quot;</span>)</span><br><span class="line">build/Testing/Temporary/LastTest.<span class="built_in">log</span>:3:26/169 Testing: t_byte_stream_construction</span><br><span class="line">build/Testing/Temporary/LastTest.<span class="built_in">log</span>:4:26/169 Test: t_byte_stream_construction</span><br><span class="line">build/Testing/Temporary/LastTest.<span class="built_in">log</span>:7:<span class="string">&quot;t_byte_stream_construction&quot;</span> start time: Oct 05 11:03 CST</span><br><span class="line">build/Testing/Temporary/LastTest.<span class="built_in">log</span>:25:<span class="string">&quot;t_byte_stream_construction&quot;</span> end time: Oct 05 11:03 CST</span><br><span class="line">build/Testing/Temporary/LastTest.<span class="built_in">log</span>:26:<span class="string">&quot;t_byte_stream_construction&quot;</span> time elapsed: 00:00:00</span><br><span class="line">build/Testing/Temporary/LastTestsFailed.<span class="built_in">log</span>:1:26:t_byte_stream_construction</span><br><span class="line">build/Testing/Temporary/CTestCostData.txt:10:t_byte_stream_construction 0 0</span><br><span class="line">build/Testing/Temporary/CTestCostData.txt:19:t_byte_stream_construction</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@iZbp1aamvzn845uqnj516qZ sponge]<span class="comment"># cd build/</span></span><br><span class="line">[root@iZbp1aamvzn845uqnj516qZ build]<span class="comment"># cd tests/</span></span><br><span class="line">[root@iZbp1aamvzn845uqnj516qZ tests]<span class="comment"># ls</span></span><br><span class="line">byte_stream_capacity      byte_stream_one_write   cmake_install.cmake</span><br><span class="line">byte_stream_construction  byte_stream_two_writes  libspongechecks.a</span><br><span class="line">byte_stream_many_writes   CMakeFiles              Makefile</span><br></pre></td></tr></table></figure>
+
+<p>而所有测试程序对应的源文件存放在<code>sponge/tests/</code>下</p>
+<p><a target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/308343">gdb调试基础</a></p>
+<p>（最后发现是因为make check_lab0不会自动把所有文件编译，因此需要先经过一次make才行）</p>
+<h2 id="Lab1"><a href="#Lab1" class="headerlink" title="Lab1"></a>Lab1</h2><p>在lab0中实际上我们是用的Linux内部实现的TCP协议。</p>
+<p>这个lab中实现一个<strong>流重组器（stream reassemebler）</strong>，可以将带索引的字节流碎片重组成有序的字节流。每个字节流碎片都通过索引、长度、内容三要素进行描述。重组完的字节流应当被送入指定的字节流（byte stream）对象<code>_output</code>中。</p>
+<img src="https://pic1.imgdb.cn/item/633d456d16f2c2beb1cc0ab0.jpg" style="zoom:80%;" />
+
+<p>特别注意：</p>
+<ol start="0">
+<li><p>这节需要安装pcap库和pcap-dev库才能正常编译，如果没编译没报错那就没事了。</p>
+</li>
+<li><p>碎片可能交叉或重叠。</p>
+</li>
+<li><p>如果某次新碎片到达后字节流的开头部分被凑齐，那就应当立刻把凑齐的部分立刻写入到<code>_output</code>中。即对应讲义中的:</p>
+</li>
+</ol>
+<blockquote>
+<p>When should bytes be written to the stream?</p>
+<p>As soon as possible. The only situation in which a byte should not be in the stream is that when there is a byte before it that has not been “pushed” yet.</p>
+</blockquote>
+<ol start="3">
+<li><p>碎片可能是一个只包含EOF标志的空串</p>
+</li>
+<li><p>LAB0的顺序字节流和LAB1的流重组器各有各的容量限制。流重组器把字节流写满后，只有当字节流腾出空后才能继续写，相当于字节流满时流重组器出口被“堵住”了。同样当流重组器容量满了后自身也无法被写入新数据，此时到来的新碎片只能被丢弃掉。</p>
+</li>
+</ol>
+<p><strong>实验准备</strong></p>
+<ul>
+<li><code>git merge origin/lab1-startercode</code></li>
+<li><code>make</code></li>
+</ul>
+<p><strong>实验说明</strong></p>
+<p>In this and the next lab, you will <u>implement a TCP receiver: the module that receives datagrams and turns them into a reliable byte stream to be read from the socket by the application</u>—just as your webget program read the byte stream from the webserver in Lab 0. </p>
+<p>The TCP sender is dividing its byte stream up into short <em>segments</em> (substrings no more than about 1,460 bytes apiece) so that they each fit inside a datagram. But the network might reorder these datagrams, or drop them, or deliver them more than once. The receiver must reassemble the segments into the contiguous stream of bytes that they started out as.</p>
+<p>In this lab you’ll write the data structure that will be responsible for this reassembly: <strong>a StreamReassembler</strong>. It will receive substrings, consisting of a string of bytes, and the index of the first byte of that string within the larger stream. <strong>Each byte of the stream</strong> has its own unique index, starting from zero and counting upwards.</p>
+<p>The StreamReassembler will own a ByteStream for the output: as soon as the reassembler knows the next byte of the stream, it will write it into the ByteStream. The owner can access and read from the ByteStream whenever it wants.</p>
+<p>接口：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Construct a `StreamReassembler` that will store up to `capacity` bytes.</span></span><br><span class="line"><span class="built_in">StreamReassembler</span>(<span class="type">const</span> <span class="type">size_t</span> capacity);</span><br><span class="line"><span class="comment">// Receive a substring and write any newly contiguous bytes into the stream,</span></span><br><span class="line"><span class="comment">// while staying within the memory limits of the `capacity`. Bytes that would</span></span><br><span class="line"><span class="comment">// exceed the capacity are silently discarded.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// `data`: the substring</span></span><br><span class="line"><span class="comment">// `index` indicates the index (place in sequence) of the first byte in `data`</span></span><br><span class="line"><span class="comment">// `eof`: the last byte of this substring will be the last byte in the entire stream</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">push_substring</span><span class="params">(<span class="type">const</span> string &amp;data, <span class="type">const</span> <span class="type">uint64_t</span> index, <span class="type">const</span> <span class="type">bool</span> eof)</span></span>;</span><br><span class="line"><span class="comment">// Access the reassembled ByteStream (your code from Lab 0)</span></span><br><span class="line"><span class="function">ByteStream &amp;<span class="title">stream_out</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">// The number of bytes in the substrings stored but not yet reassembled</span></span><br><span class="line"><span class="function"><span class="type">size_t</span> <span class="title">unassembled_bytes</span><span class="params">()</span> <span class="type">const</span></span>;</span><br><span class="line"><span class="comment">// Is the internal state empty (other than the output stream)?</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">empty</span><span class="params">()</span> <span class="type">const</span></span>;</span><br></pre></td></tr></table></figure>
+
+<img src="https://pic1.imgdb.cn/item/633d769a16f2c2beb12b04f1.jpg" style="zoom:80%;" />
+
+<p>实现思路</p>
+<p>用一个<code>block_node</code>结构体来存放每个碎片的索引、长度、内容。又因为<code>set</code>排序实现基于对应节点类型的小于运算符规则，所以把<code>block_node</code>结构体的小于运算符重载为按索引值升序。</p>
+<p><code>push_substring</code>处理流程：</p>
+<ul>
+<li>容量判断：满了就立刻返回。</li>
+<li>处理子串的冗余前缀：如果子串包含已经被写入字节流的部分，就把这部分剪掉。</li>
+<li>合并子串：运用<code>set</code>自带的<code>lowerbound</code>快速确定插入位置，前后重复比较，用个自己写的子函数判断重叠的字顺便合并之。</li>
+<li>写入字节流：如果流重组器头部非空，就把头部写入字节流，并更新指示头部的游标。</li>
+<li>EOF判断</li>
+</ul>
+<p>stream_reassembler.hh</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">StreamReassembler</span> &#123;</span><br><span class="line">  <span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// Your code here -- add private members as necessary.</span></span><br><span class="line">    <span class="comment">// block_node可以看作网络中的每个连续的数据碎片，包含这个碎片开头的索引及长度</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">block_node</span> &#123;</span><br><span class="line">        <span class="type">size_t</span> begin = <span class="number">0</span>;</span><br><span class="line">        <span class="type">size_t</span> length = <span class="number">0</span>;</span><br><span class="line">        std::string data = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="type">bool</span> <span class="keyword">operator</span>&lt;(<span class="type">const</span> block_node t) <span class="type">const</span> &#123; <span class="keyword">return</span> begin &lt; t.begin; &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    std::set&lt;block_node&gt; _blocks = &#123;&#125;;</span><br><span class="line">    std::vector&lt;<span class="type">char</span>&gt; _buffer = &#123;&#125;;</span><br><span class="line">    <span class="type">size_t</span> _unassembled_byte = <span class="number">0</span>;</span><br><span class="line">    <span class="type">size_t</span> _head_index = <span class="number">0</span>; <span class="comment">//即first_unassemabled</span></span><br><span class="line">    <span class="type">bool</span> _eof_flag = <span class="literal">false</span>;</span><br><span class="line">    ByteStream _output;  <span class="comment">//!&lt; The reassembled in-order byte stream</span></span><br><span class="line">    <span class="type">size_t</span> _capacity;    <span class="comment">//!&lt; The maximum number of bytes</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//! merge elm2 to elm1, return merged bytes</span></span><br><span class="line">    <span class="function"><span class="type">long</span> <span class="title">merge_block</span><span class="params">(block_node &amp;elm1, <span class="type">const</span> block_node &amp;elm2)</span></span>;</span><br><span class="line">    <span class="comment">//......</span></span><br></pre></td></tr></table></figure>
+
+<p>stream_reassembler.cc</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line">StreamReassembler::<span class="built_in">StreamReassembler</span>(<span class="type">const</span> <span class="type">size_t</span> capacity) : _output(capacity), _capacity(capacity) &#123;</span><br><span class="line">    _buffer.<span class="built_in">resize</span>(capacity);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">long</span> <span class="title">StreamReassembler::merge_block</span><span class="params">(block_node &amp;elm1, <span class="type">const</span> block_node &amp;elm2)</span> </span>&#123;</span><br><span class="line">    block_node x, y;<span class="comment">//x存储开头索引较小的block_node</span></span><br><span class="line">    <span class="keyword">if</span> (elm1.begin &gt; elm2.begin) &#123;</span><br><span class="line">        x = elm2;</span><br><span class="line">        y = elm1;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        x = elm1;</span><br><span class="line">        y = elm2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (x.begin + x.length &lt; y.begin) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;  <span class="comment">// no intersection, couldn&#x27;t merge</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x.begin + x.length &gt;= y.begin + y.length) &#123;</span><br><span class="line">        <span class="comment">// x完全包含y</span></span><br><span class="line">        elm1 = x;</span><br><span class="line">        <span class="keyword">return</span> y.length;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// x与y交叉</span></span><br><span class="line">        elm1.begin = x.begin;</span><br><span class="line">        <span class="comment">// eg: x:&quot;ab&quot; 0,2   y:&quot;bcd&quot; 1,3  &quot;ab&quot;+&quot;bcd&quot;.substr(0+2-1)</span></span><br><span class="line">        elm1.data = x.data + y.data.<span class="built_in">substr</span>(x.begin + x.length - y.begin);</span><br><span class="line">        elm1.length = elm1.data.<span class="built_in">length</span>();</span><br><span class="line">        <span class="comment">//返回新增的字符个数</span></span><br><span class="line">        <span class="keyword">return</span> x.begin + x.length - y.begin;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//! \details This function accepts a substring (aka a segment) of bytes,</span></span><br><span class="line"><span class="comment">//! possibly out-of-order, from the logical stream, and assembles any newly</span></span><br><span class="line"><span class="comment">//! contiguous substrings and writes them into the output stream in order.</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">StreamReassembler::push_substring</span><span class="params">(<span class="type">const</span> string &amp;data, <span class="type">const</span> <span class="type">size_t</span> index, <span class="type">const</span> <span class="type">bool</span> eof)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (index &gt;= _head_index + _capacity) &#123;  <span class="comment">// capacity over</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// handle extra substring prefix</span></span><br><span class="line">    block_node elm;</span><br><span class="line">    <span class="keyword">if</span> (index + data.<span class="built_in">length</span>() &lt;= _head_index) &#123;  <span class="comment">// couldn&#x27;t equal, because there have emtpy substring</span></span><br><span class="line">        <span class="keyword">goto</span> JUDGE_EOF;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (index &lt; _head_index) &#123;</span><br><span class="line">        <span class="type">size_t</span> offset = _head_index - index;<span class="comment">//只保留_head_index之后的部分</span></span><br><span class="line">        elm.data.<span class="built_in">assign</span>(data.<span class="built_in">begin</span>() + offset, data.<span class="built_in">end</span>());</span><br><span class="line">        elm.begin = index + offset;</span><br><span class="line">        elm.length = elm.data.<span class="built_in">length</span>();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        elm.begin = index;</span><br><span class="line">        elm.length = data.<span class="built_in">length</span>();</span><br><span class="line">        elm.data = data;</span><br><span class="line">    &#125;</span><br><span class="line">    _unassembled_byte += elm.length;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// merge substring</span></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="comment">// merge next</span></span><br><span class="line">        <span class="type">long</span> merged_bytes = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">auto</span> iter = _blocks.<span class="built_in">lower_bound</span>(elm);</span><br><span class="line">        <span class="keyword">while</span> (iter != _blocks.<span class="built_in">end</span>() &amp;&amp; (merged_bytes = <span class="built_in">merge_block</span>(elm, *iter)) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            _unassembled_byte -= merged_bytes;</span><br><span class="line">            _blocks.<span class="built_in">erase</span>(iter);</span><br><span class="line">            iter = _blocks.<span class="built_in">lower_bound</span>(elm);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// merge prev</span></span><br><span class="line">        <span class="keyword">if</span> (iter == _blocks.<span class="built_in">begin</span>()) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        iter--;</span><br><span class="line">        <span class="keyword">while</span> ((merged_bytes = <span class="built_in">merge_block</span>(elm, *iter)) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            _unassembled_byte -= merged_bytes;</span><br><span class="line">            _blocks.<span class="built_in">erase</span>(iter);</span><br><span class="line">            iter = _blocks.<span class="built_in">lower_bound</span>(elm);</span><br><span class="line">            <span class="keyword">if</span> (iter == _blocks.<span class="built_in">begin</span>()) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            iter--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">while</span> (<span class="literal">false</span>);</span><br><span class="line">    _blocks.<span class="built_in">insert</span>(elm);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// write to ByteStream</span></span><br><span class="line">    <span class="keyword">if</span> (!_blocks.<span class="built_in">empty</span>() &amp;&amp; _blocks.<span class="built_in">begin</span>()-&gt;begin == _head_index) &#123;</span><br><span class="line">        <span class="type">const</span> block_node head_block = *_blocks.<span class="built_in">begin</span>();</span><br><span class="line">        <span class="comment">// modify _head_index and _unassembled_byte according to successful write to _output</span></span><br><span class="line">        <span class="type">size_t</span> write_bytes = _output.<span class="built_in">write</span>(head_block.data);</span><br><span class="line">        _head_index += write_bytes;</span><br><span class="line">        _unassembled_byte -= write_bytes;</span><br><span class="line">        _blocks.<span class="built_in">erase</span>(_blocks.<span class="built_in">begin</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">JUDGE_EOF:</span><br><span class="line">    <span class="keyword">if</span> (eof) &#123;</span><br><span class="line">        _eof_flag = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (_eof_flag &amp;&amp; <span class="built_in">empty</span>()) &#123;</span><br><span class="line">        _output.<span class="built_in">end_input</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">size_t</span> <span class="title">StreamReassembler::unassembled_bytes</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> _unassembled_byte; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">StreamReassembler::empty</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> _unassembled_byte == <span class="number">0</span>; &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Lab2"><a href="#Lab2" class="headerlink" title="Lab2"></a>Lab2</h2><p>实现接收端</p>
+<p>作为receiver，它关心的是下图蓝色方框的部分（seqno、SYN、FIN、Payload）</p>
+<img src="https://pic1.imgdb.cn/item/633d863216f2c2beb14cb4c8.jpg" style="zoom:80%;" />
+
+<p>要求<u>实现序列号、绝对序列号与流索引间的转换</u>。照着讲义的表格写就行：</p>
+<table>
+<thead>
+<tr>
+<th align="center">Sequence Numbers</th>
+<th align="center">Absolute Sequence Numbers</th>
+<th align="center">Stream Indices</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Start at the ISN</td>
+<td align="center">Start at 0</td>
+<td align="center">Start at 0</td>
+</tr>
+<tr>
+<td align="center">Include SYN&#x2F;FIN</td>
+<td align="center">Include SYN&#x2F;FIN</td>
+<td align="center">Omit SYN&#x2F;FIN</td>
+</tr>
+<tr>
+<td align="center">32 bits, wrapping</td>
+<td align="center">64 bits, non-wrapping</td>
+<td align="center">64 bits, non-wrapping</td>
+</tr>
+<tr>
+<td align="center">“seqno”</td>
+<td align="center">“absolute seqno”</td>
+<td align="center">“stream index”</td>
+</tr>
+</tbody></table>
+<p>需要提一下的地方有<code>checkpoint</code>表示最近一次转换求得的<code>absolute seqno</code>，而本次转换出的<code>absolute seqno</code>应该选择与上次值最为接近的那一个。原理是虽然segment不一定按序到达，但几乎不可能出现相邻到达的两个segment序号差值超过<code>INT32_MAX</code>的情况，除非延迟以年为单位，或者产生了比特差错（后面的LAB可能涉及）。</p>
+<p>实际操作就是把算出来的绝对序号分别加减<code>1ul &lt;&lt; 32</code>做比较，选择与<code>checkpoing</code>差的绝对值最小的那个。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.zzzzzq.com/2022/10/04/CS144/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2022/08/30/UNIX/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">UNIX/Linux学习记录</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "5J2nSr5DoqBGRRnpdFfTvawi-gzGzoHsz",
+    app_key: "24GWRfKBASGr6cA5FSBF4NY4",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2022
+        <i class="ri-heart-fill heart_icon"></i> ZHU
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Keep Making Progress"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
